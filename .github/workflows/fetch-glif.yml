@@ -29,12 +29,21 @@ jobs:
             Tasks:
             1. Fetch top featured workflows from: https://glif.app/api/glifs?featured=1
             2. Fetch top featured agents from: https://glif.app/api/bots?tags=featured
-            3. Update data.json with a `glif` object containing:
-               - featured_workflows: array of top 10 workflows with name, description, creator, url
-               - featured_agents: array of top 10 agents with name, description, creator, url
-               - last_updated: current timestamp
+            3. Create/update data/glif.json with this structure:
+               {
+                 "featured_workflows": [
+                   {"name": "...", "description": "...", "creator": "...", "url": "...", "id": "..."},
+                   ...
+                 ],
+                 "featured_agents": [
+                   {"name": "...", "description": "...", "creator": "...", "url": "...", "id": "..."},
+                   ...
+                 ],
+                 "last_updated": "ISO timestamp"
+               }
             4. Commit changes directly to main branch
 
-            Use the Glif API token from secrets: ${{ secrets.GLIF_API_TOKEN }}
-
-            Make sure URLs are properly formatted: https://glif.app/@{creator}/glifs/{id}
+            Important:
+            - Make sure data/ directory exists (create if needed)
+            - Use the Glif API token from secrets: ${{ secrets.GLIF_API_TOKEN }}
+            - Make sure URLs are properly formatted: https://glif.app/@{creator}/glifs/{id}

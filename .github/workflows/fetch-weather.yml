@@ -29,8 +29,11 @@ jobs:
           HUMIDITY=$(echo "$RESPONSE" | jq -r '.current_condition[0].humidity')
           FEELS_LIKE=$(echo "$RESPONSE" | jq -r '.current_condition[0].FeelsLikeF')
 
-          # Create clean weather.json
-          cat > weather.json << EOF
+          # Create data directory if it doesn't exist
+          mkdir -p data
+
+          # Create clean data/weather.json
+          cat > data/weather.json << EOF
           {
             "location": "New York, NY",
             "temperature": $TEMP_F,
@@ -43,13 +46,13 @@ jobs:
           }
           EOF
 
-          cat weather.json
+          cat data/weather.json
 
       - name: Commit weather data
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add weather.json weather_raw.json
+          git add data/weather.json weather_raw.json
 
           if git diff --staged --quiet; then
             echo "No weather changes"

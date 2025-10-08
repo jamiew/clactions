@@ -3,17 +3,28 @@
 const fs = require('fs');
 
 // Read files with fallbacks for missing files
-const data = fs.existsSync('data.json')
-  ? JSON.parse(fs.readFileSync('data.json', 'utf-8'))
-  : { message: 'No data yet', nytimes_headlines: [], glif: {}, last_updated: 'Never' };
+const nytimes = fs.existsSync('data/nytimes.json')
+  ? JSON.parse(fs.readFileSync('data/nytimes.json', 'utf-8'))
+  : { headlines: [], last_updated: 'Never' };
 
-const weather = fs.existsSync('weather.json')
-  ? JSON.parse(fs.readFileSync('weather.json', 'utf-8'))
-  : { temperature: 70, condition: 'Clear', humidity: '—', feels_like: '—', last_updated: 'Never' };
+const glif = fs.existsSync('data/glif.json')
+  ? JSON.parse(fs.readFileSync('data/glif.json', 'utf-8'))
+  : { featured_workflows: [], featured_agents: [], last_updated: 'Never' };
+
+const weather = fs.existsSync('data/weather.json')
+  ? JSON.parse(fs.readFileSync('data/weather.json', 'utf-8'))
+  : fs.existsSync('weather.json')
+    ? JSON.parse(fs.readFileSync('weather.json', 'utf-8'))
+    : { temperature: 70, condition: 'Clear', humidity: '—', feels_like: '—', last_updated: 'Never' };
 
 const crypto = fs.existsSync('data/crypto-prices.json')
   ? JSON.parse(fs.readFileSync('data/crypto-prices.json', 'utf-8'))
   : { coins: {}, last_updated: 'Never' };
+
+// Legacy data.json support (will be removed later)
+const legacyData = fs.existsSync('data.json')
+  ? JSON.parse(fs.readFileSync('data.json', 'utf-8'))
+  : {};
 
 const nycTheme = fs.existsSync('theme-nyc.css')
   ? fs.readFileSync('theme-nyc.css', 'utf-8')
@@ -311,7 +322,7 @@ const weatherCard = `
 `;
 
 // Build NY Times card
-const headlines = data.nytimes_headlines || [];
+const headlines = nytimes.headlines || legacyData.nytimes_headlines || [];
 const headlinesHtml = headlines.length > 0
   ? headlines.slice(0, 10).map(h => {
       // Handle both old format (string) and new format (object with title/url)
@@ -341,14 +352,14 @@ const nytCard = `
       ${headlinesHtml}
     </ul>
     <div class="timestamp">
-      Updated: ${data.last_updated || 'Never'} ·
+      Updated: ${nytimes.last_updated || legacyData.last_updated || 'Never'} ·
       <a href="https://github.com/jamiew/claude-gha-demo/actions/workflows/fetch-nytimes.yml" target="_blank" class="workflow-link">View runs →</a>
     </div>
   </div>
 `;
 
 // Build Glif Workflows card
-const glifWorkflows = data.glif?.featured_workflows || [];
+const glifWorkflows = glif.featured_workflows || legacyData.glif?.featured_workflows || [];
 const glifWorkflowsHtml = glifWorkflows.length > 0
   ? glifWorkflows.slice(0, 5).map(w => `
       <li class="data-item">
@@ -371,14 +382,14 @@ const glifWorkflowsCard = `
       ${glifWorkflowsHtml}
     </ul>
     <div class="timestamp">
-      Updated: ${data.glif?.last_updated || 'Never'} ·
+      Updated: ${glif.last_updated || legacyData.glif?.last_updated || 'Never'} ·
       <a href="https://github.com/jamiew/claude-gha-demo/actions/workflows/fetch-glif.yml" target="_blank" class="workflow-link">View runs →</a>
     </div>
   </div>
 `;
 
 // Build Glif Agents card
-const glifAgents = data.glif?.featured_agents || [];
+const glifAgents = glif.featured_agents || legacyData.glif?.featured_agents || [];
 const glifAgentsHtml = glifAgents.length > 0
   ? glifAgents.slice(0, 3).map(a => `
       <li class="data-item">
@@ -401,7 +412,7 @@ const glifAgentsCard = `
       ${glifAgentsHtml}
     </ul>
     <div class="timestamp">
-      Updated: ${data.glif?.last_updated || 'Never'} ·
+      Updated: ${glif.last_updated || legacyData.glif?.last_updated || 'Never'} ·
       <a href="https://github.com/jamiew/claude-gha-demo/actions/workflows/fetch-glif.yml" target="_blank" class="workflow-link">View runs →</a>
     </div>
   </div>
@@ -436,8 +447,10 @@ const statusCard = `
 const blogPostsHtml = blogPosts.length > 0
   ? blogPosts.slice(0, 5).map(post => `
       <li class="data-item">
-        <span class="data-label">${post.title}</span>
-        <span class="data-value" style="font-size:0.85rem;opacity:0.6">${post.date}</span>
+        <a href="https://github.com/jamiew/claude-gha-demo/blob/main/blog/${post.file}" target="_blank" class="headline-link">
+          <span class="data-label">${post.title}</span>
+          <span class="data-value" style="font-size:0.85rem;opacity:0.6;display:block;margin-top:2px;">${post.date}</span>
+        </a>
       </li>
     `).join('')
   : '<li class="data-item"><span class="data-value">No blog posts yet</span></li>';
@@ -458,16 +471,56 @@ const blogCard = `
   </div>
 `;
 
-// Build debug card - pretty print raw data.json
+// Build debug card - pretty print all data
+const allData = {
+  nytimes: nytimes.headlines?.length > 0 ? { headlines: nytimes.headlines.length + ' headlines', last_updated: nytimes.last_updated } : nytimes,
+  glif: { workflows: glif.featured_workflows?.length || 0, agents: glif.featured_agents?.length || 0, last_updated: glif.last_updated },
+  weather: weather,
+  crypto: { coins: Object.keys(crypto.coins || {}).length, last_updated: crypto.last_updated }
+};
 const debugCard = `
   <div class="card">
     <h2><span class="card-icon">🐛</span> Debug Data</h2>
-    <pre class="debug-json">${JSON.stringify(data, null, 2)}</pre>
-    <div class="timestamp">Raw data.json contents</div>
+    <pre class="debug-json">${JSON.stringify(allData, null, 2)}</pre>
+    <div class="timestamp">Data sources summary</div>
   </div>
 `;
 
-const contentHtml = weatherCard + nytCard + blogCard + glifWorkflowsCard + glifAgentsCard + debugCard + statusCard;
+// Build crypto prices card
+const cryptoCoins = Object.values(crypto.coins || {});
+const cryptoHtml = cryptoCoins.length > 0
+  ? cryptoCoins.map(coin => {
+      const priceChange = coin.change_24h || 0;
+      const changeColor = priceChange >= 0 ? '#34c759' : '#ff3b30';
+      const changeSign = priceChange >= 0 ? '+' : '';
+      return `
+      <li class="data-item">
+        <span class="data-label">${coin.name} (${coin.symbol})</span>
+        <span class="data-value" style="display:flex;justify-content:space-between;align-items:center;">
+          <span>$${parseFloat(coin.price).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}</span>
+          <span style="color:${changeColor};font-size:0.9rem;font-weight:600;">${changeSign}${priceChange.toFixed(2)}%</span>
+        </span>
+      </li>`;
+    }).join('')
+  : '<li class="data-item"><span class="data-value">No crypto data yet</span></li>';
+
+const cryptoCard = `
+  <div class="card">
+    <h2>
+      <span class="card-icon">₿</span>
+      <a href="https://github.com/jamiew/claude-gha-demo/blob/main/.github/workflows/fetch-crypto.yml" target="_blank" class="card-title-link">Crypto Prices</a>
+    </h2>
+    <ul class="data-list">
+      ${cryptoHtml}
+    </ul>
+    <div class="timestamp">
+      Updated: ${crypto.last_updated || 'Never'} ·
+      <a href="https://github.com/jamiew/claude-gha-demo/actions/workflows/fetch-crypto.yml" target="_blank" class="workflow-link">View runs →</a>
+    </div>
+  </div>
+`;
+
+const contentHtml = weatherCard + nytCard + blogCard + glifWorkflowsCard + glifAgentsCard + cryptoCard + debugCard + statusCard;
 
 // Build workflows section
 const workflowsHtml = workflows.slice(0, 10).map(w => {
