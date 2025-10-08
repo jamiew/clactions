@@ -64,7 +64,7 @@ jobs:
           claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
           github_token: ${{ secrets.GITHUB_TOKEN }}
           claude_args: |
-            --allowedTools "Bash(gh issue:*),Bash(gh pr:*)"
+            --allowedTools "Read,Write,Edit,Bash(gh issue:*),Bash(gh pr:*),Bash(mkdir:*)"
           prompt: |
             You are the TODO worker. Your job is to read TODO.md and implement items from the list.
 

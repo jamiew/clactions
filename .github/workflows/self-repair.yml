@@ -89,7 +89,7 @@ jobs:
           claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
           github_token: ${{ secrets.GITHUB_TOKEN }}
           claude_args: |
-            --allowedTools "Bash(gh issue:*),Bash(gh pr:*)"
+            --allowedTools "Read,Write,Edit,Bash(gh issue:*),Bash(gh pr:*),Bash(git:*),Bash(gh run:*)"
           prompt: |
             🔧 **WORKFLOW SELF-REPAIR MODE ACTIVATED**
 

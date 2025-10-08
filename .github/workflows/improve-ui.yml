@@ -22,7 +22,7 @@ jobs:
           claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
           github_token: ${{ secrets.GITHUB_TOKEN }}
           claude_args: |
-            --allowedTools "Bash(gh issue:*),Bash(gh pr:*)"
+            --allowedTools "Read,Write,Edit,Bash(gh issue:*),Bash(gh pr:*)"
           prompt: |
             Review the current website generation in the workflow files and improve the UI/UX.
 

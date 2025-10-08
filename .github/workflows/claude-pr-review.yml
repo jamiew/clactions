@@ -27,6 +27,8 @@ jobs:
         with:
           claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
           github_token: ${{ secrets.GITHUB_TOKEN }}
+          claude_args: |
+            --allowedTools "Read,Bash(gh pr:*),Bash(git:*)"
           prompt: |
             Review this pull request carefully:
 

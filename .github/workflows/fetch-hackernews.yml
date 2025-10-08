@@ -77,7 +77,7 @@ jobs:
           claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
           github_token: ${{ secrets.GITHUB_TOKEN }}
           claude_args: |
-            --allowedTools "Bash(gh pr:*)"
+            --allowedTools "Read,Write,Bash(gh pr:*),Bash(mkdir:*)"
           pr_title: "📰 HN Blog Post: ${{ steps.fetch-hn.outputs.title }}"
           pr_body: |
             Automated blog post about today's top HackerNews story.
