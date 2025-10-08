@@ -80,7 +80,7 @@ jobs:
             {
               "Bash": {
                 "enabled": true,
-                "allowed_commands": ["gh"]
+                "allowed_commands": ["gh*"]
               }
             }
           prompt: |
