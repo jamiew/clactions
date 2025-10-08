@@ -30,7 +30,7 @@ jobs:
       (github.event_name == 'workflow_run' && github.event.workflow_run.conclusion == 'failure')
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+      - name: Checkout (main branch for now)
         uses: actions/checkout@v4
 
       - name: Find failed workflow run
@@ -61,8 +61,19 @@ jobs:
           # Get workflow details
           WORKFLOW_NAME=$(gh run view "$RUN_ID" --json name --jq '.name' 2>/dev/null || echo "unknown")
           echo "workflow_name=$WORKFLOW_NAME" >> $GITHUB_OUTPUT
+
+          # Get the commit SHA from the failed run
+          FAILED_COMMIT=$(gh run view "$RUN_ID" --json headSha --jq '.headSha' 2>/dev/null || echo "")
+          echo "failed_commit=$FAILED_COMMIT" >> $GITHUB_OUTPUT
         env:
           GH_TOKEN: ${{ github.token }}
+
+      - name: Checkout failed commit
+        if: steps.find_failure.outputs.has_failure == 'true' && steps.find_failure.outputs.failed_commit != ''
+        run: |
+          echo "Checking out commit from failed run: ${{ steps.find_failure.outputs.failed_commit }}"
+          git fetch origin ${{ steps.find_failure.outputs.failed_commit }}
+          git checkout ${{ steps.find_failure.outputs.failed_commit }}
 
       - name: Prepare repair context
         if: steps.find_failure.outputs.has_failure == 'true'
@@ -112,14 +123,15 @@ jobs:
 
             **Your Mission**:
             1. Read and analyze the repair context file
-            2. Identify the root cause of the failure
-            3. Implement the appropriate fix:
+            2. Identify the root cause of the failure in the CURRENT checked-out code
+            3. Switch to main branch: `git checkout main && git pull origin main`
+            4. Implement the appropriate fix:
                - Fix workflow YAML if it's a configuration issue
                - Create missing files (e.g., data.json) if needed
                - Add error handling or retries if it's a transient issue
                - Update documentation if manual setup is required
-            4. For simple fixes: Commit directly to main
-            5. For complex changes: Create a PR with detailed description
+            5. For simple fixes: Commit directly to main
+            6. For complex changes: Create a PR with detailed description
 
             **Important**:
             - If the issue requires manual setup (like enabling GitHub Pages or adding secrets),
