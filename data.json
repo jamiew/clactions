@@ -1,7 +1,21 @@
 {
   "message": "Claude GitHub Actions Automaton - Initial Data",
-  "last_updated": "2025-10-08T18:02:45Z",
+  "last_updated": "2025-10-08T18:17:32Z",
   "status": "Initializing automation...",
+  "nytimes_headlines": [
+    "Oregon officials say the atmosphere outside an ICE building that has drawn daily demonstrations since June has grown worse since President Trump's threats.",
+    "A Times/Siena survey shows that more than half of voters, 53 percent, think the process of deporting people has not been fair.",
+    "Officials say Jonathan Rinderknecht, 29, of Melbourne, Fla., had intentionally set an earlier fire that rekindled into a blaze that killed 12 people.",
+    "James Comey, the former F.B.I. director, is accused of lying to Congress. He requested a jury trial, which was set for Jan. 5, and clarity on the charges.",
+    "President Trump has long spoken of seeking vengeance against his political enemies. Here's a list of who he is targeting.",
+    "In a rare interview, the justice bemoaned vulgarity in public life, discussed his family's ties to President Trump and reflected on his own history and legacy.",
+    "The case, one of several challenges to mail-in ballot rules lodged by President Trump's allies, involves an effort to exclude votes received after Election Day.",
+    "The wife of Senator Edward Kennedy for a quarter of a century, she both basked and struggled in the reflected glare of a political family in the spotlight.",
+    "An Israeli American student said he was assaulted during a protest. Two years later, Republicans continue to raise the episode to force schools to punish protesters.",
+    "Mr. Mamdani, the leader in the New York City mayor's race, was shaped by a lifelong journey that formed the basis of his activist approach to politics.",
+    "Young people in Nepal rose up against corruption and inequality. But they say they didn't plan on the bloodshed, arson and government downfall that followed.",
+    "Higher education leaders and public-school superintendents say they depend on skilled foreign workers to fill critical roles."
+  ],
   "glif": {
     "featured_workflows": [
       {
