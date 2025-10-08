@@ -1,4 +1,4 @@
-name: Fetch NY Times Headlines
+name: NYTimes Headlines
 
 on:
   schedule:
@@ -22,17 +22,17 @@ jobs:
           claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
           github_token: ${{ secrets.GITHUB_TOKEN }}
           claude_args: |
-            --allowedTools "WebFetch,WebSearch,Bash(curl:*),Bash(git:*),Bash(cat:*),Bash(grep:*),Bash(sed:*),Bash(python3:*),Read,Write,Edit"
+            --allowedTools "Bash(curl:*),Bash(git:*),Bash(python3:*),Bash(grep:*),Read,Write,Edit"
           prompt: |
-            Fetch the latest headlines from NY Times (https://www.nytimes.com/).
+            Fetch the latest headlines from NY Times RSS feed.
 
             Tasks:
-            1. Scrape the NY Times homepage for top headlines
-            2. Extract 10-15 of the most prominent headlines WITH their article URLs
+            1. Fetch the NY Times RSS feed: https://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml
+            2. Parse the XML to extract 10-15 top items with title and link
             3. Create/update data/nytimes.json with this structure:
                {
                  "headlines": [
-                   {"title": "Headline text", "url": "https://www.nytimes.com/article-path"},
+                   {"title": "Headline text", "url": "https://www.nytimes.com/..."},
                    ...
                  ],
                  "last_updated": "ISO timestamp"
@@ -41,6 +41,6 @@ jobs:
 
             Important:
             - Make sure data/ directory exists (create if needed)
+            - Parse XML properly (use curl + python or xmllint if available)
             - Each headline must be an object with both title and url fields
-            - Use web scraping or the WebFetch tool to get the content
-            - Extract meaningful, current headlines with their full URLs
+            - Extract the <title> and <link> from each <item> in the RSS feed

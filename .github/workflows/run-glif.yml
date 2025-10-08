@@ -1,4 +1,4 @@
-name: Run Glif Workflow
+name: Glif Run Workflow
 
 on:
   schedule:

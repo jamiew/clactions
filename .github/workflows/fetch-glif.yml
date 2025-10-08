@@ -1,4 +1,4 @@
-name: Fetch Glif Content
+name: Glif Top Content
 
 on:
   schedule:

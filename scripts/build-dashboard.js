@@ -346,7 +346,7 @@ const nytCard = `
   <div class="card">
     <h2>
       <span class="card-icon">📰</span>
-      <a href="https://github.com/jamiew/claude-gha-demo/blob/main/.github/workflows/fetch-nytimes.yml" target="_blank" class="card-title-link">NY Times</a>
+      <a href="https://github.com/jamiew/claude-gha-demo/blob/main/.github/workflows/fetch-nytimes.yml" target="_blank" class="card-title-link">NYTimes</a>
     </h2>
     <ul class="data-list">
       ${headlinesHtml}

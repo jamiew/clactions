@@ -1,4 +1,4 @@
-name: Fetch HackerNews Top Story
+name: HackerNews Top Story
 
 on:
   schedule:

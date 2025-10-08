@@ -1,4 +1,4 @@
-name: Fetch Crypto Prices
+name: Crypto Prices
 
 on:
   schedule:
