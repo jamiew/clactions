@@ -7,7 +7,7 @@ on:
 
 permissions:
   contents: write
-  issues: write
+  pull-requests: write
 
 jobs:
   fetch-and-create-issue:
@@ -71,15 +71,22 @@ jobs:
           echo "score=$SCORE" >> $GITHUB_OUTPUT
           echo "comment_count=$COMMENT_COUNT" >> $GITHUB_OUTPUT
 
-      - name: Claude analyzes and creates blog post issue
+      - name: Claude writes HN blog post
         uses: anthropics/claude-code-action@v1
         with:
           claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
           github_token: ${{ secrets.GITHUB_TOKEN }}
           claude_args: |
-            --allowedTools "Bash(gh issue:*),Bash(gh pr:*)"
+            --allowedTools "Bash(gh pr:*)"
+          pr_title: "📰 HN Blog Post: ${{ steps.fetch-hn.outputs.title }}"
+          pr_body: |
+            Automated blog post about today's top HackerNews story.
+
+            **Story**: ${{ steps.fetch-hn.outputs.title }}
+            **HN Discussion**: ${{ steps.fetch-hn.outputs.story_url }} (${{ steps.fetch-hn.outputs.score }} points, ${{ steps.fetch-hn.outputs.comment_count }} comments)
+            **Original**: ${{ steps.fetch-hn.outputs.url }}
           prompt: |
-            A new top story from HackerNews needs a blog post!
+            Write a blog post about today's top HackerNews story!
 
             **Story Details:**
             - Title: ${{ steps.fetch-hn.outputs.title }}
@@ -93,35 +100,34 @@ jobs:
             **Your Task:**
 
             1. Read `hn_context.md` to understand the full story + top comments
-            2. Analyze what makes this story interesting/newsworthy
-            3. Create a GitHub issue with:
-               - Title: "Write blog post: [story title]"
-               - Body should include:
-                 - Link to original article
-                 - Link to HN discussion
-                 - 2-3 sentence summary of why it's interesting
-                 - Key themes from top comments
-                 - Suggested angle for the blog post
-                 - Tag @claude at the end to trigger implementation
+            2. Analyze what makes this story interesting and newsworthy
+            3. Write a comprehensive blog post that includes:
+               - Engaging title and introduction
+               - Summary of the article/story
+               - Key insights and themes from the HN discussion
+               - Your analysis and commentary
+               - Conclusion
+            4. Create the blog post in Markdown format
+            5. Save it as `blog/YYYY-MM-DD-{slug}.md` (use today's date and create a slug from the title)
+            6. Include proper front matter:
+               ```yaml
+               ---
+               title: "Your Blog Post Title"
+               date: YYYY-MM-DD
+               author: Claude
+               tags: [hackernews, tech, analysis]
+               hn_url: ${{ steps.fetch-hn.outputs.story_url }}
+               original_url: ${{ steps.fetch-hn.outputs.url }}
+               ---
+               ```
+            7. Create a PR with your blog post
 
-            Use `gh issue create` to make the issue.
+            **Style guidelines:**
+            - Write for a technical audience
+            - Be analytical but accessible
+            - Include insights from HN comments to add depth
+            - Cite interesting comments or perspectives
+            - Aim for 800-1200 words
+            - Use a slightly skeptical/analytical tone when appropriate
 
-            **Example issue body:**
-            ```
-            Write a blog post about [story title]
-
-            **Original**: [url]
-            **HN Discussion**: [story_url] ([score] points, [comments] comments)
-
-            This story is trending because [reason]. Top comments discuss [themes].
-
-            Suggested approach: [angle for blog post - analysis, tutorial, commentary, etc]
-
-            @claude Please write a blog post about this, including:
-            - Summary of the article
-            - Key insights from HN discussion
-            - Analysis/commentary
-            - Save as blog/[slug].md with proper front matter
-            ```
-
-            Make it happen! 🚀
+            Make it informative and engaging! 🚀
