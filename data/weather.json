@@ -1,0 +1,10 @@
+{
+  "location": "New York, NY",
+  "temperature": 65,
+  "temperature_unit": "F",
+  "feels_like": 65,
+  "condition": "Rain",
+  "humidity": 93,
+  "last_updated": "2025-10-08T19:05:21Z",
+  "source": "wttr.in"
+}
