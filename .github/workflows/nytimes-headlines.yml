@@ -39,7 +39,7 @@ jobs:
                  "last_updated": "ISO timestamp"
                }
             4. Commit and push the changes directly to main branch
-               IMPORTANT: Run `git pull --no-rebase origin main` AFTER `git add` but BEFORE `git commit` to prevent push conflicts with parallel workflows
+               IMPORTANT: Run `git pull --rebase origin main` BEFORE `git add` to prevent push conflicts with parallel workflows
 
             Important:
             - Make sure data/ directory exists (create if needed)

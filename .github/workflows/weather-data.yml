@@ -53,12 +53,13 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add data/weather.json weather_raw.json
 
-          if git diff --staged --quiet; then
+          # Check if there are changes before doing anything
+          if git diff --quiet data/weather.json weather_raw.json 2>/dev/null && git ls-files --error-unmatch data/weather.json weather_raw.json >/dev/null 2>&1; then
             echo "No weather changes"
           else
-            git pull --no-rebase origin main
+            git pull --rebase origin main
+            git add data/weather.json weather_raw.json
             git commit -m "Update weather data for New York, NY"
             git push
           fi

@@ -111,6 +111,6 @@ jobs:
             Commit directly to main with message: "Update NYC theme for hour ${{ steps.theme.outputs.hour }}"
 
             IMPORTANT: To avoid push conflicts with parallel workflows:
-            1. Stage your changes with `git add`
-            2. Pull with rebase: `git pull --rebase origin main`
+            1. Pull with rebase FIRST: `git pull --rebase origin main`
+            2. Stage your changes with `git add`
             3. Then commit and push
