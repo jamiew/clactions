@@ -1,0 +1,77 @@
+name: Run Glif Workflow
+
+on:
+  schedule:
+    - cron: '*/15 * * * *'  # Every 15 minutes
+  workflow_dispatch:
+    inputs:
+      workflow_id:
+        description: 'Glif Workflow ID to run (optional, uses GLIF_WORKFLOW_ID secret if not provided)'
+        required: false
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  run-glif:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Run Glif and get output
+        id: glif
+        run: |
+          WORKFLOW_ID="${{ github.event.inputs.workflow_id || secrets.GLIF_WORKFLOW_ID }}"
+
+          echo "Running Glif workflow: $WORKFLOW_ID"
+
+          # Run the Glif workflow
+          RESPONSE=$(curl -X POST "https://simple-api.glif.app" \
+            -H "Authorization: Bearer ${{ secrets.GLIF_API_TOKEN }}" \
+            -H "Content-Type: application/json" \
+            -d "{\"id\": \"$WORKFLOW_ID\"}")
+
+          echo "Glif response: $RESPONSE"
+
+          # Save output to file
+          echo "$RESPONSE" > glif_output.json
+
+          # Extract output text/data
+          OUTPUT=$(echo "$RESPONSE" | jq -r '.output // .result // .text // .')
+
+          echo "output=$OUTPUT" >> $GITHUB_OUTPUT
+
+      - name: Claude processes Glif output
+        uses: anthropics/claude-code-action@v1
+        with:
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          prompt: |
+            A Glif workflow just ran and produced this output:
+
+            ${{ steps.glif.outputs.output }}
+
+            Full response is in glif_output.json
+
+            Your task:
+            1. Read and understand the Glif output
+            2. Update data.json with relevant information from the Glif run
+            3. Optionally improve the webpage HTML generation to display this Glif data beautifully
+            4. Add a section showing "Latest Glif Output" with timestamp
+
+            Be creative in how you present the Glif results!
+
+            Create a PR with your updates.
+          create_pr: true
+          pr_title: "🎨 Update from Glif workflow"
+          pr_body: |
+            Automated update based on Glif workflow output.
+
+            Glif run completed at: ${{ github.run_id }}

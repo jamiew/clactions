@@ -1,0 +1,107 @@
+name: Fetch Glif Top Content
+
+on:
+  schedule:
+    - cron: '0 */2 * * *'  # Every 2 hours
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  fetch-glif:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Fetch top Glif workflows and agents
+        run: |
+          node -e "
+          const https = require('https');
+          const fs = require('fs');
+
+          async function fetchJSON(url, token) {
+            return new Promise((resolve, reject) => {
+              const options = {
+                headers: {
+                  'Authorization': 'Bearer ${{ secrets.GLIF_API_TOKEN }}',
+                  'Content-Type': 'application/json'
+                }
+              };
+
+              https.get(url, options, (res) => {
+                let data = '';
+                res.on('data', (chunk) => { data += chunk; });
+                res.on('end', () => {
+                  try {
+                    resolve(JSON.parse(data));
+                  } catch (e) {
+                    reject(e);
+                  }
+                });
+              }).on('error', reject);
+            });
+          }
+
+          async function main() {
+            try {
+              // Fetch featured workflows
+              console.log('Fetching featured Glif workflows...');
+              const workflows = await fetchJSON('https://glif.app/api/glifs?featured=1');
+
+              // Fetch featured agents/bots
+              console.log('Fetching featured Glif agents...');
+              const agents = await fetchJSON('https://glif.app/api/bots?tags=featured');
+
+              // Read existing data
+              const dataFile = JSON.parse(fs.readFileSync('data.json', 'utf-8'));
+
+              // Update with Glif data
+              dataFile.glif = {
+                featured_workflows: workflows.slice(0, 10).map(w => ({
+                  id: w.id,
+                  name: w.name || w.title,
+                  description: w.description,
+                  creator: w.creator?.username || w.user?.username,
+                  url: \`https://glif.app/@\${w.creator?.username || 'user'}/glifs/\${w.id}\`
+                })),
+                featured_agents: agents.slice(0, 10).map(a => ({
+                  id: a.id,
+                  name: a.name || a.title,
+                  description: a.description,
+                  creator: a.creator?.username || a.user?.username,
+                  url: \`https://glif.app/@\${a.creator?.username || 'user'}/bots/\${a.id}\`
+                })),
+                last_updated: new Date().toISOString()
+              };
+
+              fs.writeFileSync('data.json', JSON.stringify(dataFile, null, 2));
+              console.log('Updated data.json with Glif content');
+              console.log('Workflows:', dataFile.glif.featured_workflows.length);
+              console.log('Agents:', dataFile.glif.featured_agents.length);
+            } catch (error) {
+              console.error('Error fetching Glif data:', error);
+              process.exit(1);
+            }
+          }
+
+          main();
+          "
+
+      - name: Commit and push changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data.json
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "Update Glif featured content"
+            git push
+          fi

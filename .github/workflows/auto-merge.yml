@@ -1,0 +1,70 @@
+name: Auto-Merge Approved PRs
+
+on:
+  pull_request_review:
+    types: [submitted]
+  check_suite:
+    types: [completed]
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  auto-merge:
+    runs-on: ubuntu-latest
+    if: github.event.review.state == 'approved' || github.event.check_suite.conclusion == 'success'
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Check if PR is ready to merge
+        id: check
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const pr = context.payload.pull_request;
+            if (!pr) {
+              // Get PR from check suite
+              const prs = await github.rest.pulls.list({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                state: 'open',
+                head: `${context.repo.owner}:${context.payload.check_suite.head_branch}`
+              });
+              if (prs.data.length === 0) return;
+              pr = prs.data[0];
+            }
+
+            // Check if PR is from Claude automation
+            const isClaudeBot = pr.title.includes('🤖 Claude') || pr.user.login === 'github-actions[bot]';
+
+            // Get reviews
+            const reviews = await github.rest.pulls.listReviews({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: pr.number
+            });
+
+            const approved = reviews.data.some(review => review.state === 'APPROVED');
+
+            // Get check runs
+            const checks = await github.rest.checks.listForRef({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              ref: pr.head.sha
+            });
+
+            const allChecksPassed = checks.data.check_runs.every(
+              check => check.status === 'completed' && check.conclusion === 'success'
+            );
+
+            if (isClaudeBot && approved && allChecksPassed) {
+              await github.rest.pulls.merge({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                pull_number: pr.number,
+                merge_method: 'squash'
+              });
+              console.log('PR auto-merged successfully');
+            }

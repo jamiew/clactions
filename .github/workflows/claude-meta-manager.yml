@@ -1,0 +1,45 @@
+name: Claude Meta-Manager
+
+on:
+  schedule:
+    - cron: '0 0 * * 0'  # Weekly on Sunday
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  manage-workflows:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Claude Manages Workflows
+        uses: anthropics/claude-code-action@v1
+        with:
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          prompt: |
+            You are the meta-manager of this repository's automation.
+
+            Tasks:
+            1. Analyze workflow run history to optimize cron schedules
+            2. Review which workflows are most/least useful
+            3. Suggest new automation opportunities
+            4. Update workflow configurations for better efficiency
+            5. Manage secrets and environment variables (document what's needed)
+            6. Ensure all workflows follow best practices
+
+            Make changes to workflow files in .github/workflows/ as needed.
+            You can:
+            - Adjust cron schedules based on activity
+            - Add new workflows
+            - Remove or disable unused workflows
+            - Update action versions
+            - Improve error handling
+
+            Create a PR with your workflow optimizations.
+          create_pr: true
+          pr_title: "🔧 Claude Workflow Optimization"
