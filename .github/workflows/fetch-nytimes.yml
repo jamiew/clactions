@@ -1,4 +1,4 @@
-name: Claude Fetches NY Times
+name: Fetch NY Times Headlines
 
 on:
   schedule:

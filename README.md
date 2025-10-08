@@ -1,107 +1,126 @@
 # Claude GitHub Actions Automaton
 
-A self-improving, Claude-powered automation system that uses GitHub Actions to manage itself and generate content.
+Self-improving automation where Claude reads the world, updates code/website, reviews itself, fixes itself. All via GitHub Actions.
 
-## What We've Built So Far
+## What It Does
 
-### 🤖 Autonomous Claude Agent System
-We've created a fully autonomous system where Claude manages and improves itself through GitHub Actions:
+GitHub Actions use Claude to:
+- Scrape external sources (NY Times, Glif API)
+- Update data.json → auto-deploy website
+- Make code improvements via PRs
+- Review its own PRs
+- Fix broken workflows automatically
+- Manage its own cron schedules
 
-1. **Auto-Improvement Loop** (`claude-auto-improve.yml`)
-   - Runs every 6 hours
-   - Claude analyzes the repo and makes improvements autonomously
-   - Creates PRs with enhancements (better scrapers, new features, UI improvements)
+**8 of 11 workflows use Claude for decisions.** The rest are simple deploys.
 
-2. **Claude PR Reviewer** (`claude-pr-review.yml`)
-   - Reviews ALL pull requests automatically
-   - Checks code quality, security, and best practices
-   - Approves good PRs or requests changes
+## Workflows
 
-3. **Auto-Merge** (`auto-merge.yml`)
-   - Automatically merges Claude-created PRs when:
-     - Approved by Claude reviewer
-     - All checks pass
-     - No conflicts
+| Workflow | Schedule | What | Updates |
+|----------|----------|------|---------|
+| `fetch-nytimes.yml` | 30min | Scrapes NYT headlines | data.json |
+| `fetch-glif.yml` | 2hr | Gets featured Glif workflows/agents | data.json |
+| `run-glif.yml` | 15min | Runs Glif, Claude processes output | data.json + code |
+| `auto-improve.yml` | 6hr | Claude analyzes repo, makes improvements | Code (PR) |
+| `improve-ui.yml` | 12hr | Claude redesigns website UI | Code (PR) |
+| `meta-manager.yml` | Weekly | Claude optimizes workflow configs | Workflows (PR) |
+| `claude-pr-review.yml` | On PR | Claude reviews all PRs | Review/approval |
+| `self-repair.yml` ⭐ | On failure | Claude auto-fixes broken workflows | Fix (commit/PR) |
+| `auto-merge.yml` | On approval | Merges approved Claude PRs | - |
+| `deploy-pages.yml` | On push | Deploys to GitHub Pages | - |
+| `scheduled-deploy.yml` | Hourly | Regenerates website | - |
 
-4. **Meta-Manager** (`claude-meta-manager.yml`)
-   - Runs weekly
-   - Claude manages its own workflow configurations!
-   - Optimizes cron schedules, adds/removes workflows, updates actions
+## Self-Repair ⭐
 
-### 📰 Content Automation
-- **NY Times Scraper** (`fetch-nytimes.yml`): Fetches top headlines every 30 minutes
-- **Glif Content Fetcher** (`fetch-glif-content.yml`): Gets top Glif workflows and agents every 2 hours
-- **Glif Runner** (`run-glif.yml`): Runs a Glif workflow every 15 minutes, Claude processes the output
-- **Auto-Deploy** (`deploy-pages.yml`): Publishes to GitHub Pages on every update
-- **Scheduled Updates** (`scheduled-deploy.yml`): Hourly page regeneration with enhanced UI
+The killer feature: **workflows fix themselves.**
 
-### 🌐 GitHub Pages Website
-Live site displays:
-- 📰 Latest NY Times headlines
-- 🎨 Top Glif workflows (featured)
-- 🤖 Top Glif agents (featured)
-- Auto-updated data feeds
-- Beautiful card-based UI with hover effects
-- Timestamps showing when content was last refreshed
+`self-repair.yml` auto-triggers when any workflow fails. Claude:
+1. Grabs failure logs
+2. Identifies root cause
+3. Implements fix (commit or PR)
+4. Also runs every 30min to catch stragglers
 
-## How It Works
-
-The system is a **closed loop of AI-driven improvements**:
-
-```
-┌─────────────────────────────────────────────┐
-│  Claude Auto-Improve (every 6 hours)        │
-│  - Analyzes codebase                        │
-│  - Makes improvements                       │
-│  - Creates PR                               │
-└─────────────┬───────────────────────────────┘
-              │
-              ▼
-┌─────────────────────────────────────────────┐
-│  Claude PR Review (on PR creation)          │
-│  - Reviews code changes                     │
-│  - Checks for issues                        │
-│  - Approves or requests changes             │
-└─────────────┬───────────────────────────────┘
-              │
-              ▼
-┌─────────────────────────────────────────────┐
-│  Auto-Merge (when approved + checks pass)   │
-│  - Merges to main                           │
-│  - Triggers deploys                         │
-└─────────────┬───────────────────────────────┘
-              │
-              ▼
-         [Repository improves itself] 🔄
+Trigger manually:
+```bash
+gh workflow run self-repair.yml
 ```
 
-## Setup Required
+Or from Claude Code TUI:
+```
+/fix-workflows
+```
 
-1. **Enable GitHub Pages**:
-   - Go to Settings → Pages
-   - Source: GitHub Actions
+## Debug Tools
 
-2. **Add API Keys as Repository Secrets**:
-   - `ANTHROPIC_API_KEY`: Get from https://console.anthropic.com/
-   - `GLIF_API_TOKEN`: Get from https://glif.app (for API access)
-   - `GLIF_WORKFLOW_ID`: (Optional) Specific Glif workflow to run automatically
+Quick diagnosis:
+```bash
+./scripts/analyze-workflow-runs.sh
+```
 
-3. **Install Claude Code GitHub App** (already done):
-   - Enables Claude to create and review PRs
+Interactive doctor:
+```bash
+./scripts/claude-workflow-doctor.sh
+```
 
-## Glif Integration 🎨
+View specific failure:
+```bash
+gh run view <run-id> --log-failed
+```
 
-We've integrated with [Glif](https://glif.app), an AI workflow platform:
+## Setup
 
-1. **Glif Content Fetcher**: Displays top featured workflows and agents on the site
-2. **Glif Workflow Runner**: Automatically runs a Glif workflow, then Claude processes the output and updates the site
+1. **GitHub Pages**: Settings → Pages → Source: GitHub Actions
+2. **Secrets**: Add `ANTHROPIC_API_KEY` (required), `GLIF_API_TOKEN` (optional)
+3. **Permissions**: Settings → Actions → Workflow permissions → Read/write
 
-This creates a **Glif → Claude → GitHub Pages pipeline** for generative content!
+## The Loop
 
-## What's Next
+```
+External data → Claude fetches → Updates data.json → Deploys site
+                                         ↓
+                        Claude improves UI → Creates PR
+                                         ↓
+                            Claude reviews PR → Auto-merge
+                                         ↓
+                                  [Better site]
+```
 
-- [ ] Add MCP server integration for external data sources
-- [ ] Create workflow to submit PRs to other repositories
-- [ ] Add more data sources (Reddit, Hacker News, etc.)
-- [x] Integrate Glif workflows and agents
-- [ ] Create Glif workflow that generates website content (images, text, etc.)
+Meanwhile:
+- `meta-manager.yml` optimizes the workflows
+- `self-repair.yml` fixes failures
+- `auto-improve.yml` adds features
+
+It's **autonomous infrastructure** that gets better over time.
+
+## Files
+
+- `data.json` - Central data store (NY Times, Glif content)
+- `.github/workflows/` - All automation
+- `scripts/` - Debugging tools
+- `.claude/commands/fix-workflows.json` - TUI command
+- `.claude/handlers/fix-workflows.sh` - Repair handler
+- `.claude/subagents/workflow-repair.md` - Repair strategy
+
+## Glif Integration
+
+Two ways:
+1. Fetch top workflows/agents via API → display on site
+2. Run Glif workflow → Claude processes output → updates site
+
+Creates a **Glif → Claude → GitHub Pages** generative pipeline.
+
+## Common Issues
+
+**Pages not enabled**: Settings → Pages → Source: GitHub Actions
+
+**Missing secrets**: Settings → Secrets → `ANTHROPIC_API_KEY`
+
+**Permission denied**: Settings → Actions → Workflow permissions → Read/write
+
+**data.json missing**: Create it: `{"message": "Initial data"}`
+
+Let `self-repair.yml` fix most issues automatically.
+
+## Philosophy
+
+Autonomous AI managing infrastructure. Claude reads, decides, acts, reviews, fixes. Humans watch (or trigger workflows manually). Self-improving system.

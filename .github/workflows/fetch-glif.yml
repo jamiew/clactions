@@ -1,4 +1,4 @@
-name: Claude Fetches Glif Content
+name: Fetch Glif Content
 
 on:
   schedule:

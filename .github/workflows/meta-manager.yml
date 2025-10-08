@@ -1,4 +1,4 @@
-name: Claude Meta-Manager
+name: Workflow Meta-Manager
 
 on:
   schedule:
