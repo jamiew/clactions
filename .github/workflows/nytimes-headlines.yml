@@ -39,7 +39,12 @@ jobs:
                  "last_updated": "ISO timestamp"
                }
             4. Commit and push the changes directly to main branch
-               IMPORTANT: Run `git pull --rebase origin main` BEFORE `git add` to prevent push conflicts with parallel workflows
+               IMPORTANT: Use this safe sequence to prevent push conflicts:
+               - `git add data/nytimes.json`
+               - `git commit -m "Update NY Times headlines"`
+               - `git fetch origin`
+               - `git rebase origin/main`
+               - `git push origin HEAD:main`
 
             Important:
             - Make sure data/ directory exists (create if needed)
