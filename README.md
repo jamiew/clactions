@@ -199,6 +199,15 @@ gh run list --workflow=webhook-demo.yml --limit 5
 gh run watch
 ```
 
+**Public webhook endpoints:**
+
+To make a publicly accessible webhook (no GitHub token required for callers), use a serverless function to proxy the request:
+- [Val Town](https://val.town) - Simple hosted functions
+- [Cloudflare Workers](https://workers.cloudflare.com/) - Free edge functions
+- Other options: Vercel Functions, AWS Lambda, etc.
+
+Store your `GITHUB_TOKEN` as an environment variable in the function, then proxy requests to GitHub's API.
+
 ## Debug Tools
 
 Quick diagnosis:
