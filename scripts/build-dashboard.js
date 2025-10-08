@@ -286,6 +286,10 @@ const weatherCard = `
     <div class="weather-big">${weather.temperature || '—'}°F</div>
     <ul class="data-list">
       <li class="data-item">
+        <span class="data-label">Location</span>
+        <span class="data-value">${weather.location || 'New York, NY'}</span>
+      </li>
+      <li class="data-item">
         <span class="data-label">Condition</span>
         <span class="data-value">${weather.condition || 'Unknown'}</span>
       </li>
@@ -314,11 +318,17 @@ const headlinesHtml = headlines.length > 0
 
 const nytCard = `
   <div class="card">
-    <h2><span class="card-icon">📰</span> NY Times</h2>
+    <h2>
+      <span class="card-icon">📰</span>
+      <a href="https://github.com/jamiew/claude-gha-demo/blob/main/.github/workflows/fetch-nytimes.yml" target="_blank" class="card-title-link">NY Times</a>
+    </h2>
     <ul class="data-list">
       ${headlinesHtml}
     </ul>
-    <div class="timestamp">Updated: ${data.last_updated || 'Never'}</div>
+    <div class="timestamp">
+      Updated: ${data.last_updated || 'Never'} ·
+      <a href="https://github.com/jamiew/claude-gha-demo/actions/workflows/fetch-nytimes.yml" target="_blank" class="workflow-link">View runs →</a>
+    </div>
   </div>
 `;
 
@@ -335,11 +345,17 @@ const glifHtml = glifWorkflows.length > 0
 
 const glifCard = `
   <div class="card">
-    <h2><span class="card-icon">🎨</span> Glif Workflows</h2>
+    <h2>
+      <span class="card-icon">🎨</span>
+      <a href="https://github.com/jamiew/claude-gha-demo/blob/main/.github/workflows/fetch-glif.yml" target="_blank" class="card-title-link">Glif Workflows</a>
+    </h2>
     <ul class="data-list">
       ${glifHtml}
     </ul>
-    <div class="timestamp">Updated: ${data.glif?.last_updated || 'Never'}</div>
+    <div class="timestamp">
+      Updated: ${data.glif?.last_updated || 'Never'} ·
+      <a href="https://github.com/jamiew/claude-gha-demo/actions/workflows/fetch-glif.yml" target="_blank" class="workflow-link">View runs →</a>
+    </div>
   </div>
 `;
 
@@ -380,15 +396,30 @@ const blogPostsHtml = blogPosts.length > 0
 
 const blogCard = `
   <div class="card">
-    <h2><span class="card-icon">🤖</span> Robot Blog Posts</h2>
+    <h2>
+      <span class="card-icon">🤖</span>
+      <a href="https://github.com/jamiew/claude-gha-demo/tree/main/blog" target="_blank" class="card-title-link">Robot Blog Posts</a>
+    </h2>
     <ul class="data-list">
       ${blogPostsHtml}
     </ul>
-    <div class="timestamp">Latest autonomous writings</div>
+    <div class="timestamp">
+      Latest autonomous writings ·
+      <a href="https://github.com/jamiew/claude-gha-demo/blob/main/.github/workflows/fetch-hackernews.yml" target="_blank" class="workflow-link">View workflow →</a>
+    </div>
   </div>
 `;
 
-const contentHtml = weatherCard + nytCard + blogCard + glifCard + statusCard;
+// Build debug card - pretty print raw data.json
+const debugCard = `
+  <div class="card">
+    <h2><span class="card-icon">🐛</span> Debug Data</h2>
+    <pre class="debug-json">${JSON.stringify(data, null, 2)}</pre>
+    <div class="timestamp">Raw data.json contents</div>
+  </div>
+`;
+
+const contentHtml = weatherCard + nytCard + blogCard + glifCard + debugCard + statusCard;
 
 // Build workflows section
 const workflowsHtml = workflows.slice(0, 10).map(w => {
@@ -413,7 +444,7 @@ const html = `<!DOCTYPE html>
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Claude Automaton</title>
+  <title>Clactions: Automation Gone Wild</title>
   <style id="theme-light">
     /* Light theme */
     :root {
@@ -591,6 +622,17 @@ ${weatherAdaptiveTheme}
       font-size: 1.5rem;
     }
 
+    .card-title-link {
+      color: inherit;
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+
+    .card-title-link:hover {
+      color: var(--accent, #007aff);
+      text-decoration: underline;
+    }
+
     .data-list {
       list-style: none;
     }
@@ -692,6 +734,19 @@ ${weatherAdaptiveTheme}
       font-style: italic;
     }
 
+    .debug-json {
+      background: rgba(0, 0, 0, 0.05);
+      padding: 1rem;
+      border-radius: 8px;
+      overflow-x: auto;
+      font-size: 0.85rem;
+      line-height: 1.5;
+      color: var(--text-primary);
+      font-family: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
+      max-height: 400px;
+      overflow-y: auto;
+    }
+
     /* Mobile optimizations */
     @media (max-width: 768px) {
       .grid {
@@ -752,8 +807,8 @@ ${weatherAdaptiveTheme}
           </div>
         </div>
       </div>
-      <h1>🤖 Claude Automaton</h1>
-      <p class="subtitle">Self-improving AI infrastructure · New York, NY</p>
+      <h1>🤖 Clactions: Automation Gone Wild</h1>
+      <p class="subtitle">Self-improving AI infrastructure</p>
     </header>
 
     <div class="grid">
