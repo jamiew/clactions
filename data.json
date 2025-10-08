@@ -1,23 +1,40 @@
 {
-  "message": "Claude GitHub Actions Automaton - Initial Data",
-  "last_updated": "2025-10-08T18:14:29Z",
-  "status": "Initializing automation...",
+  "message": "Claude GitHub Actions Automaton - Latest NYT Headlines",
+  "last_updated": "2025-10-08T18:30:00Z",
+  "status": "Active - Headlines updated",
   "nytimes_headlines": [
-    "Trump News",
-    "James Comey Arraignment Fbi",
-    "Trump National Guard Chicago Illinois",
-    "Trump Enemies Justice Department Investigations",
-    "Los Angeles Palisades Fire Arrest",
-    "Palisades Fire Cause Ignition Point Site",
-    "Trump Portland Troops",
-    "Trump Deportation Illegal Immigrants Voters Poll",
-    "Trump Pritzker Brandon Johnson Jail Ice",
-    "Justice Kennedy Interview Memoir",
-    "Supreme Court Mail Ballots Illinois",
-    "Joan Kennedy Dead",
-    "Nepal Gen Z Revolution",
-    "Trump H 1b Visa Fee Universities",
-    "Tom Homan Sting Money"
+    {
+      "title": "Star Educator Kept a Secret: His Citizenship - Misleading Biography, Then Arrest by ICE",
+      "url": "https://www.nytimes.com/2025/10/08/us/ian-roberts-citizenship-ice-arrest.html"
+    },
+    {
+      "title": "Justices Doubt Ban on Therapy in Gender Case",
+      "url": "https://www.nytimes.com/2025/10/07/us/politics/supreme-court-conversion-therapy-colorado.html"
+    },
+    {
+      "title": "Somber Milestone - Second Anniversary of Hamas-led Attack on Israel",
+      "url": "https://www.nytimes.com/2025/10/07/world/middleeast/israel-hamas-attack-anniversary.html"
+    },
+    {
+      "title": "Harvard Finds Skipping Class Part of Culture",
+      "url": "https://www.nytimes.com/2025/10/06/us/harvard-students-skip-class-grades.html"
+    },
+    {
+      "title": "Biden's Son Pursued Land Deal Near Embassy",
+      "url": "https://www.nytimes.com/2025/10/07/us/politics/hunter-biden-romania-embassy-land.html"
+    },
+    {
+      "title": "ChatGPT: Put My Résumé at the Top of the Pile",
+      "url": "https://www.nytimes.com/2025/10/08/business/chatgpt-resume-job-applications.html"
+    },
+    {
+      "title": "Why Did Walmart Buy a Mall?",
+      "url": "https://www.nytimes.com/2025/10/07/business/walmart-monroeville-mall-purchase.html"
+    },
+    {
+      "title": "Sports Bets, by Another Name, Skirt State Bans",
+      "url": "https://www.nytimes.com/2025/10/08/business/sports-betting-fantasy-apps-state-bans.html"
+    }
   ],
   "glif": {
     "featured_workflows": [
