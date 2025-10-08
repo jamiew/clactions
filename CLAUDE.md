@@ -40,7 +40,7 @@ gh run watch
 
 ## Architecture
 
-### 8 Claude Workflows
+### 9 Claude Workflows
 
 1. `fetch-nytimes.yml` (30m) - Scrapes NYT, updates data.json
 2. `fetch-glif.yml` (2h) - Gets Glif featured content
@@ -50,6 +50,7 @@ gh run watch
 6. `claude-pr-review.yml` (on PR) - Reviews all PRs
 7. `meta-manager.yml` (weekly) - Optimizes workflow configs
 8. `self-repair.yml` (on failure / 30m) - Auto-fixes failures ⭐
+9. `todo-worker.yml` (8h) - Reads TODO.md, implements tasks ⭐
 
 ### 3 Support Workflows
 
@@ -72,6 +73,7 @@ External (NYT, Glif) → Claude → data.json → deploy → site
 ## Key Files
 
 - `data.json` - Data store (headlines, Glif content)
+- `TODO.md` - Ideas for Claude to implement
 - `.github/workflows/` - All workflows
 - `scripts/` - Debug and repair tools
 - `.claude/commands/` - Custom slash commands (Markdown)
@@ -113,7 +115,23 @@ Let `self-repair.yml` auto-fix most issues.
 
 ## Development
 
-When making changes:
+### Adding New Features
+
+Add ideas to `TODO.md`. The `todo-worker.yml` workflow will:
+1. Read the TODO list every 8 hours
+2. Pick a feasible task
+3. Implement it via PR
+4. Mark it complete in TODO.md
+
+Or trigger manually:
+```bash
+gh workflow run todo-worker.yml
+gh workflow run todo-worker.yml -f force_item="Your specific task"
+gh workflow run todo-worker.yml -f mode=plan  # Just plan, don't build
+```
+
+### Code Patterns
+
 - Claude workflows use `anthropics/claude-code-action@v1`
 - Data updates commit directly to main (no PR)
 - Code changes create PRs

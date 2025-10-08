@@ -19,7 +19,7 @@ jobs:
       - name: Claude fetches Glif featured content
         uses: anthropics/claude-code-action@v1
         with:
-          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
           github_token: ${{ secrets.GITHUB_TOKEN }}
           prompt: |
             Fetch featured content from Glif (https://glif.app).
@@ -36,4 +36,3 @@ jobs:
             Use the Glif API token from secrets: ${{ secrets.GLIF_API_TOKEN }}
 
             Make sure URLs are properly formatted: https://glif.app/@{creator}/glifs/{id}
-          create_pr: false

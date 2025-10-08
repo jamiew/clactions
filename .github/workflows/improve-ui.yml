@@ -19,7 +19,7 @@ jobs:
       - name: Claude improves website UI
         uses: anthropics/claude-code-action@v1
         with:
-          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
           github_token: ${{ secrets.GITHUB_TOKEN }}
           prompt: |
             Review the current website generation in the workflow files and improve the UI/UX.
@@ -35,7 +35,6 @@ jobs:
             Create a PR with your UI improvements.
 
             Be creative and make it look professional!
-          create_pr: true
           pr_title: "✨ Claude UI Improvements"
           pr_body: |
             Automated UI/UX improvements by Claude.

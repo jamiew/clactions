@@ -19,7 +19,7 @@ jobs:
       - name: Claude Manages Workflows
         uses: anthropics/claude-code-action@v1
         with:
-          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
           github_token: ${{ secrets.GITHUB_TOKEN }}
           prompt: |
             You are the meta-manager of this repository's automation.
@@ -41,5 +41,4 @@ jobs:
             - Improve error handling
 
             Create a PR with your workflow optimizations.
-          create_pr: true
           pr_title: "🔧 Claude Workflow Optimization"

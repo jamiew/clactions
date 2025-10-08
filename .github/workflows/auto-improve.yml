@@ -25,7 +25,7 @@ jobs:
       - name: Run Claude Code Action
         uses: anthropics/claude-code-action@v1
         with:
-          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
           github_token: ${{ secrets.GITHUB_TOKEN }}
           prompt: |
             Analyze this repository and make an improvement. Choose ONE of these tasks:
@@ -42,7 +42,6 @@ jobs:
             - Clear description of what you improved
             - Why this improvement is valuable
             - Any new dependencies or configuration needed
-          create_pr: true
           pr_title: "🤖 Claude Auto-Improvement: ${{ github.run_number }}"
           pr_body: |
             This PR was automatically created by Claude Code Action.

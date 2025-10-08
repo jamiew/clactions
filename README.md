@@ -12,7 +12,7 @@ GitHub Actions use Claude to:
 - Fix broken workflows automatically
 - Manage its own cron schedules
 
-**8 of 11 workflows use Claude for decisions.** The rest are simple deploys.
+**9 of 12 workflows use Claude for decisions.** The rest are simple deploys.
 
 ## Workflows
 
@@ -26,6 +26,7 @@ GitHub Actions use Claude to:
 | `meta-manager.yml` | Weekly | Claude optimizes workflow configs | Workflows (PR) |
 | `claude-pr-review.yml` | On PR | Claude reviews all PRs | Review/approval |
 | `self-repair.yml` ⭐ | On failure | Claude auto-fixes broken workflows | Fix (commit/PR) |
+| `todo-worker.yml` ⭐ | 8hr | Reads TODO.md, implements tasks | Feature (PR) |
 | `auto-merge.yml` | On approval | Merges approved Claude PRs | - |
 | `deploy-pages.yml` | On push | Deploys to GitHub Pages | - |
 | `scheduled-deploy.yml` | Hourly | Regenerates website | - |
@@ -89,16 +90,18 @@ Meanwhile:
 - `meta-manager.yml` optimizes the workflows
 - `self-repair.yml` fixes failures
 - `auto-improve.yml` adds features
+- `todo-worker.yml` implements ideas from TODO.md
 
 It's **autonomous infrastructure** that gets better over time.
 
 ## Files
 
 - `data.json` - Central data store (NY Times, Glif content)
+- `TODO.md` - Ideas and tasks for Claude to implement
 - `.github/workflows/` - All automation
 - `scripts/` - Debugging and repair tools
-- `.claude/commands/fix-workflows.md` - TUI command definition
-- `.claude/subagents/workflow-repair.md` - Repair strategy
+- `.claude/commands/` - Custom slash commands
+- `.claude/subagents/` - Subagent documentation
 
 ## Glif Integration
 
@@ -120,6 +123,27 @@ Creates a **Glif → Claude → GitHub Pages** generative pipeline.
 
 Let `self-repair.yml` fix most issues automatically.
 
+## TODO-Driven Development
+
+Add ideas to `TODO.md`. The `todo-worker.yml` workflow reads it every 8 hours, picks feasible tasks, and implements them via PRs.
+
+Trigger manually:
+```bash
+# Let Claude pick best item
+gh workflow run todo-worker.yml
+
+# Work on specific item
+gh workflow run todo-worker.yml -f force_item="Add Reddit scraper"
+
+# Just plan, don't implement
+gh workflow run todo-worker.yml -f mode=plan
+```
+
+Modes:
+- **implement** (default) - Actually builds the feature
+- **plan** - Creates implementation plan without coding
+- **survey** - Organizes and prioritizes all TODOs
+
 ## Philosophy
 
-Autonomous AI managing infrastructure. Claude reads, decides, acts, reviews, fixes. Humans watch (or trigger workflows manually). Self-improving system.
+Autonomous AI managing infrastructure. Claude reads, decides, acts, reviews, fixes. Add ideas to TODO.md and Claude builds them. Self-improving system.

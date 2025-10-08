@@ -32,46 +32,60 @@ jobs:
 
           echo "Running Glif workflow: $WORKFLOW_ID"
 
-          # Run the Glif workflow
-          RESPONSE=$(curl -X POST "https://simple-api.glif.app" \
-            -H "Authorization: Bearer ${{ secrets.GLIF_API_TOKEN }}" \
+          # Run the Glif workflow with New York weather parameters
+          RESPONSE=$(curl -s -H "Authorization: Bearer ${{ secrets.GLIF_API_TOKEN }}" \
             -H "Content-Type: application/json" \
-            -d "{\"id\": \"$WORKFLOW_ID\"}")
+            -d '{
+              "city_name": "New York, NY",
+              "tempPicker": "fahrenheit"
+            }' \
+            "https://simple-api.glif.app/$WORKFLOW_ID")
 
           echo "Glif response: $RESPONSE"
 
           # Save output to file
           echo "$RESPONSE" > glif_output.json
 
-          # Extract output text/data
-          OUTPUT=$(echo "$RESPONSE" | jq -r '.output // .result // .text // .')
+          # Extract output text/data (try multiple possible fields)
+          OUTPUT=$(echo "$RESPONSE" | jq -r '.output // .result // .text // .data // .')
 
           echo "output=$OUTPUT" >> $GITHUB_OUTPUT
+
+          # Also save full response for Claude to read
+          cat glif_output.json
 
       - name: Claude processes Glif output
         uses: anthropics/claude-code-action@v1
         with:
-          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
           github_token: ${{ secrets.GITHUB_TOKEN }}
           prompt: |
-            A Glif workflow just ran and produced this output:
+            A Glif workflow just ran to get weather data for New York, NY.
 
-            ${{ steps.glif.outputs.output }}
+            Output preview: ${{ steps.glif.outputs.output }}
 
-            Full response is in glif_output.json
+            Full response is in glif_output.json - please read it.
 
             Your task:
-            1. Read and understand the Glif output
-            2. Update data.json with relevant information from the Glif run
-            3. Optionally improve the webpage HTML generation to display this Glif data beautifully
-            4. Add a section showing "Latest Glif Output" with timestamp
+            1. Read glif_output.json to see the complete Glif response
+            2. Extract the weather information (temperature, conditions, etc.)
+            3. Update data.json with a `weather` field containing:
+               - city: "New York, NY"
+               - temperature: extracted value
+               - conditions: weather description
+               - last_updated: current timestamp
+               - raw_glif_output: the full Glif response
+            4. Optionally update the webpage HTML to display weather nicely
+               (maybe a weather card with icon, temperature, conditions)
 
-            Be creative in how you present the Glif results!
+            This is a weather Glif that returns New York weather in Fahrenheit.
+            Be creative in presenting it on the site!
 
             Create a PR with your updates.
-          create_pr: true
-          pr_title: "🎨 Update from Glif workflow"
+          pr_title: "🌤️ Update weather data from Glif"
           pr_body: |
-            Automated update based on Glif workflow output.
+            Automated weather update for New York, NY via Glif workflow.
 
-            Glif run completed at: ${{ github.run_id }}
+            Glif workflow fetched current weather conditions and temperature.
+
+            Run ID: ${{ github.run_id }}

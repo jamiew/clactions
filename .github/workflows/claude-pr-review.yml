@@ -25,7 +25,7 @@ jobs:
       - name: Claude Code Review
         uses: anthropics/claude-code-action@v1
         with:
-          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
           github_token: ${{ secrets.GITHUB_TOKEN }}
           prompt: |
             Review this pull request carefully:
@@ -42,5 +42,4 @@ jobs:
 
             If the PR looks good and passes all checks, approve it.
             If there are issues, request changes with clear feedback.
-          create_pr: false
           comment_on_pr: true
