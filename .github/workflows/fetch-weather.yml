@@ -1,0 +1,59 @@
+name: Fetch Weather
+
+on:
+  schedule:
+    - cron: '*/15 * * * *'  # Every 15 minutes
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  fetch-weather:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Fetch weather data
+        id: weather
+        run: |
+          # Use wttr.in API - no key needed, returns JSON
+          RESPONSE=$(curl -s 'https://wttr.in/New_York,NY?format=j1')
+
+          echo "$RESPONSE" > weather_raw.json
+
+          # Extract key data
+          TEMP_F=$(echo "$RESPONSE" | jq -r '.current_condition[0].temp_F')
+          CONDITION=$(echo "$RESPONSE" | jq -r '.current_condition[0].weatherDesc[0].value')
+          HUMIDITY=$(echo "$RESPONSE" | jq -r '.current_condition[0].humidity')
+          FEELS_LIKE=$(echo "$RESPONSE" | jq -r '.current_condition[0].FeelsLikeF')
+
+          # Create clean weather.json
+          cat > weather.json << EOF
+          {
+            "location": "New York, NY",
+            "temperature": $TEMP_F,
+            "temperature_unit": "F",
+            "feels_like": $FEELS_LIKE,
+            "condition": "$CONDITION",
+            "humidity": $HUMIDITY,
+            "last_updated": "$(date -u +"%Y-%m-%dT%H:%M:%SZ")",
+            "source": "wttr.in"
+          }
+          EOF
+
+          cat weather.json
+
+      - name: Commit weather data
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add weather.json weather_raw.json
+
+          if git diff --staged --quiet; then
+            echo "No weather changes"
+          else
+            git commit -m "Update weather data for New York, NY"
+            git push
+          fi

@@ -1,0 +1,106 @@
+name: Adaptive Theme
+
+on:
+  schedule:
+    - cron: '0 * * * *'  # Every hour
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update-theme:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Get current time and calculate theme
+        id: theme
+        run: |
+          # Get NY time (EST/EDT)
+          HOUR=$(TZ=America/New_York date +%H)
+          MONTH=$(date +%m)
+          DAY_OF_YEAR=$(date +%j)
+
+          echo "hour=$HOUR" >> $GITHUB_OUTPUT
+          echo "month=$MONTH" >> $GITHUB_OUTPUT
+          echo "day_of_year=$DAY_OF_YEAR" >> $GITHUB_OUTPUT
+
+          # Read weather if it exists
+          if [ -f weather.json ]; then
+            TEMP=$(jq -r '.temperature // "unknown"' weather.json)
+            CONDITION=$(jq -r '.condition // "unknown"' weather.json)
+            echo "temperature=$TEMP" >> $GITHUB_OUTPUT
+            echo "condition=$CONDITION" >> $GITHUB_OUTPUT
+          else
+            echo "temperature=unknown" >> $GITHUB_OUTPUT
+            echo "condition=unknown" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Claude generates adaptive theme
+        uses: anthropics/claude-code-action@v1
+        with:
+          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          prompt: |
+            Generate an adaptive CSS theme for the site based on current conditions:
+
+            **Time & Location:**
+            - Hour (NY time): ${{ steps.theme.outputs.hour }} (0-23)
+            - Month: ${{ steps.theme.outputs.month }}
+            - Day of year: ${{ steps.theme.outputs.day_of_year }}
+
+            **Weather (if available):**
+            - Temperature: ${{ steps.theme.outputs.temperature }}
+            - Condition: ${{ steps.theme.outputs.condition }}
+
+            **Your Task:**
+
+            Create/update `theme.css` with an adaptive theme that reflects:
+
+            1. **Time of Day** (based on hour):
+               - Early morning (5-8): Soft, warm colors, gentle gradients
+               - Morning/day (9-16): Bright, energetic, high contrast
+               - Evening (17-20): Warm sunset tones, golden hour vibes
+               - Night (21-4): Deep blues/purples, subdued, easier on eyes
+
+            2. **Season** (based on month/day):
+               - Winter: Cool tones, blues, silvers
+               - Spring: Pastels, fresh greens, light
+               - Summer: Vibrant, warm, saturated
+               - Fall: Oranges, browns, warm earth tones
+
+            3. **Weather** (if available):
+               - Rainy: Darker, moody blues/grays
+               - Sunny: Bright, warm yellows/oranges
+               - Cloudy: Neutral, soft grays
+               - Snow: Bright whites, cool blues
+               - Hot (>80°F): Warm reds/oranges
+               - Cold (<40°F): Cool blues/teals
+
+            **Design Guidelines:**
+            - Smooth color transitions
+            - Keep text readable (good contrast)
+            - Use CSS custom properties (variables)
+            - Include subtle gradients or patterns
+            - Make it beautiful and cohesive
+            - Include metadata comment at top with current conditions
+
+            **Example structure:**
+            ```css
+            /* Generated: [timestamp]
+             * Hour: [hour], Season: [season], Weather: [weather]
+             */
+            :root {
+              --bg-primary: ...;
+              --bg-secondary: ...;
+              --text-primary: ...;
+              --accent: ...;
+              --shadow: ...;
+            }
+            ```
+
+            Be creative! Make it reflect the vibe of the moment.
+
+            Commit directly to main with message: "Update theme for hour ${{ steps.theme.outputs.hour }}"
