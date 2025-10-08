@@ -96,9 +96,8 @@ It's **autonomous infrastructure** that gets better over time.
 
 - `data.json` - Central data store (NY Times, Glif content)
 - `.github/workflows/` - All automation
-- `scripts/` - Debugging tools
-- `.claude/commands/fix-workflows.json` - TUI command
-- `.claude/handlers/fix-workflows.sh` - Repair handler
+- `scripts/` - Debugging and repair tools
+- `.claude/commands/fix-workflows.md` - TUI command definition
 - `.claude/subagents/workflow-repair.md` - Repair strategy
 
 ## Glif Integration

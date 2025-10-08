@@ -1,135 +1,75 @@
 #!/bin/bash
-# Claude Workflow Doctor - Interactive workflow debugging with Claude
+# Interactive workflow debugging
 
 set -e
 
-echo "🩺 Claude Workflow Doctor"
+echo "🩺 Workflow Doctor"
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 echo ""
 
-# Check if gh is installed
-if ! command -v gh &> /dev/null; then
-    echo "❌ Error: GitHub CLI (gh) is not installed"
-    echo "Install from: https://cli.github.com/"
-    exit 1
-fi
-
-# Check if logged in
-if ! gh auth status &> /dev/null; then
-    echo "❌ Error: Not logged into GitHub CLI"
-    echo "Run: gh auth login"
-    exit 1
-fi
-
 # Get failed runs
-echo "🔍 Checking for failed workflow runs..."
 FAILED_RUNS=$(gh run list --limit 10 --json conclusion,databaseId,name,displayTitle \
   --jq '[.[] | select(.conclusion == "failure")]')
 
 FAILED_COUNT=$(echo "$FAILED_RUNS" | jq 'length')
 
 if [ "$FAILED_COUNT" -eq 0 ]; then
-    echo "✅ No failed runs found! All workflows are healthy."
+    echo "✅ No failed runs. All workflows healthy!"
     exit 0
 fi
 
-echo "Found $FAILED_COUNT failed run(s)"
-echo ""
+echo "Found $FAILED_COUNT failed run(s):"
 echo "$FAILED_RUNS" | jq -r '.[] | "  [\(.databaseId)] \(.name) - \(.displayTitle)"'
 echo ""
 
-# Get most recent failed run
-LATEST_FAILED=$(echo "$FAILED_RUNS" | jq -r '.[0].databaseId')
+# Get latest failure
+LATEST_ID=$(echo "$FAILED_RUNS" | jq -r '.[0].databaseId')
 LATEST_NAME=$(echo "$FAILED_RUNS" | jq -r '.[0].name')
 
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-echo "🔴 Analyzing most recent failure: $LATEST_NAME"
-echo "Run ID: $LATEST_FAILED"
+echo "🔴 Latest Failure: $LATEST_NAME (ID: $LATEST_ID)"
 echo ""
 
 # Get logs
-mkdir -p /tmp/claude-workflow-doctor
-LOG_FILE="/tmp/claude-workflow-doctor/run-${LATEST_FAILED}.log"
-DETAILS_FILE="/tmp/claude-workflow-doctor/run-${LATEST_FAILED}-details.txt"
+LOG_FILE="/tmp/workflow-${LATEST_ID}.log"
+gh run view "$LATEST_ID" > "$LOG_FILE" 2>&1 || true
+gh run view "$LATEST_ID" --log-failed >> "$LOG_FILE" 2>&1 || true
 
-gh run view "$LATEST_FAILED" > "$DETAILS_FILE"
-gh run view "$LATEST_FAILED" --log-failed > "$LOG_FILE" 2>&1 || true
-
-echo "📋 Failure Details:"
-cat "$DETAILS_FILE"
-echo ""
-echo "📜 Failure Logs (last 50 lines):"
-tail -50 "$LOG_FILE"
+# Check for common issues
+echo "🔍 Checking for common issues..."
 echo ""
 
-# Check if Claude CLI is available
-if command -v claude &> /dev/null; then
-    echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-    echo "🤖 Invoking Claude to analyze failure..."
+if grep -q "Pages.*not.*enabled\|Not Found" "$LOG_FILE" 2>/dev/null; then
+    echo "❌ GitHub Pages not enabled"
+    echo "   Fix: Settings → Pages → Source: GitHub Actions"
     echo ""
-
-    claude << EOF
-Analyze this GitHub Actions workflow failure and suggest fixes:
-
-Workflow: $LATEST_NAME
-Run ID: $LATEST_FAILED
-
-Details:
-$(cat "$DETAILS_FILE")
-
-Failed logs:
-$(tail -100 "$LOG_FILE")
-
-Please:
-1. Identify the root cause
-2. Suggest specific fixes
-3. Provide commands to implement the fix if applicable
-4. Note if manual configuration is needed (like enabling GitHub Pages or adding secrets)
-EOF
-else
-    echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-    echo "💡 Suggested Actions:"
-    echo ""
-
-    # Check for common errors
-    if grep -q "Pages.*not.*enabled" "$LOG_FILE"; then
-        echo "❌ GitHub Pages not enabled"
-        echo "   Fix: Go to Settings → Pages → Source: GitHub Actions"
-        echo ""
-    fi
-
-    if grep -q "secret.*not.*found" "$LOG_FILE" 2>/dev/null || grep -q "ANTHROPIC_API_KEY" "$LOG_FILE" 2>/dev/null; then
-        echo "❌ Missing API secrets"
-        echo "   Fix: Add secrets in Settings → Secrets → Actions"
-        echo "   Required: ANTHROPIC_API_KEY"
-        echo ""
-    fi
-
-    if grep -q "permission denied\|403" "$LOG_FILE" 2>/dev/null; then
-        echo "❌ Permission issues"
-        echo "   Fix: Settings → Actions → Workflow permissions → Enable 'Read and write'"
-        echo ""
-    fi
-
-    if grep -q "data.json.*not found\|ENOENT.*data.json" "$LOG_FILE" 2>/dev/null; then
-        echo "❌ Missing data.json file"
-        echo "   Fix: Create data.json with initial content"
-        echo ""
-    fi
-
-    echo "📁 Full logs saved to:"
-    echo "   Details: $DETAILS_FILE"
-    echo "   Logs: $LOG_FILE"
-    echo ""
-    echo "🔗 View online: https://github.com/$(gh repo view --json nameWithOwner -q .nameWithOwner)/actions/runs/$LATEST_FAILED"
 fi
 
-echo ""
+if grep -q "ANTHROPIC_API_KEY" "$LOG_FILE" 2>/dev/null; then
+    echo "❌ Missing ANTHROPIC_API_KEY secret"
+    echo "   Fix: Settings → Secrets → Actions → Add ANTHROPIC_API_KEY"
+    echo ""
+fi
+
+if grep -q "permission\|403\|Forbidden" "$LOG_FILE" 2>/dev/null; then
+    echo "❌ Permission denied"
+    echo "   Fix: Settings → Actions → Workflow permissions → Read/write"
+    echo ""
+fi
+
+if grep -q "data\.json.*not found\|ENOENT.*data" "$LOG_FILE" 2>/dev/null; then
+    echo "❌ data.json missing"
+    echo "   Fix: Create with {\"message\": \"Initial data\"}"
+    echo ""
+fi
+
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 echo ""
-echo "🛠️  Next Steps:"
+echo "📋 Full logs saved to: $LOG_FILE"
+echo "🔗 View online: https://github.com/$(gh repo view --json nameWithOwner -q .nameWithOwner)/actions/runs/$LATEST_ID"
 echo ""
-echo "1. Fix the issue manually based on suggestions above"
-echo "2. Or run: gh workflow run claude-fix-workflows.yml -f run_id=$LATEST_FAILED"
-echo "3. Or re-run the failed workflow: gh run rerun $LATEST_FAILED"
+echo "🛠️  Next Steps:"
+echo "  1. Fix manually based on suggestions above"
+echo "  2. Or: gh workflow run self-repair.yml -f run_id=$LATEST_ID"
+echo "  3. Or: /fix-workflows $LATEST_ID"
 echo ""

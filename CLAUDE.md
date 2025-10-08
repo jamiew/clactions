@@ -73,9 +73,8 @@ External (NYT, Glif) → Claude → data.json → deploy → site
 
 - `data.json` - Data store (headlines, Glif content)
 - `.github/workflows/` - All workflows
-- `scripts/` - Debug tools
-- `.claude/commands/` - TUI commands
-- `.claude/handlers/` - Command handlers
+- `scripts/` - Debug and repair tools
+- `.claude/commands/` - Custom slash commands (Markdown)
 - `.claude/subagents/` - Subagent docs
 
 ## Self-Repair System
@@ -83,7 +82,7 @@ External (NYT, Glif) → Claude → data.json → deploy → site
 When workflows fail:
 
 1. `self-repair.yml` auto-triggers
-2. Handler gathers logs (`.claude/handlers/fix-workflows.sh`)
+2. Handler gathers logs (`scripts/fix-workflows-handler.sh`)
 3. Claude analyzes root cause
 4. Implements fix (commit or PR)
 5. Done
