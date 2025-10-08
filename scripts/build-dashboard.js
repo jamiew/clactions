@@ -248,6 +248,40 @@ const workflows = fs.existsSync('workflow_runs.json')
   ? JSON.parse(fs.readFileSync('workflow_runs.json', 'utf-8'))
   : [];
 
+// Simple markdown-to-HTML converter
+function markdownToHtml(markdown) {
+  let html = markdown;
+
+  // Remove YAML front matter
+  html = html.replace(/^---\n[\s\S]*?\n---\n/, '');
+
+  // Headers
+  html = html.replace(/^### (.*$)/gim, '<h3>$1</h3>');
+  html = html.replace(/^## (.*$)/gim, '<h2>$1</h2>');
+  html = html.replace(/^# (.*$)/gim, '<h1>$1</h1>');
+
+  // Bold
+  html = html.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+
+  // Italic
+  html = html.replace(/\*(.*?)\*/g, '<em>$1</em>');
+
+  // Links
+  html = html.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank">$1</a>');
+
+  // Paragraphs (split by double newlines)
+  html = html.split('\n\n').map(para => {
+    para = para.trim();
+    if (!para) return '';
+    if (para.startsWith('<h') || para.startsWith('<ul') || para.startsWith('<ol')) {
+      return para;
+    }
+    return `<p>${para.replace(/\n/g, ' ')}</p>`;
+  }).join('\n');
+
+  return html;
+}
+
 // Read blog posts
 const blogPosts = [];
 if (fs.existsSync('blog')) {
@@ -257,9 +291,11 @@ if (fs.existsSync('blog')) {
       const content = fs.readFileSync(`blog/${file}`, 'utf-8');
       const lines = content.split('\n');
 
-      // Extract title from front matter or first heading
+      // Extract metadata from front matter
       let title = file.replace('.md', '').replace(/-/g, ' ');
       let date = '';
+      let summary = '';
+      let tags = [];
 
       // Try to parse YAML front matter
       if (lines[0] === '---') {
@@ -270,6 +306,13 @@ if (fs.existsSync('blog')) {
           }
           if (lines[i].startsWith('date:')) {
             date = lines[i].replace('date:', '').trim();
+          }
+          if (lines[i].startsWith('summary:')) {
+            summary = lines[i].replace('summary:', '').trim().replace(/['"]/g, '');
+          }
+          if (lines[i].startsWith('tags:')) {
+            const tagStr = lines[i].replace('tags:', '').trim();
+            tags = tagStr.match(/\[([^\]]+)\]/)?.[1]?.split(',').map(t => t.trim().replace(/['"]/g, '')) || [];
           }
         }
       }
@@ -283,7 +326,10 @@ if (fs.existsSync('blog')) {
       blogPosts.push({
         file,
         title,
-        date: date || new Date(fs.statSync(`blog/${file}`).mtime).toISOString().split('T')[0]
+        date: date || new Date(fs.statSync(`blog/${file}`).mtime).toISOString().split('T')[0],
+        summary,
+        tags,
+        content: content
       });
     } catch (e) {
       console.error(`Error reading blog post ${file}:`, e.message);
@@ -292,6 +338,182 @@ if (fs.existsSync('blog')) {
 
   // Sort by date descending
   blogPosts.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+  // Generate individual blog post HTML pages
+  blogPosts.forEach(post => {
+    const htmlContent = markdownToHtml(post.content);
+    const slug = post.file.replace('.md', '');
+
+    const blogHtml = `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>${post.title} - Claude Blog</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      line-height: 1.7;
+      color: #1a1a1a;
+      background: #ffffff;
+      padding: 2rem 1rem;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .back-link {
+      display: inline-block;
+      margin-bottom: 2rem;
+      color: #007aff;
+      text-decoration: none;
+      font-size: 0.9rem;
+    }
+
+    .back-link:hover {
+      text-decoration: underline;
+    }
+
+    article header {
+      margin-bottom: 3rem;
+      padding-bottom: 2rem;
+      border-bottom: 2px solid #007aff;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      line-height: 1.2;
+    }
+
+    .meta {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+      color: #6e6e73;
+      font-size: 0.9rem;
+      margin-bottom: 1rem;
+    }
+
+    .tags {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .tag {
+      background: #f5f5f7;
+      padding: 0.25rem 0.75rem;
+      border-radius: 12px;
+      font-size: 0.85rem;
+      color: #007aff;
+    }
+
+    .summary {
+      font-size: 1.1rem;
+      color: #6e6e73;
+      font-style: italic;
+      margin-top: 1rem;
+    }
+
+    article h2 {
+      font-size: 1.8rem;
+      margin-top: 2.5rem;
+      margin-bottom: 1rem;
+      font-weight: 600;
+    }
+
+    article h3 {
+      font-size: 1.4rem;
+      margin-top: 2rem;
+      margin-bottom: 0.75rem;
+      font-weight: 600;
+    }
+
+    article p {
+      margin-bottom: 1.25rem;
+      font-size: 1.05rem;
+    }
+
+    article a {
+      color: #007aff;
+      text-decoration: none;
+    }
+
+    article a:hover {
+      text-decoration: underline;
+    }
+
+    article strong {
+      font-weight: 600;
+      color: #007aff;
+    }
+
+    footer {
+      margin-top: 4rem;
+      padding-top: 2rem;
+      border-top: 1px solid #e5e5e7;
+      text-align: center;
+      color: #6e6e73;
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 768px) {
+      body {
+        padding: 1rem;
+      }
+
+      h1 {
+        font-size: 2rem;
+      }
+
+      article h2 {
+        font-size: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <a href="/" class="back-link">← Back to dashboard</a>
+
+    <article>
+      <header>
+        <h1>${post.title}</h1>
+        <div class="meta">
+          <span>📅 ${post.date}</span>
+          <span>🤖 Written by Claude</span>
+        </div>
+        ${post.tags.length > 0 ? `
+        <div class="tags">
+          ${post.tags.map(tag => `<span class="tag">#${tag}</span>`).join('')}
+        </div>
+        ` : ''}
+        ${post.summary ? `<p class="summary">${post.summary}</p>` : ''}
+      </header>
+
+      ${htmlContent}
+    </article>
+
+    <footer>
+      <p>Automatically generated by Claude via GitHub Actions</p>
+      <p><a href="https://github.com/jamiew/claude-gha-demo">View source on GitHub</a></p>
+    </footer>
+  </div>
+</body>
+</html>`;
+
+    fs.writeFileSync(`dist/blog-${slug}.html`, blogHtml);
+  });
 }
 
 // Build weather card
@@ -376,7 +598,7 @@ const glifWorkflowsCard = `
   <div class="card">
     <h2>
       <span class="card-icon">🎨</span>
-      <a href="https://github.com/jamiew/claude-gha-demo/blob/main/.github/workflows/fetch-glif.yml" target="_blank" class="card-title-link">Glif Workflows</a>
+      <a href="https://github.com/jamiew/claude-gha-demo/blob/main/.github/workflows/fetch-glif.yml" target="_blank" class="card-title-link">Top Glif Workflows</a>
     </h2>
     <ul class="data-list">
       ${glifWorkflowsHtml}
@@ -406,7 +628,7 @@ const glifAgentsCard = `
   <div class="card">
     <h2>
       <span class="card-icon">🤖</span>
-      <a href="https://glif.app/bots" target="_blank" class="card-title-link">Glif Agents</a>
+      <a href="https://glif.app/bots" target="_blank" class="card-title-link">Top Glif Agents</a>
     </h2>
     <ul class="data-list">
       ${glifAgentsHtml}
@@ -445,14 +667,16 @@ const statusCard = `
 
 // Build blog posts card
 const blogPostsHtml = blogPosts.length > 0
-  ? blogPosts.slice(0, 5).map(post => `
+  ? blogPosts.slice(0, 5).map(post => {
+      const slug = post.file.replace('.md', '');
+      return `
       <li class="data-item">
-        <a href="https://github.com/jamiew/claude-gha-demo/blob/main/blog/${post.file}" target="_blank" class="headline-link">
+        <a href="/blog-${slug}.html" class="headline-link">
           <span class="data-label">${post.title}</span>
           <span class="data-value" style="font-size:0.85rem;opacity:0.6;display:block;margin-top:2px;">${post.date}</span>
         </a>
-      </li>
-    `).join('')
+      </li>`;
+    }).join('')
   : '<li class="data-item"><span class="data-value">No blog posts yet</span></li>';
 
 const blogCard = `
