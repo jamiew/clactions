@@ -1,0 +1,65 @@
+name: Rhizome Community
+
+on:
+  schedule:
+    - cron: '0 */6 * * *'  # Every 6 hours
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  id-token: write
+  pull-requests: write
+
+jobs:
+  claude-fetch-rhizome:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Claude fetches Rhizome Community listings
+        uses: anthropics/claude-code-action@v1
+        with:
+          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          claude_args: |
+            --allowedTools "Bash(curl:*),Bash(git:*),Bash(python3:*),Read,Write,Edit,WebFetch"
+          prompt: |
+            Fetch community listings from Rhizome.org: https://rhizome.org/community/
+
+            Tasks:
+            1. Scrape the Rhizome Community page to extract current listings
+            2. Parse the page to extract listing items with:
+               - Title
+               - Description (if available)
+               - Link/URL
+               - Type/category (if available)
+               - Date/timestamp (if available)
+            3. Create/update data/rhizome.json with this structure:
+               {
+                 "community_listings": [
+                   {
+                     "title": "Listing title",
+                     "description": "Brief description",
+                     "url": "https://rhizome.org/...",
+                     "type": "category/type",
+                     "date": "ISO timestamp or date string"
+                   },
+                   ...
+                 ],
+                 "last_updated": "ISO timestamp"
+               }
+            4. Commit and push the changes directly to main branch
+               IMPORTANT: Use this safe sequence to prevent push conflicts:
+               - `git add data/rhizome.json`
+               - `git commit -m "Update Rhizome community listings - <current-date>"`
+               - `git fetch origin`
+               - `git rebase origin/main`
+               - `git push origin HEAD:main`
+
+            Important:
+            - Make sure data/ directory exists (create if needed)
+            - Use WebFetch or curl to get the page content
+            - Parse the HTML carefully to extract meaningful listing data
+            - Handle cases where some fields might be missing
+            - Limit to ~10-15 most recent/relevant listings
