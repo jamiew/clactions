@@ -1,0 +1,10 @@
+{
+  "location": "New York, NY",
+  "temperature": 70,
+  "temperature_unit": "F",
+  "feels_like": 70,
+  "condition": "Overcast",
+  "humidity": 84,
+  "last_updated": "2025-10-08T12:49:27Z",
+  "source": "wttr.in"
+}
