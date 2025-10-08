@@ -70,8 +70,8 @@ Analyze this failure and fix it:
 - API rate limits
 EOF
 
-# Output paths for workflow to use
-echo "REPAIR_CONTEXT_FILE=$ANALYSIS_DIR/repair-context.md"
-echo "ANALYSIS_DIR=$ANALYSIS_DIR"
-echo "RUN_ID=$RUN_ID"
-echo "WORKFLOW_NAME=$WORKFLOW_NAME"
+# Output paths for workflow to use (quoted for safe sourcing)
+echo "REPAIR_CONTEXT_FILE='$ANALYSIS_DIR/repair-context.md'"
+echo "ANALYSIS_DIR='$ANALYSIS_DIR'"
+echo "RUN_ID='$RUN_ID'"
+echo "WORKFLOW_NAME='$WORKFLOW_NAME'"
