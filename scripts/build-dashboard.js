@@ -2,6 +2,9 @@
 
 const fs = require('fs');
 
+// Ensure dist directory exists before writing any files
+fs.mkdirSync('dist', { recursive: true });
+
 // Read files with fallbacks for missing files
 const nytimes = fs.existsSync('data/nytimes.json')
   ? JSON.parse(fs.readFileSync('data/nytimes.json', 'utf-8'))
@@ -1268,6 +1271,5 @@ ${workflowsHtml}
 </html>`;
 
 // Write to dist/index.html
-fs.mkdirSync('dist', { recursive: true });
 fs.writeFileSync('dist/index.html', html);
 console.log('Dashboard built!');
