@@ -1,65 +1,50 @@
-/* Generated: 2025-10-08T18:00:00Z
- * Hour: 18 (6 PM - Evening), Season: Fall (October, Day 281), Weather: Rain, 65°F
- * Theme: Rainy October Dusk - Amber streetlights through rain-streaked windows
+/* Generated: 2025-10-08T19:00:00Z
+ * Hour: 19 (Evening), Month: October, Day: 281
+ * Weather: Rain, 65°F
+ * Vibe: Rainy October evening - moody, reflective, urban glow
  */
 
 :root {
-  /* Primary Colors - Deepening evening with rain */
-  --bg-primary: linear-gradient(135deg, #1a1f2e 0%, #2b2438 50%, #1d1a28 100%);
-  --bg-secondary: #2f2745;
-  --bg-tertiary: #221c2e;
+  /* Core colors - rainy evening palette */
+  --bg-primary: linear-gradient(135deg, #1a1f2e 0%, #2d3548 100%);
+  --bg-secondary: rgba(45, 53, 72, 0.7);
+  --bg-card: rgba(58, 68, 92, 0.85);
+  --bg-glass: rgba(42, 50, 68, 0.6);
 
-  /* Text Colors - Warm readable tones for evening */
-  --text-primary: #f5e6d8;
-  --text-secondary: #d4c5b3;
-  --text-muted: #9a8a7a;
+  /* Text colors - high contrast for rain-dim conditions */
+  --text-primary: #e8edf5;
+  --text-secondary: #b8c5db;
+  --text-muted: #8494b0;
 
-  /* Accent Colors - Golden hour meets rainy blues */
-  --accent-primary: #e8a97c;
-  --accent-secondary: #d89458;
-  --accent-warm: #f4b87a;
+  /* Accent colors - warm city lights through rain */
+  --accent-primary: #ffa94d;
+  --accent-secondary: #ff8c42;
+  --accent-glow: #ffb366;
+  --accent-cool: #6c8fc9;
 
-  /* Seasonal Fall Tones */
-  --fall-rust: #b5704d;
-  --fall-amber: #d4a574;
-  --fall-crimson: #a84832;
+  /* Autumn/October touches */
+  --autumn-orange: #d4835c;
+  --autumn-rust: #a85e3a;
+  --rain-blue: #4a5f7f;
+  --rain-gray: #5b6b85;
 
-  /* Weather-specific - Evening rain atmosphere */
-  --rain-blue: #4f6b8a;
-  --rain-slate: #5d6d7e;
-  --wet-pavement: #1c1825;
-  --rain-glow: rgba(79, 107, 138, 0.3);
-
-  /* UI Elements - Evening shadows and glows */
-  --shadow-soft: rgba(0, 0, 0, 0.5);
-  --shadow-medium: rgba(0, 0, 0, 0.7);
-  --shadow-deep: rgba(0, 0, 0, 0.85);
-
-  --glow-amber: rgba(232, 169, 124, 0.4);
-  --glow-streetlight: rgba(244, 184, 122, 0.35);
-  --glow-cool: rgba(79, 107, 138, 0.25);
-
-  /* Border and Lines */
-  --border-subtle: rgba(154, 138, 122, 0.2);
-  --border-medium: rgba(232, 169, 124, 0.3);
-  --border-accent: var(--accent-warm);
-
-  /* Interactive States */
-  --hover-overlay: rgba(232, 169, 124, 0.2);
-  --active-overlay: rgba(232, 169, 124, 0.3);
+  /* Effects */
+  --shadow-soft: 0 4px 20px rgba(0, 0, 0, 0.4);
+  --shadow-medium: 0 8px 32px rgba(0, 0, 0, 0.5);
+  --shadow-glow: 0 0 40px rgba(255, 169, 77, 0.15);
+  --border-subtle: rgba(255, 255, 255, 0.1);
+  --overlay-rain: rgba(26, 31, 46, 0.3);
 }
 
-/* Base Styles - Evening atmosphere */
+/* Base styles */
 body {
   background: var(--bg-primary);
-  background-attachment: fixed;
   color: var(--text-primary);
-  transition: background 0.8s ease, color 0.3s ease;
+  transition: all 0.5s ease;
   position: relative;
-  overflow-x: hidden;
 }
 
-/* Rain Streaks Effect */
+/* Rainy evening atmosphere overlay */
 body::before {
   content: '';
   position: fixed;
@@ -68,102 +53,39 @@ body::before {
   right: 0;
   bottom: 0;
   background:
-    repeating-linear-gradient(
-      180deg,
-      transparent 0px,
-      transparent 3px,
-      rgba(79, 107, 138, 0.12) 3px,
-      rgba(79, 107, 138, 0.12) 5px
-    ),
-    linear-gradient(180deg,
-      rgba(26, 31, 46, 0.2) 0%,
-      rgba(29, 26, 40, 0.4) 100%);
+    radial-gradient(circle at 30% 20%, rgba(255, 169, 77, 0.08) 0%, transparent 40%),
+    radial-gradient(circle at 70% 60%, rgba(108, 143, 201, 0.12) 0%, transparent 50%);
   pointer-events: none;
-  z-index: 0;
-  animation: rainfall 0.4s linear infinite;
+  z-index: -1;
 }
 
-@keyframes rainfall {
-  0% { transform: translateY(0); }
-  100% { transform: translateY(20px); }
-}
-
-/* Streetlight Glow Effect */
-body::after {
-  content: '';
-  position: fixed;
-  top: -50%;
-  left: -10%;
-  width: 40%;
-  height: 60%;
-  background: radial-gradient(
-    ellipse at center,
-    var(--glow-streetlight) 0%,
-    transparent 60%
-  );
-  pointer-events: none;
-  z-index: 0;
-  animation: streetlightFlicker 4s ease-in-out infinite;
-}
-
-@keyframes streetlightFlicker {
-  0%, 100% { opacity: 0.6; }
-  50% { opacity: 0.8; }
-}
-
-/* Card/Container Styles - Foggy glass effect */
-.card,
-.container,
-section {
-  background: linear-gradient(145deg,
-    rgba(47, 39, 69, 0.5) 0%,
-    rgba(34, 28, 46, 0.7) 100%);
-  border: 1px solid var(--border-subtle);
-  border-radius: 12px;
-  box-shadow:
-    0 8px 32px var(--shadow-medium),
-    0 0 20px var(--rain-glow),
-    inset 0 1px 0 rgba(245, 230, 216, 0.1);
+/* Card/Container styles */
+.card, .container, article {
+  background: var(--bg-card);
   backdrop-filter: blur(12px);
+  border: 1px solid var(--border-subtle);
+  border-radius: 16px;
+  box-shadow: var(--shadow-medium);
   transition: all 0.3s ease;
-  position: relative;
-  z-index: 1;
 }
 
-.card:hover,
-.container:hover {
-  border-color: var(--border-medium);
-  box-shadow:
-    0 12px 48px var(--shadow-medium),
-    0 0 32px var(--glow-amber),
-    inset 0 1px 0 rgba(245, 230, 216, 0.15);
+.card:hover, article:hover {
+  box-shadow: var(--shadow-glow), var(--shadow-medium);
+  border-color: rgba(255, 169, 77, 0.3);
   transform: translateY(-2px);
 }
 
-/* Typography - Warm evening tones */
-h1, h2, h3, h4, h5, h6 {
-  color: var(--text-primary);
-  text-shadow: 0 2px 12px var(--shadow-soft);
-  letter-spacing: -0.02em;
-}
-
-h1 {
-  background: linear-gradient(135deg,
-    var(--accent-warm) 0%,
-    var(--accent-primary) 50%,
-    var(--fall-amber) 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  filter: drop-shadow(0 0 16px var(--glow-amber));
-}
-
-/* Links - Amber glow */
+/* Links and interactive elements */
 a {
   color: var(--accent-primary);
   text-decoration: none;
   transition: all 0.2s ease;
   position: relative;
+}
+
+a:hover {
+  color: var(--accent-glow);
+  text-shadow: 0 0 20px rgba(255, 169, 77, 0.4);
 }
 
 a::after {
@@ -173,206 +95,104 @@ a::after {
   left: 0;
   width: 0;
   height: 2px;
-  background: linear-gradient(90deg,
-    var(--accent-secondary) 0%,
-    var(--accent-warm) 100%);
+  background: var(--accent-secondary);
   transition: width 0.3s ease;
-}
-
-a:hover {
-  color: var(--accent-warm);
-  text-shadow: 0 0 16px var(--glow-amber);
 }
 
 a:hover::after {
   width: 100%;
-  box-shadow: 0 0 8px var(--accent-warm);
 }
 
-/* Buttons - Warm streetlight effect */
-button,
-.button,
-input[type="submit"],
-input[type="button"] {
-  background: linear-gradient(135deg,
-    var(--accent-secondary) 0%,
-    var(--fall-crimson) 100%);
-  color: var(--text-primary);
+/* Buttons */
+button, .button {
+  background: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-secondary) 100%);
+  color: #1a1f2e;
   border: none;
   border-radius: 8px;
-  padding: 0.75rem 1.5rem;
+  padding: 12px 24px;
   font-weight: 600;
-  box-shadow:
-    0 4px 20px var(--shadow-soft),
-    0 0 24px var(--glow-amber);
-  transition: all 0.3s ease;
   cursor: pointer;
-  position: relative;
-  z-index: 1;
-}
-
-button:hover,
-.button:hover {
-  transform: translateY(-2px);
-  box-shadow:
-    0 6px 28px var(--shadow-medium),
-    0 0 36px var(--glow-streetlight);
-  filter: brightness(1.15);
-}
-
-button:active,
-.button:active {
-  transform: translateY(0);
-}
-
-/* Input Fields - Rain-slicked surfaces */
-input,
-textarea,
-select {
-  background: rgba(34, 28, 46, 0.7);
-  border: 1px solid var(--border-subtle);
-  border-radius: 8px;
-  color: var(--text-primary);
-  padding: 0.75rem 1rem;
+  box-shadow: var(--shadow-soft);
   transition: all 0.3s ease;
 }
 
-input:focus,
-textarea:focus,
-select:focus {
-  outline: none;
-  border-color: var(--accent-primary);
-  box-shadow:
-    0 0 0 3px var(--glow-amber),
-    0 0 16px var(--rain-glow);
-  background: rgba(34, 28, 46, 0.9);
+button:hover, .button:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-glow), var(--shadow-soft);
+  filter: brightness(1.1);
 }
 
-/* Code Blocks - Evening terminal */
-code,
-pre {
-  background: rgba(28, 24, 37, 0.8);
-  border: 1px solid rgba(181, 112, 77, 0.3);
-  border-radius: 6px;
-  color: var(--fall-amber);
-  font-family: 'Courier New', monospace;
-}
-
-/* Scrollbar - Wet pavement */
-::-webkit-scrollbar {
-  width: 12px;
-  height: 12px;
-}
-
-::-webkit-scrollbar-track {
-  background: var(--wet-pavement);
-}
-
-::-webkit-scrollbar-thumb {
-  background: linear-gradient(180deg,
-    var(--rain-slate) 0%,
-    var(--rain-blue) 100%);
-  border-radius: 6px;
-  border: 2px solid var(--wet-pavement);
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(180deg,
-    var(--accent-primary) 0%,
-    var(--accent-secondary) 100%);
-}
-
-/* Selection - Amber highlight */
-::selection {
-  background: var(--accent-secondary);
+/* Headers */
+h1, h2, h3 {
   color: var(--text-primary);
-  text-shadow: 0 0 8px var(--shadow-soft);
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
 }
 
-/* Utility Classes */
-.text-accent {
-  color: var(--accent-primary);
+h1 {
+  background: linear-gradient(135deg, var(--accent-glow) 0%, var(--autumn-orange) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
-.text-muted {
-  color: var(--text-muted);
-}
-
-.shadow-glow {
-  box-shadow: 0 0 32px var(--glow-amber);
-}
-
-.border-warm {
-  border-color: var(--accent-warm);
-}
-
-/* Rain Puddle Reflections */
-@keyframes puddleShimmer {
-  0%, 100% {
-    opacity: 0.2;
-    transform: scaleX(1);
-  }
-  50% {
-    opacity: 0.4;
-    transform: scaleX(1.05);
-  }
-}
-
-.puddle-reflect {
-  position: relative;
-}
-
-.puddle-reflect::after {
+/* Subtle rain effect pattern */
+.content::before {
   content: '';
   position: absolute;
-  bottom: -4px;
-  left: 10%;
-  right: 10%;
-  height: 2px;
-  background: linear-gradient(90deg,
-    transparent,
-    var(--accent-primary),
-    transparent);
-  opacity: 0.3;
-  animation: puddleShimmer 3s ease-in-out infinite;
-}
-
-/* Distant Thunder Effect */
-@keyframes distantFlash {
-  0%, 90%, 100% {
-    opacity: 0;
-  }
-  92%, 94% {
-    opacity: 0.15;
-  }
-}
-
-.weather-effect {
-  position: fixed;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background: radial-gradient(
-    ellipse at 80% 20%,
-    rgba(79, 107, 138, 0.3) 0%,
-    transparent 50%
-  );
+  background-image:
+    linear-gradient(transparent 50%, rgba(74, 95, 127, 0.03) 50%);
+  background-size: 100% 4px;
   pointer-events: none;
-  z-index: 0;
-  animation: distantFlash 8s ease-in-out infinite;
+  opacity: 0.5;
 }
 
-/* Warm Window Glow */
-@keyframes windowGlow {
-  0%, 100% {
-    box-shadow: 0 0 20px var(--glow-amber);
-  }
-  50% {
-    box-shadow: 0 0 32px var(--glow-streetlight);
+/* Autumn accent elements */
+.accent, .highlight {
+  color: var(--autumn-orange);
+  font-weight: 600;
+}
+
+/* Glass morphism elements */
+.glass {
+  background: var(--bg-glass);
+  backdrop-filter: blur(20px) saturate(150%);
+  border: 1px solid var(--border-subtle);
+  box-shadow: var(--shadow-soft);
+}
+
+/* Code blocks - warm glow */
+pre, code {
+  background: rgba(26, 31, 46, 0.6);
+  border: 1px solid var(--rain-gray);
+  border-radius: 8px;
+  color: var(--accent-glow);
+}
+
+/* Status indicators */
+.status-active {
+  color: var(--accent-primary);
+  text-shadow: 0 0 10px rgba(255, 169, 77, 0.5);
+}
+
+.status-info {
+  color: var(--accent-cool);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  :root {
+    --shadow-soft: 0 2px 10px rgba(0, 0, 0, 0.4);
+    --shadow-medium: 0 4px 16px rgba(0, 0, 0, 0.5);
   }
 }
 
-.glow-warm {
-  animation: windowGlow 4s ease-in-out infinite;
+/* Smooth transitions for theme changes */
+* {
+  transition-property: background-color, border-color, color, box-shadow;
+  transition-duration: 0.3s;
+  transition-timing-function: ease;
 }
