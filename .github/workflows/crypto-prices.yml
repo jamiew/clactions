@@ -11,8 +11,6 @@ permissions:
 jobs:
   fetch-crypto:
     runs-on: ubuntu-latest
-    env:
-      ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
 
     steps:
       - name: Checkout repository
@@ -21,7 +19,7 @@ jobs:
       - name: Run Claude Code with CoinGecko MCP
         uses: anthropics/claude-code-action@v1
         with:
-          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
           github_token: ${{ secrets.GITHUB_TOKEN }}
           prompt: |
             Fetch current cryptocurrency data for BTC, ETH, SOL, and HNT from the CoinGecko API.
