@@ -18,6 +18,8 @@ permissions:
   pull-requests: write
   actions: read
   checks: read
+  id-token: write
+  issues: write
 
 jobs:
   self-repair:
@@ -84,12 +86,13 @@ jobs:
 
       - name: Claude analyzes and repairs workflow
         if: steps.find_failure.outputs.has_failure == 'true'
+        id: claude_repair
         uses: anthropics/claude-code-action@v1
         with:
           claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
           github_token: ${{ secrets.GITHUB_TOKEN }}
           claude_args: |
-            --allowedTools "Read,Write,Edit,Bash(gh issue:*),Bash(gh pr:*),Bash(git:*),Bash(gh run:*)"
+            --allowedTools "Read,Write,Edit,Bash(gh:*),Bash(git:*)"
           prompt: |
             🔧 **WORKFLOW SELF-REPAIR MODE ACTIVATED**
 
@@ -120,10 +123,11 @@ jobs:
 
             **Important**:
             - If the issue requires manual setup (like enabling GitHub Pages or adding secrets),
-              create a GitHub Issue with clear setup instructions instead
+              create a GitHub Issue with clear setup instructions using `gh issue create`
             - Check if data.json exists - create it with initial content if missing
             - Consider if the workflow needs better error handling
             - Think about whether the schedule is too aggressive (rate limits?)
+            - You can use `gh` commands for all GitHub operations (issues, PRs, runs, etc.)
 
             **After Fixing**:
             Provide a clear summary of:
@@ -133,6 +137,19 @@ jobs:
             - Any follow-up actions needed
 
             Let's fix this workflow! 🛠️
+
+      - name: Check for Claude errors
+        if: steps.find_failure.outputs.has_failure == 'true'
+        run: |
+          # Check if Claude reported any errors in its output
+          if gh run view ${{ github.run_id }} --log | grep -i "error\|failed\|failure" | grep -v "failed workflow" | grep -v "Fix failed"; then
+            echo "⚠️ Claude Code encountered errors during repair"
+            echo "Check the Claude Code Action output above for details"
+            exit 1
+          fi
+        env:
+          GH_TOKEN: ${{ github.token }}
+        continue-on-error: false
 
       - name: Notify success
         if: steps.find_failure.outputs.has_failure == 'true'
