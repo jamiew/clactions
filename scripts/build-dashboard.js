@@ -24,6 +24,10 @@ const crypto = fs.existsSync('data/crypto-prices.json')
   ? JSON.parse(fs.readFileSync('data/crypto-prices.json', 'utf-8'))
   : { coins: {}, last_updated: 'Never' };
 
+const rhizome = fs.existsSync('data/rhizome.json')
+  ? JSON.parse(fs.readFileSync('data/rhizome.json', 'utf-8'))
+  : { community_listings: [], last_updated: 'Never' };
+
 // Legacy data.json support (will be removed later)
 const legacyData = fs.existsSync('data.json')
   ? JSON.parse(fs.readFileSync('data.json', 'utf-8'))
@@ -501,12 +505,43 @@ const statusCard = `
 
 // Blog card removed per user request
 
+// Build Rhizome Community card
+const rhizomeListings = rhizome.community_listings || [];
+const rhizomeHtml = rhizomeListings.length > 0
+  ? rhizomeListings.slice(0, 8).map(listing => `
+      <li class="data-item">
+        <a href="${listing.url}" target="_blank" class="headline-link">
+          <span class="data-label">${listing.title}</span>
+          ${listing.description ? `<span class="data-value" style="font-size:0.85rem;opacity:0.7;display:block;margin-top:2px;">${listing.description.substring(0, 100)}${listing.description.length > 100 ? '...' : ''}</span>` : ''}
+          ${listing.type || listing.date ? `<span class="data-meta" style="font-size:0.75rem;opacity:0.5;display:block;margin-top:2px;">${[listing.type, listing.date].filter(x => x).join(' · ')}</span>` : ''}
+        </a>
+      </li>
+    `).join('')
+  : '<li class="data-item"><span class="data-value">No Rhizome listings yet</span></li>';
+
+const rhizomeCard = `
+  <div class="card">
+    <h2>
+      <span class="card-icon">🌱</span>
+      <a href="https://github.com/jamiew/clactions/blob/main/.github/workflows/rhizome-community.yml" target="_blank" class="card-title-link">Rhizome Community</a>
+    </h2>
+    <ul class="data-list">
+      ${rhizomeHtml}
+    </ul>
+    <div class="timestamp">
+      Updated: ${rhizome.last_updated || 'Never'} ·
+      <a href="https://github.com/jamiew/clactions/actions/workflows/rhizome-community.yml" target="_blank" class="workflow-link">View runs →</a>
+    </div>
+  </div>
+`;
+
 // Build debug card - pretty print all data
 const allData = {
   nytimes: nytimes.headlines?.length > 0 ? { headlines: nytimes.headlines.length + ' headlines', last_updated: nytimes.last_updated } : nytimes,
   glif: { workflows: glif.featured_workflows?.length || 0, agents: glif.featured_agents?.length || 0, last_updated: glif.last_updated },
   weather: weather,
-  crypto: { coins: Object.keys(crypto.coins || {}).length, last_updated: crypto.last_updated }
+  crypto: { coins: Object.keys(crypto.coins || {}).length, last_updated: crypto.last_updated },
+  rhizome: { listings: rhizome.community_listings?.length || 0, last_updated: rhizome.last_updated }
 };
 const debugCard = `
   <div class="card">
@@ -523,11 +558,16 @@ const cryptoHtml = cryptoCoins.length > 0
       const priceChange = coin.change_24h || 0;
       const changeColor = priceChange >= 0 ? '#34c759' : '#ff3b30';
       const changeSign = priceChange >= 0 ? '+' : '';
+      const price = parseFloat(coin.price);
+      // Format price: no decimals for > $1000, 2 decimals otherwise
+      const formattedPrice = price >= 1000
+        ? price.toLocaleString('en-US', {minimumFractionDigits: 0, maximumFractionDigits: 0})
+        : price.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
       return `
       <li class="data-item">
         <span class="data-label">${coin.name} (${coin.symbol})</span>
         <span class="data-value" style="display:flex;justify-content:space-between;align-items:center;">
-          <span>$${parseFloat(coin.price).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}</span>
+          <span>$${formattedPrice}</span>
           <span style="color:${changeColor};font-size:0.9rem;font-weight:600;">${changeSign}${priceChange.toFixed(2)}%</span>
         </span>
       </li>`;
@@ -550,7 +590,7 @@ const cryptoCard = `
   </div>
 `;
 
-const contentHtml = weatherCard + nytCard + glifWorkflowsCard + glifAgentsCard + cryptoCard + debugCard + statusCard;
+const contentHtml = weatherCard + nytCard + rhizomeCard + glifWorkflowsCard + glifAgentsCard + cryptoCard + debugCard + statusCard;
 
 // Build workflows section
 const workflowsHtml = workflows.slice(0, 10).map(w => {
