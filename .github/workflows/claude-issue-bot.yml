@@ -85,16 +85,20 @@ jobs:
 
             2. **Implement it** - Actually write the code, fix the bug, add the feature, etc.
 
-            3. **Create a PR** - Make your changes and create a pull request
-               - Reference the issue in PR body: "Fixes #${{ github.event.issue.number }}"
+            3. **Create a PR** - Make your changes and create a pull request using `gh pr create`
+               - Reference the issue in PR body: "Fixes #${{ github.event_name == 'workflow_dispatch' && steps.get_issue.outputs.issue_number || github.event.issue.number }}"
                - Include clear description of what you did
                - Make sure code works and follows existing patterns
+               - Use: `gh pr create --title "Title" --body "Fixes #123\n\nDescription..." --base main`
 
-            4. **Comment on issue** - Let them know you've created a PR
+            4. **Close the issue** - After creating the PR, close the issue with a comment
+               - Use: `gh issue close <issue-number> --comment "Implemented in PR #<pr-number>"`
+               - This marks the issue as complete and links to the PR
 
             **Important:**
             - Actually implement the solution, don't just plan it
             - Create a real PR with working code
+            - Use gh CLI to create PRs and close issues
             - Be autonomous - don't ask for clarification unless truly necessary
             - If the request is unclear or impossible, comment on the issue explaining why
 

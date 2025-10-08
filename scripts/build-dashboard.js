@@ -233,6 +233,52 @@ const workflows = fs.existsSync('workflow_runs.json')
   ? JSON.parse(fs.readFileSync('workflow_runs.json', 'utf-8'))
   : [];
 
+// Read blog posts
+const blogPosts = [];
+if (fs.existsSync('blog')) {
+  const blogFiles = fs.readdirSync('blog').filter(f => f.endsWith('.md'));
+  blogFiles.forEach(file => {
+    try {
+      const content = fs.readFileSync(`blog/${file}`, 'utf-8');
+      const lines = content.split('\n');
+
+      // Extract title from front matter or first heading
+      let title = file.replace('.md', '').replace(/-/g, ' ');
+      let date = '';
+
+      // Try to parse YAML front matter
+      if (lines[0] === '---') {
+        for (let i = 1; i < lines.length; i++) {
+          if (lines[i] === '---') break;
+          if (lines[i].startsWith('title:')) {
+            title = lines[i].replace('title:', '').trim().replace(/['"]/g, '');
+          }
+          if (lines[i].startsWith('date:')) {
+            date = lines[i].replace('date:', '').trim();
+          }
+        }
+      }
+
+      // Fallback: get first heading
+      if (!date || title === file.replace('.md', '').replace(/-/g, ' ')) {
+        const heading = lines.find(l => l.startsWith('# '));
+        if (heading) title = heading.replace('# ', '').trim();
+      }
+
+      blogPosts.push({
+        file,
+        title,
+        date: date || new Date(fs.statSync(`blog/${file}`).mtime).toISOString().split('T')[0]
+      });
+    } catch (e) {
+      console.error(`Error reading blog post ${file}:`, e.message);
+    }
+  });
+
+  // Sort by date descending
+  blogPosts.sort((a, b) => new Date(b.date) - new Date(a.date));
+}
+
 // Build weather card
 const weatherCard = `
   <div class="card">
@@ -322,7 +368,27 @@ const statusCard = `
   </div>
 `;
 
-const contentHtml = weatherCard + nytCard + glifCard + statusCard;
+// Build blog posts card
+const blogPostsHtml = blogPosts.length > 0
+  ? blogPosts.slice(0, 5).map(post => `
+      <li class="data-item">
+        <span class="data-label">${post.title}</span>
+        <span class="data-value" style="font-size:0.85rem;opacity:0.6">${post.date}</span>
+      </li>
+    `).join('')
+  : '<li class="data-item"><span class="data-value">No blog posts yet</span></li>';
+
+const blogCard = `
+  <div class="card">
+    <h2><span class="card-icon">🤖</span> Robot Blog Posts</h2>
+    <ul class="data-list">
+      ${blogPostsHtml}
+    </ul>
+    <div class="timestamp">Latest autonomous writings</div>
+  </div>
+`;
+
+const contentHtml = weatherCard + nytCard + blogCard + glifCard + statusCard;
 
 // Build workflows section
 const workflowsHtml = workflows.slice(0, 10).map(w => {
