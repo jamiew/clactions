@@ -22,6 +22,13 @@ jobs:
           # Use wttr.in API - no key needed, returns JSON
           RESPONSE=$(curl -s 'https://wttr.in/New_York,NY?format=j1')
 
+          # Validate JSON response
+          if ! echo "$RESPONSE" | jq -e . >/dev/null 2>&1; then
+            echo "Error: Invalid JSON response from wttr.in"
+            echo "$RESPONSE"
+            exit 1
+          fi
+
           echo "$RESPONSE" > weather_raw.json
 
           # Extract key data
@@ -54,11 +61,13 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
-          # Check if there are changes before doing anything
+          # Stash changes, pull, apply stash, commit
           if git diff --quiet data/weather.json weather_raw.json 2>/dev/null && git ls-files --error-unmatch data/weather.json weather_raw.json >/dev/null 2>&1; then
             echo "No weather changes"
           else
+            git stash push -m "temp weather data" data/weather.json weather_raw.json
             git pull --rebase origin main
+            git stash pop
             git add data/weather.json weather_raw.json
             git commit -m "Update weather data for New York, NY"
             git push
