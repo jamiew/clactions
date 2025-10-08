@@ -40,7 +40,7 @@ gh run watch
 
 ## Architecture
 
-### 9 Claude Workflows
+### 10 Claude Workflows
 
 1. `fetch-nytimes.yml` (30m) - Scrapes NYT, updates data.json
 2. `fetch-glif.yml` (2h) - Gets Glif featured content
@@ -51,12 +51,15 @@ gh run watch
 7. `meta-manager.yml` (weekly) - Optimizes workflow configs
 8. `self-repair.yml` (on failure / 30m) - Auto-fixes failures ⭐
 9. `todo-worker.yml` (8h) - Reads TODO.md, implements tasks ⭐
+10. `claude-issue-bot.yml` (@claude) - Implements issues via PR ⭐
 
 ### 3 Support Workflows
 
 - `auto-merge.yml` - Merges approved Claude PRs
-- `deploy-pages.yml` - Deploys to GitHub Pages
+- `deploy-pages.yml` - Deploys to GitHub Pages (requires Pages enabled!)
 - `scheduled-deploy.yml` - Regenerates site hourly
+
+**Note**: Pages must be manually enabled at Settings → Pages → Source: GitHub Actions
 
 ### Data Flow
 

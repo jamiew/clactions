@@ -12,7 +12,7 @@ GitHub Actions use Claude to:
 - Fix broken workflows automatically
 - Manage its own cron schedules
 
-**9 of 12 workflows use Claude for decisions.** The rest are simple deploys.
+**10 of 13 workflows use Claude for decisions.** The rest are simple deploys.
 
 ## Workflows
 
@@ -27,6 +27,7 @@ GitHub Actions use Claude to:
 | `claude-pr-review.yml` | On PR | Claude reviews all PRs | Review/approval |
 | `self-repair.yml` ⭐ | On failure | Claude auto-fixes broken workflows | Fix (commit/PR) |
 | `todo-worker.yml` ⭐ | 8hr | Reads TODO.md, implements tasks | Feature (PR) |
+| `claude-issue-bot.yml` ⭐ | On @claude | Implements issues via PR | Feature (PR) |
 | `auto-merge.yml` | On approval | Merges approved Claude PRs | - |
 | `deploy-pages.yml` | On push | Deploys to GitHub Pages | - |
 | `scheduled-deploy.yml` | Hourly | Regenerates website | - |
@@ -51,6 +52,38 @@ Or from Claude Code TUI:
 /fix-workflows
 ```
 
+## Workflow Commands
+
+Manage workflows with `gh`:
+
+```bash
+# List all workflows
+gh workflow list
+
+# Run a workflow
+gh workflow run fetch-nytimes.yml
+gh workflow run todo-worker.yml -f mode=plan
+
+# Watch runs in real-time
+gh run watch
+
+# List recent runs
+gh run list --limit 20
+
+# View specific run
+gh run view <run-id>
+gh run view <run-id> --log
+gh run view <run-id> --log-failed
+
+# Re-run failed workflow
+gh run rerun <run-id>
+```
+
+Example: Manually trigger NY Times fetch:
+```bash
+gh workflow run fetch-nytimes.yml && gh run watch
+```
+
 ## Debug Tools
 
 Quick diagnosis:
@@ -63,16 +96,48 @@ Interactive doctor:
 ./scripts/claude-workflow-doctor.sh
 ```
 
-View specific failure:
-```bash
-gh run view <run-id> --log-failed
-```
-
 ## Setup
 
-1. **GitHub Pages**: Settings → Pages → Source: GitHub Actions
-2. **Secrets**: Add `ANTHROPIC_API_KEY` (required), `GLIF_API_TOKEN` (optional)
-3. **Permissions**: Settings → Actions → Workflow permissions → Read/write
+### 1. Enable GitHub Actions
+Settings → Actions → General → **Allow all actions**
+
+### 2. Add Secrets
+Settings → Secrets and variables → Actions → New repository secret
+
+**Required:**
+- `CLAUDE_CODE_OAUTH_TOKEN` - From Claude Code GitHub App install
+
+**Optional:**
+- `GLIF_API_TOKEN` - From https://glif.app (for Glif integration)
+- `GLIF_WORKFLOW_ID` - Specific Glif workflow to run
+
+### 3. Configure Permissions
+Settings → Actions → General → Workflow permissions:
+- ✅ **Read and write permissions**
+- ✅ **Allow GitHub Actions to create and approve pull requests**
+
+### 4. Enable GitHub Pages
+Settings → Pages → Source: **GitHub Actions**
+
+Your site will be at: `https://[username].github.io/[repo-name]`
+
+### 5. YOLO Mode (Optional but Recommended)
+For maximum autonomy, enable auto-merge:
+
+**Settings → General:**
+- ✅ **Allow auto-merge** (lets Claude merge its own PRs)
+- ✅ **Automatically delete head branches** (cleanup after merge)
+
+This lets the system truly run itself. Claude creates PRs → reviews them → auto-merges → deletes branches. Full autonomy.
+
+### 6. @claude Mentions in Issues
+Create an issue and mention `@claude` - it will:
+1. Read the issue
+2. Implement the solution
+3. Create a PR automatically
+4. Comment back with the PR link
+
+Wild mode activated. 🎢
 
 ## The Loop
 

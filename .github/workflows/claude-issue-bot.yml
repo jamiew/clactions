@@ -1,0 +1,61 @@
+name: Claude Issue Bot
+
+on:
+  issues:
+    types: [opened, edited]
+  issue_comment:
+    types: [created, edited]
+
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
+
+jobs:
+  claude-responds:
+    # Only run if @claude is mentioned or if it's a new issue
+    if: |
+      (github.event_name == 'issues' && github.event.action == 'opened') ||
+      contains(github.event.issue.body, '@claude') ||
+      contains(github.event.comment.body, '@claude')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Claude handles issue
+        uses: anthropics/claude-code-action@v1
+        with:
+          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          prompt: |
+            An issue needs your attention!
+
+            **Issue #${{ github.event.issue.number }}**: ${{ github.event.issue.title }}
+
+            **Description:**
+            ${{ github.event.issue.body }}
+
+            ${{ github.event.comment.body && format('**Comment:**
+            {0}', github.event.comment.body) || '' }}
+
+            **Your Task:**
+
+            1. **Understand the request** - What is being asked?
+
+            2. **Implement it** - Actually write the code, fix the bug, add the feature, etc.
+
+            3. **Create a PR** - Make your changes and create a pull request
+               - Reference the issue in PR body: "Fixes #${{ github.event.issue.number }}"
+               - Include clear description of what you did
+               - Make sure code works and follows existing patterns
+
+            4. **Comment on issue** - Let them know you've created a PR
+
+            **Important:**
+            - Actually implement the solution, don't just plan it
+            - Create a real PR with working code
+            - Be autonomous - don't ask for clarification unless truly necessary
+            - If the request is unclear or impossible, comment on the issue explaining why
+
+            This is full autonomy mode - make it happen! 🚀
