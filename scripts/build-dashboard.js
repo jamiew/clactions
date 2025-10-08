@@ -691,6 +691,18 @@ ${weatherAdaptiveTheme}
       font-weight: 300;
     }
 
+    .subtitle-link {
+      color: var(--accent, #007aff);
+      text-decoration: none;
+      font-weight: 400;
+      transition: opacity 0.2s ease;
+    }
+
+    .subtitle-link:hover {
+      opacity: 0.7;
+      text-decoration: underline;
+    }
+
     .grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -923,8 +935,11 @@ ${weatherAdaptiveTheme}
           </div>
         </div>
       </div>
-      <h1>🤖 Clactions: Automation Gone Wild</h1>
-      <p class="subtitle">Self-improving AI infrastructure</p>
+      <h1>🤖 Self-repairing Claude-enabled GitHub Actions experiments</h1>
+      <p class="subtitle">
+        Autonomous automation playground ·
+        <a href="https://github.com/jamiew/claude-gha-demo" class="subtitle-link" target="_blank">View on GitHub</a>
+      </p>
     </header>
 
     <div class="grid">
