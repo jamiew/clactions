@@ -58,7 +58,7 @@ jobs:
           if git diff --staged --quiet; then
             echo "No weather changes"
           else
-            git pull --rebase origin main
+            git pull --no-rebase origin main
             git commit -m "Update weather data for New York, NY"
             git push
           fi

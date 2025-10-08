@@ -49,7 +49,7 @@ jobs:
           if git diff --staged --quiet; then
             echo "No changes to commit"
           else
-            git pull --rebase origin main
+            git pull --no-rebase origin main
             git commit -m "Update crypto prices - $(date -u +"%B %d, %Y")"
             git push
           fi
