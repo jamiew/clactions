@@ -251,276 +251,7 @@ const workflows = fs.existsSync('workflow_runs.json')
   ? JSON.parse(fs.readFileSync('workflow_runs.json', 'utf-8'))
   : [];
 
-// Simple markdown-to-HTML converter
-function markdownToHtml(markdown) {
-  let html = markdown;
-
-  // Remove YAML front matter
-  html = html.replace(/^---\n[\s\S]*?\n---\n/, '');
-
-  // Headers
-  html = html.replace(/^### (.*$)/gim, '<h3>$1</h3>');
-  html = html.replace(/^## (.*$)/gim, '<h2>$1</h2>');
-  html = html.replace(/^# (.*$)/gim, '<h1>$1</h1>');
-
-  // Bold
-  html = html.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
-
-  // Italic
-  html = html.replace(/\*(.*?)\*/g, '<em>$1</em>');
-
-  // Links
-  html = html.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank">$1</a>');
-
-  // Paragraphs (split by double newlines)
-  html = html.split('\n\n').map(para => {
-    para = para.trim();
-    if (!para) return '';
-    if (para.startsWith('<h') || para.startsWith('<ul') || para.startsWith('<ol')) {
-      return para;
-    }
-    return `<p>${para.replace(/\n/g, ' ')}</p>`;
-  }).join('\n');
-
-  return html;
-}
-
-// Read blog posts
-const blogPosts = [];
-if (fs.existsSync('blog')) {
-  const blogFiles = fs.readdirSync('blog').filter(f => f.endsWith('.md'));
-  blogFiles.forEach(file => {
-    try {
-      const content = fs.readFileSync(`blog/${file}`, 'utf-8');
-      const lines = content.split('\n');
-
-      // Extract metadata from front matter
-      let title = file.replace('.md', '').replace(/-/g, ' ');
-      let date = '';
-      let summary = '';
-      let tags = [];
-
-      // Try to parse YAML front matter
-      if (lines[0] === '---') {
-        for (let i = 1; i < lines.length; i++) {
-          if (lines[i] === '---') break;
-          if (lines[i].startsWith('title:')) {
-            title = lines[i].replace('title:', '').trim().replace(/['"]/g, '');
-          }
-          if (lines[i].startsWith('date:')) {
-            date = lines[i].replace('date:', '').trim();
-          }
-          if (lines[i].startsWith('summary:')) {
-            summary = lines[i].replace('summary:', '').trim().replace(/['"]/g, '');
-          }
-          if (lines[i].startsWith('tags:')) {
-            const tagStr = lines[i].replace('tags:', '').trim();
-            tags = tagStr.match(/\[([^\]]+)\]/)?.[1]?.split(',').map(t => t.trim().replace(/['"]/g, '')) || [];
-          }
-        }
-      }
-
-      // Fallback: get first heading
-      if (!date || title === file.replace('.md', '').replace(/-/g, ' ')) {
-        const heading = lines.find(l => l.startsWith('# '));
-        if (heading) title = heading.replace('# ', '').trim();
-      }
-
-      blogPosts.push({
-        file,
-        title,
-        date: date || new Date(fs.statSync(`blog/${file}`).mtime).toISOString().split('T')[0],
-        summary,
-        tags,
-        content: content
-      });
-    } catch (e) {
-      console.error(`Error reading blog post ${file}:`, e.message);
-    }
-  });
-
-  // Sort by date descending
-  blogPosts.sort((a, b) => new Date(b.date) - new Date(a.date));
-
-  // Ensure dist directory exists before writing blog posts
-  fs.mkdirSync('dist', { recursive: true });
-
-  // Generate individual blog post HTML pages
-  blogPosts.forEach(post => {
-    const htmlContent = markdownToHtml(post.content);
-    const slug = post.file.replace('.md', '');
-
-    const blogHtml = `<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>${post.title} - Claude Blog</title>
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-      line-height: 1.7;
-      color: #1a1a1a;
-      background: #ffffff;
-      padding: 2rem 1rem;
-    }
-
-    .container {
-      max-width: 800px;
-      margin: 0 auto;
-    }
-
-    .back-link {
-      display: inline-block;
-      margin-bottom: 2rem;
-      color: #007aff;
-      text-decoration: none;
-      font-size: 0.9rem;
-    }
-
-    .back-link:hover {
-      text-decoration: underline;
-    }
-
-    article header {
-      margin-bottom: 3rem;
-      padding-bottom: 2rem;
-      border-bottom: 2px solid #007aff;
-    }
-
-    h1 {
-      font-size: 2.5rem;
-      font-weight: 700;
-      margin-bottom: 1rem;
-      line-height: 1.2;
-    }
-
-    .meta {
-      display: flex;
-      gap: 1rem;
-      align-items: center;
-      color: #6e6e73;
-      font-size: 0.9rem;
-      margin-bottom: 1rem;
-    }
-
-    .tags {
-      display: flex;
-      gap: 0.5rem;
-      flex-wrap: wrap;
-    }
-
-    .tag {
-      background: #f5f5f7;
-      padding: 0.25rem 0.75rem;
-      border-radius: 12px;
-      font-size: 0.85rem;
-      color: #007aff;
-    }
-
-    .summary {
-      font-size: 1.1rem;
-      color: #6e6e73;
-      font-style: italic;
-      margin-top: 1rem;
-    }
-
-    article h2 {
-      font-size: 1.8rem;
-      margin-top: 2.5rem;
-      margin-bottom: 1rem;
-      font-weight: 600;
-    }
-
-    article h3 {
-      font-size: 1.4rem;
-      margin-top: 2rem;
-      margin-bottom: 0.75rem;
-      font-weight: 600;
-    }
-
-    article p {
-      margin-bottom: 1.25rem;
-      font-size: 1.05rem;
-    }
-
-    article a {
-      color: #007aff;
-      text-decoration: none;
-    }
-
-    article a:hover {
-      text-decoration: underline;
-    }
-
-    article strong {
-      font-weight: 600;
-      color: #007aff;
-    }
-
-    footer {
-      margin-top: 4rem;
-      padding-top: 2rem;
-      border-top: 1px solid #e5e5e7;
-      text-align: center;
-      color: #6e6e73;
-      font-size: 0.9rem;
-    }
-
-    @media (max-width: 768px) {
-      body {
-        padding: 1rem;
-      }
-
-      h1 {
-        font-size: 2rem;
-      }
-
-      article h2 {
-        font-size: 1.5rem;
-      }
-    }
-  </style>
-</head>
-<body>
-  <div class="container">
-    <a href="/" class="back-link">← Back to dashboard</a>
-
-    <article>
-      <header>
-        <h1>${post.title}</h1>
-        <div class="meta">
-          <span>📅 ${post.date}</span>
-          <span>🤖 Written by Claude</span>
-        </div>
-        ${post.tags.length > 0 ? `
-        <div class="tags">
-          ${post.tags.map(tag => `<span class="tag">#${tag}</span>`).join('')}
-        </div>
-        ` : ''}
-        ${post.summary ? `<p class="summary">${post.summary}</p>` : ''}
-      </header>
-
-      ${htmlContent}
-    </article>
-
-    <footer>
-      <p>Automatically generated by Claude via GitHub Actions</p>
-      <p><a href="https://github.com/jamiew/claude-gha-demo">View source on GitHub</a></p>
-    </footer>
-  </div>
-</body>
-</html>`;
-
-    fs.writeFileSync(`dist/blog-${slug}.html`, blogHtml);
-  });
-}
+// Blog functionality removed per user request
 
 // Build weather card
 const weatherCard = `
@@ -552,7 +283,7 @@ const weatherCard = `
 // Build NY Times card
 const headlines = nytimes.headlines || legacyData.nytimes_headlines || [];
 const headlinesHtml = headlines.length > 0
-  ? headlines.slice(0, 10).map(h => {
+  ? headlines.slice(0, 5).map(h => {
       // Handle both old format (string) and new format (object with title/url)
       if (typeof h === 'string') {
         return `
@@ -574,14 +305,14 @@ const nytCard = `
   <div class="card">
     <h2>
       <span class="card-icon">📰</span>
-      <a href="https://github.com/jamiew/claude-gha-demo/blob/main/.github/workflows/fetch-nytimes.yml" target="_blank" class="card-title-link">NYTimes</a>
+      <a href="https://github.com/jamiew/clactions/blob/main/.github/workflows/nytimes-headlines.yml" target="_blank" class="card-title-link">NYTimes</a>
     </h2>
     <ul class="data-list">
       ${headlinesHtml}
     </ul>
     <div class="timestamp">
       Updated: ${nytimes.last_updated || legacyData.last_updated || 'Never'} ·
-      <a href="https://github.com/jamiew/claude-gha-demo/actions/workflows/fetch-nytimes.yml" target="_blank" class="workflow-link">View runs →</a>
+      <a href="https://github.com/jamiew/clactions/actions/workflows/nytimes-headlines.yml" target="_blank" class="workflow-link">View runs →</a>
     </div>
   </div>
 `;
@@ -604,14 +335,14 @@ const glifWorkflowsCard = `
   <div class="card">
     <h2>
       <span class="card-icon">🎨</span>
-      <a href="https://github.com/jamiew/claude-gha-demo/blob/main/.github/workflows/fetch-glif.yml" target="_blank" class="card-title-link">Top Glif Workflows</a>
+      <a href="https://github.com/jamiew/clactions/blob/main/.github/workflows/glif-top-content.yml" target="_blank" class="card-title-link">Top Glif Workflows</a>
     </h2>
     <ul class="data-list">
       ${glifWorkflowsHtml}
     </ul>
     <div class="timestamp">
       Updated: ${glif.last_updated || legacyData.glif?.last_updated || 'Never'} ·
-      <a href="https://github.com/jamiew/claude-gha-demo/actions/workflows/fetch-glif.yml" target="_blank" class="workflow-link">View runs →</a>
+      <a href="https://github.com/jamiew/clactions/actions/workflows/glif-top-content.yml" target="_blank" class="workflow-link">View runs →</a>
     </div>
   </div>
 `;
@@ -641,7 +372,7 @@ const glifAgentsCard = `
     </ul>
     <div class="timestamp">
       Updated: ${glif.last_updated || legacyData.glif?.last_updated || 'Never'} ·
-      <a href="https://github.com/jamiew/claude-gha-demo/actions/workflows/fetch-glif.yml" target="_blank" class="workflow-link">View runs →</a>
+      <a href="https://github.com/jamiew/clactions/actions/workflows/glif-top-content.yml" target="_blank" class="workflow-link">View runs →</a>
     </div>
   </div>
 `;
@@ -671,35 +402,7 @@ const statusCard = `
   </div>
 `;
 
-// Build blog posts card
-const blogPostsHtml = blogPosts.length > 0
-  ? blogPosts.slice(0, 5).map(post => {
-      const slug = post.file.replace('.md', '');
-      return `
-      <li class="data-item">
-        <a href="/blog-${slug}.html" class="headline-link">
-          <span class="data-label">${post.title}</span>
-          <span class="data-value" style="font-size:0.85rem;opacity:0.6;display:block;margin-top:2px;">${post.date}</span>
-        </a>
-      </li>`;
-    }).join('')
-  : '<li class="data-item"><span class="data-value">No blog posts yet</span></li>';
-
-const blogCard = `
-  <div class="card">
-    <h2>
-      <span class="card-icon">🤖</span>
-      <a href="https://github.com/jamiew/claude-gha-demo/tree/main/blog" target="_blank" class="card-title-link">Robot Blog Posts</a>
-    </h2>
-    <ul class="data-list">
-      ${blogPostsHtml}
-    </ul>
-    <div class="timestamp">
-      Latest autonomous writings ·
-      <a href="https://github.com/jamiew/claude-gha-demo/blob/main/.github/workflows/fetch-hackernews.yml" target="_blank" class="workflow-link">View workflow →</a>
-    </div>
-  </div>
-`;
+// Blog card removed per user request
 
 // Build debug card - pretty print all data
 const allData = {
@@ -738,26 +441,26 @@ const cryptoCard = `
   <div class="card">
     <h2>
       <span class="card-icon">₿</span>
-      <a href="https://github.com/jamiew/claude-gha-demo/blob/main/.github/workflows/fetch-crypto.yml" target="_blank" class="card-title-link">Crypto Prices</a>
+      <a href="https://github.com/jamiew/clactions/blob/main/.github/workflows/crypto-prices.yml" target="_blank" class="card-title-link">Crypto Prices</a>
     </h2>
     <ul class="data-list">
       ${cryptoHtml}
     </ul>
     <div class="timestamp">
       Updated: ${crypto.last_updated || 'Never'} ·
-      <a href="https://github.com/jamiew/claude-gha-demo/actions/workflows/fetch-crypto.yml" target="_blank" class="workflow-link">View runs →</a>
+      <a href="https://github.com/jamiew/clactions/actions/workflows/crypto-prices.yml" target="_blank" class="workflow-link">View runs →</a>
     </div>
   </div>
 `;
 
-const contentHtml = weatherCard + nytCard + blogCard + glifWorkflowsCard + glifAgentsCard + cryptoCard + debugCard + statusCard;
+const contentHtml = weatherCard + nytCard + glifWorkflowsCard + glifAgentsCard + cryptoCard + debugCard + statusCard;
 
 // Build workflows section
 const workflowsHtml = workflows.slice(0, 10).map(w => {
   const statusClass = w.conclusion === 'success' ? 'status-success' :
                     w.conclusion === 'failure' ? 'status-failure' : 'status-pending';
   const time = new Date(w.startedAt).toLocaleString();
-  const url = `https://github.com/jamiew/claude-gha-demo/actions/runs/${w.databaseId}`;
+  const url = `https://github.com/jamiew/clactions/actions/runs/${w.databaseId}`;
 
   return `
     <div class="workflow-status">
@@ -1168,7 +871,7 @@ ${weatherAdaptiveTheme}
       <h1>🤖 Self-repairing Claude-enabled GitHub Actions experiments</h1>
       <p class="subtitle">
         Autonomous automation playground ·
-        <a href="https://github.com/jamiew/claude-gha-demo" class="subtitle-link" target="_blank">View on GitHub</a>
+        <a href="https://github.com/jamiew/clactions" class="subtitle-link" target="_blank">View on GitHub</a>
       </p>
     </header>
 
@@ -1186,7 +889,7 @@ ${workflowsHtml}
 
     <footer>
       <p><strong>Autonomous automation</strong> powered by Claude</p>
-      <p><a href="https://github.com/jamiew/claude-gha-demo" class="workflow-link">View on GitHub</a></p>
+      <p><a href="https://github.com/jamiew/clactions" class="workflow-link">View on GitHub</a></p>
     </footer>
   </div>
 
