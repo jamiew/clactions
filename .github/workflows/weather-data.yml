@@ -53,12 +53,12 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
+          git pull --rebase origin main
           git add data/weather.json weather_raw.json
 
           if git diff --staged --quiet; then
             echo "No weather changes"
           else
-            git pull --rebase origin main
             git commit -m "Update weather data for New York, NY"
             git push
           fi
