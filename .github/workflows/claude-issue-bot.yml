@@ -28,13 +28,8 @@ jobs:
         with:
           claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          additional_permissions: |
-            {
-              "Bash": {
-                "enabled": true,
-                "allowed_commands": ["gh issue*", "gh pr*"]
-              }
-            }
+          claude_args: |
+            --allowedTools "Bash(gh issue:*),Bash(gh pr:*)"
           prompt: |
             An issue needs your attention!
 
