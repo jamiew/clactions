@@ -117,9 +117,20 @@ Settings → Actions → General → Workflow permissions:
 - ✅ **Allow GitHub Actions to create and approve pull requests**
 
 ### 4. Enable GitHub Pages
-Settings → Pages → Source: **GitHub Actions**
+Settings → Pages:
+- **Source**: Select **GitHub Actions** (not "Deploy from a branch")
+- Save
+
+**Why GitHub Actions source?**
+- Multiple workflows can deploy (on push, on schedule, on demand)
+- No extra `gh-pages` branch to manage
+- Workflows control when/how to build and deploy
+- Better for dynamic content that updates frequently
+- Modern best practice (same as Vercel, Netlify)
 
 Your site will be at: `https://[username].github.io/[repo-name]`
+
+**Note**: Deploy workflows will fail until Pages is enabled. Once enabled, they'll work automatically.
 
 ### 5. YOLO Mode (Optional but Recommended)
 For maximum autonomy, enable auto-merge:
@@ -208,6 +219,16 @@ Modes:
 - **implement** (default) - Actually builds the feature
 - **plan** - Creates implementation plan without coding
 - **survey** - Organizes and prioritizes all TODOs
+
+## Your Site
+
+**Live at**: https://jamiew.github.io/claude-gha-demo
+
+Updates automatically as Claude fetches data:
+- NY Times headlines (every 30min)
+- Glif featured content (every 2hr)
+- Weather from Glif (every 15min)
+- UI improvements (every 12hr)
 
 ## Philosophy
 
