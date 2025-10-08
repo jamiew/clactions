@@ -1,0 +1,32 @@
+name: Trigger All Workflows on Push
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  trigger-all-workflows:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger all workflows
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          echo "🚀 Triggering all workflows after push..."
+
+          # Get all workflows
+          gh workflow list --repo ${{ github.repository }} --json name,path | \
+          jq -r '.[] | select(.path | endswith(".yml")) | .path | split("/")[-1]' | \
+          while read workflow; do
+            # Skip this workflow to avoid infinite loop
+            if [ "$workflow" = "trigger-all-on-push.yml" ]; then
+              echo "⏭️  Skipping trigger-all-on-push.yml (self)"
+              continue
+            fi
+
+            echo "▶️  Triggering $workflow"
+            gh workflow run "$workflow" --repo ${{ github.repository }} || echo "⚠️  Could not trigger $workflow (may not support workflow_dispatch)"
+          done
+
+          echo "✅ All workflows triggered!"
