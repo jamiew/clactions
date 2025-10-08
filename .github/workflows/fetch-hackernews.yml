@@ -78,7 +78,10 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           additional_permissions: |
             {
-              "Bash": "allow_all"
+              "Bash": {
+                "enabled": true,
+                "allowed_commands": ["gh issue*", "gh pr*"]
+              }
             }
           prompt: |
             A new top story from HackerNews needs a blog post!
