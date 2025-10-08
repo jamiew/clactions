@@ -46,10 +46,22 @@ jobs:
           # Save output to file
           echo "$RESPONSE" > glif_output.json
 
-          # Extract output text/data (try multiple possible fields)
-          OUTPUT=$(echo "$RESPONSE" | jq -r '.output // .result // .text // .data // .')
-
-          echo "output=$OUTPUT" >> $GITHUB_OUTPUT
+          # Check for errors in response
+          ERROR=$(echo "$RESPONSE" | jq -r '.error // empty')
+          if [ -n "$ERROR" ] && [ "$ERROR" != "null" ]; then
+            echo "Glif API error: $ERROR"
+            echo "output=Error: $ERROR" >> $GITHUB_OUTPUT
+          else
+            # Extract output text/data (try multiple possible fields)
+            OUTPUT=$(echo "$RESPONSE" | jq -r '.output // .result // .text // .data // empty')
+            if [ -z "$OUTPUT" ] || [ "$OUTPUT" = "null" ]; then
+              echo "output=No output from Glif" >> $GITHUB_OUTPUT
+            else
+              # Ensure output is single-line for GITHUB_OUTPUT
+              OUTPUT_ESCAPED=$(echo "$OUTPUT" | jq -Rs '.')
+              echo "output=$OUTPUT_ESCAPED" >> $GITHUB_OUTPUT
+            fi
+          fi
 
           # Also save full response for Claude to read
           cat glif_output.json
