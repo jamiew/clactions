@@ -31,7 +31,7 @@ jobs:
             2. Extract 10-15 of the most prominent headlines
             3. Update data.json with the headlines in the `nytimes_headlines` field
             4. Update the `last_updated` timestamp
-            5. Commit the changes directly to main branch
+            5. Commit and push the changes directly to main branch (use git push)
 
             Use web scraping or the WebFetch tool to get the content.
             Make sure to extract meaningful, current headlines.
