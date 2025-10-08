@@ -1,0 +1,41 @@
+{
+  "coins": {
+    "BTC": {
+      "name": "Bitcoin",
+      "symbol": "BTC",
+      "price": 0,
+      "change_24h": 0,
+      "market_cap": 0,
+      "volume_24h": 0,
+      "last_updated": 0
+    },
+    "ETH": {
+      "name": "Ethereum",
+      "symbol": "ETH",
+      "price": 0,
+      "change_24h": 0,
+      "market_cap": 0,
+      "volume_24h": 0,
+      "last_updated": 0
+    },
+    "SOL": {
+      "name": "Solana",
+      "symbol": "SOL",
+      "price": 0,
+      "change_24h": 0,
+      "market_cap": 0,
+      "volume_24h": 0,
+      "last_updated": 0
+    },
+    "HNT": {
+      "name": "Helium",
+      "symbol": "HNT",
+      "price": 0,
+      "change_24h": 0,
+      "market_cap": 0,
+      "volume_24h": 0,
+      "last_updated": 0
+    }
+  },
+  "last_updated": "1970-01-01T00:00:00.000Z"
+}
