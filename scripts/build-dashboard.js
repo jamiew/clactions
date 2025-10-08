@@ -11,6 +11,10 @@ const weather = fs.existsSync('weather.json')
   ? JSON.parse(fs.readFileSync('weather.json', 'utf-8'))
   : { temperature: 70, condition: 'Clear', humidity: '—', feels_like: '—', last_updated: 'Never' };
 
+const crypto = fs.existsSync('data/crypto-prices.json')
+  ? JSON.parse(fs.readFileSync('data/crypto-prices.json', 'utf-8'))
+  : { coins: {}, last_updated: 'Never' };
+
 const nycTheme = fs.existsSync('theme-nyc.css')
   ? fs.readFileSync('theme-nyc.css', 'utf-8')
   : '/* No NYC theme yet */';
@@ -309,11 +313,22 @@ const weatherCard = `
 // Build NY Times card
 const headlines = data.nytimes_headlines || [];
 const headlinesHtml = headlines.length > 0
-  ? headlines.slice(0, 5).map(h => `
-      <li class="data-item">
-        <span class="data-value">${h}</span>
-      </li>
-    `).join('')
+  ? headlines.slice(0, 10).map(h => {
+      // Handle both old format (string) and new format (object with title/url)
+      if (typeof h === 'string') {
+        return `
+          <li class="data-item">
+            <span class="data-value">${h}</span>
+          </li>`;
+      } else {
+        return `
+          <li class="data-item">
+            <a href="${h.url}" target="_blank" class="headline-link">
+              <span class="data-value">${h.title}</span>
+            </a>
+          </li>`;
+      }
+    }).join('')
   : '<li class="data-item"><span class="data-value">No headlines yet</span></li>';
 
 const nytCard = `
@@ -332,25 +347,58 @@ const nytCard = `
   </div>
 `;
 
-// Build Glif card
+// Build Glif Workflows card
 const glifWorkflows = data.glif?.featured_workflows || [];
-const glifHtml = glifWorkflows.length > 0
-  ? glifWorkflows.slice(0, 3).map(w => `
+const glifWorkflowsHtml = glifWorkflows.length > 0
+  ? glifWorkflows.slice(0, 5).map(w => `
       <li class="data-item">
-        <span class="data-label">${w.name}</span>
-        <span class="data-value" style="font-size:0.9rem;opacity:0.7">${w.description?.substring(0, 60)}...</span>
+        <a href="${w.url}" target="_blank" class="headline-link">
+          <span class="data-label">${w.name}</span>
+          <span class="data-value" style="font-size:0.85rem;opacity:0.7;display:block;margin-top:2px;">${w.description?.substring(0, 80) || 'No description'}${w.description?.length > 80 ? '...' : ''}</span>
+          <span class="data-meta" style="font-size:0.75rem;opacity:0.5;display:block;margin-top:2px;">by @${w.creator}</span>
+        </a>
       </li>
     `).join('')
-  : '<li class="data-item"><span class="data-value">No Glif data yet</span></li>';
+  : '<li class="data-item"><span class="data-value">No Glif workflows yet</span></li>';
 
-const glifCard = `
+const glifWorkflowsCard = `
   <div class="card">
     <h2>
       <span class="card-icon">🎨</span>
       <a href="https://github.com/jamiew/claude-gha-demo/blob/main/.github/workflows/fetch-glif.yml" target="_blank" class="card-title-link">Glif Workflows</a>
     </h2>
     <ul class="data-list">
-      ${glifHtml}
+      ${glifWorkflowsHtml}
+    </ul>
+    <div class="timestamp">
+      Updated: ${data.glif?.last_updated || 'Never'} ·
+      <a href="https://github.com/jamiew/claude-gha-demo/actions/workflows/fetch-glif.yml" target="_blank" class="workflow-link">View runs →</a>
+    </div>
+  </div>
+`;
+
+// Build Glif Agents card
+const glifAgents = data.glif?.featured_agents || [];
+const glifAgentsHtml = glifAgents.length > 0
+  ? glifAgents.slice(0, 3).map(a => `
+      <li class="data-item">
+        <a href="${a.url}" target="_blank" class="headline-link">
+          <span class="data-label">${a.name}</span>
+          <span class="data-value" style="font-size:0.85rem;opacity:0.7;display:block;margin-top:2px;">${a.description?.substring(0, 80) || 'No description'}${a.description?.length > 80 ? '...' : ''}</span>
+          <span class="data-meta" style="font-size:0.75rem;opacity:0.5;display:block;margin-top:2px;">by @${a.creator}</span>
+        </a>
+      </li>
+    `).join('')
+  : '<li class="data-item"><span class="data-value">No Glif agents yet</span></li>';
+
+const glifAgentsCard = `
+  <div class="card">
+    <h2>
+      <span class="card-icon">🤖</span>
+      <a href="https://glif.app/bots" target="_blank" class="card-title-link">Glif Agents</a>
+    </h2>
+    <ul class="data-list">
+      ${glifAgentsHtml}
     </ul>
     <div class="timestamp">
       Updated: ${data.glif?.last_updated || 'Never'} ·
@@ -419,7 +467,7 @@ const debugCard = `
   </div>
 `;
 
-const contentHtml = weatherCard + nytCard + blogCard + glifCard + debugCard + statusCard;
+const contentHtml = weatherCard + nytCard + blogCard + glifWorkflowsCard + glifAgentsCard + debugCard + statusCard;
 
 // Build workflows section
 const workflowsHtml = workflows.slice(0, 10).map(w => {
@@ -718,6 +766,21 @@ ${weatherAdaptiveTheme}
 
     .workflow-link:hover {
       text-decoration: underline;
+    }
+
+    .headline-link {
+      color: inherit;
+      text-decoration: none;
+      display: block;
+      transition: opacity 0.2s ease;
+    }
+
+    .headline-link:hover {
+      opacity: 0.7;
+    }
+
+    .headline-link:hover .data-label {
+      color: var(--accent, #007aff);
     }
 
     footer {

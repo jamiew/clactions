@@ -28,10 +28,11 @@ jobs:
 
             Tasks:
             1. Scrape the NY Times homepage for top headlines
-            2. Extract 10-15 of the most prominent headlines
-            3. Update data.json with the headlines in the `nytimes_headlines` field
+            2. Extract 10-15 of the most prominent headlines WITH their article URLs
+            3. Update data.json with the headlines in the `nytimes_headlines` field as an array of objects with {title, url} structure
             4. Update the `last_updated` timestamp
             5. Commit and push the changes directly to main branch (use git push)
 
+            Important: Each headline should be an object like: {"title": "Headline text", "url": "https://www.nytimes.com/article-path"}
             Use web scraping or the WebFetch tool to get the content.
-            Make sure to extract meaningful, current headlines.
+            Make sure to extract meaningful, current headlines with their full URLs.
