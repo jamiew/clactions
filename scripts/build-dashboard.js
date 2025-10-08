@@ -9,11 +9,225 @@ const data = fs.existsSync('data.json')
 
 const weather = fs.existsSync('weather.json')
   ? JSON.parse(fs.readFileSync('weather.json', 'utf-8'))
-  : { temperature: '—', condition: 'Unknown', humidity: '—', feels_like: '—', last_updated: 'Never' };
+  : { temperature: 70, condition: 'Clear', humidity: '—', feels_like: '—', last_updated: 'Never' };
 
 const nycTheme = fs.existsSync('theme-nyc.css')
   ? fs.readFileSync('theme-nyc.css', 'utf-8')
   : '/* No NYC theme yet */';
+
+// Generate weather-adaptive theme based on current conditions
+function generateWeatherTheme(weather) {
+  const temp = parseInt(weather.temperature) || 70;
+  const condition = (weather.condition || 'Clear').toLowerCase();
+
+  let bgPrimary, bgSecondary, textPrimary, accent, accentSecondary;
+  let animations = '';
+  let backgroundEffect = '';
+
+  // Temperature-based color shifts
+  if (temp < 32) {
+    // Freezing - icy blues and whites
+    bgPrimary = '#e8f4f8';
+    bgSecondary = '#d0e8f2';
+    textPrimary = '#1a2942';
+    accent = '#4a90e2';
+    accentSecondary = '#7bb3ff';
+  } else if (temp < 50) {
+    // Cold - cool blues and grays
+    bgPrimary = '#f0f4f8';
+    bgSecondary = '#dce4ec';
+    textPrimary = '#2c3e50';
+    accent = '#5680c1';
+    accentSecondary = '#8badd6';
+  } else if (temp < 70) {
+    // Mild - soft neutrals
+    bgPrimary = '#f8f9fa';
+    bgSecondary = '#e9ecef';
+    textPrimary = '#212529';
+    accent = '#6c757d';
+    accentSecondary = '#adb5bd';
+  } else if (temp < 85) {
+    // Warm - golden tones
+    bgPrimary = '#fff9f0';
+    bgSecondary = '#ffe8cc';
+    textPrimary = '#3d2817';
+    accent = '#ff9500';
+    accentSecondary = '#ffb340';
+  } else {
+    // Hot - vibrant oranges and reds
+    bgPrimary = '#fff3e6';
+    bgSecondary = '#ffe0b3';
+    textPrimary = '#4a1e00';
+    accent = '#ff6b35';
+    accentSecondary = '#ff8c5a';
+  }
+
+  // Condition-based effects and overrides
+  if (condition.includes('rain') || condition.includes('drizzle')) {
+    bgPrimary = '#d4e4f7';
+    bgSecondary = '#b8d4f1';
+    accent = '#4a7ba7';
+    accentSecondary = '#6b96c1';
+
+    animations = `
+      @keyframes rain {
+        0% { transform: translateY(-100vh) translateX(0); opacity: 0.6; }
+        100% { transform: translateY(100vh) translateX(10px); opacity: 0; }
+      }
+
+      body::before {
+        content: '';
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(transparent 90%, rgba(74, 123, 167, 0.1) 100%);
+        background-size: 2px 50px;
+        animation: rain 0.5s linear infinite;
+        pointer-events: none;
+        z-index: 1;
+      }
+
+      body::after {
+        content: '';
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: repeating-linear-gradient(
+          90deg,
+          transparent,
+          transparent 2px,
+          rgba(74, 123, 167, 0.03) 2px,
+          rgba(74, 123, 167, 0.03) 4px
+        );
+        animation: rain 0.7s linear infinite;
+        pointer-events: none;
+        z-index: 1;
+      }
+
+      .container { position: relative; z-index: 2; }
+    `;
+  } else if (condition.includes('snow')) {
+    bgPrimary = '#f0f8ff';
+    bgSecondary = '#e3f2fd';
+    accent = '#64b5f6';
+    accentSecondary = '#90caf9';
+
+    animations = `
+      @keyframes snowfall {
+        0% { transform: translateY(-10px) translateX(0); opacity: 1; }
+        100% { transform: translateY(100vh) translateX(50px); opacity: 0; }
+      }
+
+      body::before {
+        content: '❄️ ❅ ❆ ❄️ ❅ ❆ ❄️ ❅ ❆ ❄️ ❅ ❆';
+        position: fixed;
+        top: -50px;
+        left: 0;
+        width: 100%;
+        font-size: 20px;
+        color: rgba(255, 255, 255, 0.8);
+        animation: snowfall 10s linear infinite;
+        pointer-events: none;
+        z-index: 1;
+        letter-spacing: 80px;
+      }
+
+      .container { position: relative; z-index: 2; }
+    `;
+  } else if (condition.includes('cloud')) {
+    bgPrimary = '#f5f7fa';
+    bgSecondary = '#e4e9f0';
+    accent = '#778899';
+    accentSecondary = '#a0aec0';
+
+    backgroundEffect = `
+      body {
+        background: linear-gradient(135deg, ${bgPrimary} 0%, ${bgSecondary} 100%);
+      }
+    `;
+  } else if (condition.includes('clear') || condition.includes('sunny')) {
+    // Extra bright and vibrant
+    const hour = new Date().getHours();
+    if (hour >= 17 || hour <= 6) {
+      // Sunset/night - warm purples and oranges
+      bgPrimary = '#ffe4e1';
+      bgSecondary = '#ffd4cc';
+      accent = '#ff6b9d';
+      accentSecondary = '#ffa07a';
+    } else {
+      // Bright day
+      bgPrimary = '#fffef7';
+      bgSecondary = '#fff8dc';
+      accent = '#ffa500';
+      accentSecondary = '#ffb347';
+    }
+
+    backgroundEffect = `
+      body {
+        background: radial-gradient(circle at top right, ${accentSecondary}15, ${bgPrimary} 70%);
+      }
+    `;
+  } else if (condition.includes('fog') || condition.includes('mist')) {
+    bgPrimary = '#e8e8e8';
+    bgSecondary = '#d3d3d3';
+    accent = '#708090';
+    accentSecondary = '#a9a9a9';
+
+    animations = `
+      @keyframes fog {
+        0%, 100% { opacity: 0.3; }
+        50% { opacity: 0.6; }
+      }
+
+      body::before {
+        content: '';
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(to bottom,
+          rgba(255,255,255,0.1) 0%,
+          rgba(200,200,200,0.3) 50%,
+          rgba(255,255,255,0.1) 100%
+        );
+        animation: fog 8s ease-in-out infinite;
+        pointer-events: none;
+        z-index: 1;
+      }
+
+      .container { position: relative; z-index: 2; }
+    `;
+  }
+
+  return `
+    /* Weather-adaptive theme generated from current conditions */
+    /* Condition: ${weather.condition}, Temperature: ${weather.temperature}°F */
+    :root {
+      --bg-primary: ${bgPrimary};
+      --bg-secondary: ${bgSecondary};
+      --text-primary: ${textPrimary};
+      --text-secondary: ${textPrimary}99;
+      --accent: ${accent};
+      --accent-secondary: ${accentSecondary};
+      --border-color: ${textPrimary}15;
+    }
+
+    ${backgroundEffect}
+    ${animations}
+
+    .card {
+      backdrop-filter: blur(10px);
+      background: ${bgSecondary}ee;
+    }
+  `;
+}
+
+const weatherAdaptiveTheme = generateWeatherTheme(weather);
 
 const workflows = fs.existsSync('workflow_runs.json')
   ? JSON.parse(fs.readFileSync('workflow_runs.json', 'utf-8'))
@@ -158,9 +372,9 @@ const html = `<!DOCTYPE html>
       --border-color: rgba(255, 255, 255, 0.1);
     }
   </style>
-  <style id="theme-nyc">
-    /* NYC adaptive theme */
-${nycTheme}
+  <style id="theme-weather">
+    /* Weather-adaptive theme */
+${weatherAdaptiveTheme}
   </style>
   <style>
     /* Base styles */
@@ -197,25 +411,70 @@ ${nycTheme}
       right: 1rem;
     }
 
-    .theme-switcher select {
-      padding: 0.5rem 1rem;
-      border-radius: 8px;
-      border: 1px solid var(--border-color, rgba(0,0,0,0.1));
+    .theme-toggle {
       background: var(--bg-secondary, #f5f5f7);
-      color: var(--text-primary, #1a1a1a);
-      font-size: 0.9rem;
+      border: 1px solid var(--border-color, rgba(0,0,0,0.1));
+      border-radius: 12px;
+      padding: 0.5rem;
       cursor: pointer;
+      font-size: 1.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 44px;
+      height: 44px;
       transition: all 0.2s ease;
     }
 
-    .theme-switcher select:hover {
-      border-color: var(--accent, #007aff);
+    .theme-toggle:hover {
+      background: var(--accent, #007aff);
+      color: white;
+      transform: scale(1.05);
     }
 
-    .theme-switcher select:focus {
-      outline: none;
-      border-color: var(--accent, #007aff);
-      box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.1);
+    .theme-menu {
+      display: none;
+      position: absolute;
+      top: 50px;
+      right: 0;
+      background: var(--bg-secondary, #f5f5f7);
+      border: 1px solid var(--border-color, rgba(0,0,0,0.1));
+      border-radius: 12px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+      overflow: hidden;
+      min-width: 200px;
+      z-index: 1000;
+    }
+
+    .theme-menu.open {
+      display: block;
+    }
+
+    .theme-option {
+      padding: 0.75rem 1rem;
+      cursor: pointer;
+      transition: background 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 0.95rem;
+    }
+
+    .theme-option:hover {
+      background: var(--accent, #007aff);
+      color: white;
+    }
+
+    .theme-option.active {
+      background: var(--accent, #007aff);
+      color: white;
+      font-weight: 600;
+    }
+
+    .theme-icon {
+      font-size: 1.1rem;
+      width: 20px;
+      text-align: center;
     }
 
     h1 {
@@ -405,11 +664,27 @@ ${nycTheme}
   <div class="container">
     <header>
       <div class="theme-switcher">
-        <select id="theme-select" aria-label="Theme selector">
-          <option value="nyc">NYC</option>
-          <option value="light">Light</option>
-          <option value="dark">Dark</option>
-        </select>
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme menu">
+          ☀️
+        </button>
+        <div class="theme-menu" id="theme-menu">
+          <div class="theme-option" data-theme="weather">
+            <span class="theme-icon">🌤️</span>
+            <span>Weather-adaptive</span>
+          </div>
+          <div class="theme-option" data-theme="light">
+            <span class="theme-icon">☀️</span>
+            <span>Light</span>
+          </div>
+          <div class="theme-option" data-theme="dark">
+            <span class="theme-icon">🌙</span>
+            <span>Dark</span>
+          </div>
+          <div class="theme-option" data-theme="system">
+            <span class="theme-icon">💻</span>
+            <span>System</span>
+          </div>
+        </div>
       </div>
       <h1>🤖 Claude Automaton</h1>
       <p class="subtitle">Self-improving AI infrastructure · New York, NY</p>
@@ -435,26 +710,56 @@ ${workflowsHtml}
 
   <script>
     // Theme switcher logic
-    const themeSelect = document.getElementById('theme-select');
+    const themeToggle = document.getElementById('theme-toggle');
+    const themeMenu = document.getElementById('theme-menu');
+    const themeOptions = document.querySelectorAll('.theme-option');
     const themeStyles = {
       light: document.getElementById('theme-light'),
       dark: document.getElementById('theme-dark'),
-      nyc: document.getElementById('theme-nyc')
+      weather: document.getElementById('theme-weather')
     };
 
-    // Load saved theme or default to NYC
-    const savedTheme = localStorage.getItem('selected-theme') || 'nyc';
-    themeSelect.value = savedTheme;
+    const themeIcons = {
+      weather: '🌤️',
+      light: '☀️',
+      dark: '🌙',
+      system: '💻'
+    };
+
+    // Toggle menu
+    themeToggle.addEventListener('click', (e) => {
+      e.stopPropagation();
+      themeMenu.classList.toggle('open');
+    });
+
+    // Close menu when clicking outside
+    document.addEventListener('click', (e) => {
+      if (!themeMenu.contains(e.target) && e.target !== themeToggle) {
+        themeMenu.classList.remove('open');
+      }
+    });
+
+    // Load saved theme or default to weather-adaptive
+    const savedTheme = localStorage.getItem('selected-theme') || 'weather';
     applyTheme(savedTheme);
 
-    // Handle theme changes
-    themeSelect.addEventListener('change', (e) => {
-      const theme = e.target.value;
-      applyTheme(theme);
-      localStorage.setItem('selected-theme', theme);
+    // Handle theme selection
+    themeOptions.forEach(option => {
+      option.addEventListener('click', (e) => {
+        const theme = option.dataset.theme;
+        applyTheme(theme);
+        localStorage.setItem('selected-theme', theme);
+        themeMenu.classList.remove('open');
+      });
     });
 
     function applyTheme(theme) {
+      // Handle system theme
+      if (theme === 'system') {
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        theme = prefersDark ? 'dark' : 'light';
+      }
+
       // Disable all theme styles
       Object.values(themeStyles).forEach(style => {
         if (style) style.disabled = true;
@@ -464,7 +769,24 @@ ${workflowsHtml}
       if (themeStyles[theme]) {
         themeStyles[theme].disabled = false;
       }
+
+      // Update toggle icon
+      const displayTheme = localStorage.getItem('selected-theme') || 'weather';
+      themeToggle.textContent = themeIcons[displayTheme];
+
+      // Update active state
+      themeOptions.forEach(opt => {
+        opt.classList.toggle('active', opt.dataset.theme === displayTheme);
+      });
     }
+
+    // Watch for system theme changes
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
+      const savedTheme = localStorage.getItem('selected-theme');
+      if (savedTheme === 'system') {
+        applyTheme('system');
+      }
+    });
   </script>
 </body>
 </html>`;
