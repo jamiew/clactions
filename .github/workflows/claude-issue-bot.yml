@@ -5,6 +5,12 @@ on:
     types: [opened, edited]
   issue_comment:
     types: [created, edited]
+  workflow_dispatch:
+    inputs:
+      issue_number:
+        description: 'Issue number to process (optional, processes latest open issue if not provided)'
+        required: false
+        type: string
 
 permissions:
   contents: write
@@ -13,8 +19,9 @@ permissions:
 
 jobs:
   claude-responds:
-    # Only run if @claude is mentioned or if it's a new issue
+    # Only run if @claude is mentioned or if it's a new issue or manually triggered
     if: |
+      github.event_name == 'workflow_dispatch' ||
       (github.event_name == 'issues' && github.event.action == 'opened') ||
       contains(github.event.issue.body, '@claude') ||
       contains(github.event.comment.body, '@claude')
@@ -22,6 +29,35 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
+      - name: Get issue details for manual trigger
+        if: github.event_name == 'workflow_dispatch'
+        id: get_issue
+        run: |
+          if [ -n "${{ github.event.inputs.issue_number }}" ]; then
+            ISSUE_NUM="${{ github.event.inputs.issue_number }}"
+          else
+            # Get latest open issue
+            ISSUE_NUM=$(gh issue list --limit 1 --json number --jq '.[0].number')
+          fi
+
+          if [ -z "$ISSUE_NUM" ]; then
+            echo "No issue found"
+            exit 1
+          fi
+
+          # Fetch issue details
+          ISSUE_DATA=$(gh issue view "$ISSUE_NUM" --json number,title,body)
+          ISSUE_TITLE=$(echo "$ISSUE_DATA" | jq -r '.title')
+          ISSUE_BODY=$(echo "$ISSUE_DATA" | jq -r '.body')
+
+          echo "issue_number=$ISSUE_NUM" >> $GITHUB_OUTPUT
+          echo "issue_title=$ISSUE_TITLE" >> $GITHUB_OUTPUT
+
+          # Save body to file to handle multiline
+          echo "$ISSUE_BODY" > /tmp/issue_body.txt
+        env:
+          GH_TOKEN: ${{ github.token }}
 
       - name: Claude handles issue
         uses: anthropics/claude-code-action@v1
@@ -33,13 +69,15 @@ jobs:
           prompt: |
             An issue needs your attention!
 
-            **Issue #${{ github.event.issue.number }}**: ${{ github.event.issue.title }}
+            **Issue #${{ github.event_name == 'workflow_dispatch' && steps.get_issue.outputs.issue_number || github.event.issue.number }}**: ${{ github.event_name == 'workflow_dispatch' && steps.get_issue.outputs.issue_title || github.event.issue.title }}
 
             **Description:**
-            ${{ github.event.issue.body }}
+            ${{ github.event_name == 'workflow_dispatch' && 'See issue for full details' || github.event.issue.body }}
 
             ${{ github.event.comment.body && format('**Comment:**
             {0}', github.event.comment.body) || '' }}
+
+            ${{ github.event_name == 'workflow_dispatch' && format('This is a manual trigger. Use: gh issue view {0} to read the full issue.', steps.get_issue.outputs.issue_number) || '' }}
 
             **Your Task:**
 
