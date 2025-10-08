@@ -5,55 +5,45 @@ Experimental sandbox for combining Claude Code with GitHub Actions. Claude fetch
 ## What It Does
 
 This is a playground for exploring what happens when you give Claude access to GitHub Actions:
-- Fetch external data (NY Times RSS, Glif API, crypto prices)
+- Collect external data (NY Times RSS, Glif API, crypto prices, weather)
 - Update data files → auto-deploy static website
-- Create code improvements via pull requests
-- Review and auto-merge its own PRs
-- Attempt to fix broken workflows
+- Write blog posts based on HackerNews stories
+- Review code and auto-merge PRs
+- Attempt to fix broken workflows autonomously
 - Implement tasks from TODO.md
-- Respond to @claude mentions in issues
+- Generate adaptive CSS themes based on time/weather
 
-**13 of 20 workflows** use Claude Code for decision-making and implementation.
+**8 of 15 workflows** use Claude Code for decision-making and implementation.
 
 ## Workflows
 
-### Data Collection & Scraping
+### Data Collection
 Claude fetches external data and updates the website.
 
 | Workflow | Trigger | What | Claude Does |
 |----------|---------|------|-------------|
-| `fetch-nytimes.yml` | 30min | NYT RSS feed | Parses XML, extracts headlines → `data/nytimes.json` |
-| `fetch-glif.yml` | 2hr | Glif featured content | Fetches workflows/agents → `data/glif.json` |
-| `run-glif.yml` | 1hr | Run Glif workflow | Processes weather output → `data/weather.json` + updates site |
-| `fetch-hackernews.yml` | 6hr | HN top story | Reads story + comments → writes blog post (PR) |
-| `fetch-weather.yml` | 1hr | Weather API | Fetches NYC weather → `data/weather.json` |
-| `fetch-weather-glif.yml` | 1hr | Weather via Glif | Alternative weather source → `data/weather.json` |
-| `fetch-crypto.yml` | 1hr | Crypto prices | Fetches BTC/ETH/DOGE → `data/crypto-prices.json` |
+| `nytimes-headlines.yml` | 30min | NYT RSS feed | Parses XML, extracts headlines → `data/nytimes.json` |
+| `glif-top-content.yml` | 2hr | Glif featured content | Fetches top workflows/agents → `data/glif.json` |
+| `glif-run.yml` | 1hr | Run Glif workflow | Processes weather output → `data/weather.json` + updates site |
+| `hackernews-blog.yml` | 6hr | HN top story | Reads story + comments → writes blog post (PR) |
+| `weather-data.yml` | 1hr | Weather API | Fetches NYC weather → `data/weather.json` |
+| `crypto-prices.yml` | 30min | Crypto prices | Fetches BTC/ETH/SOL/HNT → `data/crypto-prices.json` |
 
-### Self-Improvement & Code Evolution
-Claude modifies its own codebase and workflows.
-
-| Workflow | Trigger | What | Claude Does |
-|----------|---------|------|-------------|
-| `auto-improve.yml` | 6hr | Code improvements | Analyzes repo → suggests enhancements (PR) |
-| `improve-ui.yml` | 12hr | UI redesign | Reviews website → creates design improvements (PR) |
-| `meta-manager.yml` | Weekly | Workflow optimization | Analyzes workflow configs → optimizes schedules/logic (PR) |
-
-### Self-Healing & Repair
-Claude attempts to fix failures automatically.
+### Self-Improvement & Meta
+Claude modifies its own codebase, workflows, and attempts self-repair.
 
 | Workflow | Trigger | What | Claude Does |
 |----------|---------|------|-------------|
 | `self-repair.yml` | On failure + 30min | Auto-fix failures | Reads logs → diagnoses issue → implements fix (commit/PR) |
+| `todo-worker.yml` | 8hr | TODO.md tasks | Reads TODO list → picks task → implements (PR) |
+| `adaptive-theme.yml` | Hourly | Dynamic theming | Generates CSS based on time/season/weather → commits |
 
-### Issue & PR Automation
-Claude responds to developer requests.
+### Code Review & Development
+Claude reviews code and assists with development.
 
 | Workflow | Trigger | What | Claude Does |
 |----------|---------|------|-------------|
-| `claude-issue-bot.yml` | @claude mention | Implement issues | Reads issue → implements solution (PR) + comments back |
-| `todo-worker.yml` | 8hr | TODO.md tasks | Reads TODO list → picks task → implements (PR) |
-| `claude-pr-review.yml` | On PR open | PR review | Reviews code → leaves comments/approval |
+| `claude-code-review.yml` | On PR open | PR review | Reviews code → leaves comments/approval |
 | `auto-merge.yml` | On approval | Auto-merge | Merges approved Claude PRs → deletes branch |
 
 ### Build & Deploy
@@ -69,27 +59,28 @@ Testing and development tools.
 | Workflow | Trigger | What |
 |----------|---------|------|
 | `webhook-demo.yml` | repository_dispatch | Webhook testing endpoint |
-| `scheduled-deploy.yml` | Hourly | Force rebuild/deploy |
-| `manual-deploy.yml` | Manual | Manual deploy trigger |
-| `test-claude.yml` | Manual | Test Claude Code integration |
+| `trigger-all-on-push.yml` | On push to main | Trigger multiple workflows |
+| `claude.yml` | Manual | General Claude Code testing |
 
-## Self-Repair Experiments
+## Self-Improvement System
 
-`self-repair.yml` is an experiment in autonomous error recovery. When workflows fail, Claude attempts to:
-1. Fetch failure logs via GitHub API
-2. Analyze the error and identify root cause
-3. Implement a fix (direct commit or PR depending on complexity)
-4. Re-run the fixed workflow
+The system can modify and improve itself through several mechanisms:
 
-It also runs every 30 minutes to catch any failures it might have missed.
+**`self-repair.yml`** - Autonomous error recovery. When workflows fail:
+1. Fetches failure logs via GitHub API
+2. Analyzes error and identifies root cause
+3. Implements fix (direct commit or PR depending on complexity)
+4. Re-runs the fixed workflow
+5. Also runs every 30 minutes to catch stragglers
 
-**Trigger manually:**
+**`todo-worker.yml`** - Implements tasks from TODO.md every 8 hours. Can be triggered manually with specific items.
+
+**`adaptive-theme.yml`** - Generates dynamic CSS themes based on current time, season, and weather conditions.
+
+**Trigger self-repair manually:**
 ```bash
 gh workflow run self-repair.yml
-```
-
-**Or from Claude Code CLI:**
-```
+# Or from Claude Code CLI
 /fix-workflows [run-id]
 ```
 
@@ -122,9 +113,9 @@ gh run view <run-id> --log-failed
 gh run rerun <run-id>
 ```
 
-Example: Manually trigger NY Times fetch:
+Example: Manually trigger NY Times headlines:
 ```bash
-gh workflow run fetch-nytimes.yml && gh run watch
+gh workflow run nytimes-headlines.yml && gh run watch
 ```
 
 ## Webhook Triggers

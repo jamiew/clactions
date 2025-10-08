@@ -342,6 +342,9 @@ if (fs.existsSync('blog')) {
   // Sort by date descending
   blogPosts.sort((a, b) => new Date(b.date) - new Date(a.date));
 
+  // Ensure dist directory exists before writing blog posts
+  fs.mkdirSync('dist', { recursive: true });
+
   // Generate individual blog post HTML pages
   blogPosts.forEach(post => {
     const htmlContent = markdownToHtml(post.content);
