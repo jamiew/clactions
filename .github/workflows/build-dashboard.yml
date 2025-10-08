@@ -6,7 +6,7 @@ on:
     paths:
       - 'data.json'
       - 'weather.json'
-      - 'theme.css'
+      - 'theme-nyc.css'
       - '.github/workflows/build-dashboard.yml'
       - 'scripts/build-dashboard.js'
   schedule:

@@ -11,9 +11,9 @@ const weather = fs.existsSync('weather.json')
   ? JSON.parse(fs.readFileSync('weather.json', 'utf-8'))
   : { temperature: '—', condition: 'Unknown', humidity: '—', feels_like: '—', last_updated: 'Never' };
 
-const theme = fs.existsSync('theme.css')
-  ? fs.readFileSync('theme.css', 'utf-8')
-  : '/* No theme yet */';
+const nycTheme = fs.existsSync('theme-nyc.css')
+  ? fs.readFileSync('theme-nyc.css', 'utf-8')
+  : '/* No NYC theme yet */';
 
 const workflows = fs.existsSync('workflow_runs.json')
   ? JSON.parse(fs.readFileSync('workflow_runs.json', 'utf-8'))
@@ -134,8 +134,35 @@ const html = `<!DOCTYPE html>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Claude Automaton</title>
+  <style id="theme-light">
+    /* Light theme */
+    :root {
+      --bg-primary: #ffffff;
+      --bg-secondary: #f5f5f7;
+      --text-primary: #1a1a1a;
+      --text-secondary: #6e6e73;
+      --accent: #007aff;
+      --accent-secondary: #5856d6;
+      --border-color: rgba(0, 0, 0, 0.1);
+    }
+  </style>
+  <style id="theme-dark">
+    /* Dark theme */
+    :root {
+      --bg-primary: #000000;
+      --bg-secondary: #1c1c1e;
+      --text-primary: #ffffff;
+      --text-secondary: #98989d;
+      --accent: #0a84ff;
+      --accent-secondary: #5e5ce6;
+      --border-color: rgba(255, 255, 255, 0.1);
+    }
+  </style>
+  <style id="theme-nyc">
+    /* NYC adaptive theme */
+${nycTheme}
+  </style>
   <style>
-${theme}
     /* Base styles */
     * {
       margin: 0;
@@ -161,6 +188,34 @@ ${theme}
       text-align: center;
       padding: 2rem 0 3rem;
       border-bottom: 2px solid var(--accent, #007aff);
+      position: relative;
+    }
+
+    .theme-switcher {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+    }
+
+    .theme-switcher select {
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      border: 1px solid var(--border-color, rgba(0,0,0,0.1));
+      background: var(--bg-secondary, #f5f5f7);
+      color: var(--text-primary, #1a1a1a);
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .theme-switcher select:hover {
+      border-color: var(--accent, #007aff);
+    }
+
+    .theme-switcher select:focus {
+      outline: none;
+      border-color: var(--accent, #007aff);
+      box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.1);
     }
 
     h1 {
@@ -349,6 +404,13 @@ ${theme}
 <body>
   <div class="container">
     <header>
+      <div class="theme-switcher">
+        <select id="theme-select" aria-label="Theme selector">
+          <option value="nyc">NYC</option>
+          <option value="light">Light</option>
+          <option value="dark">Dark</option>
+        </select>
+      </div>
       <h1>🤖 Claude Automaton</h1>
       <p class="subtitle">Self-improving AI infrastructure · New York, NY</p>
     </header>
@@ -370,6 +432,40 @@ ${workflowsHtml}
       <p><a href="https://github.com/jamiew/claude-gha-demo" class="workflow-link">View on GitHub</a></p>
     </footer>
   </div>
+
+  <script>
+    // Theme switcher logic
+    const themeSelect = document.getElementById('theme-select');
+    const themeStyles = {
+      light: document.getElementById('theme-light'),
+      dark: document.getElementById('theme-dark'),
+      nyc: document.getElementById('theme-nyc')
+    };
+
+    // Load saved theme or default to NYC
+    const savedTheme = localStorage.getItem('selected-theme') || 'nyc';
+    themeSelect.value = savedTheme;
+    applyTheme(savedTheme);
+
+    // Handle theme changes
+    themeSelect.addEventListener('change', (e) => {
+      const theme = e.target.value;
+      applyTheme(theme);
+      localStorage.setItem('selected-theme', theme);
+    });
+
+    function applyTheme(theme) {
+      // Disable all theme styles
+      Object.values(themeStyles).forEach(style => {
+        if (style) style.disabled = true;
+      });
+
+      // Enable selected theme
+      if (themeStyles[theme]) {
+        themeStyles[theme].disabled = false;
+      }
+    }
+  </script>
 </body>
 </html>`;
 

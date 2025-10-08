@@ -103,4 +103,6 @@ jobs:
 
             Be creative! Make it reflect the vibe of the moment.
 
-            Commit directly to main with message: "Update theme for hour ${{ steps.theme.outputs.hour }}"
+            Save the CSS to `theme-nyc.css` (not theme.css) so it can be loaded separately.
+
+            Commit directly to main with message: "Update NYC theme for hour ${{ steps.theme.outputs.hour }}"
