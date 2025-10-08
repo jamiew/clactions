@@ -96,11 +96,9 @@ jobs:
             This is a weather Glif that returns New York weather in Fahrenheit.
             Be creative in presenting it on the site!
 
-            Create a PR with your updates.
-          pr_title: "🌤️ Update weather data from Glif"
-          pr_body: |
+            Create a PR with your updates. Title: "🌤️ Update weather data from Glif"
+
+            PR Body:
             Automated weather update for New York, NY via Glif workflow.
-
             Glif workflow fetched current weather conditions and temperature.
-
             Run ID: ${{ github.run_id }}

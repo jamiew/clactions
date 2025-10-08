@@ -1,4 +1,4 @@
-name: HackerNews Top Story
+name: HackerNews
 
 on:
   schedule:
@@ -79,14 +79,17 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           claude_args: |
             --allowedTools "Read,Write,Bash(gh pr:*),Bash(mkdir:*)"
-          pr_title: "📰 HN Blog Post: ${{ steps.fetch-hn.outputs.title }}"
-          pr_body: |
+          prompt: |
+            Create a PR titled "📰 HN Blog Post: ${{ steps.fetch-hn.outputs.title }}"
+
+            PR Body:
             Automated blog post about today's top HackerNews story.
 
             **Story**: ${{ steps.fetch-hn.outputs.title }}
             **HN Discussion**: ${{ steps.fetch-hn.outputs.story_url }} (${{ steps.fetch-hn.outputs.score }} points, ${{ steps.fetch-hn.outputs.comment_count }} comments)
             **Original**: ${{ steps.fetch-hn.outputs.url }}
-          prompt: |
+
+            ---
             Write a blog post about today's top HackerNews story!
 
             **Story Details:**
