@@ -84,6 +84,121 @@ Example: Manually trigger NY Times fetch:
 gh workflow run fetch-nytimes.yml && gh run watch
 ```
 
+## Webhook Triggers
+
+The `webhook-demo.yml` workflow can be triggered via external webhooks using GitHub's `repository_dispatch` API.
+
+### Generating a GitHub Token
+
+You need a GitHub Personal Access Token to trigger workflows via webhook.
+
+**Option 1: Fine-Grained Token (Recommended)**
+
+1. Go to https://github.com/settings/tokens?type=beta
+2. Click **"Generate new token"**
+3. Configure the token:
+   - **Token name**: `webhook-trigger` (or whatever you prefer)
+   - **Expiration**: Choose duration (90 days, 1 year, custom, or no expiration)
+   - **Repository access**: Select **"Only select repositories"** → Choose `jamiew/claude-gha-demo`
+   - **Permissions** → Repository permissions:
+     - **Administration**: **Read and write** ✅
+4. Click **"Generate token"**
+5. **Copy the token immediately** (you won't see it again!)
+
+**Option 2: Classic Token**
+
+1. Go to https://github.com/settings/tokens
+2. Click **"Generate new token (classic)"**
+3. Configure the token:
+   - **Note**: `webhook-trigger`
+   - **Expiration**: Choose duration
+   - **Scopes**: Check **`repo`** (Full control of private repositories) ✅
+4. Click **"Generate token"**
+5. **Copy the token immediately**
+
+**Security Notes:**
+- Store the token securely (password manager, environment variable)
+- Never commit it to git
+- Treat it like a password
+- Use fine-grained tokens for better security (limited scope)
+- Set expiration dates and rotate tokens regularly
+
+### Using the Webhook
+
+**Endpoint:**
+```
+POST https://api.github.com/repos/jamiew/claude-gha-demo/dispatches
+```
+
+**Headers:**
+```
+Accept: application/vnd.github+json
+Authorization: Bearer YOUR_GITHUB_TOKEN
+```
+
+**Payload:**
+```json
+{
+  "event_type": "custom-webhook-event",
+  "client_payload": {
+    "message": "Your custom message",
+    "action": "deploy",
+    "data": {
+      "key": "value"
+    }
+  }
+}
+```
+
+**Trigger with curl:**
+```bash
+# Replace ghp_xxxxxxxxxxxx with your actual token
+curl -X POST \
+  -H "Accept: application/vnd.github+json" \
+  -H "Authorization: Bearer ghp_xxxxxxxxxxxx" \
+  https://api.github.com/repos/jamiew/claude-gha-demo/dispatches \
+  -d '{"event_type":"custom-webhook-event","client_payload":{"message":"Hello from webhook!"}}'
+```
+
+**Trigger with gh CLI (easiest):**
+```bash
+# gh CLI uses your authenticated session automatically
+gh api repos/jamiew/claude-gha-demo/dispatches \
+  -f event_type=custom-webhook-event \
+  -f client_payload[message]="Hello from webhook" \
+  -f client_payload[action]="deploy"
+```
+
+**Using environment variable:**
+```bash
+# Set token once
+export GITHUB_TOKEN=ghp_xxxxxxxxxxxx
+
+# Then use it
+curl -X POST \
+  -H "Accept: application/vnd.github+json" \
+  -H "Authorization: Bearer $GITHUB_TOKEN" \
+  https://api.github.com/repos/jamiew/claude-gha-demo/dispatches \
+  -d '{"event_type":"custom-webhook-event","client_payload":{"message":"Hello!"}}'
+```
+
+**Supported event types:**
+- `custom-webhook-event` - General webhook demo
+- `test-webhook` - Test webhook trigger
+
+**Payload fields** (all optional):
+- `message` - Custom message to echo
+- `action` - Action type (e.g., "deploy", "notify")
+- `data` - Any JSON object with additional data
+
+The workflow will echo all payload data and can be extended to perform actions based on the payload content.
+
+**View the workflow run:**
+```bash
+gh run list --workflow=webhook-demo.yml --limit 5
+gh run watch
+```
+
 ## Debug Tools
 
 Quick diagnosis:

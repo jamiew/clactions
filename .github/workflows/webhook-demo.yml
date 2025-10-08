@@ -1,0 +1,38 @@
+name: Webhook Demo
+on:
+  repository_dispatch:
+    types: [custom-webhook-event, test-webhook]
+
+jobs:
+  respond-to-webhook:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Echo webhook payload
+        run: |
+          echo "🎯 Webhook triggered successfully!"
+          echo "Event type: ${{ github.event.action }}"
+          echo "Triggered by: ${{ github.event.sender.login }}"
+          echo ""
+          echo "Full client payload:"
+          echo '${{ toJson(github.event.client_payload) }}'
+
+      - name: Process custom message
+        if: github.event.client_payload.message
+        run: |
+          echo "📨 Message received: ${{ github.event.client_payload.message }}"
+
+      - name: Process custom data
+        if: github.event.client_payload.data
+        run: |
+          echo "📦 Data received:"
+          echo '${{ toJson(github.event.client_payload.data) }}'
+
+      - name: Example action based on payload
+        run: |
+          if [[ "${{ github.event.client_payload.action }}" == "deploy" ]]; then
+            echo "Would trigger deployment here..."
+          elif [[ "${{ github.event.client_payload.action }}" == "notify" ]]; then
+            echo "Would send notification here..."
+          else
+            echo "No specific action requested"
+          fi
