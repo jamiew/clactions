@@ -43,17 +43,21 @@ jobs:
 
       - name: Commit crypto data
         run: |
+          set -euo pipefail
+
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
-          # Stash changes, pull, apply stash, commit
-          if git diff --quiet data/crypto-prices.json 2>/dev/null && git ls-files --error-unmatch data/crypto-prices.json >/dev/null 2>&1; then
+          git add data/crypto-prices.json
+
+          # Exit early if nothing changed
+          if git diff --staged --quiet; then
             echo "No changes to commit"
-          else
-            git stash push -m "temp crypto data" data/crypto-prices.json
-            git pull --rebase origin main
-            git stash pop
-            git add data/crypto-prices.json
-            git commit -m "Update crypto prices - $(date -u +"%B %d, %Y")"
-            git push
+            exit 0
           fi
+
+          # Commit first (clean index), then rebase onto latest remote and push
+          git commit -m "Update crypto prices - $(date -u +"%B %d, %Y")"
+          git fetch origin
+          git rebase origin/main
+          git push origin HEAD:main

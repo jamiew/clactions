@@ -58,17 +58,21 @@ jobs:
 
       - name: Commit weather data
         run: |
+          set -euo pipefail
+
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
-          # Stash changes, pull, apply stash, commit
-          if git diff --quiet data/weather.json weather_raw.json 2>/dev/null && git ls-files --error-unmatch data/weather.json weather_raw.json >/dev/null 2>&1; then
+          git add data/weather.json weather_raw.json
+
+          # Exit early if nothing changed
+          if git diff --staged --quiet; then
             echo "No weather changes"
-          else
-            git stash push -m "temp weather data" data/weather.json weather_raw.json
-            git pull --rebase origin main
-            git stash pop
-            git add data/weather.json weather_raw.json
-            git commit -m "Update weather data for New York, NY"
-            git push
+            exit 0
           fi
+
+          # Commit first (clean index), then rebase onto latest remote and push
+          git commit -m "Update weather data for New York, NY"
+          git fetch origin
+          git rebase origin/main
+          git push origin HEAD:main
