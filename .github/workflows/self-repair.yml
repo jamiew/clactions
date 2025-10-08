@@ -11,7 +11,7 @@ on:
         required: false
         type: string
   schedule:
-    - cron: '*/30 * * * *'  # Check every 30 minutes for any failures
+    - cron: '0 * * * *'  # Check every hour for any failures
 
 permissions:
   contents: write
