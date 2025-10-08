@@ -1,0 +1,69 @@
+name: Fetch Crypto Prices
+
+on:
+  schedule:
+    - cron: '*/30 * * * *'  # Every 30 minutes
+  workflow_dispatch:  # Manual trigger
+
+permissions:
+  contents: write
+
+jobs:
+  fetch-crypto:
+    runs-on: ubuntu-latest
+    env:
+      ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Run Claude Code with CoinGecko MCP
+        uses: anthropics/claude-code-action@v1
+        with:
+          mcp_config: |
+            {
+              "mcpServers": {
+                "coingecko": {
+                  "command": "npx",
+                  "args": [
+                    "-y",
+                    "@wong2/mcp-server-coingecko@latest"
+                  ]
+                }
+              }
+            }
+          prompt: |
+            Use the CoinGecko MCP server to fetch current cryptocurrency data for BTC, ETH, SOL, and HNT.
+
+            For each coin, get:
+            - Current price in USD
+            - 24h price change percentage
+            - 24h high/low
+            - Market cap
+            - Last updated timestamp
+
+            Store the results in data/crypto-prices.json with this structure:
+            {
+              "coins": {
+                "BTC": { "name": "Bitcoin", "symbol": "BTC", "price": ..., "change_24h": ..., "high_24h": ..., "low_24h": ..., "market_cap": ... },
+                "ETH": { "name": "Ethereum", "symbol": "ETH", ... },
+                "SOL": { "name": "Solana", "symbol": "SOL", ... },
+                "HNT": { "name": "Helium", "symbol": "HNT", ... }
+              },
+              "last_updated": "ISO timestamp"
+            }
+
+            Make sure the data/ directory exists first. Use the MCP tools to query CoinGecko API.
+
+      - name: Commit crypto data
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/crypto-prices.json
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "Update crypto prices - $(date -u +"%B %d, %Y")"
+            git push
+          fi

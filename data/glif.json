@@ -1,0 +1,84 @@
+{
+  "featured_workflows": [
+    {
+      "name": "Sora 2 Reverse Prompt Engineer",
+      "description": "Reverse engineer prompts from Sora 2 Videos",
+      "creator": "angrypenguin",
+      "url": "https://glif.app/@angrypenguin/glifs/cmggv3vuj0000ie04ozvgt9jm",
+      "id": "cmggv3vuj0000ie04ozvgt9jm"
+    },
+    {
+      "name": "Sora 2: Text to Video (9:16)",
+      "description": "The latest video model from OpenAI",
+      "creator": "angrypenguin",
+      "url": "https://glif.app/@angrypenguin/glifs/cmgguofeu0000if04ifdt16au",
+      "id": "cmgguofeu0000if04ifdt16au"
+    },
+    {
+      "name": "Sora 2: Text to Video (16:9)",
+      "description": "The latest video model from OpenAI",
+      "creator": "angrypenguin",
+      "url": "https://glif.app/@angrypenguin/glifs/cmggui7y20000jr04f2a9t8jn",
+      "id": "cmggui7y20000jr04f2a9t8jn"
+    },
+    {
+      "name": "Sora 2: Image to Video (9:16)",
+      "description": "Generate video from image with Sora 2",
+      "creator": "angrypenguin",
+      "url": "https://glif.app/@angrypenguin/glifs/cmggu9nsi0000l50469s4r2ym",
+      "id": "cmggu9nsi0000l50469s4r2ym"
+    },
+    {
+      "name": "Sora 2: Image to Video (16:9)",
+      "description": "Generate video from image with Sora 2",
+      "creator": "angrypenguin",
+      "url": "https://glif.app/@angrypenguin/glifs/cmggtz6zy0000l2048vnrbu93",
+      "id": "cmggtz6zy0000l2048vnrbu93"
+    },
+    {
+      "name": "Video Watermark Remover",
+      "description": "Remove watermarks from videos",
+      "creator": "angrypenguin",
+      "url": "https://glif.app/@angrypenguin/glifs/cmgazqcz00000js04nrcss6yk",
+      "id": "cmgazqcz00000js04nrcss6yk"
+    },
+    {
+      "name": "Wan-2.2/animate",
+      "description": "Maximum length is 30s.",
+      "creator": "OfficialStarterKit",
+      "url": "https://glif.app/@OfficialStarterKit/glifs/cmfvfrsxj0000js04eko5bqui",
+      "id": "cmfvfrsxj0000js04eko5bqui"
+    },
+    {
+      "name": "✂️ Edit an Image (Nano-Banana)",
+      "description": "Edit images with Nano-Banana model",
+      "creator": "OfficialStarterKit",
+      "url": "https://glif.app/@OfficialStarterKit/glifs/cmfo8w00n0000l104r499vfry",
+      "id": "cmfo8w00n0000l104r499vfry"
+    },
+    {
+      "name": "🏞️ Generate an Image (Seedream 4.0)",
+      "description": "Generate images with Seedream 4.0",
+      "creator": "OfficialStarterKit",
+      "url": "https://glif.app/@OfficialStarterKit/glifs/cmfo9qiqv0001ii04ccoceyxe",
+      "id": "cmfo9qiqv0001ii04ccoceyxe"
+    },
+    {
+      "name": "📱 Fake iPhone photos (Qwen Image)",
+      "description": "Create fake iPhone photos with Qwen",
+      "creator": "OfficialStarterKit",
+      "url": "https://glif.app/@OfficialStarterKit/glifs/cmfoa2v5k0004js04perrmw6y",
+      "id": "cmfoa2v5k0004js04perrmw6y"
+    }
+  ],
+  "featured_agents": [
+    {
+      "name": "Infinite Kling 2.5",
+      "description": "Generate infinitely long one-take videos with Kling 2.5 - this agent knows how to do it.",
+      "creator": "infinitekling",
+      "url": "https://glif.app/bots/infinitekling",
+      "id": "cmfzqbhdj0001kw04zgzgikjm"
+    }
+  ],
+  "last_updated": "2025-10-08T18:02:45Z"
+}
