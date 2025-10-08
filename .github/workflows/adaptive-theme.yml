@@ -60,13 +60,13 @@ jobs:
 
             **Your Task:**
 
-            Create/update `theme.css` with an adaptive theme that reflects:
+            Create/update `theme-nyc.css` with an adaptive theme that reflects:
 
             1. **Time of Day** (based on hour):
-               - Early morning (5-8): Soft, warm colors, gentle gradients
+               - Night (20-5): Dark backgrounds (#1a1a1a or darker), light text, subdued colors, easier on eyes
+               - Early morning (6-8): Soft, warm colors, gentle gradients
                - Morning/day (9-16): Bright, energetic, high contrast
-               - Evening (17-20): Warm sunset tones, golden hour vibes
-               - Night (21-4): Deep blues/purples, subdued, easier on eyes
+               - Evening (17-19): Warm sunset tones, golden hour vibes
 
             2. **Season** (based on month/day):
                - Winter: Cool tones, blues, silvers

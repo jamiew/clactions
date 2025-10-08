@@ -38,54 +38,121 @@ function generateWeatherTheme(weather) {
   const temp = parseInt(weather.temperature) || 70;
   const condition = (weather.condition || 'Clear').toLowerCase();
 
+  // Get current hour in NY time
+  const nyHour = parseInt(new Date().toLocaleString('en-US', {
+    timeZone: 'America/New_York',
+    hour: 'numeric',
+    hour12: false
+  }));
+
+  // Determine if it's nighttime (8 PM - 6 AM)
+  const isNight = nyHour >= 20 || nyHour < 6;
+  const isEvening = nyHour >= 17 && nyHour < 20;
+  const isEarlyMorning = nyHour >= 6 && nyHour < 9;
+
   let bgPrimary, bgSecondary, textPrimary, accent, accentSecondary;
   let animations = '';
   let backgroundEffect = '';
 
-  // Temperature-based color shifts
+  // Temperature-based color shifts (adjusted for time of day)
   if (temp < 32) {
     // Freezing - icy blues and whites
-    bgPrimary = '#e8f4f8';
-    bgSecondary = '#d0e8f2';
-    textPrimary = '#1a2942';
-    accent = '#4a90e2';
-    accentSecondary = '#7bb3ff';
+    if (isNight) {
+      bgPrimary = '#1a2942';
+      bgSecondary = '#2c3e56';
+      textPrimary = '#e8f4f8';
+      accent = '#7bb3ff';
+      accentSecondary = '#4a90e2';
+    } else {
+      bgPrimary = '#e8f4f8';
+      bgSecondary = '#d0e8f2';
+      textPrimary = '#1a2942';
+      accent = '#4a90e2';
+      accentSecondary = '#7bb3ff';
+    }
   } else if (temp < 50) {
     // Cold - cool blues and grays
-    bgPrimary = '#f0f4f8';
-    bgSecondary = '#dce4ec';
-    textPrimary = '#2c3e50';
-    accent = '#5680c1';
-    accentSecondary = '#8badd6';
+    if (isNight) {
+      bgPrimary = '#1c2532';
+      bgSecondary = '#2c3e50';
+      textPrimary = '#f0f4f8';
+      accent = '#8badd6';
+      accentSecondary = '#5680c1';
+    } else {
+      bgPrimary = '#f0f4f8';
+      bgSecondary = '#dce4ec';
+      textPrimary = '#2c3e50';
+      accent = '#5680c1';
+      accentSecondary = '#8badd6';
+    }
   } else if (temp < 70) {
     // Mild - soft neutrals
-    bgPrimary = '#f8f9fa';
-    bgSecondary = '#e9ecef';
-    textPrimary = '#212529';
-    accent = '#6c757d';
-    accentSecondary = '#adb5bd';
+    if (isNight) {
+      bgPrimary = '#1a1a1a';
+      bgSecondary = '#2d2d2d';
+      textPrimary = '#f8f9fa';
+      accent = '#adb5bd';
+      accentSecondary = '#6c757d';
+    } else {
+      bgPrimary = '#f8f9fa';
+      bgSecondary = '#e9ecef';
+      textPrimary = '#212529';
+      accent = '#6c757d';
+      accentSecondary = '#adb5bd';
+    }
   } else if (temp < 85) {
     // Warm - golden tones
-    bgPrimary = '#fff9f0';
-    bgSecondary = '#ffe8cc';
-    textPrimary = '#3d2817';
-    accent = '#ff9500';
-    accentSecondary = '#ffb340';
+    if (isNight) {
+      bgPrimary = '#2d1f0f';
+      bgSecondary = '#3d2817';
+      textPrimary = '#fff9f0';
+      accent = '#ffb340';
+      accentSecondary = '#ff9500';
+    } else if (isEvening) {
+      // Golden hour
+      bgPrimary = '#ffe8cc';
+      bgSecondary = '#ffd4a8';
+      textPrimary = '#3d2817';
+      accent = '#ff9500';
+      accentSecondary = '#ffb340';
+    } else {
+      bgPrimary = '#fff9f0';
+      bgSecondary = '#ffe8cc';
+      textPrimary = '#3d2817';
+      accent = '#ff9500';
+      accentSecondary = '#ffb340';
+    }
   } else {
     // Hot - vibrant oranges and reds
-    bgPrimary = '#fff3e6';
-    bgSecondary = '#ffe0b3';
-    textPrimary = '#4a1e00';
-    accent = '#ff6b35';
-    accentSecondary = '#ff8c5a';
+    if (isNight) {
+      bgPrimary = '#2d1505';
+      bgSecondary = '#4a1e00';
+      textPrimary = '#fff3e6';
+      accent = '#ff8c5a';
+      accentSecondary = '#ff6b35';
+    } else {
+      bgPrimary = '#fff3e6';
+      bgSecondary = '#ffe0b3';
+      textPrimary = '#4a1e00';
+      accent = '#ff6b35';
+      accentSecondary = '#ff8c5a';
+    }
   }
 
   // Condition-based effects and overrides
   if (condition.includes('rain') || condition.includes('drizzle')) {
-    bgPrimary = '#d4e4f7';
-    bgSecondary = '#b8d4f1';
-    accent = '#4a7ba7';
-    accentSecondary = '#6b96c1';
+    if (isNight) {
+      bgPrimary = '#1a2a3a';
+      bgSecondary = '#2a3a4a';
+      textPrimary = '#d4e4f7';
+      accent = '#6b96c1';
+      accentSecondary = '#4a7ba7';
+    } else {
+      bgPrimary = '#d4e4f7';
+      bgSecondary = '#b8d4f1';
+      accent = '#4a7ba7';
+      accentSecondary = '#6b96c1';
+    }
 
     animations = `
       @keyframes rain {
@@ -129,10 +196,18 @@ function generateWeatherTheme(weather) {
       .container { position: relative; z-index: 2; }
     `;
   } else if (condition.includes('snow')) {
-    bgPrimary = '#f0f8ff';
-    bgSecondary = '#e3f2fd';
-    accent = '#64b5f6';
-    accentSecondary = '#90caf9';
+    if (isNight) {
+      bgPrimary = '#1a2533';
+      bgSecondary = '#2a3543';
+      textPrimary = '#f0f8ff';
+      accent = '#90caf9';
+      accentSecondary = '#64b5f6';
+    } else {
+      bgPrimary = '#f0f8ff';
+      bgSecondary = '#e3f2fd';
+      accent = '#64b5f6';
+      accentSecondary = '#90caf9';
+    }
 
     animations = `
       @keyframes snowfall {
@@ -157,10 +232,18 @@ function generateWeatherTheme(weather) {
       .container { position: relative; z-index: 2; }
     `;
   } else if (condition.includes('cloud')) {
-    bgPrimary = '#f5f7fa';
-    bgSecondary = '#e4e9f0';
-    accent = '#778899';
-    accentSecondary = '#a0aec0';
+    if (isNight) {
+      bgPrimary = '#1c2128';
+      bgSecondary = '#2c3138';
+      textPrimary = '#f5f7fa';
+      accent = '#a0aec0';
+      accentSecondary = '#778899';
+    } else {
+      bgPrimary = '#f5f7fa';
+      bgSecondary = '#e4e9f0';
+      accent = '#778899';
+      accentSecondary = '#a0aec0';
+    }
 
     backgroundEffect = `
       body {
@@ -169,9 +252,15 @@ function generateWeatherTheme(weather) {
     `;
   } else if (condition.includes('clear') || condition.includes('sunny')) {
     // Extra bright and vibrant
-    const hour = new Date().getHours();
-    if (hour >= 17 || hour <= 6) {
-      // Sunset/night - warm purples and oranges
+    if (isNight) {
+      // Clear night - deep blues and purples
+      bgPrimary = '#0f1419';
+      bgSecondary = '#1a1f29';
+      textPrimary = '#e8ecf0';
+      accent = '#6b7d9d';
+      accentSecondary = '#4a5d7d';
+    } else if (isEvening) {
+      // Sunset/golden hour - warm purples and oranges
       bgPrimary = '#ffe4e1';
       bgSecondary = '#ffd4cc';
       accent = '#ff6b9d';
@@ -190,10 +279,18 @@ function generateWeatherTheme(weather) {
       }
     `;
   } else if (condition.includes('fog') || condition.includes('mist')) {
-    bgPrimary = '#e8e8e8';
-    bgSecondary = '#d3d3d3';
-    accent = '#708090';
-    accentSecondary = '#a9a9a9';
+    if (isNight) {
+      bgPrimary = '#2a2a2a';
+      bgSecondary = '#3a3a3a';
+      textPrimary = '#e8e8e8';
+      accent = '#a9a9a9';
+      accentSecondary = '#708090';
+    } else {
+      bgPrimary = '#e8e8e8';
+      bgSecondary = '#d3d3d3';
+      accent = '#708090';
+      accentSecondary = '#a9a9a9';
+    }
 
     animations = `
       @keyframes fog {
@@ -276,7 +373,7 @@ const weatherCard = `
         <span class="data-value">${weather.humidity || '—'}%</span>
       </li>
     </ul>
-    <div class="timestamp">Updated: ${weather.last_updated || 'Never'}</div>
+    <div class="timestamp" data-utc="${weather.last_updated || ''}">Updated: <span class="local-time">${weather.last_updated || 'Never'}</span></div>
   </div>
 `;
 
@@ -894,6 +991,33 @@ ${workflowsHtml}
   </div>
 
   <script>
+    // Convert UTC timestamps to Eastern Time on page load
+    document.addEventListener('DOMContentLoaded', () => {
+      document.querySelectorAll('[data-utc]').forEach(el => {
+        const utc = el.dataset.utc;
+        if (utc && utc !== 'Never' && utc !== '') {
+          try {
+            const date = new Date(utc);
+            const localTime = date.toLocaleString('en-US', {
+              timeZone: 'America/New_York',
+              month: 'short',
+              day: 'numeric',
+              year: 'numeric',
+              hour: 'numeric',
+              minute: '2-digit',
+              hour12: true
+            });
+            const timeEl = el.querySelector('.local-time');
+            if (timeEl) {
+              timeEl.textContent = localTime + ' ET';
+            }
+          } catch (e) {
+            console.error('Error parsing timestamp:', e);
+          }
+        }
+      });
+    });
+
     // Theme switcher logic
     const themeToggle = document.getElementById('theme-toggle');
     const themeMenu = document.getElementById('theme-menu');
