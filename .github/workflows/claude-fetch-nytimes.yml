@@ -1,0 +1,36 @@
+name: Claude Fetches NY Times
+
+on:
+  schedule:
+    - cron: '*/30 * * * *'  # Every 30 minutes
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  claude-fetch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Claude scrapes NY Times and updates site
+        uses: anthropics/claude-code-action@v1
+        with:
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          prompt: |
+            Fetch the latest headlines from NY Times (https://www.nytimes.com/).
+
+            Tasks:
+            1. Scrape the NY Times homepage for top headlines
+            2. Extract 10-15 of the most prominent headlines
+            3. Update data.json with the headlines in the `nytimes_headlines` field
+            4. Update the `last_updated` timestamp
+            5. Commit the changes directly to main branch
+
+            Use web scraping or the WebFetch tool to get the content.
+            Make sure to extract meaningful, current headlines.
+          create_pr: false
