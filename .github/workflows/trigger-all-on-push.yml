@@ -8,6 +8,8 @@ on:
 jobs:
   trigger-all-workflows:
     runs-on: ubuntu-latest
+    # Only run if push is from a human (not a bot)
+    if: github.event.pusher.name != 'github-actions[bot]' && github.actor != 'github-actions[bot]'
     steps:
       - name: Trigger all workflows
         env:
