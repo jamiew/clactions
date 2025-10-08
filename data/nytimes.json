@@ -1,20 +1,12 @@
 {
   "headlines": [
     {
+      "title": "Texas' Blue-State Deployments Shred Relations Between Governors",
+      "url": "https://www.nytimes.com/2025/10/08/us/politics/national-guard-governors.html"
+    },
+    {
       "title": "Before Trump Ordered In Troops, Federal Officers Called Portland Protests 'Low Energy'",
       "url": "https://www.nytimes.com/2025/10/08/us/politics/trump-portland-troops.html"
-    },
-    {
-      "title": "Voters Favor Deporting Those in U.S. Illegally, Poll Finds, but Say Trump Has Gone Too Far",
-      "url": "https://www.nytimes.com/2025/10/08/us/trump-deportation-illegal-immigrants-voters-poll.html"
-    },
-    {
-      "title": "Arab Mediators Believe Hamas Could Be Open to Partially Disarming",
-      "url": "https://www.nytimes.com/2025/10/08/world/middleeast/israel-hamas-talks-gaza-war-disarm.html"
-    },
-    {
-      "title": "Israel Intercepts Another Activist Flotilla Aiming to Break Gaza Blockade",
-      "url": "https://www.nytimes.com/2025/10/08/world/middleeast/israel-gaza-flotilla-blockade.html"
     },
     {
       "title": "Jonathan Rinderknecht Arrested in Connection With Palisades Fire in Los Angeles",
@@ -27,6 +19,10 @@
     {
       "title": "James Comey, Former FBI Director, to Appear in Court for Arraignment",
       "url": "https://www.nytimes.com/2025/10/08/us/politics/james-comey-arraignment.html"
+    },
+    {
+      "title": "Comey's Two Legal Challenges to His Indictment, Explained",
+      "url": "https://www.nytimes.com/2025/10/08/us/politics/comey-legal-challenges-explained.html"
     },
     {
       "title": "Joan Kennedy, Who Married Into a Dynasty, Dies at 89",
@@ -53,6 +49,10 @@
       "url": "https://www.nytimes.com/2025/10/08/nyregion/zohran-mamdani-israel-palestine.html"
     },
     {
+      "title": "Mamdani Rides Slow Bus to 'Fast and Free' Buses Event",
+      "url": "https://www.nytimes.com/2025/10/08/nyregion/mamdani-bus-plan-nyc-mayor.html"
+    },
+    {
       "title": "Cuomo Calls for Rebuilding Rikers Island and Keeping the Complex Open",
       "url": "https://www.nytimes.com/2025/10/08/nyregion/cuomo-rikers-island-jails.html"
     },
@@ -61,5 +61,5 @@
       "url": "https://www.nytimes.com/2025/10/08/world/asia/nepal-gen-z-revolution.html"
     }
   ],
-  "last_updated": "2025-10-08T22:03:03.738547Z"
+  "last_updated": "2025-10-08T22:54:17Z"
 }
