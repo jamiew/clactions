@@ -7,6 +7,7 @@ on:
 
 permissions:
   contents: write
+  id-token: write
 
 jobs:
   fetch-crypto:
@@ -21,34 +22,15 @@ jobs:
       - name: Run Claude Code with CoinGecko MCP
         uses: anthropics/claude-code-action@v1
         with:
-          claude_args: |
-            --allowedTools "Read,Write,Bash(mkdir:*)"
-          mcp_config: |
-            {
-              "mcpServers": {
-                "coingecko": {
-                  "command": "npx",
-                  "args": [
-                    "-y",
-                    "@wong2/mcp-server-coingecko@latest"
-                  ]
-                }
-              }
-            }
           prompt: |
-            Use the CoinGecko MCP server to fetch current cryptocurrency data for BTC, ETH, SOL, and HNT.
+            Fetch current cryptocurrency data for BTC, ETH, SOL, and HNT from the CoinGecko API.
 
-            For each coin, get:
-            - Current price in USD
-            - 24h price change percentage
-            - 24h high/low
-            - Market cap
-            - Last updated timestamp
+            Use the CoinGecko API endpoint: https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,solana,helium&vs_currencies=usd&include_market_cap=true&include_24hr_vol=true&include_24hr_change=true&include_last_updated_at=true
 
-            Store the results in data/crypto-prices.json with this structure:
+            Parse the API response and store the results in data/crypto-prices.json with this structure:
             {
               "coins": {
-                "BTC": { "name": "Bitcoin", "symbol": "BTC", "price": ..., "change_24h": ..., "high_24h": ..., "low_24h": ..., "market_cap": ... },
+                "BTC": { "name": "Bitcoin", "symbol": "BTC", "price": ..., "change_24h": ..., "market_cap": ..., "last_updated": ... },
                 "ETH": { "name": "Ethereum", "symbol": "ETH", ... },
                 "SOL": { "name": "Solana", "symbol": "SOL", ... },
                 "HNT": { "name": "Helium", "symbol": "HNT", ... }
@@ -56,7 +38,7 @@ jobs:
               "last_updated": "ISO timestamp"
             }
 
-            Make sure the data/ directory exists first. Use the MCP tools to query CoinGecko API.
+            Make sure the data/ directory exists first. Use Bash with curl to fetch the data.
 
       - name: Commit crypto data
         run: |
