@@ -1,56 +1,99 @@
-# Claude GitHub Actions Automaton
+# Claude GitHub Actions Playground
 
-Self-improving automation where Claude reads the world, updates code/website, reviews itself, fixes itself. All via GitHub Actions.
+Experimental sandbox for combining Claude Code with GitHub Actions. Claude fetches data, updates websites, creates PRs, reviews code, and attempts to fix its own failures.
 
 ## What It Does
 
-GitHub Actions use Claude to:
-- Scrape external sources (NY Times, Glif API)
-- Update data.json → auto-deploy website
-- Make code improvements via PRs
-- Review its own PRs
-- Fix broken workflows automatically
-- Manage its own cron schedules
+This is a playground for exploring what happens when you give Claude access to GitHub Actions:
+- Fetch external data (NY Times RSS, Glif API, crypto prices)
+- Update data files → auto-deploy static website
+- Create code improvements via pull requests
+- Review and auto-merge its own PRs
+- Attempt to fix broken workflows
+- Implement tasks from TODO.md
+- Respond to @claude mentions in issues
 
-**10 of 13 workflows use Claude for decisions.** The rest are simple deploys.
+**13 of 20 workflows** use Claude Code for decision-making and implementation.
 
 ## Workflows
 
-| Workflow | Schedule | What | Updates |
-|----------|----------|------|---------|
-| `fetch-nytimes.yml` | 30min | Scrapes NYT headlines | data.json |
-| `fetch-glif.yml` | 2hr | Gets featured Glif workflows/agents | data.json |
-| `run-glif.yml` | 15min | Runs Glif, Claude processes output | data.json + code |
-| `auto-improve.yml` | 6hr | Claude analyzes repo, makes improvements | Code (PR) |
-| `improve-ui.yml` | 12hr | Claude redesigns website UI | Code (PR) |
-| `meta-manager.yml` | Weekly | Claude optimizes workflow configs | Workflows (PR) |
-| `claude-pr-review.yml` | On PR | Claude reviews all PRs | Review/approval |
-| `self-repair.yml` ⭐ | On failure | Claude auto-fixes broken workflows | Fix (commit/PR) |
-| `todo-worker.yml` ⭐ | 8hr | Reads TODO.md, implements tasks | Feature (PR) |
-| `claude-issue-bot.yml` ⭐ | On @claude | Implements issues via PR | Feature (PR) |
-| `auto-merge.yml` | On approval | Merges approved Claude PRs | - |
-| `deploy-pages.yml` | On push | Deploys to GitHub Pages | - |
-| `scheduled-deploy.yml` | Hourly | Regenerates website | - |
+### Data Collection & Scraping
+Claude fetches external data and updates the website.
 
-## Self-Repair ⭐
+| Workflow | Trigger | What | Claude Does |
+|----------|---------|------|-------------|
+| `fetch-nytimes.yml` | 30min | NYT RSS feed | Parses XML, extracts headlines → `data/nytimes.json` |
+| `fetch-glif.yml` | 2hr | Glif featured content | Fetches workflows/agents → `data/glif.json` |
+| `run-glif.yml` | 1hr | Run Glif workflow | Processes weather output → `data/weather.json` + updates site |
+| `fetch-hackernews.yml` | 6hr | HN top story | Reads story + comments → writes blog post (PR) |
+| `fetch-weather.yml` | 1hr | Weather API | Fetches NYC weather → `data/weather.json` |
+| `fetch-weather-glif.yml` | 1hr | Weather via Glif | Alternative weather source → `data/weather.json` |
+| `fetch-crypto.yml` | 1hr | Crypto prices | Fetches BTC/ETH/DOGE → `data/crypto-prices.json` |
 
-The killer feature: **workflows fix themselves.**
+### Self-Improvement & Code Evolution
+Claude modifies its own codebase and workflows.
 
-`self-repair.yml` auto-triggers when any workflow fails. Claude:
-1. Grabs failure logs
-2. Identifies root cause
-3. Implements fix (commit or PR)
-4. Also runs every 30min to catch stragglers
+| Workflow | Trigger | What | Claude Does |
+|----------|---------|------|-------------|
+| `auto-improve.yml` | 6hr | Code improvements | Analyzes repo → suggests enhancements (PR) |
+| `improve-ui.yml` | 12hr | UI redesign | Reviews website → creates design improvements (PR) |
+| `meta-manager.yml` | Weekly | Workflow optimization | Analyzes workflow configs → optimizes schedules/logic (PR) |
 
-Trigger manually:
+### Self-Healing & Repair
+Claude attempts to fix failures automatically.
+
+| Workflow | Trigger | What | Claude Does |
+|----------|---------|------|-------------|
+| `self-repair.yml` | On failure + 30min | Auto-fix failures | Reads logs → diagnoses issue → implements fix (commit/PR) |
+
+### Issue & PR Automation
+Claude responds to developer requests.
+
+| Workflow | Trigger | What | Claude Does |
+|----------|---------|------|-------------|
+| `claude-issue-bot.yml` | @claude mention | Implement issues | Reads issue → implements solution (PR) + comments back |
+| `todo-worker.yml` | 8hr | TODO.md tasks | Reads TODO list → picks task → implements (PR) |
+| `claude-pr-review.yml` | On PR open | PR review | Reviews code → leaves comments/approval |
+| `auto-merge.yml` | On approval | Auto-merge | Merges approved Claude PRs → deletes branch |
+
+### Build & Deploy
+Standard CI/CD (no Claude).
+
+| Workflow | Trigger | What |
+|----------|---------|------|
+| `build-dashboard.yml` | On data/** push | Rebuilds website from data files → deploys |
+
+### Development Utilities
+Testing and development tools.
+
+| Workflow | Trigger | What |
+|----------|---------|------|
+| `webhook-demo.yml` | repository_dispatch | Webhook testing endpoint |
+| `scheduled-deploy.yml` | Hourly | Force rebuild/deploy |
+| `manual-deploy.yml` | Manual | Manual deploy trigger |
+| `test-claude.yml` | Manual | Test Claude Code integration |
+
+## Self-Repair Experiments
+
+`self-repair.yml` is an experiment in autonomous error recovery. When workflows fail, Claude attempts to:
+1. Fetch failure logs via GitHub API
+2. Analyze the error and identify root cause
+3. Implement a fix (direct commit or PR depending on complexity)
+4. Re-run the fixed workflow
+
+It also runs every 30 minutes to catch any failures it might have missed.
+
+**Trigger manually:**
 ```bash
 gh workflow run self-repair.yml
 ```
 
-Or from Claude Code TUI:
+**Or from Claude Code CLI:**
 ```
-/fix-workflows
+/fix-workflows [run-id]
 ```
+
+**Success rate:** Variable. Claude can fix simple issues (missing files, permission errors, API changes) but struggles with complex logic bugs.
 
 ## Workflow Commands
 
@@ -274,33 +317,35 @@ Create an issue and mention `@claude` - it will:
 
 Wild mode activated. 🎢
 
-## The Loop
+## The Feedback Loop
 
 ```
-External data → Claude fetches → Updates data.json → Deploys site
+External data → Claude fetches → Updates data/ → Deploys site
                                          ↓
                         Claude improves UI → Creates PR
                                          ↓
                             Claude reviews PR → Auto-merge
                                          ↓
-                                  [Better site]
+                                  [Updated site]
 ```
 
-Meanwhile:
-- `meta-manager.yml` optimizes the workflows
-- `self-repair.yml` fixes failures
-- `auto-improve.yml` adds features
-- `todo-worker.yml` implements ideas from TODO.md
+In parallel:
+- `meta-manager.yml` analyzes and optimizes workflows
+- `self-repair.yml` attempts to fix failures
+- `auto-improve.yml` suggests code improvements
+- `todo-worker.yml` implements tasks from TODO.md
 
-It's **autonomous infrastructure** that gets better over time.
+The goal is autonomous infrastructure that iterates on itself. Success varies.
 
 ## Files
 
-- `data.json` - Central data store (NY Times, Glif content)
+- `data/` - Data directory (nytimes.json, glif.json, weather.json, crypto-prices.json)
+- `data.json` - Legacy data store (still supported for backward compatibility)
 - `TODO.md` - Ideas and tasks for Claude to implement
-- `.github/workflows/` - All automation
-- `scripts/` - Debugging and repair tools
-- `.claude/commands/` - Custom slash commands
+- `.github/workflows/` - All workflow definitions
+- `scripts/` - Debug and repair utilities
+- `scripts/build-dashboard.js` - Builds static website from data files
+- `.claude/commands/` - Custom slash commands (Markdown)
 - `.claude/subagents/` - Subagent documentation
 
 ## Glif Integration
@@ -344,16 +389,20 @@ Modes:
 - **plan** - Creates implementation plan without coding
 - **survey** - Organizes and prioritizes all TODOs
 
-## Your Site
-
-**Live at**: https://jamiew.github.io/claude-gha-demo
-
-Updates automatically as Claude fetches data:
-- NY Times headlines (every 30min)
-- Glif featured content (every 2hr)
-- Weather from Glif (every 15min)
-- UI improvements (every 12hr)
 
 ## Philosophy
 
-Autonomous AI managing infrastructure. Claude reads, decides, acts, reviews, fixes. Add ideas to TODO.md and Claude builds them. Self-improving system.
+Experimental playground for autonomous AI infrastructure. What happens when Claude can:
+- Read external data sources
+- Modify its own codebase
+- Review and merge its own changes
+- Attempt to fix its own failures
+- Respond to developer requests
+
+Add ideas to TODO.md and Claude will attempt to build them. This is a sandbox for exploring the possibilities and limitations of AI-driven development workflows.
+
+## Live Demo
+
+**Website**: https://jamiew.github.io/claude-gha-demo
+
+The dashboard updates automatically as workflows run and fetch new data.
