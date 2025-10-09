@@ -1,4 +1,4 @@
-name: Crypto Prices
+name: Crypto Prices (via CoinGecko MCP)
 
 on:
   schedule:

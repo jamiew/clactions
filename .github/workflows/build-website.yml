@@ -1,4 +1,4 @@
-name: Build Dashboard
+name: Build Website
 
 on:
   push:
@@ -10,7 +10,7 @@ on:
       - 'weather_raw.json'
       - 'blog/**'
       - 'theme-nyc.css'
-      - '.github/workflows/build-dashboard.yml'
+      - '.github/workflows/build-website.yml'
       - 'scripts/build-dashboard.js'
   schedule:
     - cron: '0 * * * *'  # Every hour

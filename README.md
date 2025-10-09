@@ -2,80 +2,76 @@
 
 Experimental sandbox for combining Claude Code with GitHub Actions. Claude fetches data, updates websites, creates PRs, reviews code, and attempts to fix its own failures.
 
-## What It Does
+## What This Tests
 
-This is a playground for exploring what happens when you give Claude access to GitHub Actions:
-- Collect external data (NY Times RSS, Glif API, crypto prices, weather)
-- Update data files → auto-deploy static website
-- Write blog posts based on HackerNews stories
-- Review code and auto-merge PRs
-- Attempt to fix broken workflows autonomously
-- Implement tasks from TODO.md
-- Generate adaptive CSS themes based on time/weather
+This repo explores autonomous AI infrastructure across four categories:
+1. **Data Fetchers & Scrapers** - Claude fetches external data and updates the website
+2. **Autonomous Development** - Claude modifies its own codebase and implements tasks
+3. **Webhooks & External Triggers** - External services can trigger Claude workflows
+4. **Build & Deploy Website** - Static site generation from collected data
 
-**8 of 15 workflows** use Claude Code for decision-making and implementation.
+Additionally, Claude Code's built-in features are installed via `/install-github-app`:
+- **@claude mentions in issues** - Comment `@claude` to get implementation PRs
+- **Code Review** - Claude reviews all PRs automatically
+
+**10 of 16 workflows** use Claude Code for decision-making and implementation.
 
 ## Workflows
 
-### Data Collection
-Claude fetches external data and updates the website.
+### Data Fetchers & Scrapers
+Claude fetches external data and updates data used to generate the website.
 
-| Workflow | Trigger | What | Claude Does |
-|----------|---------|------|-------------|
-| `nytimes-headlines.yml` | 30min | NYT RSS feed | Parses XML, extracts headlines → `data/nytimes.json` |
-| `glif-top-content.yml` | 2hr | Glif featured content | Fetches top workflows/agents → `data/glif.json` |
-| `glif-run.yml` | 1hr | Run Glif workflow | Processes weather output → `data/weather.json` + updates site |
-| `hackernews-blog.yml` | 6hr | HN top story | Reads story + comments → writes blog post (PR) |
-| `weather-data.yml` | 1hr | Weather API | Fetches NYC weather → `data/weather.json` |
-| `crypto-prices.yml` | 30min | Crypto prices | Fetches BTC/ETH/SOL/HNT → `data/crypto-prices.json` |
+| Workflow | Prompt for Claude | Uses Claude | Commits | Opens Issues | Opens PRs |
+|----------|-------------------|-------------|---------|--------------|-----------|
+| [nytimes-headlines.yml](.github/workflows/nytimes-headlines.yml) | Parse NYT RSS feed → `data/nytimes.json` | ✅ | ✅ | ❌ | ❌ |
+| [glif-top-content.yml](.github/workflows/glif-top-content.yml) | Fetch Glif featured content → `data/glif.json` | ✅ | ✅ | ❌ | ❌ |
+| [glif-run.yml](.github/workflows/glif-run.yml) | Run Glif workflow → process output → `data/weather.json` | ✅ | ✅ | ❌ | ❌ |
+| [weather-data.yml](.github/workflows/weather-data.yml) | Fetch NYC weather → `data/weather.json` | ✅ | ✅ | ❌ | ❌ |
+| [crypto-prices.yml](.github/workflows/crypto-prices.yml) | Fetch BTC/ETH/SOL/HNT prices → `data/crypto-prices.json` | ✅ | ✅ | ❌ | ❌ |
+| [rhizome-community.yml](.github/workflows/rhizome-community.yml) | Scrape Rhizome.org community → `data/rhizome.json` | ✅ | ✅ | ❌ | ❌ |
+| [adaptive-theme.yml](.github/workflows/adaptive-theme.yml) | Generate CSS based on time/season/weather → `theme-nyc.css` | ✅ | ✅ | ❌ | ❌ |
 
-### Self-Improvement & Meta
-Claude modifies its own codebase, workflows, and attempts self-repair.
+### Autonomous Development
+Claude modifies its own codebase and attempts self-improvement.
 
-| Workflow | Trigger | What | Claude Does |
-|----------|---------|------|-------------|
-| `self-repair.yml` | On failure + 30min | Auto-fix failures | Reads logs → diagnoses issue → implements fix (commit/PR) |
-| `todo-worker.yml` | 8hr | TODO.md tasks | Reads TODO list → picks task → implements (PR) |
-| `adaptive-theme.yml` | Hourly | Dynamic theming | Generates CSS based on time/season/weather → commits |
+| Workflow | Prompt for Claude | Uses Claude | Commits | Opens Issues | Opens PRs |
+|----------|-------------------|-------------|---------|--------------|-----------|
+| [todo-worker.yml](.github/workflows/todo-worker.yml) | Read TODO.md → pick task → implement via PR | ✅ | ❌ | ❌ | ✅ |
+| [hackernews-blog.yml](.github/workflows/hackernews-blog.yml) | Read HN top story + comments → write blog post via PR | ✅ | ❌ | ❌ | ✅ |
+| [self-repair.yml](.github/workflows/self-repair.yml) | Read failure logs → diagnose → fix (commit or PR) | ✅ | ✅ | ✅ | ✅ |
+| [docs-improver.yml](.github/workflows/docs-improver.yml) | Analyze merged PRs & issues → update CLAUDE.md/README.md via PR | ✅ | ❌ | ❌ | ✅ |
+| [auto-merge.yml](.github/workflows/auto-merge.yml) | Auto-merge approved Claude PRs | ❌ | ❌ | ❌ | ❌ |
 
-### Code Review & Development
-Claude reviews code and assists with development.
+### Webhooks & External Triggers
+External services can trigger workflows via GitHub's `repository_dispatch` API.
 
-| Workflow | Trigger | What | Claude Does |
-|----------|---------|------|-------------|
-| `claude-code-review.yml` | On PR open | PR review | Reviews code → leaves comments/approval |
-| `auto-merge.yml` | On approval | Auto-merge | Merges approved Claude PRs → deletes branch |
+| Workflow | Prompt for Claude | Uses Claude | Commits | Opens Issues | Opens PRs |
+|----------|-------------------|-------------|---------|--------------|-----------|
+| [webhook-demo.yml](.github/workflows/webhook-demo.yml) | Echo webhook payload for testing | ❌ | ❌ | ❌ | ❌ |
 
-### Build & Deploy
-Standard CI/CD (no Claude).
+### Build & Deploy Website
+Static website generation and deployment (no Claude).
 
-| Workflow | Trigger | What |
-|----------|---------|------|
-| `build-dashboard.yml` | On data/** push | Rebuilds website from data files → deploys |
-
-### Development Utilities
-Testing and development tools.
-
-| Workflow | Trigger | What |
-|----------|---------|------|
-| `webhook-demo.yml` | repository_dispatch | Webhook testing endpoint |
-| `trigger-all-on-push.yml` | On push to main | Trigger multiple workflows |
-| `claude.yml` | Manual | General Claude Code testing |
+| Workflow | Prompt for Claude | Uses Claude | Commits | Opens Issues | Opens PRs |
+|----------|-------------------|-------------|---------|--------------|-----------|
+| [build-website.yml](.github/workflows/build-website.yml) | Build website from data files → deploy to Pages | ❌ | ❌ | ❌ | ❌ |
 
 ## Self-Improvement System
 
 The system can modify and improve itself through several mechanisms:
 
-**`self-repair.yml`** - Autonomous error recovery. When workflows fail:
+**[self-repair.yml](.github/workflows/self-repair.yml)** - Autonomous error recovery. When workflows fail:
 1. Fetches failure logs via GitHub API
 2. Analyzes error and identifies root cause
 3. Implements fix (direct commit or PR depending on complexity)
 4. Re-runs the fixed workflow
-5. Also runs every 30 minutes to catch stragglers
+5. Also runs every hour to catch stragglers
 
-**`todo-worker.yml`** - Implements tasks from TODO.md every 8 hours. Can be triggered manually with specific items.
+**[todo-worker.yml](.github/workflows/todo-worker.yml)** - Implements tasks from TODO.md. Can be triggered manually with specific items.
 
-**`adaptive-theme.yml`** - Generates dynamic CSS themes based on current time, season, and weather conditions.
+**[docs-improver.yml](.github/workflows/docs-improver.yml)** - Keeps documentation current by analyzing merged PRs and issues, then updating CLAUDE.md and README.md as needed.
+
+**[adaptive-theme.yml](.github/workflows/adaptive-theme.yml)** - Generates dynamic CSS themes based on current time, season, and weather conditions.
 
 **Trigger self-repair manually:**
 ```bash
@@ -95,7 +91,7 @@ Manage workflows with `gh`:
 gh workflow list
 
 # Run a workflow
-gh workflow run fetch-nytimes.yml
+gh workflow run nytimes-headlines.yml
 gh workflow run todo-worker.yml -f mode=plan
 
 # Watch runs in real-time
@@ -133,7 +129,7 @@ You need a GitHub Personal Access Token to trigger workflows via webhook.
 3. Configure the token:
    - **Token name**: `webhook-trigger` (or whatever you prefer)
    - **Expiration**: Choose duration (90 days, 1 year, custom, or no expiration)
-   - **Repository access**: Select **"Only select repositories"** → Choose `jamiew/claude-gha-demo`
+   - **Repository access**: Select **"Only select repositories"** → Choose your repo
    - **Permissions** → Repository permissions:
      - **Administration**: **Read and write** ✅
 4. Click **"Generate token"**
@@ -275,9 +271,15 @@ Settings → Actions → General → Workflow permissions:
 - ✅ **Allow GitHub Actions to create and approve pull requests**
 
 ### 4. Enable GitHub Pages
-Settings → Pages:
-- **Source**: Select **GitHub Actions** (not "Deploy from a branch")
-- Save
+
+**This must be done manually via web interface:**
+
+1. Go to Settings → Pages
+2. Under "Build and deployment":
+   - **Source**: Select **GitHub Actions** (NOT "Deploy from a branch")
+3. Click Save
+
+Your site will be at: `https://[username].github.io/[repo-name]`
 
 **Why GitHub Actions source?**
 - Multiple workflows can deploy (on push, on schedule, on demand)
@@ -286,11 +288,28 @@ Settings → Pages:
 - Better for dynamic content that updates frequently
 - Modern best practice (same as Vercel, Netlify)
 
-Your site will be at: `https://[username].github.io/[repo-name]`
-
 **Note**: Deploy workflows will fail until Pages is enabled. Once enabled, they'll work automatically.
 
-### 5. YOLO Mode (Optional but Recommended)
+**Verify Pages is enabled:**
+```bash
+# Check if Pages is enabled
+gh api repos/jamiew/claude-gha-demo/pages
+
+# Should return Pages config, not 404
+```
+
+### 5. Install Claude Code GitHub App Features
+
+Install built-in features using Claude Code CLI:
+```bash
+/install-github-app
+```
+
+This enables:
+- **@claude mentions in issues** - Create an issue and mention `@claude` to get an implementation PR
+- **Automated Code Review** - Claude reviews all PRs automatically
+
+### 6. YOLO Mode (Optional but Recommended)
 For maximum autonomy, enable auto-merge:
 
 **Settings → General:**
@@ -299,21 +318,12 @@ For maximum autonomy, enable auto-merge:
 
 This lets the system truly run itself. Claude creates PRs → reviews them → auto-merges → deletes branches. Full autonomy.
 
-### 6. @claude Mentions in Issues
-Create an issue and mention `@claude` - it will:
-1. Read the issue
-2. Implement the solution
-3. Create a PR automatically
-4. Comment back with the PR link
-
-Wild mode activated. 🎢
-
 ## The Feedback Loop
 
 ```
 External data → Claude fetches → Updates data/ → Deploys site
                                          ↓
-                        Claude improves UI → Creates PR
+                        Claude improves code → Creates PR
                                          ↓
                             Claude reviews PR → Auto-merge
                                          ↓
@@ -321,16 +331,15 @@ External data → Claude fetches → Updates data/ → Deploys site
 ```
 
 In parallel:
-- `meta-manager.yml` analyzes and optimizes workflows
+- `docs-improver.yml` keeps documentation current
 - `self-repair.yml` attempts to fix failures
-- `auto-improve.yml` suggests code improvements
 - `todo-worker.yml` implements tasks from TODO.md
 
 The goal is autonomous infrastructure that iterates on itself. Success varies.
 
 ## Files
 
-- `data/` - Data directory (nytimes.json, glif.json, weather.json, crypto-prices.json)
+- `data/` - Data directory (nytimes.json, glif.json, weather.json, crypto-prices.json, rhizome.json)
 - `data.json` - Legacy data store (still supported for backward compatibility)
 - `TODO.md` - Ideas and tasks for Claude to implement
 - `.github/workflows/` - All workflow definitions
@@ -338,6 +347,8 @@ The goal is autonomous infrastructure that iterates on itself. Success varies.
 - `scripts/build-dashboard.js` - Builds static website from data files
 - `.claude/commands/` - Custom slash commands (Markdown)
 - `.claude/subagents/` - Subagent documentation
+- `blog/` - Blog posts generated by Claude
+- `theme-nyc.css` - Adaptive CSS theme generated based on time/weather
 
 ## Glif Integration
 
@@ -351,7 +362,7 @@ Creates a **Glif → Claude → GitHub Pages** generative pipeline.
 
 **Pages not enabled**: Settings → Pages → Source: GitHub Actions
 
-**Missing secrets**: Settings → Secrets → `ANTHROPIC_API_KEY`
+**Missing secrets**: Settings → Secrets → `CLAUDE_CODE_OAUTH_TOKEN`
 
 **Permission denied**: Settings → Actions → Workflow permissions → Read/write
 
@@ -361,7 +372,7 @@ Let `self-repair.yml` fix most issues automatically.
 
 ## TODO-Driven Development
 
-Add ideas to `TODO.md`. The `todo-worker.yml` workflow reads it every 8 hours, picks feasible tasks, and implements them via PRs.
+Add ideas to `TODO.md`. The `todo-worker.yml` workflow reads it regularly, picks feasible tasks, and implements them via PRs.
 
 Trigger manually:
 ```bash
@@ -379,7 +390,6 @@ Modes:
 - **implement** (default) - Actually builds the feature
 - **plan** - Creates implementation plan without coding
 - **survey** - Organizes and prioritizes all TODOs
-
 
 ## Philosophy
 
