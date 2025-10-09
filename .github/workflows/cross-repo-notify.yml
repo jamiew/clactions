@@ -34,50 +34,41 @@ jobs:
 
           echo "has_changes=true" >> $GITHUB_OUTPUT
 
-          # Build detailed change summary
+          # Build compact change summary
           {
             echo "## Workflow Changes Detected"
             echo ""
-            echo "Changes to GitHub Actions workflows in the last 8 hours:"
+            echo "Changes to GitHub Actions workflows in the last 8 hours."
             echo ""
 
-            # List changed files
-            echo "### Modified Files"
-            git log --since="$SINCE" --name-only --pretty=format: -- .github/workflows/ | sort -u | grep -v '^$'
-            echo ""
-            echo ""
-
-            # Detailed commit information
+            # Detailed commit information with links
             echo "### Commits"
-            git log --since="$SINCE" --pretty=format:"- **%h** - %s (%an, %ar)" -- .github/workflows/
-            echo ""
+            for commit in $COMMITS; do
+              COMMIT_URL="${{ github.server_url }}/${{ github.repository }}/commit/$commit"
+              COMMIT_MSG=$(git log -1 --pretty=format:'%s' $commit)
+              COMMIT_AUTHOR=$(git log -1 --pretty=format:'%an' $commit)
+              COMMIT_TIME=$(git log -1 --pretty=format:'%ar' $commit)
+
+              echo "- [\`${commit:0:7}\`]($COMMIT_URL) - $COMMIT_MSG ($COMMIT_AUTHOR, $COMMIT_TIME)"
+            done
             echo ""
 
-            # Show compact diffs (stat + limited diff)
-            echo "### Changes Summary"
-            for commit in $COMMITS; do
-              echo "#### Commit: $(git log -1 --pretty=format:'%h - %s' $commit)"
-              echo ""
-              echo "**Files changed:**"
-              git show --stat $commit -- .github/workflows/
-              echo ""
-              echo "<details><summary>View diff (first 100 lines)</summary>"
-              echo ""
-              echo '```diff'
-              git show $commit -- .github/workflows/ | head -100
-              echo '```'
-              echo "</details>"
-              echo ""
-            done
+            # List changed files with stats
+            echo "### Modified Files"
+            git log --since="$SINCE" --stat --pretty=format: -- .github/workflows/ | grep -E '\.yml|\.yaml' | sort -u
+            echo ""
+            echo ""
 
             echo "---"
             echo ""
             echo "@claude Please review these workflow changes and update any affected documentation, API clients, or downstream systems in this repository that may be impacted."
             echo ""
             echo "**Repository:** ${{ github.repository }}"
-            echo "**Triggered by:** ${{ github.event_name }}"
-            echo "**View commits:** ${{ github.server_url }}/${{ github.repository }}/commits/main/.github/workflows"
-            echo "**Workflow run:** ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+            echo ""
+            echo "**Links:**"
+            echo "- [View workflow directory](${{ github.server_url }}/${{ github.repository }}/tree/main/.github/workflows)"
+            echo "- [Recent commits](${{ github.server_url }}/${{ github.repository }}/commits/main/.github/workflows)"
+            echo "- [This workflow run](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})"
 
           } > /tmp/issue-body.md
 
