@@ -284,21 +284,8 @@ Settings → Secrets and variables → Actions → New repository secret
 - `CLAUDE_CODE_OAUTH_TOKEN` - From Claude Code GitHub App install
 
 **Optional:**
-- `ANTHROPIC_API_KEY` - Anthropic API key for cross-repo notify workflows (see below)
 - `GLIF_API_TOKEN` - From https://glif.app (for Glif featured content integration)
 - `CROSS_REPO_PAT` - Personal Access Token for cross-repo notifications (only needed if using cross-repo-notify workflows)
-
-#### Creating ANTHROPIC_API_KEY (Optional)
-
-Only needed for the `cross-repo-notify-by-commit.yml` and `cross-repo-notify-unified.yml` workflows.
-
-1. Go to https://console.anthropic.com/settings/keys
-2. Click **"Create Key"**
-3. Name it `github-actions` or similar
-4. Copy the API key
-5. Add to this repo: Settings → Secrets → Actions → New secret
-   - Name: `ANTHROPIC_API_KEY`
-   - Value: paste the key
 
 #### Creating CROSS_REPO_PAT (Optional)
 
