@@ -19,6 +19,8 @@ jobs:
 
       - name: Analyze and notify
         uses: anthropics/claude-code-action@v1
+        env:
+          GH_TOKEN: ${{ secrets.CROSS_REPO_PAT }}
         with:
           claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
           github_token: ${{ secrets.GITHUB_TOKEN }}
@@ -84,9 +86,8 @@ jobs:
             - Group related changes together thematically
             - If changes are just internal refactoring with no external impact, say so clearly
 
-            4. Create issue on jamiew/issue-dump:
+            4. Create issue on jamiew/issue-dump (GH_TOKEN is already set with CROSS_REPO_PAT):
                ```bash
-               export GH_TOKEN="${{ secrets.CROSS_REPO_PAT }}"
                gh issue create \
                  --repo jamiew/issue-dump \
                  --title "Workflow updates in jamiew/clactions ($(date -u '+%Y-%m-%d %H:%M UTC'))" \
