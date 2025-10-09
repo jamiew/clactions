@@ -19,4 +19,4 @@ This command:
 
 ## Implementation
 
-Runs `scripts/analyze-workflow-runs.sh` and optionally uses Claude Code Action to fix issues.
+Runs `scripts/debug-workflows.sh` to diagnose workflow failures.

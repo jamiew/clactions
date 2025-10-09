@@ -82,10 +82,10 @@ jobs:
           RUN_ID="${{ steps.find_failure.outputs.run_id }}"
 
           # Make handler executable
-          chmod +x scripts/fix-workflows-handler.sh
+          chmod +x scripts/fix-workflows.sh
 
           # Run handler to prepare context
-          ./scripts/fix-workflows-handler.sh "$RUN_ID" > handler_output.txt
+          ./scripts/fix-workflows.sh "$RUN_ID" > handler_output.txt
 
           # Extract paths from handler output
           source handler_output.txt

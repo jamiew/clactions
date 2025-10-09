@@ -1,32 +1,48 @@
 #!/bin/bash
-# Interactive workflow debugging
+# Debug GitHub Actions workflow failures
 
 set -e
 
-echo "🩺 Workflow Doctor"
+echo "🔍 Workflow Diagnostics"
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 echo ""
 
 # Get failed runs
-FAILED_RUNS=$(gh run list --limit 10 --json conclusion,databaseId,name,displayTitle \
+FAILED_RUNS=$(gh run list --limit 20 --json conclusion,databaseId,name,displayTitle \
   --jq '[.[] | select(.conclusion == "failure")]')
 
 FAILED_COUNT=$(echo "$FAILED_RUNS" | jq 'length')
 
+echo "❌ Failed Runs (last 20):"
+if [ "$FAILED_COUNT" -eq 0 ]; then
+    echo "  None found"
+else
+    echo "$FAILED_RUNS" | jq -r '.[] | "  [\(.databaseId)] \(.name) - \(.displayTitle)"'
+fi
+
+echo ""
+echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+echo ""
+
+# Get recent runs summary
+echo "📊 Success Rate by Workflow:"
+gh run list --limit 50 --json conclusion,name \
+  --jq 'group_by(.name) | .[] | {workflow: .[0].name, total: length, success: ([.[] | select(.conclusion == "success")] | length)} | "\(.workflow): \(.success)/\(.total)"'
+
+echo ""
+echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+echo ""
+
+# If no failures, exit
 if [ "$FAILED_COUNT" -eq 0 ]; then
     echo "✅ No failed runs. All workflows healthy!"
     exit 0
 fi
 
-echo "Found $FAILED_COUNT failed run(s):"
-echo "$FAILED_RUNS" | jq -r '.[] | "  [\(.databaseId)] \(.name) - \(.displayTitle)"'
-echo ""
-
 # Get latest failure
 LATEST_ID=$(echo "$FAILED_RUNS" | jq -r '.[0].databaseId')
 LATEST_NAME=$(echo "$FAILED_RUNS" | jq -r '.[0].name')
 
-echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 echo "🔴 Latest Failure: $LATEST_NAME (ID: $LATEST_ID)"
 echo ""
 

@@ -10,11 +10,8 @@ Self-improving GitHub Actions system. Claude reads external data, updates code/w
 
 ### Debug Failed Workflows
 ```bash
-# Quick check
-./scripts/analyze-workflow-runs.sh
-
-# Full diagnosis
-./scripts/claude-workflow-doctor.sh
+# Diagnose failures
+./scripts/debug-workflows.sh
 
 # View specific run
 gh run view <run-id> --log-failed
@@ -87,7 +84,7 @@ External (NYT, Glif) → Claude → data.json → deploy → site
 When workflows fail:
 
 1. `self-repair.yml` auto-triggers
-2. Handler gathers logs (`scripts/fix-workflows-handler.sh`)
+2. Handler gathers logs (`scripts/fix-workflows.sh`)
 3. Claude analyzes root cause
 4. Implements fix (commit or PR)
 5. Done
@@ -96,11 +93,11 @@ Or trigger manually: `/fix-workflows` in TUI or `gh workflow run self-repair.yml
 
 ## Debugging Workflow Failures
 
-Run `./scripts/claude-workflow-doctor.sh` first. It checks:
-- GitHub Pages enabled?
-- Secrets present? (ANTHROPIC_API_KEY, GLIF_API_TOKEN)
-- Permissions set? (read/write)
-- data.json exists?
+Run `./scripts/debug-workflows.sh` to diagnose. It shows:
+- Failed runs (last 20)
+- Success rate by workflow
+- Common issue detection (Pages, secrets, permissions, data.json)
+- Full logs and next steps
 
 Let `self-repair.yml` auto-fix most issues.
 
