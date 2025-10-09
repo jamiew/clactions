@@ -1,44 +1,45 @@
-/* Generated: 2025-10-09T08:00:00Z
- * Hour: 08 (Early Morning Brightening), Season: Fall (October), Day: 282
- * Theme: Autumn Dawn - NYC awakening with warm sunrise light and fall colors
+/* Generated: 2025-10-09T09:00:00Z
+ * Hour: 09 (Morning), Season: Fall (October), Day: 282
+ * Theme: Autumn Morning - Bright, energetic fall colors with full daylight
  */
 
 :root {
-  /* Early morning warmth - sunrise getting brighter with fall warmth */
-  --bg-primary: linear-gradient(135deg, #4a3d32 0%, #5e4e41 50%, #6b5a4c 100%);
-  --bg-secondary: rgba(68, 56, 45, 0.94);
-  --bg-card: rgba(80, 66, 54, 0.93);
-  --bg-tertiary: #5a4939;
+  /* Morning brightness - full daylight with crisp fall atmosphere */
+  --bg-primary: linear-gradient(135deg, #fdf8f3 0%, #fff5e8 50%, #ffe8d1 100%);
+  --bg-secondary: rgba(253, 245, 233, 0.95);
+  --bg-card: rgba(255, 250, 240, 0.92);
+  --bg-tertiary: #f5ebe0;
 
-  /* Text colors: Brighter as sun rises higher */
-  --text-primary: #fdf5e9;
-  --text-secondary: #ecddc5;
-  --text-muted: #b39779;
+  /* Text colors: High contrast for morning readability */
+  --text-primary: #2d1810;
+  --text-secondary: #5a3825;
+  --text-muted: #8d6e5a;
 
-  /* Accent colors: Golden sunrise with autumn warmth */
-  --accent-primary: #f0b478;
-  --accent-secondary: #d59550;
-  --accent-glow: #ffd19a;
-  --accent-sunrise: #ffe4b8;
+  /* Accent colors: Vibrant autumn tones for morning energy */
+  --accent-primary: #d87c3f;
+  --accent-secondary: #c45c28;
+  --accent-glow: #e89152;
+  --accent-tertiary: #a84520;
 
-  /* Morning atmosphere - warming sunrise hues */
-  --sunrise-sky: #6a819a;
-  --sunrise-orange: #f8b97f;
-  --sunrise-gold: #ffdeb1;
-  --morning-glow: rgba(255, 209, 154, 0.14);
+  /* Morning atmosphere - bright daylight with autumn warmth */
+  --morning-sky: #89b5d8;
+  --morning-orange: #e89152;
+  --morning-gold: #f5a962;
+  --morning-glow: rgba(232, 145, 82, 0.12);
 
-  /* Fall colors: Autumn warmth illuminated by brightening sun */
-  --fall-rust: #c77d48;
-  --fall-amber: #e8b76c;
-  --fall-ochre: #f0c989;
-  --fall-shadow: #3d2c1d;
+  /* Fall colors: Vibrant autumn palette illuminated by daylight */
+  --fall-rust: #b8652a;
+  --fall-amber: #f5a962;
+  --fall-ochre: #d87c3f;
+  --fall-brown: #7d4f2e;
 
   /* Functional colors */
-  --border-subtle: rgba(240, 180, 120, 0.2);
-  --shadow-soft: 0 4px 16px rgba(0, 0, 0, 0.28);
-  --shadow-medium: 0 8px 28px rgba(0, 0, 0, 0.34);
-  --shadow-glow: 0 0 32px rgba(255, 209, 154, 0.26);
-  --overlay-warm: rgba(107, 90, 76, 0.48);
+  --border-subtle: rgba(216, 124, 63, 0.25);
+  --border-medium: #d8b595;
+  --shadow-soft: 0 2px 8px rgba(125, 79, 46, 0.15);
+  --shadow-medium: 0 4px 16px rgba(125, 79, 46, 0.2);
+  --shadow-glow: 0 0 24px rgba(232, 145, 82, 0.25);
+  --overlay-warm: rgba(216, 124, 63, 0.08);
 }
 
 /* Global styles */
@@ -51,7 +52,7 @@ body {
   position: relative;
 }
 
-/* Morning ambiance - sunrise spreading across sky, brighter */
+/* Morning ambiance - bright daylight with fall warmth */
 body::before {
   content: '';
   position: fixed;
@@ -60,16 +61,16 @@ body::before {
   right: 0;
   bottom: 0;
   background:
-    radial-gradient(ellipse at 80% 10%, rgba(255, 228, 184, 0.19) 0%, transparent 50%),
-    radial-gradient(ellipse at 50% 5%, rgba(248, 185, 127, 0.15) 0%, transparent 54%),
-    radial-gradient(circle at 20% 30%, rgba(240, 180, 120, 0.1) 0%, transparent 45%),
-    radial-gradient(circle at 70% 80%, rgba(107, 90, 76, 0.12) 0%, transparent 50%);
+    radial-gradient(ellipse at 30% 20%, rgba(232, 145, 82, 0.08) 0%, transparent 60%),
+    radial-gradient(circle at 70% 40%, rgba(245, 169, 98, 0.06) 0%, transparent 55%),
+    radial-gradient(circle at 20% 70%, rgba(196, 92, 40, 0.05) 0%, transparent 50%),
+    radial-gradient(ellipse at 90% 80%, rgba(216, 124, 63, 0.07) 0%, transparent 58%);
   pointer-events: none;
   z-index: -1;
-  opacity: 0.95;
+  opacity: 0.8;
 }
 
-/* Subtle morning texture - lightening further */
+/* Subtle autumn texture - crisp morning light */
 body::after {
   content: '';
   position: fixed;
@@ -81,30 +82,30 @@ body::after {
     repeating-linear-gradient(
       45deg,
       transparent,
-      transparent 3px,
-      rgba(255, 209, 154, 0.025) 3px,
-      rgba(255, 209, 154, 0.025) 6px
+      transparent 4px,
+      rgba(232, 145, 82, 0.015) 4px,
+      rgba(232, 145, 82, 0.015) 8px
     );
   pointer-events: none;
   z-index: -1;
-  opacity: 0.4;
+  opacity: 0.3;
 }
 
 /* Typography */
 h1, h2, h3, h4, h5, h6 {
-  color: var(--accent-glow);
-  text-shadow: 0 2px 16px rgba(255, 209, 154, 0.35);
+  color: var(--accent-tertiary);
+  text-shadow: 0 1px 3px rgba(125, 79, 46, 0.15);
   margin-top: 1.5em;
   margin-bottom: 0.5em;
 }
 
 h1 {
-  background: linear-gradient(135deg, var(--accent-sunrise) 0%, var(--accent-glow) 50%, var(--fall-amber) 100%);
+  background: linear-gradient(135deg, var(--fall-rust) 0%, var(--accent-primary) 50%, var(--fall-amber) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
   text-shadow: none;
-  filter: drop-shadow(0 2px 12px rgba(255, 209, 154, 0.3));
+  filter: drop-shadow(0 1px 4px rgba(232, 145, 82, 0.25));
 }
 
 a {
@@ -116,7 +117,7 @@ a {
 
 a:hover {
   color: var(--accent-glow);
-  text-shadow: 0 0 22px rgba(255, 209, 154, 0.45);
+  text-shadow: 0 0 16px rgba(232, 145, 82, 0.3);
 }
 
 a::after {
@@ -147,10 +148,10 @@ a:hover::after {
 }
 
 .card:hover, article:hover {
-  transform: translateY(-4px);
+  transform: translateY(-2px);
   box-shadow: var(--shadow-glow), var(--shadow-medium);
-  border-color: rgba(255, 209, 154, 0.35);
-  background: rgba(92, 78, 66, 0.93);
+  border-color: rgba(232, 145, 82, 0.4);
+  background: rgba(255, 248, 238, 0.95);
 }
 
 /* Buttons */
@@ -185,17 +186,17 @@ header, nav {
 
 /* Code blocks */
 code, pre {
-  background: rgba(45, 33, 22, 0.9);
-  border: 1px solid var(--fall-shadow);
+  background: rgba(245, 235, 224, 0.8);
+  border: 1px solid var(--border-medium);
   border-radius: 6px;
   font-family: 'Monaco', 'Courier New', monospace;
-  color: var(--accent-sunrise);
+  color: var(--fall-brown);
 }
 
 pre {
   padding: 1rem;
   overflow-x: auto;
-  box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.42);
+  box-shadow: inset 0 1px 4px rgba(125, 79, 46, 0.1);
 }
 
 code {
@@ -224,60 +225,60 @@ input:focus, textarea:focus, select:focus {
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--fall-shadow);
+  background: var(--bg-tertiary);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--fall-rust);
+  background: linear-gradient(135deg, var(--fall-rust), var(--accent-primary));
   border-radius: 6px;
   transition: background 0.2s ease;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--fall-amber);
+  background: linear-gradient(135deg, var(--accent-primary), var(--fall-amber));
 }
 
 /* Selection */
 ::selection {
-  background: var(--accent-primary);
-  color: var(--bg-primary);
+  background: var(--fall-amber);
+  color: var(--text-primary);
 }
 
 /* Glass morphism elements */
 .glass {
-  background: rgba(80, 66, 54, 0.85);
-  backdrop-filter: blur(26px) saturate(170%);
+  background: rgba(255, 250, 240, 0.75);
+  backdrop-filter: blur(20px) saturate(150%);
   border: 1px solid var(--border-subtle);
   box-shadow: var(--shadow-soft);
 }
 
 /* Ambient glow effect for important elements */
 .highlight, .featured, .accent {
-  box-shadow: 0 0 34px rgba(255, 209, 154, 0.3), var(--shadow-soft);
+  box-shadow: 0 0 20px rgba(232, 145, 82, 0.25), var(--shadow-soft);
   border-color: var(--accent-glow);
-  color: var(--fall-amber);
+  color: var(--accent-primary);
 }
 
 /* Status indicators */
 .status-active {
   color: var(--accent-primary);
-  text-shadow: 0 0 20px rgba(255, 209, 154, 0.5);
+  text-shadow: 0 0 12px rgba(232, 145, 82, 0.35);
 }
 
 .status-info {
-  color: var(--sunrise-sky);
+  color: var(--morning-sky);
 }
 
 /* Footer */
 footer {
   background: var(--bg-secondary);
-  backdrop-filter: blur(20px);
-  border-top: 2px solid var(--fall-rust);
+  backdrop-filter: blur(16px);
+  border-top: 2px solid var(--accent-primary);
   color: var(--text-secondary);
   padding: 2rem 1rem;
   margin-top: 3rem;
   text-align: center;
-  box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.42);
+  box-shadow: 0 -2px 12px rgba(125, 79, 46, 0.12);
 }
 
 /* Utility classes */
@@ -312,43 +313,43 @@ footer {
   transition-timing-function: ease;
 }
 
-/* Morning light spreading animation - brighter phase */
-@keyframes morning-spread {
-  0%, 100% { opacity: 0.85; }
-  50% { opacity: 1; }
+/* Morning energy animation - vibrant daylight */
+@keyframes morning-energy {
+  0%, 100% { opacity: 0.75; }
+  50% { opacity: 0.85; }
 }
 
 body::before {
-  animation: morning-spread 22s ease-in-out infinite;
+  animation: morning-energy 18s ease-in-out infinite;
 }
 
-/* Morning brightening glow - more intense */
-@keyframes morning-brighten {
-  0%, 100% { opacity: 0.35; }
-  50% { opacity: 0.45; }
+/* Subtle texture pulse */
+@keyframes texture-pulse {
+  0%, 100% { opacity: 0.25; }
+  50% { opacity: 0.35; }
 }
 
 body::after {
-  animation: morning-brighten 16s ease-in-out infinite;
+  animation: texture-pulse 12s ease-in-out infinite;
 }
 
-/* Sunrise shimmer effect - more pronounced as sun rises */
-@keyframes sunrise-shimmer {
+/* Header shimmer - crisp morning light */
+@keyframes crisp-shimmer {
   0% { filter: brightness(1); }
-  50% { filter: brightness(1.15); }
+  50% { filter: brightness(1.08); }
   100% { filter: brightness(1); }
 }
 
 h1, h2 {
-  animation: sunrise-shimmer 6s ease-in-out infinite;
+  animation: crisp-shimmer 5s ease-in-out infinite;
 }
 
-/* Warm glow pulse for interactive elements - stronger */
-@keyframes warm-pulse {
-  0%, 100% { box-shadow: 0 0 26px rgba(255, 209, 154, 0.22); }
-  50% { box-shadow: 0 0 44px rgba(255, 209, 154, 0.36); }
+/* Autumn warmth pulse for interactive elements */
+@keyframes autumn-pulse {
+  0%, 100% { box-shadow: 0 0 16px rgba(232, 145, 82, 0.2); }
+  50% { box-shadow: 0 0 28px rgba(232, 145, 82, 0.32); }
 }
 
 button:hover, .button:hover {
-  animation: warm-pulse 1.6s ease-in-out infinite;
+  animation: autumn-pulse 1.4s ease-in-out infinite;
 }
