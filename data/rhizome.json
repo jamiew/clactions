@@ -1,0 +1,26 @@
+{
+  "status": "cloudflare_protected",
+  "message": "Rhizome.org community page is protected by Cloudflare bot detection and cannot be scraped via automated tools without browser automation",
+  "url": "https://rhizome.org/community/",
+  "last_updated": "2025-10-09T00:04:00Z",
+  "community_listings": [],
+  "notes": [
+    "The Rhizome community page requires JavaScript and passes through Cloudflare's challenge system",
+    "To successfully scrape this data, a headless browser like Playwright or Puppeteer would be needed",
+    "Alternative: Use Rhizome's API if available, or RSS feed if they provide one",
+    "The expected data structure for listings when available:",
+    {
+      "title": "Example listing title",
+      "description": "Brief description of the listing",
+      "url": "https://rhizome.org/community/listing-url/",
+      "type": "category or type of listing",
+      "date": "ISO timestamp or date string"
+    }
+  ],
+  "suggested_alternatives": [
+    "Check if Rhizome provides an RSS feed: https://rhizome.org/community/rss/",
+    "Check if Rhizome has a public API",
+    "Use GitHub Actions with Playwright/Puppeteer for browser automation",
+    "Contact Rhizome directly for data access options"
+  ]
+}
