@@ -76,73 +76,23 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
 
+      - name: Setup Python
+        if: steps.changes.outputs.has_changes == 'true'
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        if: steps.changes.outputs.has_changes == 'true'
+        run: pip install anthropic
+
       - name: Analyze changes with Claude
         if: steps.changes.outputs.has_changes == 'true'
-        uses: anthropics/claude-code-action@v1
-        with:
-          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
-          github_token: ${{ github.token }}
-          prompt: |
-            Read /tmp/unified-diff.txt which shows all workflow changes from the last 8 hours.
-            Read /tmp/commits-list.txt for commit context and messages.
-
-            Create a comprehensive changelog in /tmp/changelog.md with this structure:
-
-            ## 🔄 Workflow Changelog
-
-            ### Summary
-            [2-4 sentences describing the overall theme of changes - e.g., "Major refactoring of data workflows", "New features added for X", "Bug fixes and performance improvements", etc.]
-
-            ### Highlights
-            - ✨ [Most important new feature or change]
-            - 🔧 [Important fix or improvement]
-            - 🏗️ [Architectural or structural change]
-            - [2-5 highlights total, use emojis to categorize: ✨ feature, 🔧 fix, 🏗️ refactor, 📝 docs, ⚡ perf, 🔒 security]
-
-            ### What Changed
-
-            #### New Workflows
-            - **workflow-name.yml** - [What it does and why it was added]
-            [Only include if new workflows were added]
-
-            #### Modified Workflows
-            For each modified workflow file:
-
-            **`workflow-name.yml`**
-            - [Specific change with impact - e.g., "Changed schedule from hourly to every 8 hours to reduce API usage"]
-            - [Another specific change]
-            - [Be concrete about what changed and why it matters]
-
-            #### Removed Workflows
-            - **old-workflow.yml** - [What it did and why it was removed]
-            [Only include if workflows were removed]
-
-            ### Impact Assessment
-            [1-2 paragraphs describing potential impacts on downstream systems, APIs, documentation, or dependencies]
-
-            ### Technical Details
-            <details><summary>View detailed changes</summary>
-
-            #### Modified Files Summary
-            [Include the stat output showing files changed and line counts]
-
-            #### Commits in This Period
-            [List commits with their full messages for reference]
-
-            </details>
-
-            ---
-
-            Guidelines:
-            - Look at the UNIFIED diff to understand the net effect of all changes
-            - Focus on functional changes, not just file renames (but do mention significant renames)
-            - Identify patterns across multiple changes (e.g., "All data workflows now use commit-fetch-rebase-push pattern")
-            - Call out breaking changes or important behavioral changes
-            - Be specific about schedule changes, permission changes, new dependencies, etc.
-            - Group related changes together
-            - Write for an audience that needs to understand downstream impacts
-
-            Do NOT include raw diffs in the main changelog body - only in the technical details section if needed.
+        run: |
+          chmod +x scripts/analyze-workflow-changes.py
+          python scripts/analyze-workflow-changes.py unified /tmp/unified-diff.txt /tmp/changelog.md /tmp/commits-list.txt
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
 
       - name: Create issue in issue-dump
         if: steps.changes.outputs.has_changes == 'true'

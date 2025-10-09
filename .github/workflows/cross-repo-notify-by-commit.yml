@@ -66,56 +66,23 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
 
+      - name: Setup Python
+        if: steps.changes.outputs.has_changes == 'true'
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        if: steps.changes.outputs.has_changes == 'true'
+        run: pip install anthropic
+
       - name: Analyze changes with Claude
         if: steps.changes.outputs.has_changes == 'true'
-        uses: anthropics/claude-code-action@v1
-        with:
-          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
-          github_token: ${{ github.token }}
-          prompt: |
-            Read the workflow change analysis from /tmp/all-diffs.txt (which contains individual commit diffs from the last 8 hours).
-
-            Create a comprehensive changelog in /tmp/changelog.md with the following structure:
-
-            ## Summary
-            [2-3 sentence overview of what changed overall]
-
-            ## Key Changes
-            - [Bullet point highlighting most important change]
-            - [Another important change]
-            - [3-5 key changes total]
-
-            ## Changes by Commit
-
-            For each commit in the diff file, create an entry like:
-
-            ### [`short-hash`](https://github.com/jamiew/clactions/commit/FULL_HASH) - Commit Subject
-            *Author Name, Relative Time*
-
-            **Summary:** [1-2 sentence description of what this commit does]
-
-            **Changes:**
-            - [Specific change 1]
-            - [Specific change 2]
-            - [etc - be specific about files and functionality]
-
-            <details><summary>Full commit message</summary>
-
-            ```
-            [Include the full commit message if it has useful detail beyond the subject]
-            ```
-            </details>
-
-            ---
-
-            Be specific about:
-            - Which workflow files were modified
-            - What functionality changed (new jobs, changed schedules, different permissions, etc.)
-            - Why the change matters (if obvious from commit message or diff)
-            - Breaking changes or important behavioral changes
-
-            Focus on being informative for a downstream system that might be affected by these changes.
-            Do not include the raw diffs in the changelog - only your analysis.
+        run: |
+          chmod +x scripts/analyze-workflow-changes.py
+          python scripts/analyze-workflow-changes.py by-commit /tmp/all-diffs.txt /tmp/changelog.md
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
 
       - name: Create issue in issue-dump
         if: steps.changes.outputs.has_changes == 'true'
