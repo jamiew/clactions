@@ -1,19 +1,19 @@
-/* Generated: 2025-10-09T02:00:00Z
- * Hour: 02 (Deep Night), Season: Fall (October), Day: 282
- * Theme: The Still Hours - NYC in deepest sleep, midnight blues meet autumn embers
+/* Generated: 2025-10-09T03:00:00Z
+ * Hour: 03 (Deep Night), Season: Fall (October), Day: 282
+ * Theme: The Quiet Watch - NYC at its darkest, ember glow in midnight depths
  */
 
 :root {
-  /* Deep night core - the city's darkest hour */
-  --bg-primary: linear-gradient(135deg, #080b10 0%, #0f1319 100%);
-  --bg-secondary: rgba(15, 19, 25, 0.96);
-  --bg-card: rgba(20, 24, 32, 0.98);
-  --bg-tertiary: #14181f;
+  /* Deep night core - approaching darkest before dawn */
+  --bg-primary: linear-gradient(135deg, #060709 0%, #0d1015 100%);
+  --bg-secondary: rgba(13, 16, 21, 0.97);
+  --bg-card: rgba(18, 22, 28, 0.98);
+  --bg-tertiary: #121519;
 
-  /* Text colors: Gentle on eyes at 2am */
-  --text-primary: #d8d5cb;
-  --text-secondary: #a19d93;
-  --text-muted: #565248;
+  /* Text colors: Gentle on eyes at 3am */
+  --text-primary: #d6d3c9;
+  --text-secondary: #9f9b91;
+  --text-muted: #524e44;
 
   /* Accent colors: Deep autumn embers barely glowing */
   --accent-primary: #a88354;
@@ -305,14 +305,14 @@ footer {
   transition-timing-function: ease;
 }
 
-/* The still hours - slow, deep breathing of the sleeping city */
-@keyframes still-hours-pulse {
-  0%, 100% { opacity: 0.6; }
-  50% { opacity: 0.75; }
+/* The quiet watch - deepest darkness before dawn */
+@keyframes quiet-watch-pulse {
+  0%, 100% { opacity: 0.55; }
+  50% { opacity: 0.7; }
 }
 
 body::before {
-  animation: still-hours-pulse 22s ease-in-out infinite;
+  animation: quiet-watch-pulse 24s ease-in-out infinite;
 }
 
 /* Distant city lights shimmer */
