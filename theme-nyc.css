@@ -1,41 +1,41 @@
-/* Generated: 2025-10-09T20:00:00Z
- * Hour: 20 (Night), Season: Fall, Weather: Rain (65°F)
- * Theme: Rainy Fall Evening - Moody, reflective, warm refuge from the storm
+/* Generated: 2025-10-09T21:00:00Z
+ * Hour: 21 (Night), Season: Fall, Weather: Rain (65°F)
+ * Theme: Deep autumn night rain - urban reflections, warm refuge from the storm
  */
 
 :root {
-  /* Core palette: Dark rainy night with warm interior glow */
-  --bg-primary: linear-gradient(135deg, #1a1d24 0%, #242931 100%);
-  --bg-secondary: rgba(36, 41, 49, 0.85);
-  --bg-card: rgba(45, 51, 61, 0.9);
-  --bg-tertiary: #2d333d;
+  /* Core palette: Deep night with warm ambient glow */
+  --bg-primary: linear-gradient(135deg, #12151c 0%, #1d2029 100%);
+  --bg-secondary: rgba(29, 32, 41, 0.88);
+  --bg-card: rgba(38, 43, 53, 0.92);
+  --bg-tertiary: #262b35;
 
-  /* Text colors: Soft, easy on the eyes */
-  --text-primary: #e8e6e3;
-  --text-secondary: #b8b5b0;
-  --text-muted: #7a7873;
+  /* Text colors: Soft, high contrast for late night */
+  --text-primary: #ede9e4;
+  --text-secondary: #bfbbb5;
+  --text-muted: #726e68;
 
-  /* Accent colors: Warm amber/gold against cool rain */
-  --accent-primary: #d4a574;
-  --accent-secondary: #8b6f47;
-  --accent-glow: #f4c88a;
+  /* Accent colors: Warm amber street lights reflecting on wet pavement */
+  --accent-primary: #d9aa72;
+  --accent-secondary: #9a7952;
+  --accent-glow: #f7d199;
 
-  /* Weather-specific: Rainy blues and reflective surfaces */
-  --rain-blue: #4a5f7f;
-  --rain-dark: #2a3645;
-  --wet-reflection: rgba(74, 95, 127, 0.12);
+  /* Weather-specific: Deep rainy night blues */
+  --rain-blue: #3d5264;
+  --rain-dark: #1f2933;
+  --wet-reflection: rgba(61, 82, 100, 0.14);
 
-  /* Fall colors: Muted autumn warmth */
-  --fall-rust: #a86542;
-  --fall-amber: #c17d3a;
-  --fall-shadow: #3d2a1f;
+  /* Fall colors: Rich autumn warmth against cool rain */
+  --fall-rust: #b36b45;
+  --fall-amber: #c98842;
+  --fall-shadow: #3a251a;
 
   /* Functional colors */
-  --border-subtle: rgba(180, 165, 145, 0.12);
-  --shadow-soft: 0 4px 16px rgba(0, 0, 0, 0.4);
-  --shadow-medium: 0 8px 32px rgba(0, 0, 0, 0.5);
-  --shadow-glow: 0 0 24px rgba(212, 165, 116, 0.2);
-  --overlay-dark: rgba(26, 29, 36, 0.4);
+  --border-subtle: rgba(190, 170, 145, 0.1);
+  --shadow-soft: 0 4px 18px rgba(0, 0, 0, 0.5);
+  --shadow-medium: 0 8px 36px rgba(0, 0, 0, 0.6);
+  --shadow-glow: 0 0 28px rgba(217, 170, 114, 0.22);
+  --overlay-dark: rgba(18, 21, 28, 0.45);
 }
 
 /* Global styles */
@@ -48,7 +48,7 @@ body {
   position: relative;
 }
 
-/* Rainy night atmosphere with subtle wet reflections */
+/* Late night rainy atmosphere with street light bokeh */
 body::before {
   content: '';
   position: fixed;
@@ -57,24 +57,25 @@ body::before {
   right: 0;
   bottom: 0;
   background:
-    radial-gradient(circle at 20% 30%, rgba(212, 165, 116, 0.06) 0%, transparent 40%),
-    radial-gradient(circle at 80% 70%, rgba(74, 95, 127, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 15% 25%, rgba(217, 170, 114, 0.07) 0%, transparent 45%),
+    radial-gradient(circle at 85% 75%, rgba(61, 82, 100, 0.12) 0%, transparent 55%),
+    radial-gradient(circle at 50% 50%, rgba(217, 170, 114, 0.04) 0%, transparent 60%),
     repeating-linear-gradient(
       90deg,
       transparent,
-      transparent 3px,
-      var(--wet-reflection) 3px,
-      var(--wet-reflection) 4px
+      transparent 4px,
+      var(--wet-reflection) 4px,
+      var(--wet-reflection) 5px
     );
   pointer-events: none;
   z-index: -1;
-  opacity: 0.6;
+  opacity: 0.65;
 }
 
 /* Typography */
 h1, h2, h3, h4, h5, h6 {
   color: var(--accent-glow);
-  text-shadow: 0 2px 12px rgba(244, 200, 138, 0.15);
+  text-shadow: 0 2px 14px rgba(247, 209, 153, 0.18);
   margin-top: 1.5em;
   margin-bottom: 0.5em;
 }
@@ -95,7 +96,7 @@ a {
 
 a:hover {
   color: var(--accent-glow);
-  text-shadow: 0 0 16px rgba(212, 165, 116, 0.3);
+  text-shadow: 0 0 18px rgba(217, 170, 114, 0.35);
 }
 
 a::after {
@@ -116,7 +117,7 @@ a:hover::after {
 /* Cards and containers */
 .card, .container, article, section {
   background: var(--bg-card);
-  backdrop-filter: blur(12px);
+  backdrop-filter: blur(14px);
   border: 1px solid var(--border-subtle);
   border-radius: 16px;
   padding: 1.5rem;
@@ -128,7 +129,7 @@ a:hover::after {
 .card:hover, article:hover {
   transform: translateY(-2px);
   box-shadow: var(--shadow-glow), var(--shadow-medium);
-  border-color: rgba(212, 165, 116, 0.25);
+  border-color: rgba(217, 170, 114, 0.28);
 }
 
 /* Buttons */
@@ -148,22 +149,22 @@ button:hover, .button:hover {
   background: linear-gradient(135deg, var(--accent-glow), var(--fall-amber));
   box-shadow: var(--shadow-glow), var(--shadow-medium);
   transform: translateY(-2px);
-  filter: brightness(1.1);
+  filter: brightness(1.12);
 }
 
 /* Header/Navigation */
 header, nav {
   background: var(--bg-secondary);
-  backdrop-filter: blur(16px);
+  backdrop-filter: blur(18px);
   border-bottom: 2px solid var(--rain-blue);
-  box-shadow: 0 2px 20px rgba(42, 54, 69, 0.6);
+  box-shadow: 0 2px 24px rgba(31, 41, 51, 0.7);
   padding: 1rem;
   margin-bottom: 2rem;
 }
 
 /* Code blocks */
 code, pre {
-  background: rgba(42, 54, 69, 0.7);
+  background: rgba(31, 41, 51, 0.75);
   border: 1px solid var(--rain-blue);
   border-radius: 6px;
   font-family: 'Monaco', 'Courier New', monospace;
@@ -173,7 +174,7 @@ code, pre {
 pre {
   padding: 1rem;
   overflow-x: auto;
-  box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.3);
+  box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.4);
 }
 
 code {
@@ -193,7 +194,7 @@ input, textarea, select {
 input:focus, textarea:focus, select:focus {
   outline: none;
   border-color: var(--accent-primary);
-  box-shadow: 0 0 0 3px rgba(212, 165, 116, 0.15);
+  box-shadow: 0 0 0 3px rgba(217, 170, 114, 0.16);
 }
 
 /* Scrollbar */
@@ -223,15 +224,15 @@ input:focus, textarea:focus, select:focus {
 
 /* Glass morphism elements */
 .glass {
-  background: rgba(36, 41, 49, 0.6);
-  backdrop-filter: blur(20px) saturate(150%);
+  background: rgba(29, 32, 41, 0.65);
+  backdrop-filter: blur(22px) saturate(160%);
   border: 1px solid var(--border-subtle);
   box-shadow: var(--shadow-soft);
 }
 
 /* Ambient glow effect for important elements */
 .highlight, .featured, .accent {
-  box-shadow: 0 0 24px rgba(212, 165, 116, 0.12), var(--shadow-soft);
+  box-shadow: 0 0 28px rgba(217, 170, 114, 0.14), var(--shadow-soft);
   border-color: var(--accent-secondary);
   color: var(--fall-amber);
 }
@@ -239,7 +240,7 @@ input:focus, textarea:focus, select:focus {
 /* Status indicators */
 .status-active {
   color: var(--accent-primary);
-  text-shadow: 0 0 12px rgba(212, 165, 116, 0.4);
+  text-shadow: 0 0 14px rgba(217, 170, 114, 0.45);
 }
 
 .status-info {
@@ -249,13 +250,13 @@ input:focus, textarea:focus, select:focus {
 /* Footer */
 footer {
   background: var(--bg-secondary);
-  backdrop-filter: blur(12px);
+  backdrop-filter: blur(14px);
   border-top: 2px solid var(--rain-blue);
   color: var(--text-secondary);
   padding: 2rem 1rem;
   margin-top: 3rem;
   text-align: center;
-  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.4);
 }
 
 /* Utility classes */
@@ -278,8 +279,8 @@ footer {
   }
 
   :root {
-    --shadow-soft: 0 2px 10px rgba(0, 0, 0, 0.4);
-    --shadow-medium: 0 4px 16px rgba(0, 0, 0, 0.5);
+    --shadow-soft: 0 2px 12px rgba(0, 0, 0, 0.5);
+    --shadow-medium: 0 4px 20px rgba(0, 0, 0, 0.6);
   }
 }
 
