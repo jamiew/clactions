@@ -3,7 +3,7 @@ name: Cross-Repo Notify
 on:
   schedule:
     # Run every 8 hours
-    - cron: '0 */8 * * *'
+    - cron: "0 */8 * * *"
   workflow_dispatch:
 
 permissions:

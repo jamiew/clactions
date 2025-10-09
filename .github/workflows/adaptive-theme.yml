@@ -2,7 +2,7 @@ name: Adaptive Theme
 
 on:
   schedule:
-    - cron: '0 * * * *'  # Every hour
+    - cron: "0 12 * * *" # Daily at noon UTC
   workflow_dispatch:
 
 permissions:

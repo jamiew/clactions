@@ -2,7 +2,7 @@ name: Weather
 
 on:
   schedule:
-    - cron: '0 * * * *'  # Every hour
+    - cron: "0 8 * * *" # Daily at 8am UTC
   workflow_dispatch:
 
 permissions:

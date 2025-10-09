@@ -24,12 +24,12 @@ Claude fetches external data and updates data used to generate the website.
 
 | Workflow | Prompt for Claude | Triggers | Uses Claude | Commits | Opens Issues | Opens PRs |
 |----------|-------------------|----------|-------------|---------|--------------|-----------|
-| [nytimes-headlines.yml](.github/workflows/nytimes-headlines.yml) | Parse NYT RSS feed → `data/nytimes.json` | Hourly | ✅ | ✅ | ❌ | ❌ |
-| [glif-top-content.yml](.github/workflows/glif-top-content.yml) | Fetch Glif featured content → `data/glif.json` | Every 2h | ✅ | ✅ | ❌ | ❌ |
-| [weather-data.yml](.github/workflows/weather-data.yml) | Fetch NYC weather → `data/weather.json` | Hourly | ✅ | ✅ | ❌ | ❌ |
-| [crypto-prices.yml](.github/workflows/crypto-prices.yml) | Fetch BTC/ETH/SOL/HNT prices via **CoinGecko MCP server** → `data/crypto-prices.json` | Every 30m | ✅ | ✅ | ❌ | ❌ |
+| [nytimes-headlines.yml](.github/workflows/nytimes-headlines.yml) | Parse NYT RSS feed → `data/nytimes.json` | Daily (9am UTC) | ✅ | ✅ | ❌ | ❌ |
+| [glif-top-content.yml](.github/workflows/glif-top-content.yml) | Fetch Glif featured content → `data/glif.json` | Daily (10am UTC) | ✅ | ✅ | ❌ | ❌ |
+| [weather-data.yml](.github/workflows/weather-data.yml) | Fetch NYC weather → `data/weather.json` | Daily (8am UTC) | ✅ | ✅ | ❌ | ❌ |
+| [crypto-prices.yml](.github/workflows/crypto-prices.yml) | Fetch BTC/ETH/SOL/HNT prices via **CoinGecko MCP server** → `data/crypto-prices.json` | Daily (11am UTC) | ✅ | ✅ | ❌ | ❌ |
 | [rhizome-community.yml](.github/workflows/rhizome-community.yml) | Scrape Rhizome.org community → `data/rhizome.json` | Every 6h | ✅ | ✅ | ❌ | ❌ |
-| [adaptive-theme.yml](.github/workflows/adaptive-theme.yml) | Generate CSS based on time/season/weather → `theme-nyc.css` | Hourly | ✅ | ✅ | ❌ | ❌ |
+| [adaptive-theme.yml](.github/workflows/adaptive-theme.yml) | Generate CSS based on time/season/weather → `theme-nyc.css` | Daily (noon UTC) | ✅ | ✅ | ❌ | ❌ |
 
 ### Autonomous Development
 Claude modifies its own codebase and implements tasks.
@@ -47,7 +47,7 @@ Claude improves its own setup and fixes its own failures.
 
 | Workflow | Prompt for Claude | Triggers | Uses Claude | Commits | Opens Issues | Opens PRs |
 |----------|-------------------|----------|-------------|---------|--------------|-----------|
-| [self-repair.yml](.github/workflows/self-repair.yml) | Read failure logs → diagnose → fix (commit or PR) | Hourly + on failures | ✅ | ✅ | ✅ | ✅ |
+| [self-repair.yml](.github/workflows/self-repair.yml) | Read failure logs → diagnose → fix (commit or PR) | Every 6h + on failures | ✅ | ✅ | ✅ | ✅ |
 | [self-improver.yml](.github/workflows/self-improver.yml) | Analyze changes → improve CLAUDE.md & Claude Code setup via PR | On PR merge/issue activity | ✅ | ❌ | ❌ | ✅ |
 | [update-docs.yml](.github/workflows/update-docs.yml) | Generate workflow docs → create docs/*.md & data/docs.json | Weekly (Sunday) | ✅ | ✅ | ❌ | ❌ |
 
@@ -63,7 +63,7 @@ Website generation and deployment automation.
 
 | Workflow | Prompt for Claude | Triggers | Uses Claude | Commits | Opens Issues | Opens PRs |
 |----------|-------------------|----------|-------------|---------|--------------|-----------|
-| [update-website.yml](.github/workflows/update-website.yml) | Build website from data files → deploy to Pages | Hourly + on data changes | ❌ | ❌ | ❌ | ❌ |
+| [update-website.yml](.github/workflows/update-website.yml) | Build website from data files → deploy to Pages | Daily (1pm UTC) + on data changes | ❌ | ❌ | ❌ | ❌ |
 
 ## How It Works
 
@@ -87,7 +87,7 @@ These workflows improve the system itself:
 2. Analyzes logs and identifies root cause
 3. Implements fix (commit or PR based on complexity)
 4. Re-runs the failed workflow
-5. Runs hourly to catch stragglers
+5. Runs every 6 hours to catch stragglers
 
 **[self-improver.yml](.github/workflows/self-improver.yml)** - Claude Code setup optimization:
 - Analyzes merged PRs and issue discussions
@@ -387,7 +387,7 @@ The goal is autonomous infrastructure that iterates on itself. Success varies.
 - `TODO.md` - Ideas and tasks for Claude to implement
 - `.github/workflows/` - All workflow definitions
 - `scripts/` - Debug and repair utilities
-  - `scripts/build-dashboard.js` - Builds static website from data files
+  - `scripts/build-website.js` - Builds static website from data files
   - `scripts/debug-workflows.sh` - Diagnose workflow failures
   - `scripts/fix-workflows.sh` - Gather context for self-repair workflow
 - `.claude/commands/` - Custom slash commands (Markdown)

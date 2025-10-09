@@ -4,16 +4,16 @@ on:
   push:
     branches: [main]
     paths:
-      - 'data/**'
-      - 'data.json'
-      - 'weather.json'
-      - 'weather_raw.json'
-      - 'theme-nyc.css'
-      - 'docs/**'
-      - '.github/workflows/update-website.yml'
-      - 'scripts/build-dashboard.js'
+      - "data/**"
+      - "data.json"
+      - "weather.json"
+      - "weather_raw.json"
+      - "theme-nyc.css"
+      - "docs/**"
+      - ".github/workflows/update-website.yml"
+      - "scripts/build-website.js"
   schedule:
-    - cron: '0 * * * *'  # Every hour
+    - cron: "0 13 * * *" # Daily at 1pm UTC
   workflow_dispatch:
 
 permissions:
@@ -45,9 +45,9 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Generate dashboard HTML
+      - name: Generate website HTML
         run: |
-          node scripts/build-dashboard.js
+          node scripts/build-website.js
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
@@ -55,7 +55,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: './dist'
+          path: "./dist"
 
       - name: Deploy to GitHub Pages
         id: deployment

@@ -2,7 +2,7 @@ name: Glif Top Content
 
 on:
   schedule:
-    - cron: '0 */2 * * *'  # Every 2 hours
+    - cron: "0 10 * * *" # Daily at 10am UTC
   workflow_dispatch:
 
 permissions:
@@ -30,7 +30,7 @@ jobs:
             Tasks:
             1. Fetch top featured workflows from: https://glif.app/api/glifs?featured=1
             2. Fetch top featured agents from: https://glif.app/api/bots?tags=featured
-            3. Create/update data/glif.json with this structure:
+            3. Create/update data/glif.json with this structure and include all data you find:
                {
                  "featured_workflows": [
                    {"name": "...", "description": "...", "creator": "...", "url": "...", "id": "..."},

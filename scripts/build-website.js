@@ -34,34 +34,24 @@ function safeReadJSON(filePath, fallback) {
   }
 }
 
-// Read files with fallbacks for missing files
-const nytimes = fs.existsSync("data/nytimes.json")
-  ? JSON.parse(fs.readFileSync("data/nytimes.json", "utf-8"))
-  : { headlines: [], last_updated: "Never" };
+// Read files with fallbacks for missing files (using safe JSON parser)
+const nytimes = safeReadJSON("data/nytimes.json", { headlines: [], last_updated: "Never" });
 
-const glif = fs.existsSync("data/glif.json")
-  ? JSON.parse(fs.readFileSync("data/glif.json", "utf-8"))
-  : { featured_workflows: [], featured_agents: [], last_updated: "Never" };
+const glif = safeReadJSON("data/glif.json", { featured_workflows: [], featured_agents: [], last_updated: "Never" });
 
-const weather = fs.existsSync("data/weather.json")
-  ? JSON.parse(fs.readFileSync("data/weather.json", "utf-8"))
-  : fs.existsSync("weather.json")
-  ? JSON.parse(fs.readFileSync("weather.json", "utf-8"))
-  : {
-      temperature: 70,
-      condition: "Clear",
-      humidity: "—",
-      feels_like: "—",
-      last_updated: "Never",
-    };
+const weather = safeReadJSON("data/weather.json",
+  safeReadJSON("weather.json", {
+    temperature: 70,
+    condition: "Clear",
+    humidity: "—",
+    feels_like: "—",
+    last_updated: "Never",
+  })
+);
 
-const crypto = fs.existsSync("data/crypto-prices.json")
-  ? JSON.parse(fs.readFileSync("data/crypto-prices.json", "utf-8"))
-  : { coins: {}, last_updated: "Never" };
+const crypto = safeReadJSON("data/crypto-prices.json", { coins: {}, last_updated: "Never" });
 
-const rhizome = fs.existsSync("data/rhizome.json")
-  ? JSON.parse(fs.readFileSync("data/rhizome.json", "utf-8"))
-  : { community_listings: [], last_updated: "Never" };
+const rhizome = safeReadJSON("data/rhizome.json", { community_listings: [], last_updated: "Never" });
 
 const nycTheme = fs.existsSync("theme-nyc.css")
   ? fs.readFileSync("theme-nyc.css", "utf-8")
@@ -380,15 +370,7 @@ function generateWeatherTheme(weather) {
 
 const weatherAdaptiveTheme = generateWeatherTheme(weather);
 
-<<<<<<< HEAD:scripts/build-dashboard.js
-const workflows = safeReadJSON('workflow_runs.json', []);
-=======
-const workflows = fs.existsSync("workflow_runs.json")
-  ? JSON.parse(fs.readFileSync("workflow_runs.json", "utf-8"))
-  : [];
->>>>>>> 4c91928 (Fix (and format) scripts):scripts/build-website.js
-
-// Blog functionality removed per user request
+const workflows = safeReadJSON("workflow_runs.json", []);
 
 // Build weather card
 const weatherCard = `
@@ -1278,5 +1260,6 @@ ${workflowsHtml}
 </html>`;
 
 // Write to dist/index.html
-fs.writeFileSync("dist/index.html", html);
-console.log("Website built!");
+const filename = "dist/index.html";
+fs.writeFileSync(filename, html);
+console.log("Website built!", filename);

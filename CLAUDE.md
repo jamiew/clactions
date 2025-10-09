@@ -37,24 +37,32 @@ gh run watch
 
 ## Architecture
 
-### 10 Claude Workflows
+### Data Fetchers (6 workflows)
 
-1. `fetch-nytimes.yml` (30m) - Scrapes NYT, updates data.json
-2. `fetch-glif.yml` (2h) - Gets Glif featured content
-3. `run-glif.yml` (15m) - Runs Glif, processes output
-4. `auto-improve.yml` (6h) - Makes code improvements via PR
-5. `improve-ui.yml` (12h) - Redesigns UI via PR
-6. `claude-pr-review.yml` (on PR) - Reviews all PRs
-7. `meta-manager.yml` (weekly) - Optimizes workflow configs
-8. `self-repair.yml` (on failure / 30m) - Auto-fixes failures ⭐
-9. `todo-worker.yml` (8h) - Reads TODO.md, implements tasks ⭐
-10. `claude-issue-bot.yml` (@claude) - Implements issues via PR ⭐
+1. `nytimes-headlines.yml` - Fetches NYT RSS feed → data/nytimes.json
+2. `glif-top-content.yml` - Gets Glif featured content → data/glif.json
+3. `weather-data.yml` - Fetches NYC weather → data/weather.json
+4. `crypto-prices.yml` - Fetches crypto prices via CoinGecko → data/crypto-prices.json
+5. `rhizome-community.yml` - Scrapes Rhizome.org community → data/rhizome.json
+6. `adaptive-theme.yml` - Generates CSS based on time/season/weather → theme-nyc.css
 
-### 3 Support Workflows
+### Autonomous Development (5 workflows)
 
-- `auto-merge.yml` - Merges approved Claude PRs
-- `deploy-pages.yml` - Deploys to GitHub Pages (requires Pages enabled!)
-- `scheduled-deploy.yml` - Regenerates site hourly
+1. `todo-worker.yml` - Reads TODO.md, implements tasks via PR ⭐
+2. `issue-triage.yml` - Analyzes issues, applies labels
+3. `claude-code-review.yml` - Reviews all PRs automatically
+4. `cross-repo-notify.yml` - Detects workflow changes → creates issues in external repo
+5. `auto-merge.yml` - Auto-merges approved Claude PRs
+
+### Self-Improvement (3 workflows)
+
+1. `self-repair.yml` - Auto-fixes workflow failures ⭐
+2. `self-improver.yml` - Improves CLAUDE.md & Claude Code setup
+3. `update-docs.yml` - Generates workflow documentation → docs/*.md
+
+### Build & Deploy (1 workflow)
+
+- `update-website.yml` - Builds & deploys website to Pages
 
 **Note**: Pages must be manually enabled at Settings → Pages → Source: GitHub Actions
 

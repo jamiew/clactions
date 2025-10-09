@@ -67,4 +67,10 @@ jobs:
                 merge_method: 'squash'
               });
               console.log('PR auto-merged successfully');
+            } else {
+              console.log('PR not valid for auto-merge:', {
+                isClaudeBot,
+                approved,
+                allChecksPassed
+              });
             }
