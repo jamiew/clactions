@@ -1,41 +1,41 @@
-/* Generated: 2025-10-09T01:00:00Z
- * Hour: 01 (Deep Night), Season: Fall (October), Weather: Unknown
- * Theme: The Quietest Hour - NYC asleep, deep indigo night, faint amber glow from distant streets
+/* Generated: 2025-10-09T02:00:00Z
+ * Hour: 02 (Deep Night), Season: Fall (October), Day: 282
+ * Theme: The Still Hours - NYC in deepest sleep, midnight blues meet autumn embers
  */
 
 :root {
-  /* Core deep night palette: The city rests */
-  --bg-primary: linear-gradient(135deg, #0a0d12 0%, #12151c 100%);
-  --bg-secondary: rgba(18, 21, 28, 0.95);
-  --bg-card: rgba(24, 28, 36, 0.97);
-  --bg-tertiary: #181c24;
+  /* Deep night core - the city's darkest hour */
+  --bg-primary: linear-gradient(135deg, #080b10 0%, #0f1319 100%);
+  --bg-secondary: rgba(15, 19, 25, 0.96);
+  --bg-card: rgba(20, 24, 32, 0.98);
+  --bg-tertiary: #14181f;
 
-  /* Text colors: Soft for deep night reading */
-  --text-primary: #dddad0;
-  --text-secondary: #a7a199;
-  --text-muted: #5a564d;
+  /* Text colors: Gentle on eyes at 2am */
+  --text-primary: #d8d5cb;
+  --text-secondary: #a19d93;
+  --text-muted: #565248;
 
-  /* Accent colors: Muted autumn embers in the darkness */
-  --accent-primary: #b8915e;
-  --accent-secondary: #8a6c3f;
-  --accent-glow: #d7b788;
+  /* Accent colors: Deep autumn embers barely glowing */
+  --accent-primary: #a88354;
+  --accent-secondary: #7d5e37;
+  --accent-glow: #c9a577;
 
-  /* Deep night palette */
-  --night-indigo: #1a1f2e;
-  --night-deepest: #080a0e;
-  --urban-amber: rgba(184, 145, 94, 0.07);
+  /* Deep night atmosphere */
+  --night-navy: #151a26;
+  --night-void: #060709;
+  --urban-glow: rgba(168, 131, 84, 0.05);
 
-  /* Fall colors: Quietest nighttime versions */
-  --fall-rust: #95603d;
-  --fall-bronze: #a9763a;
-  --fall-shadow: #2a1d13;
+  /* Fall colors: Midnight autumn palette */
+  --fall-rust: #85522f;
+  --fall-bronze: #996633;
+  --fall-shadow: #1f1409;
 
   /* Functional colors */
-  --border-subtle: rgba(167, 161, 153, 0.07);
-  --shadow-soft: 0 4px 22px rgba(0, 0, 0, 0.68);
-  --shadow-medium: 0 8px 42px rgba(0, 0, 0, 0.77);
-  --shadow-glow: 0 0 26px rgba(184, 145, 94, 0.13);
-  --overlay-dark: rgba(10, 13, 18, 0.65);
+  --border-subtle: rgba(161, 157, 147, 0.06);
+  --shadow-soft: 0 4px 24px rgba(0, 0, 0, 0.72);
+  --shadow-medium: 0 8px 44px rgba(0, 0, 0, 0.8);
+  --shadow-glow: 0 0 28px rgba(168, 131, 84, 0.11);
+  --overlay-dark: rgba(8, 11, 16, 0.7);
 }
 
 /* Global styles */
@@ -48,7 +48,7 @@ body {
   position: relative;
 }
 
-/* Deep night urban atmosphere - the quietest hour */
+/* Deep night ambiance - the stillest hours */
 body::before {
   content: '';
   position: fixed;
@@ -57,16 +57,16 @@ body::before {
   right: 0;
   bottom: 0;
   background:
-    radial-gradient(circle at 15% 20%, rgba(184, 145, 94, 0.04) 0%, transparent 38%),
-    radial-gradient(circle at 85% 65%, rgba(184, 145, 94, 0.02) 0%, transparent 44%),
-    radial-gradient(circle at 40% 88%, rgba(26, 31, 46, 0.12) 0%, transparent 50%),
-    radial-gradient(circle at 70% 12%, rgba(184, 145, 94, 0.03) 0%, transparent 36%);
+    radial-gradient(circle at 12% 18%, rgba(168, 131, 84, 0.03) 0%, transparent 40%),
+    radial-gradient(circle at 88% 70%, rgba(168, 131, 84, 0.02) 0%, transparent 46%),
+    radial-gradient(circle at 45% 92%, rgba(21, 26, 38, 0.14) 0%, transparent 52%),
+    radial-gradient(circle at 68% 8%, rgba(168, 131, 84, 0.025) 0%, transparent 38%);
   pointer-events: none;
   z-index: -1;
-  opacity: 0.65;
+  opacity: 0.6;
 }
 
-/* Subtle starfield for deep night */
+/* Sparse starfield - clearer at 2am */
 body::after {
   content: '';
   position: fixed;
@@ -75,19 +75,20 @@ body::after {
   right: 0;
   bottom: 0;
   background-image:
-    radial-gradient(circle, rgba(255, 255, 255, 0.09) 1px, transparent 1px),
-    radial-gradient(circle, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
-  background-size: 70px 70px, 100px 100px;
-  background-position: 0 0, 35px 35px;
+    radial-gradient(circle, rgba(255, 255, 255, 0.1) 1px, transparent 1px),
+    radial-gradient(circle, rgba(255, 255, 255, 0.06) 1px, transparent 1px),
+    radial-gradient(circle, rgba(201, 165, 119, 0.04) 1px, transparent 1px);
+  background-size: 80px 80px, 120px 120px, 150px 150px;
+  background-position: 0 0, 40px 40px, 70px 70px;
   pointer-events: none;
   z-index: -1;
-  opacity: 0.06;
+  opacity: 0.07;
 }
 
 /* Typography */
 h1, h2, h3, h4, h5, h6 {
   color: var(--accent-glow);
-  text-shadow: 0 2px 14px rgba(215, 183, 136, 0.14);
+  text-shadow: 0 2px 16px rgba(201, 165, 119, 0.12);
   margin-top: 1.5em;
   margin-bottom: 0.5em;
 }
@@ -109,7 +110,7 @@ a {
 
 a:hover {
   color: var(--accent-glow);
-  text-shadow: 0 0 18px rgba(184, 145, 94, 0.26);
+  text-shadow: 0 0 20px rgba(168, 131, 84, 0.24);
 }
 
 a::after {
@@ -130,7 +131,7 @@ a:hover::after {
 /* Cards and containers */
 .card, .container, article, section {
   background: var(--bg-card);
-  backdrop-filter: blur(18px);
+  backdrop-filter: blur(20px);
   border: 1px solid var(--border-subtle);
   border-radius: 16px;
   padding: 1.5rem;
@@ -142,7 +143,7 @@ a:hover::after {
 .card:hover, article:hover {
   transform: translateY(-3px);
   box-shadow: var(--shadow-glow), var(--shadow-medium);
-  border-color: rgba(184, 145, 94, 0.22);
+  border-color: rgba(168, 131, 84, 0.2);
 }
 
 /* Buttons */
@@ -162,23 +163,23 @@ button:hover, .button:hover {
   background: linear-gradient(135deg, var(--accent-glow), var(--fall-bronze));
   box-shadow: var(--shadow-glow), var(--shadow-medium);
   transform: translateY(-2px);
-  filter: brightness(1.14);
+  filter: brightness(1.12);
 }
 
 /* Header/Navigation */
 header, nav {
   background: var(--bg-secondary);
-  backdrop-filter: blur(22px);
-  border-bottom: 2px solid var(--night-indigo);
-  box-shadow: 0 2px 32px rgba(8, 10, 14, 0.88);
+  backdrop-filter: blur(24px);
+  border-bottom: 2px solid var(--night-navy);
+  box-shadow: 0 2px 36px rgba(6, 7, 9, 0.9);
   padding: 1rem;
   margin-bottom: 2rem;
 }
 
 /* Code blocks */
 code, pre {
-  background: rgba(8, 10, 14, 0.92);
-  border: 1px solid var(--night-indigo);
+  background: rgba(6, 7, 9, 0.94);
+  border: 1px solid var(--night-navy);
   border-radius: 6px;
   font-family: 'Monaco', 'Courier New', monospace;
   color: var(--accent-glow);
@@ -187,7 +188,7 @@ code, pre {
 pre {
   padding: 1rem;
   overflow-x: auto;
-  box-shadow: inset 0 2px 14px rgba(0, 0, 0, 0.58);
+  box-shadow: inset 0 2px 16px rgba(0, 0, 0, 0.6);
 }
 
 code {
@@ -207,7 +208,7 @@ input, textarea, select {
 input:focus, textarea:focus, select:focus {
   outline: none;
   border-color: var(--accent-primary);
-  box-shadow: 0 0 0 3px rgba(184, 145, 94, 0.16);
+  box-shadow: 0 0 0 3px rgba(168, 131, 84, 0.14);
 }
 
 /* Scrollbar */
@@ -216,11 +217,11 @@ input:focus, textarea:focus, select:focus {
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--night-deepest);
+  background: var(--night-void);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--night-indigo);
+  background: var(--night-navy);
   border-radius: 6px;
   transition: background 0.2s ease;
 }
@@ -237,15 +238,15 @@ input:focus, textarea:focus, select:focus {
 
 /* Glass morphism elements */
 .glass {
-  background: rgba(18, 21, 28, 0.78);
-  backdrop-filter: blur(26px) saturate(150%);
+  background: rgba(15, 19, 25, 0.8);
+  backdrop-filter: blur(28px) saturate(160%);
   border: 1px solid var(--border-subtle);
   box-shadow: var(--shadow-soft);
 }
 
 /* Ambient glow effect for important elements */
 .highlight, .featured, .accent {
-  box-shadow: 0 0 24px rgba(184, 145, 94, 0.14), var(--shadow-soft);
+  box-shadow: 0 0 26px rgba(168, 131, 84, 0.12), var(--shadow-soft);
   border-color: var(--accent-secondary);
   color: var(--fall-bronze);
 }
@@ -253,23 +254,23 @@ input:focus, textarea:focus, select:focus {
 /* Status indicators */
 .status-active {
   color: var(--accent-primary);
-  text-shadow: 0 0 14px rgba(184, 145, 94, 0.34);
+  text-shadow: 0 0 16px rgba(168, 131, 84, 0.3);
 }
 
 .status-info {
-  color: var(--night-indigo);
+  color: var(--night-navy);
 }
 
 /* Footer */
 footer {
   background: var(--bg-secondary);
-  backdrop-filter: blur(18px);
-  border-top: 2px solid var(--night-indigo);
+  backdrop-filter: blur(20px);
+  border-top: 2px solid var(--night-navy);
   color: var(--text-secondary);
   padding: 2rem 1rem;
   margin-top: 3rem;
   text-align: center;
-  box-shadow: 0 -4px 32px rgba(0, 0, 0, 0.58);
+  box-shadow: 0 -4px 36px rgba(0, 0, 0, 0.6);
 }
 
 /* Utility classes */
@@ -292,8 +293,8 @@ footer {
   }
 
   :root {
-    --shadow-soft: 0 2px 16px rgba(0, 0, 0, 0.68);
-    --shadow-medium: 0 4px 28px rgba(0, 0, 0, 0.77);
+    --shadow-soft: 0 2px 18px rgba(0, 0, 0, 0.72);
+    --shadow-medium: 0 4px 30px rgba(0, 0, 0, 0.8);
   }
 }
 
@@ -304,12 +305,22 @@ footer {
   transition-timing-function: ease;
 }
 
-/* Deep night hour - gentle, slow breathing rhythm */
-@keyframes deep-night-breathe {
-  0%, 100% { opacity: 0.65; }
-  50% { opacity: 0.78; }
+/* The still hours - slow, deep breathing of the sleeping city */
+@keyframes still-hours-pulse {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 0.75; }
 }
 
 body::before {
-  animation: deep-night-breathe 20s ease-in-out infinite;
+  animation: still-hours-pulse 22s ease-in-out infinite;
+}
+
+/* Distant city lights shimmer */
+@keyframes distant-shimmer {
+  0%, 100% { opacity: 0.03; }
+  50% { opacity: 0.05; }
+}
+
+body::after {
+  animation: distant-shimmer 15s ease-in-out infinite;
 }
