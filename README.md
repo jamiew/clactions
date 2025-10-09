@@ -15,54 +15,55 @@ Additionally, Claude Code's built-in features are installed via `/install-github
 - **@claude mentions in issues** - Comment `@claude` to get implementation PRs
 - **Code Review** - Claude reviews all PRs automatically
 
-**11 of 15 documented workflows** use Claude Code for decision-making and implementation.
+**11 of 16 documented workflows** use Claude Code for decision-making and implementation.
 
 ## Workflows
 
 ### Data Fetchers & Scrapers
 Claude fetches external data and updates data used to generate the website.
 
-| Workflow | Prompt for Claude | Uses Claude | Commits | Opens Issues | Opens PRs |
-|----------|-------------------|-------------|---------|--------------|-----------|
-| [nytimes-headlines.yml](.github/workflows/nytimes-headlines.yml) | Parse NYT RSS feed → `data/nytimes.json` | ✅ | ✅ | ❌ | ❌ |
-| [glif-top-content.yml](.github/workflows/glif-top-content.yml) | Fetch Glif featured content → `data/glif.json` | ✅ | ✅ | ❌ | ❌ |
-| [weather-data.yml](.github/workflows/weather-data.yml) | Fetch NYC weather → `data/weather.json` | ✅ | ✅ | ❌ | ❌ |
-| [crypto-prices.yml](.github/workflows/crypto-prices.yml) | Fetch BTC/ETH/SOL/HNT prices via **CoinGecko MCP server** → `data/crypto-prices.json` | ✅ | ✅ | ❌ | ❌ |
-| [rhizome-community.yml](.github/workflows/rhizome-community.yml) | Scrape Rhizome.org community → `data/rhizome.json` | ✅ | ✅ | ❌ | ❌ |
-| [adaptive-theme.yml](.github/workflows/adaptive-theme.yml) | Generate CSS based on time/season/weather → `theme-nyc.css` | ✅ | ✅ | ❌ | ❌ |
+| Workflow | Prompt for Claude | Triggers | Uses Claude | Commits | Opens Issues | Opens PRs |
+|----------|-------------------|----------|-------------|---------|--------------|-----------|
+| [nytimes-headlines.yml](.github/workflows/nytimes-headlines.yml) | Parse NYT RSS feed → `data/nytimes.json` | Hourly | ✅ | ✅ | ❌ | ❌ |
+| [glif-top-content.yml](.github/workflows/glif-top-content.yml) | Fetch Glif featured content → `data/glif.json` | Every 2h | ✅ | ✅ | ❌ | ❌ |
+| [weather-data.yml](.github/workflows/weather-data.yml) | Fetch NYC weather → `data/weather.json` | Hourly | ✅ | ✅ | ❌ | ❌ |
+| [crypto-prices.yml](.github/workflows/crypto-prices.yml) | Fetch BTC/ETH/SOL/HNT prices via **CoinGecko MCP server** → `data/crypto-prices.json` | Every 30m | ✅ | ✅ | ❌ | ❌ |
+| [rhizome-community.yml](.github/workflows/rhizome-community.yml) | Scrape Rhizome.org community → `data/rhizome.json` | Every 6h | ✅ | ✅ | ❌ | ❌ |
+| [adaptive-theme.yml](.github/workflows/adaptive-theme.yml) | Generate CSS based on time/season/weather → `theme-nyc.css` | Hourly | ✅ | ✅ | ❌ | ❌ |
 
 ### Autonomous Development
 Claude modifies its own codebase and implements tasks.
 
-| Workflow | Prompt for Claude | Uses Claude | Commits | Opens Issues | Opens PRs |
-|----------|-------------------|-------------|---------|--------------|-----------|
-| [todo-worker.yml](.github/workflows/todo-worker.yml) | Read TODO.md → pick task → implement via PR | ✅ | ❌ | ❌ | ✅ |
-| [issue-triage.yml](.github/workflows/issue-triage.yml) | Analyze issue → apply labels → ask clarifying questions | ✅ | ❌ | ❌ | ❌ |
-| [auto-merge.yml](.github/workflows/auto-merge.yml) | Auto-merge approved Claude PRs | ❌ | ❌ | ❌ | ❌ |
+| Workflow | Prompt for Claude | Triggers | Uses Claude | Commits | Opens Issues | Opens PRs |
+|----------|-------------------|----------|-------------|---------|--------------|-----------|
+| [todo-worker.yml](.github/workflows/todo-worker.yml) | Read TODO.md → pick task → implement via PR | Every 8h | ✅ | ❌ | ❌ | ✅ |
+| [issue-triage.yml](.github/workflows/issue-triage.yml) | Analyze issue → apply labels → ask clarifying questions | On issue open | ✅ | ❌ | ❌ | ❌ |
+| [claude-code-review.yml](.github/workflows/claude-code-review.yml) | Review PRs and provide feedback | On PR open/update | ✅ | ❌ | ❌ | ❌ |
+| [cross-repo-notify.yml](.github/workflows/cross-repo-notify.yml) | Detect workflow changes → create issue in external repo | Every 8h | ❌ | ❌ | ✅ (external) | ❌ |
+| [auto-merge.yml](.github/workflows/auto-merge.yml) | Auto-merge approved Claude PRs | On PR review/checks | ❌ | ❌ | ❌ | ❌ |
 
 ### Self-Improvement & Meta
 Claude improves its own setup and fixes its own failures.
 
-| Workflow | Prompt for Claude | Uses Claude | Commits | Opens Issues | Opens PRs |
-|----------|-------------------|-------------|---------|--------------|-----------|
-| [self-repair.yml](.github/workflows/self-repair.yml) | Read failure logs → diagnose → fix (commit or PR) | ✅ | ✅ | ✅ | ✅ |
-| [self-improver.yml](.github/workflows/self-improver.yml) | Analyze changes → improve CLAUDE.md & Claude Code setup via PR | ✅ | ❌ | ❌ | ✅ |
-| [update-docs.yml](.github/workflows/update-docs.yml) | Generate workflow docs → create docs/*.md & data/docs.json | ✅ | ✅ | ❌ | ❌ |
+| Workflow | Prompt for Claude | Triggers | Uses Claude | Commits | Opens Issues | Opens PRs |
+|----------|-------------------|----------|-------------|---------|--------------|-----------|
+| [self-repair.yml](.github/workflows/self-repair.yml) | Read failure logs → diagnose → fix (commit or PR) | Hourly + on failures | ✅ | ✅ | ✅ | ✅ |
+| [self-improver.yml](.github/workflows/self-improver.yml) | Analyze changes → improve CLAUDE.md & Claude Code setup via PR | On PR merge/issue activity | ✅ | ❌ | ❌ | ✅ |
+| [update-docs.yml](.github/workflows/update-docs.yml) | Generate workflow docs → create docs/*.md & data/docs.json | Weekly (Sunday) | ✅ | ✅ | ❌ | ❌ |
 
 ### Webhooks & External Triggers
 External services can trigger workflows via GitHub's `repository_dispatch` API.
 
-| Workflow | Prompt for Claude | Uses Claude | Commits | Opens Issues | Opens PRs |
-|----------|-------------------|-------------|---------|--------------|-----------|
-| [webhook-demo.yml](.github/workflows/webhook-demo.yml) | Echo webhook payload for testing | ❌ | ❌ | ❌ | ❌ |
-| [cross-repo-notify.yml](.github/workflows/cross-repo-notify.yml) | Detect workflow changes → create issue in external repo | ❌ | ❌ | ✅ | ❌ |
+| Workflow | Prompt for Claude | Triggers | Uses Claude | Commits | Opens Issues | Opens PRs |
+|----------|-------------------|----------|-------------|---------|--------------|-----------|
+| [webhook-demo.yml](.github/workflows/webhook-demo.yml) | Echo webhook payload for testing | webhook (`repository_dispatch`) | ❌ | ❌ | ❌ | ❌ |
 
 ### Build & Deploy
 Website generation and deployment automation.
 
-| Workflow | Prompt for Claude | Uses Claude | Commits | Opens Issues | Opens PRs |
-|----------|-------------------|-------------|---------|--------------|-----------|
-| [update-website.yml](.github/workflows/update-website.yml) | Build website from data files → deploy to Pages | ❌ | ❌ | ❌ | ❌ |
+| Workflow | Prompt for Claude | Triggers | Uses Claude | Commits | Opens Issues | Opens PRs |
+|----------|-------------------|----------|-------------|---------|--------------|-----------|
+| [update-website.yml](.github/workflows/update-website.yml) | Build website from data files → deploy to Pages | Hourly + on data changes | ❌ | ❌ | ❌ | ❌ |
 
 ## How It Works
 
