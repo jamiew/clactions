@@ -86,5 +86,4 @@ jobs:
           gh issue create \
             --repo jamiew/issue-dump \
             --title "$TITLE" \
-            --body-file /tmp/issue-body.md \
-            --label "automated,workflow-sync"
+            --body-file /tmp/issue-body.md
