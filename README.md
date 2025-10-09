@@ -267,14 +267,9 @@ Store your `GITHUB_TOKEN` as an environment variable in the function, then proxy
 
 ## Debug Tools
 
-Quick diagnosis:
+Diagnose workflow failures:
 ```bash
-./scripts/analyze-workflow-runs.sh
-```
-
-Interactive doctor:
-```bash
-./scripts/claude-workflow-doctor.sh
+./scripts/debug-workflows.sh
 ```
 
 ## Setup
@@ -289,8 +284,21 @@ Settings → Secrets and variables → Actions → New repository secret
 - `CLAUDE_CODE_OAUTH_TOKEN` - From Claude Code GitHub App install
 
 **Optional:**
+- `ANTHROPIC_API_KEY` - Anthropic API key for cross-repo notify workflows (see below)
 - `GLIF_API_TOKEN` - From https://glif.app (for Glif featured content integration)
-- `CROSS_REPO_PAT` - Personal Access Token for cross-repo notifications (only needed if using `cross-repo-notify.yml`)
+- `CROSS_REPO_PAT` - Personal Access Token for cross-repo notifications (only needed if using cross-repo-notify workflows)
+
+#### Creating ANTHROPIC_API_KEY (Optional)
+
+Only needed for the `cross-repo-notify-by-commit.yml` and `cross-repo-notify-unified.yml` workflows.
+
+1. Go to https://console.anthropic.com/settings/keys
+2. Click **"Create Key"**
+3. Name it `github-actions` or similar
+4. Copy the API key
+5. Add to this repo: Settings → Secrets → Actions → New secret
+   - Name: `ANTHROPIC_API_KEY`
+   - Value: paste the key
 
 #### Creating CROSS_REPO_PAT (Optional)
 
@@ -391,7 +399,9 @@ The goal is autonomous infrastructure that iterates on itself. Success varies.
 - `TODO.md` - Ideas and tasks for Claude to implement
 - `.github/workflows/` - All workflow definitions
 - `scripts/` - Debug and repair utilities
-- `scripts/build-dashboard.js` - Builds static website from data files
+  - `scripts/build-dashboard.js` - Builds static website from data files
+  - `scripts/debug-workflows.sh` - Diagnose workflow failures
+  - `scripts/fix-workflows.sh` - Gather context for self-repair workflow
 - `.claude/commands/` - Custom slash commands (Markdown)
 - `.claude/subagents/` - Subagent documentation
 - `theme-nyc.css` - Adaptive CSS theme generated based on time/weather
