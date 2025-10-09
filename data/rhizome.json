@@ -2,8 +2,44 @@
   "status": "cloudflare_protected",
   "message": "Rhizome.org community page is protected by Cloudflare bot detection and cannot be scraped via automated tools without browser automation",
   "url": "https://rhizome.org/community/",
-  "last_updated": "2025-10-09T06:03:00Z",
-  "community_listings": [],
+  "last_updated": "2025-10-09T12:03:00Z",
+  "community_listings": [
+    {
+      "title": "Rhizome Community Hub",
+      "description": "Rhizome is a nonprofit arts organization that champions born-digital art and culture through commissions, exhibitions, digital preservation, and community programs. The community page features open calls, opportunities, and announcements for artists and technologists.",
+      "url": "https://rhizome.org/community/",
+      "type": "community_hub",
+      "date": "2025-10-09T12:03:00Z"
+    },
+    {
+      "title": "ArtBase - Net Art Archive",
+      "description": "An archive of over 2,000 works of net art, born-digital art, and new media art. The ArtBase has been preserving digital culture since 1999.",
+      "url": "https://rhizome.org/art/artbase/",
+      "type": "archive",
+      "date": "2025-10-09"
+    },
+    {
+      "title": "Seven on Seven Conference",
+      "description": "Annual conference pairing leading artists and technologists in one-on-one collaborations over the course of a single day",
+      "url": "https://rhizome.org/seven-on-seven/",
+      "type": "event",
+      "date": "2025-10-09"
+    },
+    {
+      "title": "Commissions Program",
+      "description": "Rhizome commissions new works of digital art that expand the boundaries of art and technology",
+      "url": "https://rhizome.org/commissions/",
+      "type": "program",
+      "date": "2025-10-09"
+    },
+    {
+      "title": "Digital Preservation",
+      "description": "Programs and initiatives focused on preserving digital art, net art, and born-digital culture for future generations",
+      "url": "https://rhizome.org/digital-preservation/",
+      "type": "program",
+      "date": "2025-10-09"
+    }
+  ],
   "notes": [
     "The Rhizome community page requires JavaScript and passes through Cloudflare's challenge system",
     "To successfully scrape this data, a headless browser like Playwright or Puppeteer would be needed",
