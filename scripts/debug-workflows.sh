@@ -7,13 +7,12 @@ echo "🔍 Workflow Diagnostics"
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 echo ""
 
-# Get failed runs
-FAILED_RUNS=$(gh run list --limit 20 --json conclusion,databaseId,name,displayTitle \
-  --jq '[.[] | select(.conclusion == "failure")]')
-
+# Debug failed runs specifically
+FAILED_RUN_LIMIT=10
+FAILED_RUNS=$(gh run list --limit $FAILED_RUN_LIMIT --status failure --json conclusion,databaseId,name,displayTitle)
 FAILED_COUNT=$(echo "$FAILED_RUNS" | jq 'length')
 
-echo "❌ Failed Runs (last 20):"
+echo "❌ Failed Runs (last $FAILED_RUN_LIMIT):"
 if [ "$FAILED_COUNT" -eq 0 ]; then
     echo "  None found"
 else
@@ -50,34 +49,6 @@ echo ""
 LOG_FILE="/tmp/workflow-${LATEST_ID}.log"
 gh run view "$LATEST_ID" > "$LOG_FILE" 2>&1 || true
 gh run view "$LATEST_ID" --log-failed >> "$LOG_FILE" 2>&1 || true
-
-# Check for common issues
-echo "🔍 Checking for common issues..."
-echo ""
-
-if grep -q "Pages.*not.*enabled\|Not Found" "$LOG_FILE" 2>/dev/null; then
-    echo "❌ GitHub Pages not enabled"
-    echo "   Fix: Settings → Pages → Source: GitHub Actions"
-    echo ""
-fi
-
-if grep -q "ANTHROPIC_API_KEY" "$LOG_FILE" 2>/dev/null; then
-    echo "❌ Missing ANTHROPIC_API_KEY secret"
-    echo "   Fix: Settings → Secrets → Actions → Add ANTHROPIC_API_KEY"
-    echo ""
-fi
-
-if grep -q "permission\|403\|Forbidden" "$LOG_FILE" 2>/dev/null; then
-    echo "❌ Permission denied"
-    echo "   Fix: Settings → Actions → Workflow permissions → Read/write"
-    echo ""
-fi
-
-if grep -q "data\.json.*not found\|ENOENT.*data" "$LOG_FILE" 2>/dev/null; then
-    echo "❌ data.json missing"
-    echo "   Fix: Create with {\"message\": \"Initial data\"}"
-    echo ""
-fi
 
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 echo ""

@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 
-const fs = require('fs');
+const fs = require("fs");
 
 // Ensure dist directory exists before writing any files
-fs.mkdirSync('dist', { recursive: true });
+fs.mkdirSync("dist", { recursive: true });
 
 // Helper function to safely parse JSON files with error handling
 function safeReadJSON(filePath, fallback) {
@@ -35,36 +35,51 @@ function safeReadJSON(filePath, fallback) {
 }
 
 // Read files with fallbacks for missing files
-const nytimes = safeReadJSON('data/nytimes.json', { headlines: [], last_updated: 'Never' });
+const nytimes = fs.existsSync("data/nytimes.json")
+  ? JSON.parse(fs.readFileSync("data/nytimes.json", "utf-8"))
+  : { headlines: [], last_updated: "Never" };
 
-const glif = safeReadJSON('data/glif.json', { featured_workflows: [], featured_agents: [], last_updated: 'Never' });
+const glif = fs.existsSync("data/glif.json")
+  ? JSON.parse(fs.readFileSync("data/glif.json", "utf-8"))
+  : { featured_workflows: [], featured_agents: [], last_updated: "Never" };
 
-const weather = safeReadJSON('data/weather.json', null)
-  || safeReadJSON('weather.json', null)
-  || { temperature: 70, condition: 'Clear', humidity: '—', feels_like: '—', last_updated: 'Never' };
+const weather = fs.existsSync("data/weather.json")
+  ? JSON.parse(fs.readFileSync("data/weather.json", "utf-8"))
+  : fs.existsSync("weather.json")
+  ? JSON.parse(fs.readFileSync("weather.json", "utf-8"))
+  : {
+      temperature: 70,
+      condition: "Clear",
+      humidity: "—",
+      feels_like: "—",
+      last_updated: "Never",
+    };
 
-const crypto = safeReadJSON('data/crypto-prices.json', { coins: {}, last_updated: 'Never' });
+const crypto = fs.existsSync("data/crypto-prices.json")
+  ? JSON.parse(fs.readFileSync("data/crypto-prices.json", "utf-8"))
+  : { coins: {}, last_updated: "Never" };
 
-const rhizome = safeReadJSON('data/rhizome.json', { community_listings: [], last_updated: 'Never' });
+const rhizome = fs.existsSync("data/rhizome.json")
+  ? JSON.parse(fs.readFileSync("data/rhizome.json", "utf-8"))
+  : { community_listings: [], last_updated: "Never" };
 
-// Legacy data.json support (will be removed later)
-const legacyData = safeReadJSON('data.json', {});
-
-const nycTheme = fs.existsSync('theme-nyc.css')
-  ? fs.readFileSync('theme-nyc.css', 'utf-8')
-  : '/* No NYC theme yet */';
+const nycTheme = fs.existsSync("theme-nyc.css")
+  ? fs.readFileSync("theme-nyc.css", "utf-8")
+  : "/* No NYC theme yet */";
 
 // Generate weather-adaptive theme based on current conditions
 function generateWeatherTheme(weather) {
   const temp = parseInt(weather.temperature) || 70;
-  const condition = (weather.condition || 'Clear').toLowerCase();
+  const condition = (weather.condition || "Clear").toLowerCase();
 
   // Get current hour in NY time
-  const nyHour = parseInt(new Date().toLocaleString('en-US', {
-    timeZone: 'America/New_York',
-    hour: 'numeric',
-    hour12: false
-  }));
+  const nyHour = parseInt(
+    new Date().toLocaleString("en-US", {
+      timeZone: "America/New_York",
+      hour: "numeric",
+      hour12: false,
+    })
+  );
 
   // Determine if it's nighttime (8 PM - 6 AM)
   const isNight = nyHour >= 20 || nyHour < 6;
@@ -72,107 +87,107 @@ function generateWeatherTheme(weather) {
   const isEarlyMorning = nyHour >= 6 && nyHour < 9;
 
   let bgPrimary, bgSecondary, textPrimary, accent, accentSecondary;
-  let animations = '';
-  let backgroundEffect = '';
+  let animations = "";
+  let backgroundEffect = "";
 
   // Temperature-based color shifts (adjusted for time of day)
   if (temp < 32) {
     // Freezing - icy blues and whites
     if (isNight) {
-      bgPrimary = '#1a2942';
-      bgSecondary = '#2c3e56';
-      textPrimary = '#e8f4f8';
-      accent = '#7bb3ff';
-      accentSecondary = '#4a90e2';
+      bgPrimary = "#1a2942";
+      bgSecondary = "#2c3e56";
+      textPrimary = "#e8f4f8";
+      accent = "#7bb3ff";
+      accentSecondary = "#4a90e2";
     } else {
-      bgPrimary = '#e8f4f8';
-      bgSecondary = '#d0e8f2';
-      textPrimary = '#1a2942';
-      accent = '#4a90e2';
-      accentSecondary = '#7bb3ff';
+      bgPrimary = "#e8f4f8";
+      bgSecondary = "#d0e8f2";
+      textPrimary = "#1a2942";
+      accent = "#4a90e2";
+      accentSecondary = "#7bb3ff";
     }
   } else if (temp < 50) {
     // Cold - cool blues and grays
     if (isNight) {
-      bgPrimary = '#1c2532';
-      bgSecondary = '#2c3e50';
-      textPrimary = '#f0f4f8';
-      accent = '#8badd6';
-      accentSecondary = '#5680c1';
+      bgPrimary = "#1c2532";
+      bgSecondary = "#2c3e50";
+      textPrimary = "#f0f4f8";
+      accent = "#8badd6";
+      accentSecondary = "#5680c1";
     } else {
-      bgPrimary = '#f0f4f8';
-      bgSecondary = '#dce4ec';
-      textPrimary = '#2c3e50';
-      accent = '#5680c1';
-      accentSecondary = '#8badd6';
+      bgPrimary = "#f0f4f8";
+      bgSecondary = "#dce4ec";
+      textPrimary = "#2c3e50";
+      accent = "#5680c1";
+      accentSecondary = "#8badd6";
     }
   } else if (temp < 70) {
     // Mild - soft neutrals
     if (isNight) {
-      bgPrimary = '#1a1a1a';
-      bgSecondary = '#2d2d2d';
-      textPrimary = '#f8f9fa';
-      accent = '#adb5bd';
-      accentSecondary = '#6c757d';
+      bgPrimary = "#1a1a1a";
+      bgSecondary = "#2d2d2d";
+      textPrimary = "#f8f9fa";
+      accent = "#adb5bd";
+      accentSecondary = "#6c757d";
     } else {
-      bgPrimary = '#f8f9fa';
-      bgSecondary = '#e9ecef';
-      textPrimary = '#212529';
-      accent = '#6c757d';
-      accentSecondary = '#adb5bd';
+      bgPrimary = "#f8f9fa";
+      bgSecondary = "#e9ecef";
+      textPrimary = "#212529";
+      accent = "#6c757d";
+      accentSecondary = "#adb5bd";
     }
   } else if (temp < 85) {
     // Warm - golden tones
     if (isNight) {
-      bgPrimary = '#2d1f0f';
-      bgSecondary = '#3d2817';
-      textPrimary = '#fff9f0';
-      accent = '#ffb340';
-      accentSecondary = '#ff9500';
+      bgPrimary = "#2d1f0f";
+      bgSecondary = "#3d2817";
+      textPrimary = "#fff9f0";
+      accent = "#ffb340";
+      accentSecondary = "#ff9500";
     } else if (isEvening) {
       // Golden hour
-      bgPrimary = '#ffe8cc';
-      bgSecondary = '#ffd4a8';
-      textPrimary = '#3d2817';
-      accent = '#ff9500';
-      accentSecondary = '#ffb340';
+      bgPrimary = "#ffe8cc";
+      bgSecondary = "#ffd4a8";
+      textPrimary = "#3d2817";
+      accent = "#ff9500";
+      accentSecondary = "#ffb340";
     } else {
-      bgPrimary = '#fff9f0';
-      bgSecondary = '#ffe8cc';
-      textPrimary = '#3d2817';
-      accent = '#ff9500';
-      accentSecondary = '#ffb340';
+      bgPrimary = "#fff9f0";
+      bgSecondary = "#ffe8cc";
+      textPrimary = "#3d2817";
+      accent = "#ff9500";
+      accentSecondary = "#ffb340";
     }
   } else {
     // Hot - vibrant oranges and reds
     if (isNight) {
-      bgPrimary = '#2d1505';
-      bgSecondary = '#4a1e00';
-      textPrimary = '#fff3e6';
-      accent = '#ff8c5a';
-      accentSecondary = '#ff6b35';
+      bgPrimary = "#2d1505";
+      bgSecondary = "#4a1e00";
+      textPrimary = "#fff3e6";
+      accent = "#ff8c5a";
+      accentSecondary = "#ff6b35";
     } else {
-      bgPrimary = '#fff3e6';
-      bgSecondary = '#ffe0b3';
-      textPrimary = '#4a1e00';
-      accent = '#ff6b35';
-      accentSecondary = '#ff8c5a';
+      bgPrimary = "#fff3e6";
+      bgSecondary = "#ffe0b3";
+      textPrimary = "#4a1e00";
+      accent = "#ff6b35";
+      accentSecondary = "#ff8c5a";
     }
   }
 
   // Condition-based effects and overrides
-  if (condition.includes('rain') || condition.includes('drizzle')) {
+  if (condition.includes("rain") || condition.includes("drizzle")) {
     if (isNight) {
-      bgPrimary = '#1a2a3a';
-      bgSecondary = '#2a3a4a';
-      textPrimary = '#d4e4f7';
-      accent = '#6b96c1';
-      accentSecondary = '#4a7ba7';
+      bgPrimary = "#1a2a3a";
+      bgSecondary = "#2a3a4a";
+      textPrimary = "#d4e4f7";
+      accent = "#6b96c1";
+      accentSecondary = "#4a7ba7";
     } else {
-      bgPrimary = '#d4e4f7';
-      bgSecondary = '#b8d4f1';
-      accent = '#4a7ba7';
-      accentSecondary = '#6b96c1';
+      bgPrimary = "#d4e4f7";
+      bgSecondary = "#b8d4f1";
+      accent = "#4a7ba7";
+      accentSecondary = "#6b96c1";
     }
 
     animations = `
@@ -216,18 +231,18 @@ function generateWeatherTheme(weather) {
 
       .container { position: relative; z-index: 2; }
     `;
-  } else if (condition.includes('snow')) {
+  } else if (condition.includes("snow")) {
     if (isNight) {
-      bgPrimary = '#1a2533';
-      bgSecondary = '#2a3543';
-      textPrimary = '#f0f8ff';
-      accent = '#90caf9';
-      accentSecondary = '#64b5f6';
+      bgPrimary = "#1a2533";
+      bgSecondary = "#2a3543";
+      textPrimary = "#f0f8ff";
+      accent = "#90caf9";
+      accentSecondary = "#64b5f6";
     } else {
-      bgPrimary = '#f0f8ff';
-      bgSecondary = '#e3f2fd';
-      accent = '#64b5f6';
-      accentSecondary = '#90caf9';
+      bgPrimary = "#f0f8ff";
+      bgSecondary = "#e3f2fd";
+      accent = "#64b5f6";
+      accentSecondary = "#90caf9";
     }
 
     animations = `
@@ -252,18 +267,18 @@ function generateWeatherTheme(weather) {
 
       .container { position: relative; z-index: 2; }
     `;
-  } else if (condition.includes('cloud')) {
+  } else if (condition.includes("cloud")) {
     if (isNight) {
-      bgPrimary = '#1c2128';
-      bgSecondary = '#2c3138';
-      textPrimary = '#f5f7fa';
-      accent = '#a0aec0';
-      accentSecondary = '#778899';
+      bgPrimary = "#1c2128";
+      bgSecondary = "#2c3138";
+      textPrimary = "#f5f7fa";
+      accent = "#a0aec0";
+      accentSecondary = "#778899";
     } else {
-      bgPrimary = '#f5f7fa';
-      bgSecondary = '#e4e9f0';
-      accent = '#778899';
-      accentSecondary = '#a0aec0';
+      bgPrimary = "#f5f7fa";
+      bgSecondary = "#e4e9f0";
+      accent = "#778899";
+      accentSecondary = "#a0aec0";
     }
 
     backgroundEffect = `
@@ -271,27 +286,27 @@ function generateWeatherTheme(weather) {
         background: linear-gradient(135deg, ${bgPrimary} 0%, ${bgSecondary} 100%);
       }
     `;
-  } else if (condition.includes('clear') || condition.includes('sunny')) {
+  } else if (condition.includes("clear") || condition.includes("sunny")) {
     // Extra bright and vibrant
     if (isNight) {
       // Clear night - deep blues and purples
-      bgPrimary = '#0f1419';
-      bgSecondary = '#1a1f29';
-      textPrimary = '#e8ecf0';
-      accent = '#6b7d9d';
-      accentSecondary = '#4a5d7d';
+      bgPrimary = "#0f1419";
+      bgSecondary = "#1a1f29";
+      textPrimary = "#e8ecf0";
+      accent = "#6b7d9d";
+      accentSecondary = "#4a5d7d";
     } else if (isEvening) {
       // Sunset/golden hour - warm purples and oranges
-      bgPrimary = '#ffe4e1';
-      bgSecondary = '#ffd4cc';
-      accent = '#ff6b9d';
-      accentSecondary = '#ffa07a';
+      bgPrimary = "#ffe4e1";
+      bgSecondary = "#ffd4cc";
+      accent = "#ff6b9d";
+      accentSecondary = "#ffa07a";
     } else {
       // Bright day
-      bgPrimary = '#fffef7';
-      bgSecondary = '#fff8dc';
-      accent = '#ffa500';
-      accentSecondary = '#ffb347';
+      bgPrimary = "#fffef7";
+      bgSecondary = "#fff8dc";
+      accent = "#ffa500";
+      accentSecondary = "#ffb347";
     }
 
     backgroundEffect = `
@@ -299,18 +314,18 @@ function generateWeatherTheme(weather) {
         background: radial-gradient(circle at top right, ${accentSecondary}15, ${bgPrimary} 70%);
       }
     `;
-  } else if (condition.includes('fog') || condition.includes('mist')) {
+  } else if (condition.includes("fog") || condition.includes("mist")) {
     if (isNight) {
-      bgPrimary = '#2a2a2a';
-      bgSecondary = '#3a3a3a';
-      textPrimary = '#e8e8e8';
-      accent = '#a9a9a9';
-      accentSecondary = '#708090';
+      bgPrimary = "#2a2a2a";
+      bgSecondary = "#3a3a3a";
+      textPrimary = "#e8e8e8";
+      accent = "#a9a9a9";
+      accentSecondary = "#708090";
     } else {
-      bgPrimary = '#e8e8e8';
-      bgSecondary = '#d3d3d3';
-      accent = '#708090';
-      accentSecondary = '#a9a9a9';
+      bgPrimary = "#e8e8e8";
+      bgSecondary = "#d3d3d3";
+      accent = "#708090";
+      accentSecondary = "#a9a9a9";
     }
 
     animations = `
@@ -365,7 +380,13 @@ function generateWeatherTheme(weather) {
 
 const weatherAdaptiveTheme = generateWeatherTheme(weather);
 
+<<<<<<< HEAD:scripts/build-dashboard.js
 const workflows = safeReadJSON('workflow_runs.json', []);
+=======
+const workflows = fs.existsSync("workflow_runs.json")
+  ? JSON.parse(fs.readFileSync("workflow_runs.json", "utf-8"))
+  : [];
+>>>>>>> 4c91928 (Fix (and format) scripts):scripts/build-website.js
 
 // Blog functionality removed per user request
 
@@ -373,49 +394,57 @@ const workflows = safeReadJSON('workflow_runs.json', []);
 const weatherCard = `
   <div class="card">
     <h2><span class="card-icon">🌤️</span> Weather</h2>
-    <div class="weather-big">${weather.temperature || '—'}°F</div>
+    <div class="weather-big">${weather.temperature || "—"}°F</div>
     <ul class="data-list">
       <li class="data-item">
         <span class="data-label">Location</span>
-        <span class="data-value">${weather.location || 'New York, NY'}</span>
+        <span class="data-value">${weather.location || "New York, NY"}</span>
       </li>
       <li class="data-item">
         <span class="data-label">Condition</span>
-        <span class="data-value">${weather.condition || 'Unknown'}</span>
+        <span class="data-value">${weather.condition || "Unknown"}</span>
       </li>
       <li class="data-item">
         <span class="data-label">Feels Like</span>
-        <span class="data-value">${weather.feels_like || '—'}°F</span>
+        <span class="data-value">${weather.feels_like || "—"}°F</span>
       </li>
       <li class="data-item">
         <span class="data-label">Humidity</span>
-        <span class="data-value">${weather.humidity || '—'}%</span>
+        <span class="data-value">${weather.humidity || "—"}%</span>
       </li>
     </ul>
-    <div class="timestamp" data-utc="${weather.last_updated || ''}">Updated: <span class="local-time">${weather.last_updated || 'Never'}</span></div>
+    <div class="timestamp" data-utc="${
+      weather.last_updated || ""
+    }">Updated: <span class="local-time">${
+  weather.last_updated || "Never"
+}</span></div>
   </div>
 `;
 
 // Build NY Times card
-const headlines = nytimes.headlines || legacyData.nytimes_headlines || [];
-const headlinesHtml = headlines.length > 0
-  ? headlines.slice(0, 5).map(h => {
-      // Handle both old format (string) and new format (object with title/url)
-      if (typeof h === 'string') {
-        return `
+const headlines = nytimes.headlines || [];
+const headlinesHtml =
+  headlines.length > 0
+    ? headlines
+        .slice(0, 5)
+        .map((h) => {
+          // Handle both old format (string) and new format (object with title/url)
+          if (typeof h === "string") {
+            return `
           <li class="data-item">
             <span class="data-value">${h}</span>
           </li>`;
-      } else {
-        return `
+          } else {
+            return `
           <li class="data-item">
             <a href="${h.url}" target="_blank" class="headline-link">
               <span class="data-value">${h.title}</span>
             </a>
           </li>`;
-      }
-    }).join('')
-  : '<li class="data-item"><span class="data-value">No headlines yet</span></li>';
+          }
+        })
+        .join("")
+    : '<li class="data-item"><span class="data-value">No headlines yet</span></li>';
 
 const nytCard = `
   <div class="card">
@@ -427,25 +456,36 @@ const nytCard = `
       ${headlinesHtml}
     </ul>
     <div class="timestamp">
-      Updated: ${nytimes.last_updated || legacyData.last_updated || 'Never'} ·
+      Updated: ${nytimes.last_updated || "Never"} ·
       <a href="https://github.com/jamiew/clactions/actions/workflows/nytimes-headlines.yml" target="_blank" class="workflow-link">View runs →</a>
     </div>
   </div>
 `;
 
 // Build Glif Workflows card
-const glifWorkflows = glif.featured_workflows || legacyData.glif?.featured_workflows || [];
-const glifWorkflowsHtml = glifWorkflows.length > 0
-  ? glifWorkflows.slice(0, 5).map(w => `
+const glifWorkflows =
+  glif.featured_workflows || [];
+const glifWorkflowsHtml =
+  glifWorkflows.length > 0
+    ? glifWorkflows
+        .slice(0, 5)
+        .map(
+          (w) => `
       <li class="data-item">
         <a href="${w.url}" target="_blank" class="headline-link">
           <span class="data-label">${w.name}</span>
-          <span class="data-value" style="font-size:0.85rem;opacity:0.7;display:block;margin-top:2px;">${w.description?.substring(0, 80) || 'No description'}${w.description?.length > 80 ? '...' : ''}</span>
-          <span class="data-meta" style="font-size:0.75rem;opacity:0.5;display:block;margin-top:2px;">by @${w.creator}</span>
+          <span class="data-value" style="font-size:0.85rem;opacity:0.7;display:block;margin-top:2px;">${
+            w.description?.substring(0, 80) || "No description"
+          }${w.description?.length > 80 ? "..." : ""}</span>
+          <span class="data-meta" style="font-size:0.75rem;opacity:0.5;display:block;margin-top:2px;">by @${
+            w.creator
+          }</span>
         </a>
       </li>
-    `).join('')
-  : '<li class="data-item"><span class="data-value">No Glif workflows yet</span></li>';
+    `
+        )
+        .join("")
+    : '<li class="data-item"><span class="data-value">No Glif workflows yet</span></li>';
 
 const glifWorkflowsCard = `
   <div class="card">
@@ -457,25 +497,38 @@ const glifWorkflowsCard = `
       ${glifWorkflowsHtml}
     </ul>
     <div class="timestamp">
-      Updated: ${glif.last_updated || legacyData.glif?.last_updated || 'Never'} ·
+      Updated: ${
+        glif.last_updated || "Never"
+      } ·
       <a href="https://github.com/jamiew/clactions/actions/workflows/glif-top-content.yml" target="_blank" class="workflow-link">View runs →</a>
     </div>
   </div>
 `;
 
 // Build Glif Agents card
-const glifAgents = glif.featured_agents || legacyData.glif?.featured_agents || [];
-const glifAgentsHtml = glifAgents.length > 0
-  ? glifAgents.slice(0, 3).map(a => `
+const glifAgents =
+  glif.featured_agents || [];
+const glifAgentsHtml =
+  glifAgents.length > 0
+    ? glifAgents
+        .slice(0, 3)
+        .map(
+          (a) => `
       <li class="data-item">
         <a href="${a.url}" target="_blank" class="headline-link">
           <span class="data-label">${a.name}</span>
-          <span class="data-value" style="font-size:0.85rem;opacity:0.7;display:block;margin-top:2px;">${a.description?.substring(0, 80) || 'No description'}${a.description?.length > 80 ? '...' : ''}</span>
-          <span class="data-meta" style="font-size:0.75rem;opacity:0.5;display:block;margin-top:2px;">by @${a.creator}</span>
+          <span class="data-value" style="font-size:0.85rem;opacity:0.7;display:block;margin-top:2px;">${
+            a.description?.substring(0, 80) || "No description"
+          }${a.description?.length > 80 ? "..." : ""}</span>
+          <span class="data-meta" style="font-size:0.75rem;opacity:0.5;display:block;margin-top:2px;">by @${
+            a.creator
+          }</span>
         </a>
       </li>
-    `).join('')
-  : '<li class="data-item"><span class="data-value">No Glif agents yet</span></li>';
+    `
+        )
+        .join("")
+    : '<li class="data-item"><span class="data-value">No Glif agents yet</span></li>';
 
 const glifAgentsCard = `
   <div class="card">
@@ -487,7 +540,9 @@ const glifAgentsCard = `
       ${glifAgentsHtml}
     </ul>
     <div class="timestamp">
-      Updated: ${glif.last_updated || legacyData.glif?.last_updated || 'Never'} ·
+      Updated: ${
+        glif.last_updated || "Never"
+      } ·
       <a href="https://github.com/jamiew/clactions/actions/workflows/glif-top-content.yml" target="_blank" class="workflow-link">View runs →</a>
     </div>
   </div>
@@ -495,8 +550,8 @@ const glifAgentsCard = `
 
 // Build status card
 const totalRuns = workflows.length;
-const successRuns = workflows.filter(w => w.conclusion === 'success').length;
-const failedRuns = workflows.filter(w => w.conclusion === 'failure').length;
+const successRuns = workflows.filter((w) => w.conclusion === "success").length;
+const failedRuns = workflows.filter((w) => w.conclusion === "failure").length;
 
 const statusCard = `
   <div class="card">
@@ -508,7 +563,9 @@ const statusCard = `
       </li>
       <li class="data-item">
         <span class="data-label">Success Rate</span>
-        <span class="data-value">${totalRuns > 0 ? Math.round(successRuns/totalRuns*100) : 0}%</span>
+        <span class="data-value">${
+          totalRuns > 0 ? Math.round((successRuns / totalRuns) * 100) : 0
+        }%</span>
       </li>
       <li class="data-item">
         <span class="data-label">Recent Failures</span>
@@ -522,17 +579,39 @@ const statusCard = `
 
 // Build Rhizome Community card
 const rhizomeListings = rhizome.community_listings || [];
-const rhizomeHtml = rhizomeListings.length > 0
-  ? rhizomeListings.slice(0, 8).map(listing => `
+const rhizomeHtml =
+  rhizomeListings.length > 0
+    ? rhizomeListings
+        .slice(0, 8)
+        .map(
+          (listing) => `
       <li class="data-item">
         <a href="${listing.url}" target="_blank" class="headline-link">
           <span class="data-label">${listing.title}</span>
-          ${listing.description ? `<span class="data-value" style="font-size:0.85rem;opacity:0.7;display:block;margin-top:2px;">${listing.description.substring(0, 100)}${listing.description.length > 100 ? '...' : ''}</span>` : ''}
-          ${listing.type || listing.date ? `<span class="data-meta" style="font-size:0.75rem;opacity:0.5;display:block;margin-top:2px;">${[listing.type, listing.date].filter(x => x).join(' · ')}</span>` : ''}
+          ${
+            listing.description
+              ? `<span class="data-value" style="font-size:0.85rem;opacity:0.7;display:block;margin-top:2px;">${listing.description.substring(
+                  0,
+                  100
+                )}${listing.description.length > 100 ? "..." : ""}</span>`
+              : ""
+          }
+          ${
+            listing.type || listing.date
+              ? `<span class="data-meta" style="font-size:0.75rem;opacity:0.5;display:block;margin-top:2px;">${[
+                  listing.type,
+                  listing.date,
+                ]
+                  .filter((x) => x)
+                  .join(" · ")}</span>`
+              : ""
+          }
         </a>
       </li>
-    `).join('')
-  : '<li class="data-item"><span class="data-value">No Rhizome listings yet</span></li>';
+    `
+        )
+        .join("")
+    : '<li class="data-item"><span class="data-value">No Rhizome listings yet</span></li>';
 
 const rhizomeCard = `
   <div class="card">
@@ -544,7 +623,7 @@ const rhizomeCard = `
       ${rhizomeHtml}
     </ul>
     <div class="timestamp">
-      Updated: ${rhizome.last_updated || 'Never'} ·
+      Updated: ${rhizome.last_updated || "Never"} ·
       <a href="https://github.com/jamiew/clactions/actions/workflows/rhizome-community.yml" target="_blank" class="workflow-link">View runs →</a>
     </div>
   </div>
@@ -552,11 +631,27 @@ const rhizomeCard = `
 
 // Build debug card - pretty print all data
 const allData = {
-  nytimes: nytimes.headlines?.length > 0 ? { headlines: nytimes.headlines.length + ' headlines', last_updated: nytimes.last_updated } : nytimes,
-  glif: { workflows: glif.featured_workflows?.length || 0, agents: glif.featured_agents?.length || 0, last_updated: glif.last_updated },
+  nytimes:
+    nytimes.headlines?.length > 0
+      ? {
+          headlines: nytimes.headlines.length + " headlines",
+          last_updated: nytimes.last_updated,
+        }
+      : nytimes,
+  glif: {
+    workflows: glif.featured_workflows?.length || 0,
+    agents: glif.featured_agents?.length || 0,
+    last_updated: glif.last_updated,
+  },
   weather: weather,
-  crypto: { coins: Object.keys(crypto.coins || {}).length, last_updated: crypto.last_updated },
-  rhizome: { listings: rhizome.community_listings?.length || 0, last_updated: rhizome.last_updated }
+  crypto: {
+    coins: Object.keys(crypto.coins || {}).length,
+    last_updated: crypto.last_updated,
+  },
+  rhizome: {
+    listings: rhizome.community_listings?.length || 0,
+    last_updated: rhizome.last_updated,
+  },
 };
 const debugCard = `
   <div class="card">
@@ -568,26 +663,38 @@ const debugCard = `
 
 // Build crypto prices card
 const cryptoCoins = Object.values(crypto.coins || {});
-const cryptoHtml = cryptoCoins.length > 0
-  ? cryptoCoins.map(coin => {
-      const priceChange = coin.change_24h || 0;
-      const changeColor = priceChange >= 0 ? '#34c759' : '#ff3b30';
-      const changeSign = priceChange >= 0 ? '+' : '';
-      const price = parseFloat(coin.price);
-      // Format price: no decimals for > $1000, 2 decimals otherwise
-      const formattedPrice = price >= 1000
-        ? price.toLocaleString('en-US', {minimumFractionDigits: 0, maximumFractionDigits: 0})
-        : price.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
-      return `
+const cryptoHtml =
+  cryptoCoins.length > 0
+    ? cryptoCoins
+        .map((coin) => {
+          const priceChange = coin.change_24h || 0;
+          const changeColor = priceChange >= 0 ? "#34c759" : "#ff3b30";
+          const changeSign = priceChange >= 0 ? "+" : "";
+          const price = parseFloat(coin.price);
+          // Format price: no decimals for > $1000, 2 decimals otherwise
+          const formattedPrice =
+            price >= 1000
+              ? price.toLocaleString("en-US", {
+                  minimumFractionDigits: 0,
+                  maximumFractionDigits: 0,
+                })
+              : price.toLocaleString("en-US", {
+                  minimumFractionDigits: 2,
+                  maximumFractionDigits: 2,
+                });
+          return `
       <li class="data-item">
         <span class="data-label">${coin.name} (${coin.symbol})</span>
         <span class="data-value" style="display:flex;justify-content:space-between;align-items:center;">
           <span>$${formattedPrice}</span>
-          <span style="color:${changeColor};font-size:0.9rem;font-weight:600;">${changeSign}${priceChange.toFixed(2)}%</span>
+          <span style="color:${changeColor};font-size:0.9rem;font-weight:600;">${changeSign}${priceChange.toFixed(
+            2
+          )}%</span>
         </span>
       </li>`;
-    }).join('')
-  : '<li class="data-item"><span class="data-value">No crypto data yet</span></li>';
+        })
+        .join("")
+    : '<li class="data-item"><span class="data-value">No crypto data yet</span></li>';
 
 const cryptoCard = `
   <div class="card">
@@ -599,22 +706,36 @@ const cryptoCard = `
       ${cryptoHtml}
     </ul>
     <div class="timestamp">
-      Updated: ${crypto.last_updated || 'Never'} ·
+      Updated: ${crypto.last_updated || "Never"} ·
       <a href="https://github.com/jamiew/clactions/actions/workflows/crypto-prices.yml" target="_blank" class="workflow-link">View runs →</a>
     </div>
   </div>
 `;
 
-const contentHtml = weatherCard + nytCard + rhizomeCard + glifWorkflowsCard + glifAgentsCard + cryptoCard + debugCard + statusCard;
+const contentHtml =
+  weatherCard +
+  nytCard +
+  rhizomeCard +
+  glifWorkflowsCard +
+  glifAgentsCard +
+  cryptoCard +
+  debugCard +
+  statusCard;
 
 // Build workflows section
-const workflowsHtml = workflows.slice(0, 10).map(w => {
-  const statusClass = w.conclusion === 'success' ? 'status-success' :
-                    w.conclusion === 'failure' ? 'status-failure' : 'status-pending';
-  const time = new Date(w.startedAt).toLocaleString();
-  const url = `https://github.com/jamiew/clactions/actions/runs/${w.databaseId}`;
+const workflowsHtml = workflows
+  .slice(0, 10)
+  .map((w) => {
+    const statusClass =
+      w.conclusion === "success"
+        ? "status-success"
+        : w.conclusion === "failure"
+        ? "status-failure"
+        : "status-pending";
+    const time = new Date(w.startedAt).toLocaleString();
+    const url = `https://github.com/jamiew/clactions/actions/runs/${w.databaseId}`;
 
-  return `
+    return `
     <div class="workflow-status">
       <div class="status-dot ${statusClass}"></div>
       <div class="workflow-name">${w.name}</div>
@@ -622,7 +743,8 @@ const workflowsHtml = workflows.slice(0, 10).map(w => {
       <a href="${url}" class="workflow-link" target="_blank">View →</a>
     </div>
   `;
-}).join('');
+  })
+  .join("");
 
 // Generate complete HTML
 const html = `<!DOCTYPE html>
@@ -1035,7 +1157,7 @@ ${contentHtml}
       <h2 class="meta-title">🔧 System Status</h2>
 ${workflowsHtml}
       <div class="timestamp">
-        Dashboard built: ${new Date().toISOString()}
+        Website built: ${new Date().toISOString()}
       </div>
     </div>
 
@@ -1156,5 +1278,5 @@ ${workflowsHtml}
 </html>`;
 
 // Write to dist/index.html
-fs.writeFileSync('dist/index.html', html);
-console.log('Dashboard built!');
+fs.writeFileSync("dist/index.html", html);
+console.log("Website built!");
