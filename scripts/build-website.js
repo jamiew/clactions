@@ -1215,13 +1215,15 @@ ${workflowsHtml}
     themeOptions.forEach(option => {
       option.addEventListener('click', (e) => {
         const theme = option.dataset.theme;
-        applyTheme(theme);
         localStorage.setItem('selected-theme', theme);
+        applyTheme(theme);
         themeMenu.classList.remove('open');
       });
     });
 
-    function applyTheme(theme) {
+    function applyTheme(selectedTheme) {
+      let theme = selectedTheme;
+
       // Handle system theme
       if (theme === 'system') {
         const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
@@ -1239,12 +1241,11 @@ ${workflowsHtml}
       }
 
       // Update toggle icon
-      const displayTheme = localStorage.getItem('selected-theme') || 'weather';
-      themeToggle.textContent = themeIcons[displayTheme];
+      themeToggle.textContent = themeIcons[selectedTheme];
 
       // Update active state
       themeOptions.forEach(opt => {
-        opt.classList.toggle('active', opt.dataset.theme === displayTheme);
+        opt.classList.toggle('active', opt.dataset.theme === selectedTheme);
       });
     }
 
