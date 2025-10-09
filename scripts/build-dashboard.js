@@ -5,55 +5,50 @@ const fs = require('fs');
 // Ensure dist directory exists before writing any files
 fs.mkdirSync('dist', { recursive: true });
 
-// Read files with fallbacks for missing files
-const nytimes = fs.existsSync('data/nytimes.json')
-  ? JSON.parse(fs.readFileSync('data/nytimes.json', 'utf-8'))
-  : { headlines: [], last_updated: 'Never' };
+// Helper function to safely parse JSON files with error handling
+function safeReadJSON(filePath, fallback) {
+  if (!fs.existsSync(filePath)) {
+    return fallback;
+  }
 
-const glif = fs.existsSync('data/glif.json')
-  ? JSON.parse(fs.readFileSync('data/glif.json', 'utf-8'))
-  : { featured_workflows: [], featured_agents: [], last_updated: 'Never' };
-
-const weather = fs.existsSync('data/weather.json')
-  ? JSON.parse(fs.readFileSync('data/weather.json', 'utf-8'))
-  : fs.existsSync('weather.json')
-    ? JSON.parse(fs.readFileSync('weather.json', 'utf-8'))
-    : { temperature: 70, condition: 'Clear', humidity: '—', feels_like: '—', last_updated: 'Never' };
-
-const crypto = fs.existsSync('data/crypto-prices.json')
-  ? JSON.parse(fs.readFileSync('data/crypto-prices.json', 'utf-8'))
-  : { coins: {}, last_updated: 'Never' };
-
-const rhizome = fs.existsSync('data/rhizome.json')
-  ? JSON.parse(fs.readFileSync('data/rhizome.json', 'utf-8'))
-  : { community_listings: [], last_updated: 'Never' };
-
-// Legacy data.json support (will be removed later)
-// Add error handling for malformed JSON
-let legacyData = {};
-if (fs.existsSync('data.json')) {
   try {
-    const rawData = fs.readFileSync('data.json', 'utf-8');
-    legacyData = JSON.parse(rawData);
+    const rawData = fs.readFileSync(filePath, 'utf-8');
+    return JSON.parse(rawData);
   } catch (error) {
-    console.error('Warning: Failed to parse data.json:', error.message);
-    console.error('Position:', error.message.match(/position (\d+)/)?.[1]);
-    // Try to save corrupted file for debugging
+    console.error(`Warning: Failed to parse ${filePath}:`, error.message);
     if (error instanceof SyntaxError) {
-      const backupPath = 'data.json.corrupted';
-      fs.copyFileSync('data.json', backupPath);
-      console.error(`Corrupted data.json saved to ${backupPath}`);
-      // Create minimal valid data.json to prevent future crashes
-      const minimalData = {
-        message: "Data file was corrupted and reset",
-        last_updated: new Date().toISOString(),
-        status: "Recovered from JSON parsing error"
-      };
-      fs.writeFileSync('data.json', JSON.stringify(minimalData, null, 2));
-      console.log('Created minimal data.json to recover');
+      const pos = error.message.match(/position (\d+)/)?.[1];
+      if (pos) {
+        console.error(`Error at position ${pos}`);
+      }
+      // Save corrupted file for debugging
+      const backupPath = `${filePath}.corrupted.${Date.now()}`;
+      try {
+        fs.copyFileSync(filePath, backupPath);
+        console.error(`Corrupted file saved to ${backupPath}`);
+      } catch (e) {
+        console.error(`Failed to backup corrupted file: ${e.message}`);
+      }
     }
+    return fallback;
   }
 }
+
+// Read files with fallbacks for missing files
+const nytimes = safeReadJSON('data/nytimes.json', { headlines: [], last_updated: 'Never' });
+
+const glif = safeReadJSON('data/glif.json', { featured_workflows: [], featured_agents: [], last_updated: 'Never' });
+
+const weather = safeReadJSON('data/weather.json', null)
+  || safeReadJSON('weather.json', null)
+  || { temperature: 70, condition: 'Clear', humidity: '—', feels_like: '—', last_updated: 'Never' };
+
+const crypto = safeReadJSON('data/crypto-prices.json', { coins: {}, last_updated: 'Never' });
+
+const rhizome = safeReadJSON('data/rhizome.json', { community_listings: [], last_updated: 'Never' });
+
+// Legacy data.json support (will be removed later)
+const legacyData = safeReadJSON('data.json', {});
 
 const nycTheme = fs.existsSync('theme-nyc.css')
   ? fs.readFileSync('theme-nyc.css', 'utf-8')
@@ -370,9 +365,7 @@ function generateWeatherTheme(weather) {
 
 const weatherAdaptiveTheme = generateWeatherTheme(weather);
 
-const workflows = fs.existsSync('workflow_runs.json')
-  ? JSON.parse(fs.readFileSync('workflow_runs.json', 'utf-8'))
-  : [];
+const workflows = safeReadJSON('workflow_runs.json', []);
 
 // Blog functionality removed per user request
 
