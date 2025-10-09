@@ -1,0 +1,183 @@
+name: Update Docs
+
+on:
+  schedule:
+    - cron: '0 0 * * 0'  # Weekly on Sunday
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+  id-token: write
+
+jobs:
+  update-docs:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Get workflow list
+        id: workflows
+        run: |
+          # Get all workflow files
+          ls .github/workflows/*.yml > workflow_files.txt
+
+          # Extract workflow names and details
+          for file in .github/workflows/*.yml; do
+            name=$(grep '^name:' "$file" | head -1 | sed 's/name: *//')
+            echo "$(basename $file)|$name" >> workflow_info.txt
+          done
+
+          echo "workflows_ready=true" >> $GITHUB_OUTPUT
+
+      - name: Claude generates workflow documentation
+        if: steps.workflows.outputs.workflows_ready == 'true'
+        uses: anthropics/claude-code-action@v1
+        with:
+          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          claude_args: |
+            --allowedTools "Read,Write,Edit,Bash(mkdir:*),Glob"
+          prompt: |
+            📚 **WORKFLOW DOCUMENTATION GENERATOR**
+
+            Your job is to create/update comprehensive documentation for all workflows in this repository.
+
+            **Available Data:**
+            - `workflow_files.txt` - List of all workflow files
+            - `workflow_info.txt` - Workflow filename|name mapping
+
+            **Your Task:**
+
+            1. **Create docs/ directory structure**:
+               ```
+               docs/
+               ├── nytimes-headlines.md
+               ├── glif-top-content.md
+               ├── weather-data.md
+               ├── crypto-prices.md
+               ├── rhizome-community.md
+               ├── adaptive-theme.md
+               ├── todo-worker.md
+               ├── self-repair.md
+               ├── self-improver.md
+               ├── update-docs.md
+               ├── issue-triage.md
+               ├── auto-merge.md
+               ├── webhook-demo.md
+               └── update-website.md
+               ```
+
+            2. **For each workflow, create a doc page**:
+
+               Read the workflow YAML file and create `docs/{workflow-name}.md` with:
+
+               **Template:**
+               ```markdown
+               # {Workflow Name}
+
+               **File**: `.github/workflows/{filename}.yml`
+
+               ## Purpose
+
+               {Brief 1-2 sentence description of what this workflow does}
+
+               ## Trigger
+
+               {When does this run? Schedule, manual, on PR, on issue, etc.}
+
+               ## How It Works
+
+               {Step-by-step explanation:
+               1. What data/context is gathered
+               2. What Claude does (if applicable)
+               3. What gets created/updated
+               4. Where results go (commit, PR, issue, etc.)}
+
+               ## Outputs
+
+               {What files are created/modified? Where do they go?}
+
+               ## Manual Trigger
+
+               {If workflow_dispatch is enabled:}
+               ```bash
+               gh workflow run {filename}.yml
+               ```
+
+               {Include any input parameters and examples}
+
+               ## Configuration
+
+               {Any secrets, environment variables, or settings needed}
+
+               ## Examples
+
+               {Recent successful runs, sample outputs, etc. if relevant}
+
+               ## Related Workflows
+
+               {List workflows that interact with or depend on this one}
+               ```
+
+            3. **Create data/docs.json**:
+
+               Generate a JSON file with metadata about all workflows:
+
+               ```json
+               {
+                 "workflows": [
+                   {
+                     "filename": "nytimes-headlines.yml",
+                     "name": "NYTimes Headlines",
+                     "category": "Data Fetchers & Scrapers",
+                     "uses_claude": true,
+                     "doc_path": "docs/nytimes-headlines.md",
+                     "description": "Fetches NY Times RSS feed and extracts headlines",
+                     "trigger": "schedule",
+                     "outputs": ["data/nytimes.json"]
+                   },
+                   ...
+                 ],
+                 "categories": [
+                   "Data Fetchers & Scrapers",
+                   "Autonomous Development",
+                   "Webhooks & External Triggers",
+                   "Build & Deploy Website"
+                 ],
+                 "last_updated": "ISO timestamp"
+               }
+               ```
+
+               Use the categories from README.md. Determine uses_claude by checking if workflow uses anthropics/claude-code-action.
+
+            4. **Quality Guidelines**:
+               - Write for developers who want to understand or modify workflows
+               - Be specific about what Claude does vs. what scripts do
+               - Include actual command examples
+               - Link to related files (scripts, data files, etc.)
+               - Keep it concise but complete
+               - Use consistent formatting across all docs
+
+            5. **Commit changes**:
+               - Create/update all docs/*.md files
+               - Create/update data/docs.json
+               - Commit directly to main with message: "Update workflow documentation"
+
+               Use safe git sequence:
+               ```bash
+               git add docs/ data/docs.json
+               git commit -m "Update workflow documentation"
+               git fetch origin
+               git rebase origin/main
+               git push origin HEAD:main
+               ```
+
+            **Important:**
+            - Make sure docs/ and data/ directories exist (create if needed)
+            - Read each workflow file to understand what it actually does
+            - Don't make assumptions - base docs on actual workflow code
+            - Keep docs in sync with current workflow state
+
+            Let's document everything! 📖

@@ -1,4 +1,4 @@
-name: Build Website
+name: Update Website
 
 on:
   push:
@@ -8,9 +8,9 @@ on:
       - 'data.json'
       - 'weather.json'
       - 'weather_raw.json'
-      - 'blog/**'
       - 'theme-nyc.css'
-      - '.github/workflows/build-website.yml'
+      - 'docs/**'
+      - '.github/workflows/update-website.yml'
       - 'scripts/build-dashboard.js'
   schedule:
     - cron: '0 * * * *'  # Every hour

@@ -1,0 +1,149 @@
+name: Self-Improver
+
+on:
+  pull_request:
+    types: [closed]
+    branches: [main]
+  issues:
+    types: [opened, closed, labeled, commented]
+  issue_comment:
+    types: [created]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+  issues: read
+  id-token: write
+
+jobs:
+  improve-claude-setup:
+    if: github.event_name == 'workflow_dispatch' || github.event.pull_request.merged == true || github.event_name == 'issues' || github.event_name == 'issue_comment'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Gather context
+        id: context
+        run: |
+          # Get recent merged PRs (last 15)
+          gh pr list --state merged --limit 15 --json number,title,body,mergedAt,author,comments > recent_prs.json
+
+          # Get recent issues with comments (last 15)
+          gh issue list --limit 15 --json number,title,body,createdAt,author,labels,comments > recent_issues.json
+
+          # Get issue comments if this was triggered by a comment
+          if [ "${{ github.event_name }}" = "issue_comment" ]; then
+            gh issue view ${{ github.event.issue.number }} --json number,title,body,comments > trigger_issue.json
+          fi
+
+          echo "context_ready=true" >> $GITHUB_OUTPUT
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Claude analyzes and improves Claude Code setup
+        if: steps.context.outputs.context_ready == 'true'
+        uses: anthropics/claude-code-action@v1
+        with:
+          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          claude_args: |
+            --allowedTools "Read,Write,Edit,Bash(gh pr:*),Glob"
+          prompt: |
+            🔧 **CLAUDE CODE SELF-IMPROVEMENT MODE**
+
+            Your job is to analyze recent changes and improve the Claude Code setup in this repository.
+
+            **Focus Areas:**
+            - `CLAUDE.md` - Instructions for Claude Code working in this repo
+            - `.claude/commands/` - Custom slash commands
+            - `.claude/subagents/` - Subagent documentation
+            - Workflow patterns and best practices
+
+            **Context Files:**
+            - `recent_prs.json` - Last 15 merged PRs with comments
+            - `recent_issues.json` - Last 15 issues with comments and labels
+            - `trigger_issue.json` - If triggered by issue comment, the specific issue
+
+            **Your Task:**
+
+            1. **Analyze Recent Activity**:
+               - Read all context files to understand recent changes
+               - Look for patterns in merged PRs - new workflows? new features? bug fixes?
+               - Check issue comments for user requests about:
+                 * "Update Claude rules"
+                 * "Add to CLAUDE.md"
+                 * "DRY this up"
+                 * "Make this a pattern"
+                 * Confusion about how Claude should work
+               - Identify repeated patterns that should be documented
+               - Look for workarounds that became standard practice
+
+            2. **Review Current Claude Setup**:
+               - Read `CLAUDE.md`
+               - Check `.claude/commands/` for existing slash commands
+               - Check `.claude/subagents/` for subagent docs
+               - Identify what's outdated or missing
+
+            3. **Look for Improvement Signals**:
+               - User explicitly mentions updating Claude instructions
+               - Same pattern appears in multiple PRs (should be documented)
+               - Workarounds mentioned in comments (might need better approach)
+               - New workflow types added (should update Quick Commands)
+               - Debug patterns that worked (add to troubleshooting)
+               - Tool usage patterns (update allowed tools guidance)
+
+            4. **Make Strategic Improvements**:
+
+               **CLAUDE.md updates:**
+               - Add new workflow patterns discovered
+               - Update Quick Commands with new workflows
+               - Add troubleshooting tips from resolved issues
+               - Document new architectural patterns
+               - Update tool allowlists if patterns changed
+               - Add examples of successful approaches
+
+               **Slash Commands (.claude/commands/):**
+               - Create new commands for repeated tasks
+               - Update existing commands with better patterns
+               - Remove obsolete commands
+
+               **Subagents (.claude/subagents/):**
+               - Add documentation for new subagent patterns
+               - Update existing subagent docs with learnings
+
+               **Consolidation & DRYing:**
+               - If multiple PRs used similar prompts, extract to reusable pattern
+               - If workflows have similar structures, document the template
+               - If repeated instructions appear, add to CLAUDE.md
+
+            5. **Create PR with Changes**:
+               - Only create PR if you find meaningful improvements
+               - If Claude setup is already optimal, exit without PR
+               - PR title: "🔧 Self-Improve: Update Claude Code setup based on learnings"
+               - Include clear summary of what changed and why
+               - Reference specific PRs/issues that inspired changes
+
+            **Quality Guidelines:**
+            - Be conservative - only add patterns that appear multiple times
+            - Don't remove existing guidance unless clearly obsolete
+            - Keep CLAUDE.md concise and actionable
+            - Examples should be real patterns from this repo
+            - Focus on what helps Claude work better in THIS codebase
+
+            **Don't Create a PR If:**
+            - No clear patterns emerged from recent activity
+            - Changes would be purely cosmetic
+            - Current setup is already handling things well
+            - Not enough evidence for new patterns
+
+            **Strong Signals to Act:**
+            - User explicitly said "add this to CLAUDE.md"
+            - User mentioned "update Claude rules"
+            - User said "DRY this up" or "make this a pattern"
+            - Same workflow debug steps appeared 3+ times
+            - New workflow category was added
+            - Multiple PRs solved same problem differently
+
+            Let's make Claude Code work even better! 🚀

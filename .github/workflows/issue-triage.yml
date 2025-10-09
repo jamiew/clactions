@@ -1,0 +1,120 @@
+name: Issue Triage
+
+on:
+  issues:
+    types: [opened, reopened]
+  workflow_dispatch:
+    inputs:
+      issue_number:
+        description: 'Issue number to triage (optional, uses latest if empty)'
+        required: false
+        type: number
+
+permissions:
+  issues: write
+  contents: read
+
+jobs:
+  triage:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Get issue details
+        id: issue
+        run: |
+          if [ -n "${{ github.event.inputs.issue_number }}" ]; then
+            ISSUE_NUMBER="${{ github.event.inputs.issue_number }}"
+          else
+            ISSUE_NUMBER="${{ github.event.issue.number }}"
+          fi
+
+          echo "issue_number=$ISSUE_NUMBER" >> $GITHUB_OUTPUT
+
+          # Fetch full issue details
+          gh issue view "$ISSUE_NUMBER" --json number,title,body,author,labels,comments > issue_details.json
+
+          echo "Issue #$ISSUE_NUMBER ready for triage"
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Claude analyzes and triages issue
+        uses: anthropics/claude-code-action@v1
+        with:
+          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          claude_args: |
+            --allowedTools "Read,Bash(gh issue:*)"
+          prompt: |
+            🏷️ **ISSUE TRIAGE MODE**
+
+            Your job is to analyze and triage issue #${{ steps.issue.outputs.issue_number }}.
+
+            **Issue Details:**
+            Read `issue_details.json` for the full issue content, including title, body, author, and any comments.
+
+            **Your Task:**
+
+            1. **Read and Understand**:
+               - Read issue_details.json to get all issue information
+               - Understand what the user is asking for or reporting
+               - Read relevant code files if needed to understand context
+
+            2. **Categorize the Issue**:
+               Determine which label(s) apply:
+               - `bug` - Something isn't working correctly
+               - `enhancement` - New feature or improvement request
+               - `question` - User has a question
+               - `documentation` - Docs need updating
+               - `workflow` - Related to GitHub Actions workflows
+               - `data-fetcher` - Related to data fetching workflows
+               - `autonomous` - Related to autonomous development features
+               - `good first issue` - Simple, well-defined, good for newcomers
+               - `help wanted` - Complex, needs community input
+               - `needs-info` - Requires more information from author
+               - `wontfix` - Valid issue but won't be addressed
+
+            3. **Apply Labels**:
+               Use `gh issue edit <number> --add-label "label1,label2"` to add appropriate labels
+
+            4. **Ask Clarifying Questions** (if needed):
+               If the issue is unclear or missing critical information:
+               - Post a comment asking specific questions
+               - Apply the `needs-info` label
+               - Be polite and helpful
+               - Use `gh issue comment <number> --body "message"`
+
+            5. **Provide Initial Guidance** (optional):
+               If it's a simple question or you can provide immediate help:
+               - Post a helpful comment
+               - Point to relevant documentation or files
+               - Suggest workarounds if applicable
+
+            **Guidelines:**
+            - Be helpful and welcoming, especially to new contributors
+            - If unsure, err on the side of asking questions rather than making assumptions
+            - Don't close issues unless they're clearly spam or duplicates
+            - For feature requests, consider if they align with the project's goals
+            - For bugs, try to assess severity and reproducibility
+
+            **Example Commands:**
+
+            ```bash
+            # Add labels
+            gh issue edit ${{ steps.issue.outputs.issue_number }} --add-label "bug,workflow"
+
+            # Ask a question
+            gh issue comment ${{ steps.issue.outputs.issue_number }} --body "Thanks for reporting! Could you provide the full error message from the workflow logs?"
+
+            # Provide guidance
+            gh issue comment ${{ steps.issue.outputs.issue_number }} --body "This looks like a GitHub Pages configuration issue. Check Settings → Pages and ensure 'GitHub Actions' is selected as the source."
+            ```
+
+            **Don't:**
+            - Don't assign the issue to anyone
+            - Don't close the issue (unless obvious spam)
+            - Don't remove existing labels
+            - Don't make commitments about when it will be fixed
+
+            Let's triage this issue! 🎯

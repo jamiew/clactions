@@ -1,0 +1,11 @@
+{
+  "workflows": [],
+  "categories": [
+    "Data Fetchers & Scrapers",
+    "Autonomous Development",
+    "Webhooks & External Triggers",
+    "Build & Deploy Website"
+  ],
+  "last_updated": null,
+  "note": "This file will be populated by the update-docs.yml workflow"
+}
