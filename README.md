@@ -4,17 +4,18 @@ Experimental sandbox for combining Claude Code with GitHub Actions. Claude fetch
 
 ## What This Tests
 
-This repo explores autonomous AI infrastructure across four categories:
+This repo explores autonomous AI infrastructure across five categories:
 1. **Data Fetchers & Scrapers** - Claude fetches external data and updates the website
 2. **Autonomous Development** - Claude modifies its own codebase and implements tasks
-3. **Webhooks & External Triggers** - External services can trigger Claude workflows
-4. **Build & Deploy Website** - Static site generation from collected data
+3. **Self-Improvement & Meta** - Claude improves its own setup and fixes its own failures
+4. **Webhooks & External Triggers** - External services can trigger Claude workflows
+5. **Build & Deploy** - Website generation and deployment automation
 
 Additionally, Claude Code's built-in features are installed via `/install-github-app`:
 - **@claude mentions in issues** - Comment `@claude` to get implementation PRs
 - **Code Review** - Claude reviews all PRs automatically
 
-**10 of 16 workflows** use Claude Code for decision-making and implementation.
+**11 of 15 documented workflows** use Claude Code for decision-making and implementation.
 
 ## Workflows
 
@@ -25,22 +26,28 @@ Claude fetches external data and updates data used to generate the website.
 |----------|-------------------|-------------|---------|--------------|-----------|
 | [nytimes-headlines.yml](.github/workflows/nytimes-headlines.yml) | Parse NYT RSS feed → `data/nytimes.json` | ✅ | ✅ | ❌ | ❌ |
 | [glif-top-content.yml](.github/workflows/glif-top-content.yml) | Fetch Glif featured content → `data/glif.json` | ✅ | ✅ | ❌ | ❌ |
-| [glif-run.yml](.github/workflows/glif-run.yml) | Run Glif workflow → process output → `data/weather.json` | ✅ | ✅ | ❌ | ❌ |
 | [weather-data.yml](.github/workflows/weather-data.yml) | Fetch NYC weather → `data/weather.json` | ✅ | ✅ | ❌ | ❌ |
-| [crypto-prices.yml](.github/workflows/crypto-prices.yml) | Fetch BTC/ETH/SOL/HNT prices → `data/crypto-prices.json` | ✅ | ✅ | ❌ | ❌ |
+| [crypto-prices.yml](.github/workflows/crypto-prices.yml) | Fetch BTC/ETH/SOL/HNT prices via **CoinGecko MCP server** → `data/crypto-prices.json` | ✅ | ✅ | ❌ | ❌ |
 | [rhizome-community.yml](.github/workflows/rhizome-community.yml) | Scrape Rhizome.org community → `data/rhizome.json` | ✅ | ✅ | ❌ | ❌ |
 | [adaptive-theme.yml](.github/workflows/adaptive-theme.yml) | Generate CSS based on time/season/weather → `theme-nyc.css` | ✅ | ✅ | ❌ | ❌ |
 
 ### Autonomous Development
-Claude modifies its own codebase and attempts self-improvement.
+Claude modifies its own codebase and implements tasks.
 
 | Workflow | Prompt for Claude | Uses Claude | Commits | Opens Issues | Opens PRs |
 |----------|-------------------|-------------|---------|--------------|-----------|
 | [todo-worker.yml](.github/workflows/todo-worker.yml) | Read TODO.md → pick task → implement via PR | ✅ | ❌ | ❌ | ✅ |
-| [hackernews-blog.yml](.github/workflows/hackernews-blog.yml) | Read HN top story + comments → write blog post via PR | ✅ | ❌ | ❌ | ✅ |
-| [self-repair.yml](.github/workflows/self-repair.yml) | Read failure logs → diagnose → fix (commit or PR) | ✅ | ✅ | ✅ | ✅ |
-| [docs-improver.yml](.github/workflows/docs-improver.yml) | Analyze merged PRs & issues → update CLAUDE.md/README.md via PR | ✅ | ❌ | ❌ | ✅ |
+| [issue-triage.yml](.github/workflows/issue-triage.yml) | Analyze issue → apply labels → ask clarifying questions | ✅ | ❌ | ❌ | ❌ |
 | [auto-merge.yml](.github/workflows/auto-merge.yml) | Auto-merge approved Claude PRs | ❌ | ❌ | ❌ | ❌ |
+
+### Self-Improvement & Meta
+Claude improves its own setup and fixes its own failures.
+
+| Workflow | Prompt for Claude | Uses Claude | Commits | Opens Issues | Opens PRs |
+|----------|-------------------|-------------|---------|--------------|-----------|
+| [self-repair.yml](.github/workflows/self-repair.yml) | Read failure logs → diagnose → fix (commit or PR) | ✅ | ✅ | ✅ | ✅ |
+| [self-improver.yml](.github/workflows/self-improver.yml) | Analyze changes → improve CLAUDE.md & Claude Code setup via PR | ✅ | ❌ | ❌ | ✅ |
+| [update-docs.yml](.github/workflows/update-docs.yml) | Generate workflow docs → create docs/*.md & data/docs.json | ✅ | ✅ | ❌ | ❌ |
 
 ### Webhooks & External Triggers
 External services can trigger workflows via GitHub's `repository_dispatch` API.
@@ -48,30 +55,50 @@ External services can trigger workflows via GitHub's `repository_dispatch` API.
 | Workflow | Prompt for Claude | Uses Claude | Commits | Opens Issues | Opens PRs |
 |----------|-------------------|-------------|---------|--------------|-----------|
 | [webhook-demo.yml](.github/workflows/webhook-demo.yml) | Echo webhook payload for testing | ❌ | ❌ | ❌ | ❌ |
+| [cross-repo-notify.yml](.github/workflows/cross-repo-notify.yml) | Detect workflow changes → create issue in external repo | ❌ | ❌ | ✅ | ❌ |
 
-### Build & Deploy Website
-Static website generation and deployment (no Claude).
+### Build & Deploy
+Website generation and deployment automation.
 
 | Workflow | Prompt for Claude | Uses Claude | Commits | Opens Issues | Opens PRs |
 |----------|-------------------|-------------|---------|--------------|-----------|
-| [build-website.yml](.github/workflows/build-website.yml) | Build website from data files → deploy to Pages | ❌ | ❌ | ❌ | ❌ |
+| [update-website.yml](.github/workflows/update-website.yml) | Build website from data files → deploy to Pages | ❌ | ❌ | ❌ | ❌ |
 
-## Self-Improvement System
+## How It Works
 
-The system can modify and improve itself through several mechanisms:
+The system operates through several categories of workflows that work together:
 
-**[self-repair.yml](.github/workflows/self-repair.yml)** - Autonomous error recovery. When workflows fail:
-1. Fetches failure logs via GitHub API
-2. Analyzes error and identifies root cause
-3. Implements fix (direct commit or PR depending on complexity)
-4. Re-runs the fixed workflow
-5. Also runs every hour to catch stragglers
+### Data Collection & Theming
+- `nytimes-headlines.yml`, `weather-data.yml`, `crypto-prices.yml`, etc. fetch external data
+- `adaptive-theme.yml` generates CSS based on time/season/weather
+- All commit directly to main → trigger website rebuild
 
-**[todo-worker.yml](.github/workflows/todo-worker.yml)** - Implements tasks from TODO.md. Can be triggered manually with specific items.
+### Development Automation
+- `todo-worker.yml` implements tasks from TODO.md via PRs
+- `issue-triage.yml` analyzes and labels new issues
+- `auto-merge.yml` merges approved Claude PRs automatically
 
-**[docs-improver.yml](.github/workflows/docs-improver.yml)** - Keeps documentation current by analyzing merged PRs and issues, then updating CLAUDE.md and README.md as needed.
+### Self-Improvement & Meta
+These workflows improve the system itself:
 
-**[adaptive-theme.yml](.github/workflows/adaptive-theme.yml)** - Generates dynamic CSS themes based on current time, season, and weather conditions.
+**[self-repair.yml](.github/workflows/self-repair.yml)** - Autonomous error recovery:
+1. Detects workflow failures
+2. Analyzes logs and identifies root cause
+3. Implements fix (commit or PR based on complexity)
+4. Re-runs the failed workflow
+5. Runs hourly to catch stragglers
+
+**[self-improver.yml](.github/workflows/self-improver.yml)** - Claude Code setup optimization:
+- Analyzes merged PRs and issue discussions
+- Improves CLAUDE.md, slash commands, subagent docs
+- Acts when users say "update Claude rules", "DRY this up", etc.
+- Creates PRs with setup improvements
+
+**[update-docs.yml](.github/workflows/update-docs.yml)** - Documentation generation:
+- Creates `docs/*.md` for each workflow
+- Generates `data/docs.json` metadata
+- Runs weekly, commits directly to main
+- Website includes these docs automatically
 
 **Trigger self-repair manually:**
 ```bash
@@ -262,8 +289,25 @@ Settings → Secrets and variables → Actions → New repository secret
 - `CLAUDE_CODE_OAUTH_TOKEN` - From Claude Code GitHub App install
 
 **Optional:**
-- `GLIF_API_TOKEN` - From https://glif.app (for Glif integration)
-- `GLIF_WORKFLOW_ID` - Specific Glif workflow to run
+- `GLIF_API_TOKEN` - From https://glif.app (for Glif featured content integration)
+- `CROSS_REPO_PAT` - Personal Access Token for cross-repo notifications (only needed if using `cross-repo-notify.yml`)
+
+#### Creating CROSS_REPO_PAT (Optional)
+
+Only needed if you want to use the `cross-repo-notify.yml` workflow to send notifications to another repo.
+
+1. Go to https://github.com/settings/tokens?type=beta
+2. Click **"Generate new token"**
+3. Configure:
+   - **Token name**: `cross-repo-pat`
+   - **Expiration**: 1 year (or your preference)
+   - **Repository access**: **Public Repositories (read-only)** (or select specific repos)
+   - **Permissions** → Repository permissions:
+     - **Issues**: **Read and write** ✅
+4. Click **"Generate token"** and copy it
+5. Add to this repo: Settings → Secrets → Actions → New secret
+   - Name: `CROSS_REPO_PAT`
+   - Value: paste the token
 
 ### 3. Configure Permissions
 Settings → Actions → General → Workflow permissions:
@@ -331,32 +375,30 @@ External data → Claude fetches → Updates data/ → Deploys site
 ```
 
 In parallel:
-- `docs-improver.yml` keeps documentation current
+- `self-improver.yml` improves Claude Code setup based on learnings
+- `update-docs.yml` generates workflow documentation
 - `self-repair.yml` attempts to fix failures
 - `todo-worker.yml` implements tasks from TODO.md
+- `issue-triage.yml` organizes and labels incoming issues
 
 The goal is autonomous infrastructure that iterates on itself. Success varies.
 
 ## Files
 
-- `data/` - Data directory (nytimes.json, glif.json, weather.json, crypto-prices.json, rhizome.json)
+- `data/` - Data directory (nytimes.json, glif.json, weather.json, crypto-prices.json, rhizome.json, docs.json)
 - `data.json` - Legacy data store (still supported for backward compatibility)
+- `docs/` - Auto-generated workflow documentation (created by `update-docs.yml`)
 - `TODO.md` - Ideas and tasks for Claude to implement
 - `.github/workflows/` - All workflow definitions
 - `scripts/` - Debug and repair utilities
 - `scripts/build-dashboard.js` - Builds static website from data files
 - `.claude/commands/` - Custom slash commands (Markdown)
 - `.claude/subagents/` - Subagent documentation
-- `blog/` - Blog posts generated by Claude
 - `theme-nyc.css` - Adaptive CSS theme generated based on time/weather
 
 ## Glif Integration
 
-Two ways:
-1. Fetch top workflows/agents via API → display on site
-2. Run Glif workflow → Claude processes output → updates site
-
-Creates a **Glif → Claude → GitHub Pages** generative pipeline.
+Fetches top workflows/agents via API and displays them on the site.
 
 ## Common Issues
 

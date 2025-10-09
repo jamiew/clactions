@@ -1,0 +1,90 @@
+name: Cross-Repo Notify
+
+on:
+  schedule:
+    # Run every 8 hours
+    - cron: '0 */8 * * *'
+  workflow_dispatch:
+
+jobs:
+  notify-downstream:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Full history to analyze changes
+
+      - name: Analyze workflow changes
+        id: changes
+        run: |
+          # Find changes in .github/workflows/ from last 8 hours, excluding data/
+          SINCE="8 hours ago"
+
+          # Get commits that modified workflows
+          COMMITS=$(git log --since="$SINCE" --pretty=format:"%H" -- .github/workflows/)
+
+          if [ -z "$COMMITS" ]; then
+            echo "has_changes=false" >> $GITHUB_OUTPUT
+            echo "No workflow changes in the last 8 hours"
+            exit 0
+          fi
+
+          echo "has_changes=true" >> $GITHUB_OUTPUT
+
+          # Build detailed change summary
+          {
+            echo "## Workflow Changes Detected"
+            echo ""
+            echo "Changes to GitHub Actions workflows in the last 8 hours:"
+            echo ""
+
+            # List changed files
+            echo "### Modified Files"
+            git log --since="$SINCE" --name-only --pretty=format: -- .github/workflows/ | sort -u | grep -v '^$'
+            echo ""
+            echo ""
+
+            # Detailed commit information
+            echo "### Commits"
+            git log --since="$SINCE" --pretty=format:"- **%h** - %s (%an, %ar)" -- .github/workflows/
+            echo ""
+            echo ""
+
+            # Show diffs for each commit
+            echo "### Changes"
+            for commit in $COMMITS; do
+              echo "#### Commit: $(git log -1 --pretty=format:'%h - %s' $commit)"
+              echo '```diff'
+              git show $commit -- .github/workflows/ | head -200
+              echo '```'
+              echo ""
+            done
+
+            echo "---"
+            echo ""
+            echo "@claude Please review these workflow changes and update any affected documentation, API clients, or downstream systems in this repository that may be impacted."
+            echo ""
+            echo "Repository: ${{ github.repository }}"
+            echo "Triggered by: ${{ github.event_name }}"
+            echo "Run: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+
+          } > /tmp/issue-body.md
+
+          # Store for next step
+          cat /tmp/issue-body.md > $GITHUB_STEP_SUMMARY
+
+      - name: Create issue in issue-dump
+        if: steps.changes.outputs.has_changes == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.CROSS_REPO_PAT }}
+        run: |
+          TITLE="Workflow changes in ${{ github.repository }} ($(date -u '+%Y-%m-%d %H:%M UTC'))"
+
+          gh issue create \
+            --repo jamiew/issue-dump \
+            --title "$TITLE" \
+            --body-file /tmp/issue-body.md \
+            --label "automated,workflow-sync"
