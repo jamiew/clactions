@@ -29,14 +29,20 @@ jobs:
           echo "day_of_year=$DAY_OF_YEAR" >> $GITHUB_OUTPUT
 
           # Read weather if it exists
-          if [ -f weather.json ]; then
-            TEMP=$(jq -r '.temperature // "unknown"' weather.json)
-            CONDITION=$(jq -r '.condition // "unknown"' weather.json)
+          if [ -f data/weather.json ]; then
+            TEMP=$(jq -r '.temperature // "unknown"' data/weather.json)
+            CONDITION=$(jq -r '.condition // "unknown"' data/weather.json)
+            FEELS_LIKE=$(jq -r '.feels_like // "unknown"' data/weather.json)
+            HUMIDITY=$(jq -r '.humidity // "unknown"' data/weather.json)
             echo "temperature=$TEMP" >> $GITHUB_OUTPUT
             echo "condition=$CONDITION" >> $GITHUB_OUTPUT
+            echo "feels_like=$FEELS_LIKE" >> $GITHUB_OUTPUT
+            echo "humidity=$HUMIDITY" >> $GITHUB_OUTPUT
           else
             echo "temperature=unknown" >> $GITHUB_OUTPUT
             echo "condition=unknown" >> $GITHUB_OUTPUT
+            echo "feels_like=unknown" >> $GITHUB_OUTPUT
+            echo "humidity=unknown" >> $GITHUB_OUTPUT
           fi
 
       - name: Claude generates adaptive theme
@@ -55,8 +61,10 @@ jobs:
             - Day of year: ${{ steps.theme.outputs.day_of_year }}
 
             **Weather (if available):**
-            - Temperature: ${{ steps.theme.outputs.temperature }}
+            - Temperature: ${{ steps.theme.outputs.temperature }}°F
+            - Feels like: ${{ steps.theme.outputs.feels_like }}°F
             - Condition: ${{ steps.theme.outputs.condition }}
+            - Humidity: ${{ steps.theme.outputs.humidity }}%
 
             **Your Task:**
 

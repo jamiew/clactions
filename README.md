@@ -15,7 +15,7 @@ Additionally, Claude Code's built-in features are installed via `/install-github
 - **@claude mentions in issues** - Comment `@claude` to get implementation PRs
 - **Code Review** - Claude reviews all PRs automatically
 
-**11 of 16 documented workflows** use Claude Code for decision-making and implementation.
+**12 of 17 documented workflows** use Claude Code for decision-making and implementation.
 
 ## Workflows
 
@@ -29,13 +29,13 @@ Claude fetches external data and updates data used to generate the website.
 | [weather-data.yml](.github/workflows/weather-data.yml) | Fetch NYC weather → `data/weather.json` | Daily (8am UTC) | ✅ | ✅ | ❌ | ❌ |
 | [crypto-prices.yml](.github/workflows/crypto-prices.yml) | Fetch BTC/ETH/SOL/HNT prices via **CoinGecko MCP server** → `data/crypto-prices.json` | Daily (11am UTC) | ✅ | ✅ | ❌ | ❌ |
 | [rhizome-community.yml](.github/workflows/rhizome-community.yml) | Scrape Rhizome.org community → `data/rhizome.json` | Every 6h | ✅ | ✅ | ❌ | ❌ |
-| [adaptive-theme.yml](.github/workflows/adaptive-theme.yml) | Generate CSS based on time/season/weather → `theme-nyc.css` | Daily (noon UTC) | ✅ | ✅ | ❌ | ❌ |
 
 ### Autonomous Development
 Claude modifies its own codebase and implements tasks.
 
 | Workflow | Prompt for Claude | Triggers | Uses Claude | Commits | Opens Issues | Opens PRs |
 |----------|-------------------|----------|-------------|---------|--------------|-----------|
+| [claude.yml](.github/workflows/claude.yml) | Respond to @claude mentions in issues/PRs → implement requests | @claude mention | ✅ | ✅ | ❌ | ✅ |
 | [todo-worker.yml](.github/workflows/todo-worker.yml) | Read TODO.md → pick task → implement via PR | Every 8h | ✅ | ❌ | ❌ | ✅ |
 | [issue-triage.yml](.github/workflows/issue-triage.yml) | Analyze issue → apply labels → ask clarifying questions | On issue open | ✅ | ❌ | ❌ | ❌ |
 | [claude-code-review.yml](.github/workflows/claude-code-review.yml) | Review PRs and provide feedback | On PR open/update | ✅ | ❌ | ❌ | ❌ |
@@ -63,18 +63,24 @@ Website generation and deployment automation.
 
 | Workflow | Prompt for Claude | Triggers | Uses Claude | Commits | Opens Issues | Opens PRs |
 |----------|-------------------|----------|-------------|---------|--------------|-----------|
+| [adaptive-theme.yml](.github/workflows/adaptive-theme.yml) | Generate CSS based on time/season/weather from `data/weather.json` → `theme-nyc.css` | Daily (noon UTC) | ✅ | ✅ | ❌ | ❌ |
 | [update-website.yml](.github/workflows/update-website.yml) | Build website from data files → deploy to Pages | Daily (1pm UTC) + on data changes | ❌ | ❌ | ❌ | ❌ |
 
 ## How It Works
 
 The system operates through several categories of workflows that work together:
 
-### Data Collection & Theming
+### Data Collection
 - `nytimes-headlines.yml`, `weather-data.yml`, `crypto-prices.yml`, etc. fetch external data
-- `adaptive-theme.yml` generates CSS based on time/season/weather
 - All commit directly to main → trigger website rebuild
 
+### Build & Theming
+- `adaptive-theme.yml` generates CSS based on time/season/weather from `data/weather.json`
+- `update-website.yml` builds and deploys the static site to GitHub Pages
+- Runs after data updates to keep site current
+
 ### Development Automation
+- `claude.yml` responds to @claude mentions in issues/PRs to implement user requests
 - `todo-worker.yml` implements tasks from TODO.md via PRs
 - `issue-triage.yml` analyzes and labels new issues
 - `auto-merge.yml` merges approved Claude PRs automatically
@@ -104,8 +110,8 @@ These workflows improve the system itself:
 **Trigger self-repair manually:**
 ```bash
 gh workflow run self-repair.yml
-# Or from Claude Code CLI
-/fix-workflows [run-id]
+# Or debug directly
+./scripts/debug-workflows.sh
 ```
 
 **Success rate:** Variable. Claude can fix simple issues (missing files, permission errors, API changes) but struggles with complex logic bugs.
@@ -389,7 +395,6 @@ The goal is autonomous infrastructure that iterates on itself. Success varies.
 - `scripts/` - Debug and repair utilities
   - `scripts/build-website.js` - Builds static website from data files
   - `scripts/debug-workflows.sh` - Diagnose workflow failures
-  - `scripts/fix-workflows.sh` - Gather context for self-repair workflow
 - `.claude/commands/` - Custom slash commands (Markdown)
 - `.claude/subagents/` - Subagent documentation
 - `theme-nyc.css` - Adaptive CSS theme generated based on time/weather
