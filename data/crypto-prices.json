@@ -3,39 +3,39 @@
     "BTC": {
       "name": "Bitcoin",
       "symbol": "BTC",
-      "price": 122119,
-      "change_24h": 0.4686224029622953,
-      "market_cap": 2433737386011.7812,
-      "volume_24h": 58516872329.59496,
-      "last_updated": 1759992296
+      "price": 122018,
+      "change_24h": 0.19293660225220519,
+      "market_cap": 2432068473853.44,
+      "volume_24h": 58300991335.29354,
+      "last_updated": 1759993735
     },
     "ETH": {
       "name": "Ethereum",
       "symbol": "ETH",
-      "price": 4442.22,
-      "change_24h": -0.21266168479283334,
-      "market_cap": 536169492609.498,
-      "volume_24h": 36130655915.20383,
-      "last_updated": 1759992297
+      "price": 4430.27,
+      "change_24h": -0.6203132544910325,
+      "market_cap": 534874803045.54645,
+      "volume_24h": 36309785601.15621,
+      "last_updated": 1759993733
     },
     "SOL": {
       "name": "Solana",
       "symbol": "SOL",
-      "price": 227.92,
-      "change_24h": 3.8400232275658106,
-      "market_cap": 124571401225.86928,
-      "volume_24h": 7276646380.268479,
-      "last_updated": 1759992296
+      "price": 226.5,
+      "change_24h": 2.786536244456018,
+      "market_cap": 123757303476.19191,
+      "volume_24h": 7284388858.747477,
+      "last_updated": 1759993736
     },
     "HNT": {
       "name": "Helium",
       "symbol": "HNT",
-      "price": 2.73,
-      "change_24h": 12.9076657869071,
-      "market_cap": 508485086.1802836,
-      "volume_24h": 12537195.992182333,
-      "last_updated": 1759992292
+      "price": 2.69,
+      "change_24h": 10.944730540038682,
+      "market_cap": 501621929.4098514,
+      "volume_24h": 12937413.979975207,
+      "last_updated": 1759993732
     }
   },
-  "last_updated": "2025-10-09T06:45:01Z"
+  "last_updated": "2025-10-09T07:08:55Z"
 }
