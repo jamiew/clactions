@@ -6,7 +6,7 @@ Experimental sandbox for combining Claude Code with GitHub Actions. Claude fetch
 
 This repo explores autonomous AI infrastructure across five categories:
 1. **Data Fetchers & Scrapers** - Claude fetches external data and updates the website
-2. **Autonomous Development** - Claude modifies its own codebase and implements tasks
+2. **Autonomous Development** - Claude modifies the codebase, triages issues, and implements tasks
 3. **Self-Improvement & Meta** - Claude improves its own setup and fixes its own failures
 4. **Webhooks & External Triggers** - External services can trigger Claude workflows
 5. **Build & Deploy** - Website generation and deployment automation
