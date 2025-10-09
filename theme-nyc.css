@@ -1,43 +1,43 @@
-/* Generated: 2025-10-09T04:00:00Z
- * Hour: 04 (Deep Night - Pre-Dawn), Season: Fall (October), Day: 282
- * Theme: The Darkest Hour - NYC at the threshold of dawn, autumn stillness
+/* Generated: 2025-10-09T05:00:00Z
+ * Hour: 05 (Pre-Dawn Hour), Season: Fall (October), Day: 282
+ * Theme: The Hour Before Dawn - NYC stirring awake, autumn stillness giving way
  */
 
 :root {
-  /* The darkest hour - just before dawn breaks */
-  --bg-primary: linear-gradient(135deg, #050608 0%, #0a0d11 100%);
-  --bg-secondary: rgba(10, 13, 17, 0.98);
-  --bg-card: rgba(15, 18, 23, 0.98);
-  --bg-tertiary: #0f1114;
+  /* Pre-dawn darkness - first hints of approaching light */
+  --bg-primary: linear-gradient(135deg, #060709 0%, #0c0f13 100%);
+  --bg-secondary: rgba(12, 15, 19, 0.98);
+  --bg-card: rgba(17, 20, 25, 0.98);
+  --bg-tertiary: #111317;
 
-  /* Text colors: Maximum eye comfort at 4am */
-  --text-primary: #d3d0c6;
-  --text-secondary: #9a9689;
-  --text-muted: #4f4b40;
+  /* Text colors: Slightly brighter as dawn approaches */
+  --text-primary: #d6d3c9;
+  --text-secondary: #a09a8d;
+  --text-muted: #54503e;
 
-  /* Accent colors: First hint of approaching dawn, autumn warmth */
-  --accent-primary: #a67d4e;
-  --accent-secondary: #7a5833;
-  --accent-glow: #c79e6f;
-  --accent-dawn: #d6b58a;
+  /* Accent colors: Warmer tones as dawn nears, autumn warmth */
+  --accent-primary: #b28856;
+  --accent-secondary: #866240;
+  --accent-glow: #d3a976;
+  --accent-dawn: #e0c196;
 
-  /* Deep pre-dawn atmosphere */
-  --night-navy: #121723;
-  --night-void: #050608;
-  --urban-glow: rgba(166, 125, 78, 0.04);
-  --dawn-hint: rgba(214, 181, 138, 0.03);
+  /* Pre-dawn atmosphere - horizon hint */
+  --night-navy: #141827;
+  --night-void: #060709;
+  --urban-glow: rgba(178, 136, 86, 0.05);
+  --dawn-hint: rgba(224, 193, 150, 0.04);
 
-  /* Fall colors: Deep autumn at darkest hour */
-  --fall-rust: #82502c;
-  --fall-bronze: #966530;
-  --fall-shadow: #1c1207;
+  /* Fall colors: Autumn warming with approaching light */
+  --fall-rust: #8d5730;
+  --fall-bronze: #a26f38;
+  --fall-shadow: #1f1409;
 
   /* Functional colors */
-  --border-subtle: rgba(159, 150, 137, 0.055);
-  --shadow-soft: 0 4px 26px rgba(0, 0, 0, 0.76);
-  --shadow-medium: 0 8px 48px rgba(0, 0, 0, 0.82);
-  --shadow-glow: 0 0 30px rgba(166, 125, 78, 0.1);
-  --overlay-dark: rgba(6, 9, 13, 0.75);
+  --border-subtle: rgba(160, 154, 141, 0.065);
+  --shadow-soft: 0 4px 24px rgba(0, 0, 0, 0.72);
+  --shadow-medium: 0 8px 46px rgba(0, 0, 0, 0.78);
+  --shadow-glow: 0 0 28px rgba(178, 136, 86, 0.12);
+  --overlay-dark: rgba(7, 10, 14, 0.72);
 }
 
 /* Global styles */
@@ -50,7 +50,7 @@ body {
   position: relative;
 }
 
-/* Deep night ambiance - the darkest hour */
+/* Pre-dawn ambiance - the hour before sunrise */
 body::before {
   content: '';
   position: fixed;
@@ -59,16 +59,16 @@ body::before {
   right: 0;
   bottom: 0;
   background:
-    radial-gradient(circle at 15% 15%, rgba(166, 125, 78, 0.025) 0%, transparent 42%),
-    radial-gradient(circle at 85% 68%, rgba(166, 125, 78, 0.018) 0%, transparent 48%),
-    radial-gradient(circle at 42% 88%, rgba(18, 23, 35, 0.16) 0%, transparent 54%),
-    radial-gradient(circle at 72% 12%, rgba(214, 181, 138, 0.02) 0%, transparent 40%);
+    radial-gradient(ellipse at 50% 100%, rgba(224, 193, 150, 0.035) 0%, transparent 45%),
+    radial-gradient(circle at 18% 18%, rgba(178, 136, 86, 0.03) 0%, transparent 40%),
+    radial-gradient(circle at 82% 65%, rgba(178, 136, 86, 0.022) 0%, transparent 46%),
+    radial-gradient(circle at 45% 85%, rgba(20, 24, 39, 0.18) 0%, transparent 52%);
   pointer-events: none;
   z-index: -1;
-  opacity: 0.58;
+  opacity: 0.62;
 }
 
-/* Sparse starfield - maximum visibility at darkest hour */
+/* Fading starfield - stars dimming as dawn approaches */
 body::after {
   content: '';
   position: fixed;
@@ -77,20 +77,20 @@ body::after {
   right: 0;
   bottom: 0;
   background-image:
-    radial-gradient(circle, rgba(255, 255, 255, 0.11) 1px, transparent 1px),
-    radial-gradient(circle, rgba(255, 255, 255, 0.07) 1px, transparent 1px),
-    radial-gradient(circle, rgba(199, 158, 111, 0.045) 1px, transparent 1px);
-  background-size: 85px 85px, 125px 125px, 155px 155px;
-  background-position: 0 0, 42px 42px, 72px 72px;
+    radial-gradient(circle, rgba(255, 255, 255, 0.09) 1px, transparent 1px),
+    radial-gradient(circle, rgba(255, 255, 255, 0.06) 1px, transparent 1px),
+    radial-gradient(circle, rgba(211, 169, 118, 0.05) 1px, transparent 1px);
+  background-size: 90px 90px, 130px 130px, 160px 160px;
+  background-position: 0 0, 45px 45px, 75px 75px;
   pointer-events: none;
   z-index: -1;
-  opacity: 0.075;
+  opacity: 0.068;
 }
 
 /* Typography */
 h1, h2, h3, h4, h5, h6 {
   color: var(--accent-glow);
-  text-shadow: 0 2px 18px rgba(199, 158, 111, 0.11);
+  text-shadow: 0 2px 16px rgba(211, 169, 118, 0.13);
   margin-top: 1.5em;
   margin-bottom: 0.5em;
 }
@@ -112,7 +112,7 @@ a {
 
 a:hover {
   color: var(--accent-glow);
-  text-shadow: 0 0 22px rgba(166, 125, 78, 0.22);
+  text-shadow: 0 0 20px rgba(178, 136, 86, 0.24);
 }
 
 a::after {
@@ -133,7 +133,7 @@ a:hover::after {
 /* Cards and containers */
 .card, .container, article, section {
   background: var(--bg-card);
-  backdrop-filter: blur(22px);
+  backdrop-filter: blur(20px);
   border: 1px solid var(--border-subtle);
   border-radius: 16px;
   padding: 1.5rem;
@@ -145,7 +145,7 @@ a:hover::after {
 .card:hover, article:hover {
   transform: translateY(-3px);
   box-shadow: var(--shadow-glow), var(--shadow-medium);
-  border-color: rgba(166, 125, 78, 0.18);
+  border-color: rgba(178, 136, 86, 0.19);
 }
 
 /* Buttons */
@@ -165,22 +165,22 @@ button:hover, .button:hover {
   background: linear-gradient(135deg, var(--accent-glow), var(--fall-bronze));
   box-shadow: var(--shadow-glow), var(--shadow-medium);
   transform: translateY(-2px);
-  filter: brightness(1.14);
+  filter: brightness(1.16);
 }
 
 /* Header/Navigation */
 header, nav {
   background: var(--bg-secondary);
-  backdrop-filter: blur(26px);
+  backdrop-filter: blur(24px);
   border-bottom: 2px solid var(--night-navy);
-  box-shadow: 0 2px 38px rgba(5, 6, 8, 0.92);
+  box-shadow: 0 2px 36px rgba(6, 7, 9, 0.88);
   padding: 1rem;
   margin-bottom: 2rem;
 }
 
 /* Code blocks */
 code, pre {
-  background: rgba(5, 6, 8, 0.95);
+  background: rgba(6, 7, 9, 0.95);
   border: 1px solid var(--night-navy);
   border-radius: 6px;
   font-family: 'Monaco', 'Courier New', monospace;
@@ -190,7 +190,7 @@ code, pre {
 pre {
   padding: 1rem;
   overflow-x: auto;
-  box-shadow: inset 0 2px 18px rgba(0, 0, 0, 0.65);
+  box-shadow: inset 0 2px 16px rgba(0, 0, 0, 0.62);
 }
 
 code {
@@ -210,7 +210,7 @@ input, textarea, select {
 input:focus, textarea:focus, select:focus {
   outline: none;
   border-color: var(--accent-primary);
-  box-shadow: 0 0 0 3px rgba(166, 125, 78, 0.13);
+  box-shadow: 0 0 0 3px rgba(178, 136, 86, 0.15);
 }
 
 /* Scrollbar */
@@ -240,15 +240,15 @@ input:focus, textarea:focus, select:focus {
 
 /* Glass morphism elements */
 .glass {
-  background: rgba(13, 16, 21, 0.82);
-  backdrop-filter: blur(30px) saturate(165%);
+  background: rgba(15, 18, 23, 0.84);
+  backdrop-filter: blur(28px) saturate(170%);
   border: 1px solid var(--border-subtle);
   box-shadow: var(--shadow-soft);
 }
 
 /* Ambient glow effect for important elements */
 .highlight, .featured, .accent {
-  box-shadow: 0 0 28px rgba(166, 125, 78, 0.11), var(--shadow-soft);
+  box-shadow: 0 0 26px rgba(178, 136, 86, 0.13), var(--shadow-soft);
   border-color: var(--accent-secondary);
   color: var(--fall-bronze);
 }
@@ -256,7 +256,7 @@ input:focus, textarea:focus, select:focus {
 /* Status indicators */
 .status-active {
   color: var(--accent-primary);
-  text-shadow: 0 0 18px rgba(166, 125, 78, 0.28);
+  text-shadow: 0 0 16px rgba(178, 136, 86, 0.3);
 }
 
 .status-info {
@@ -266,13 +266,13 @@ input:focus, textarea:focus, select:focus {
 /* Footer */
 footer {
   background: var(--bg-secondary);
-  backdrop-filter: blur(22px);
+  backdrop-filter: blur(20px);
   border-top: 2px solid var(--night-navy);
   color: var(--text-secondary);
   padding: 2rem 1rem;
   margin-top: 3rem;
   text-align: center;
-  box-shadow: 0 -4px 38px rgba(0, 0, 0, 0.64);
+  box-shadow: 0 -4px 36px rgba(0, 0, 0, 0.6);
 }
 
 /* Utility classes */
@@ -295,8 +295,8 @@ footer {
   }
 
   :root {
-    --shadow-soft: 0 2px 20px rgba(0, 0, 0, 0.76);
-    --shadow-medium: 0 4px 32px rgba(0, 0, 0, 0.82);
+    --shadow-soft: 0 2px 18px rgba(0, 0, 0, 0.72);
+    --shadow-medium: 0 4px 30px rgba(0, 0, 0, 0.78);
   }
 }
 
@@ -307,30 +307,30 @@ footer {
   transition-timing-function: ease;
 }
 
-/* The darkest hour - stillness before dawn */
-@keyframes darkest-hour-pulse {
-  0%, 100% { opacity: 0.54; }
-  50% { opacity: 0.68; }
+/* Pre-dawn stirring - subtle awakening */
+@keyframes pre-dawn-pulse {
+  0%, 100% { opacity: 0.58; }
+  50% { opacity: 0.72; }
 }
 
 body::before {
-  animation: darkest-hour-pulse 26s ease-in-out infinite;
+  animation: pre-dawn-pulse 24s ease-in-out infinite;
 }
 
-/* Distant city lights fading */
-@keyframes distant-fade {
-  0%, 100% { opacity: 0.025; }
-  50% { opacity: 0.048; }
+/* City lights beginning to fade */
+@keyframes city-fade {
+  0%, 100% { opacity: 0.03; }
+  50% { opacity: 0.055; }
 }
 
 body::after {
-  animation: distant-fade 16s ease-in-out infinite;
+  animation: city-fade 18s ease-in-out infinite;
 }
 
-/* Subtle dawn hint animation */
-@keyframes dawn-approach {
+/* Dawn approaching animation */
+@keyframes dawn-approaching {
   0% { opacity: 0; }
-  100% { opacity: 0.02; }
+  100% { opacity: 0.035; }
 }
 
 h1::before {
@@ -341,7 +341,7 @@ h1::before {
   right: -10px;
   bottom: -10px;
   background: radial-gradient(circle, var(--dawn-hint) 0%, transparent 70%);
-  animation: dawn-approach 60s ease-in-out forwards;
+  animation: dawn-approaching 45s ease-in-out forwards;
   z-index: -1;
   pointer-events: none;
 }
