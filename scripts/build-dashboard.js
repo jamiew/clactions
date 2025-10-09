@@ -29,9 +29,31 @@ const rhizome = fs.existsSync('data/rhizome.json')
   : { community_listings: [], last_updated: 'Never' };
 
 // Legacy data.json support (will be removed later)
-const legacyData = fs.existsSync('data.json')
-  ? JSON.parse(fs.readFileSync('data.json', 'utf-8'))
-  : {};
+// Add error handling for malformed JSON
+let legacyData = {};
+if (fs.existsSync('data.json')) {
+  try {
+    const rawData = fs.readFileSync('data.json', 'utf-8');
+    legacyData = JSON.parse(rawData);
+  } catch (error) {
+    console.error('Warning: Failed to parse data.json:', error.message);
+    console.error('Position:', error.message.match(/position (\d+)/)?.[1]);
+    // Try to save corrupted file for debugging
+    if (error instanceof SyntaxError) {
+      const backupPath = 'data.json.corrupted';
+      fs.copyFileSync('data.json', backupPath);
+      console.error(`Corrupted data.json saved to ${backupPath}`);
+      // Create minimal valid data.json to prevent future crashes
+      const minimalData = {
+        message: "Data file was corrupted and reset",
+        last_updated: new Date().toISOString(),
+        status: "Recovered from JSON parsing error"
+      };
+      fs.writeFileSync('data.json', JSON.stringify(minimalData, null, 2));
+      console.log('Created minimal data.json to recover');
+    }
+  }
+}
 
 const nycTheme = fs.existsSync('theme-nyc.css')
   ? fs.readFileSync('theme-nyc.css', 'utf-8')
