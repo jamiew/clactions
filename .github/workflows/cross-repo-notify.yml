@@ -1,94 +1,102 @@
-name: Cross-Repo Notify (DEPRECATED)
-
-# DEPRECATED: This workflow has been replaced by two better versions:
-# - cross-repo-notify-by-commit.yml - Analyzes each commit individually
-# - cross-repo-notify-unified.yml - Holistic analysis of all changes
-#
-# This version is kept for reference but disabled.
+name: Cross-Repo Notify
 
 on:
-  # Disabled - use new workflows instead
-  # schedule:
-  #   - cron: '0 */8 * * *'
+  schedule:
+    # Run every 8 hours
+    - cron: '0 */8 * * *'
   workflow_dispatch:
+
+permissions:
+  contents: read
 
 jobs:
   notify-downstream:
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
-
     steps:
       - uses: actions/checkout@v4
         with:
-          fetch-depth: 0  # Full history to analyze changes
+          fetch-depth: 0
 
-      - name: Analyze workflow changes
-        id: changes
-        run: |
-          # Find changes in .github/workflows/ from last 8 hours, excluding data/
-          SINCE="8 hours ago"
+      - name: Analyze and notify
+        uses: anthropics/claude-code-action@v1
+        with:
+          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          claude_args: |
+            --allowedTools "Bash(git:*),Bash(gh:*),Bash(date:*),Bash(cat:*),Read,Write"
+          prompt: |
+            Analyze workflow changes from the last 8 hours and create a comprehensive changelog issue.
 
-          # Get commits that modified workflows
-          COMMITS=$(git log --since="$SINCE" --pretty=format:"%H" -- .github/workflows/)
+            **Context:** This changelog will be read by:
+            - Documentation teams updating API docs
+            - External API users who depend on these workflows
+            - Marketing teams writing changelogs
+            - Downstream systems that integrate with this repo
 
-          if [ -z "$COMMITS" ]; then
-            echo "has_changes=false" >> $GITHUB_OUTPUT
-            echo "No workflow changes in the last 8 hours"
-            exit 0
-          fi
+            **Tasks:**
 
-          echo "has_changes=true" >> $GITHUB_OUTPUT
+            1. Check for workflow changes in the last 8 hours:
+               ```bash
+               COMMITS=$(git log --since="8 hours ago" --pretty=format:"%H" -- .github/workflows/)
+               ```
+               If no changes, exit successfully.
 
-          # Build compact change summary
-          {
-            echo "## Workflow Changes Detected"
-            echo ""
-            echo "Changes to GitHub Actions workflows in the last 8 hours."
-            echo ""
+            2. Analyze both:
+               - Individual commits (to understand progression)
+               - Unified diff of entire changeset (to understand net effect)
 
-            # Detailed commit information with links
-            echo "### Commits"
-            for commit in $COMMITS; do
-              COMMIT_URL="${{ github.server_url }}/${{ github.repository }}/commit/$commit"
-              COMMIT_MSG=$(git log -1 --pretty=format:'%s' $commit)
-              COMMIT_AUTHOR=$(git log -1 --pretty=format:'%an' $commit)
-              COMMIT_TIME=$(git log -1 --pretty=format:'%ar' $commit)
+            3. Write a changelog to `changelog.md` that focuses on IMPACT and MEANING, not code details:
 
-              echo "- [\`${commit:0:7}\`]($COMMIT_URL) - $COMMIT_MSG ($COMMIT_AUTHOR, $COMMIT_TIME)"
-            done
-            echo ""
+               ## Summary
+               [2-4 sentences explaining what changed and why it matters. Use plain language, not technical jargon.]
 
-            # List changed files with stats
-            echo "### Modified Files"
-            git log --since="$SINCE" --stat --pretty=format: -- .github/workflows/ | grep -E '\.yml|\.yaml' | sort -u
-            echo ""
-            echo ""
+               ## What This Means
+               - **For API users:** [How does this affect people calling our APIs or depending on workflow outputs?]
+               - **For documentation:** [What docs need updating? New features to document?]
+               - **For downstream systems:** [What behaviors changed? New capabilities? Deprecations?]
 
-            echo "---"
-            echo ""
-            echo "@claude Please review these workflow changes and update any affected documentation, API clients, or downstream systems in this repository that may be impacted."
-            echo ""
-            echo "**Repository:** ${{ github.repository }}"
-            echo ""
-            echo "**Links:**"
-            echo "- [View workflow directory](${{ github.server_url }}/${{ github.repository }}/tree/main/.github/workflows)"
-            echo "- [Recent commits](${{ github.server_url }}/${{ github.repository }}/commits/main/.github/workflows)"
-            echo "- [This workflow run](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})"
+               ## Key Changes
+               - [Important change 1 - describe the capability or behavior, not the code]
+               - [Important change 2]
+               - [3-5 key changes focusing on user-visible impact]
 
-          } > /tmp/issue-body.md
+               ## Details
 
-          # Store for next step
-          cat /tmp/issue-body.md > $GITHUB_STEP_SUMMARY
+               [For each major area of change, provide context:]
 
-      - name: Create issue in issue-dump
-        if: steps.changes.outputs.has_changes == 'true'
-        env:
-          GH_TOKEN: ${{ secrets.CROSS_REPO_PAT }}
-        run: |
-          TITLE="Workflow changes in ${{ github.repository }} ($(date -u '+%Y-%m-%d %H:%M UTC'))"
+               ### [Area/Feature Name]
+               - **What changed:** [Describe the change in functional terms]
+               - **Why:** [If obvious from commits, explain the motivation]
+               - **Impact:** [Who/what is affected and how]
 
-          gh issue create \
-            --repo jamiew/issue-dump \
-            --title "$TITLE" \
-            --body-file /tmp/issue-body.md
+               ## Technical Notes
+               <details><summary>For engineers: commit details</summary>
+
+               [List commits with subjects - this is the only place to mention technical details]
+
+               </details>
+
+            **Important guidelines:**
+            - Avoid mentioning specific filenames, code syntax, or implementation details
+            - Focus on capabilities, behaviors, and user-facing changes
+            - Explain WHY changes happened when possible (from commit messages)
+            - Think like you're writing for a product changelog or release notes
+            - Group related changes together thematically
+            - If changes are just internal refactoring with no external impact, say so clearly
+
+            4. Create issue on jamiew/issue-dump:
+               ```bash
+               export GH_TOKEN="${{ secrets.CROSS_REPO_PAT }}"
+               gh issue create \
+                 --repo jamiew/issue-dump \
+                 --title "Workflow updates in jamiew/clactions ($(date -u '+%Y-%m-%d %H:%M UTC'))" \
+                 --body "$(cat changelog.md)
+
+               ---
+
+               @claude Please review these changes and update any affected documentation, API clients, or downstream systems as needed.
+
+               **Source:** jamiew/clactions
+               **Period:** Last 8 hours
+               **Workflow run:** https://github.com/jamiew/clactions/actions/runs/${{ github.run_id }}"
+               ```
