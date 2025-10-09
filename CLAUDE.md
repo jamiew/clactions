@@ -43,13 +43,12 @@ gh run watch
 5. `rhizome-community.yml` - Scrapes Rhizome.org community → data/rhizome.json
 6. `adaptive-theme.yml` - Generates CSS based on time/season/weather → theme-nyc.css
 
-### Autonomous Development (5 workflows)
+### Autonomous Development (4 workflows)
 
-1. `todo-worker.yml` - Reads TODO.md, implements tasks via PR ⭐
-2. `issue-triage.yml` - Analyzes issues, applies labels
-3. `claude-code-review.yml` - Reviews all PRs automatically
-4. `cross-repo-notify.yml` - Detects workflow changes → creates issues in external repo
-5. `auto-merge.yml` - Auto-merges approved Claude PRs
+1. `issue-triage.yml` - Analyzes issues, applies labels
+2. `claude-code-review.yml` - Reviews all PRs automatically
+3. `cross-repo-notify.yml` - Detects workflow changes → creates issues in external repo
+4. `auto-merge.yml` - Auto-merges approved Claude PRs
 
 ### Self-Improvement (3 workflows)
 
@@ -78,7 +77,6 @@ External (NYT, Glif) → Claude → data.json → deploy → site
 ## Key Files
 
 - `data.json` - Data store (headlines, Glif content)
-- `TODO.md` - Ideas for Claude to implement
 - `.github/workflows/` - All workflows
 - `scripts/` - Debug and repair tools
 - `.claude/commands/` - Custom slash commands (Markdown)
@@ -119,21 +117,6 @@ Let `self-repair.yml` auto-fix most issues.
 **data.json**: Create with `{"message": "Initial data"}`
 
 ## Development
-
-### Adding New Features
-
-Add ideas to `TODO.md`. The `todo-worker.yml` workflow will:
-1. Read the TODO list every 8 hours
-2. Pick a feasible task
-3. Implement it via PR
-4. Mark it complete in TODO.md
-
-Or trigger manually:
-```bash
-gh workflow run todo-worker.yml
-gh workflow run todo-worker.yml -f force_item="Your specific task"
-gh workflow run todo-worker.yml -f mode=plan  # Just plan, don't build
-```
 
 ### Code Patterns
 
