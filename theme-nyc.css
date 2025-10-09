@@ -1,43 +1,44 @@
-/* Generated: 2025-10-09T05:00:00Z
- * Hour: 05 (Pre-Dawn Hour), Season: Fall (October), Day: 282
- * Theme: The Hour Before Dawn - NYC stirring awake, autumn stillness giving way
+/* Generated: 2025-10-09T06:00:00Z
+ * Hour: 06 (Early Morning Dawn), Season: Fall (October), Day: 282
+ * Theme: First Light - NYC awakening with soft autumn dawn colors
  */
 
 :root {
-  /* Pre-dawn darkness - first hints of approaching light */
-  --bg-primary: linear-gradient(135deg, #060709 0%, #0c0f13 100%);
-  --bg-secondary: rgba(12, 15, 19, 0.98);
-  --bg-card: rgba(17, 20, 25, 0.98);
-  --bg-tertiary: #111317;
+  /* Early morning warmth - dawn breaking over fall foliage */
+  --bg-primary: linear-gradient(135deg, #2d2419 0%, #3f342a 50%, #4d4037 100%);
+  --bg-secondary: rgba(45, 36, 25, 0.96);
+  --bg-card: rgba(53, 42, 33, 0.95);
+  --bg-tertiary: #362b22;
 
-  /* Text colors: Slightly brighter as dawn approaches */
-  --text-primary: #d6d3c9;
-  --text-secondary: #a09a8d;
-  --text-muted: #54503e;
+  /* Text colors: Warmer as sunrise begins */
+  --text-primary: #f5e8d8;
+  --text-secondary: #d4bfa6;
+  --text-muted: #8b7355;
 
-  /* Accent colors: Warmer tones as dawn nears, autumn warmth */
-  --accent-primary: #b28856;
-  --accent-secondary: #866240;
-  --accent-glow: #d3a976;
-  --accent-dawn: #e0c196;
+  /* Accent colors: Golden hour warmth with autumn essence */
+  --accent-primary: #d49563;
+  --accent-secondary: #b87842;
+  --accent-glow: #f5b878;
+  --accent-sunrise: #f7d4a8;
 
-  /* Pre-dawn atmosphere - horizon hint */
-  --night-navy: #141827;
-  --night-void: #060709;
-  --urban-glow: rgba(178, 136, 86, 0.05);
-  --dawn-hint: rgba(224, 193, 150, 0.04);
+  /* Dawn atmosphere - warm sunrise hues */
+  --dawn-sky: #4a5e7a;
+  --dawn-orange: #e89e5e;
+  --dawn-gold: #f5c992;
+  --sunrise-glow: rgba(245, 184, 120, 0.08);
 
-  /* Fall colors: Autumn warming with approaching light */
-  --fall-rust: #8d5730;
-  --fall-bronze: #a26f38;
-  --fall-shadow: #1f1409;
+  /* Fall colors: Autumn warmth enhanced by morning light */
+  --fall-rust: #9e5f32;
+  --fall-amber: #cc9857;
+  --fall-ochre: #d4a76a;
+  --fall-shadow: #2d1f12;
 
   /* Functional colors */
-  --border-subtle: rgba(160, 154, 141, 0.065);
-  --shadow-soft: 0 4px 24px rgba(0, 0, 0, 0.72);
-  --shadow-medium: 0 8px 46px rgba(0, 0, 0, 0.78);
-  --shadow-glow: 0 0 28px rgba(178, 136, 86, 0.12);
-  --overlay-dark: rgba(7, 10, 14, 0.72);
+  --border-subtle: rgba(212, 149, 99, 0.15);
+  --shadow-soft: 0 4px 20px rgba(0, 0, 0, 0.35);
+  --shadow-medium: 0 8px 32px rgba(0, 0, 0, 0.42);
+  --shadow-glow: 0 0 32px rgba(245, 184, 120, 0.18);
+  --overlay-warm: rgba(77, 64, 55, 0.5);
 }
 
 /* Global styles */
@@ -50,7 +51,7 @@ body {
   position: relative;
 }
 
-/* Pre-dawn ambiance - the hour before sunrise */
+/* Dawn ambiance - sunrise glow spreading */
 body::before {
   content: '';
   position: fixed;
@@ -59,16 +60,16 @@ body::before {
   right: 0;
   bottom: 0;
   background:
-    radial-gradient(ellipse at 50% 100%, rgba(224, 193, 150, 0.035) 0%, transparent 45%),
-    radial-gradient(circle at 18% 18%, rgba(178, 136, 86, 0.03) 0%, transparent 40%),
-    radial-gradient(circle at 82% 65%, rgba(178, 136, 86, 0.022) 0%, transparent 46%),
-    radial-gradient(circle at 45% 85%, rgba(20, 24, 39, 0.18) 0%, transparent 52%);
+    radial-gradient(ellipse at 80% 10%, rgba(247, 212, 168, 0.12) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 0%, rgba(232, 158, 94, 0.08) 0%, transparent 55%),
+    radial-gradient(circle at 20% 30%, rgba(212, 149, 99, 0.06) 0%, transparent 45%),
+    radial-gradient(circle at 60% 80%, rgba(77, 64, 55, 0.12) 0%, transparent 50%);
   pointer-events: none;
   z-index: -1;
-  opacity: 0.62;
+  opacity: 0.85;
 }
 
-/* Fading starfield - stars dimming as dawn approaches */
+/* Subtle morning texture */
 body::after {
   content: '';
   position: fixed;
@@ -77,30 +78,33 @@ body::after {
   right: 0;
   bottom: 0;
   background-image:
-    radial-gradient(circle, rgba(255, 255, 255, 0.09) 1px, transparent 1px),
-    radial-gradient(circle, rgba(255, 255, 255, 0.06) 1px, transparent 1px),
-    radial-gradient(circle, rgba(211, 169, 118, 0.05) 1px, transparent 1px);
-  background-size: 90px 90px, 130px 130px, 160px 160px;
-  background-position: 0 0, 45px 45px, 75px 75px;
+    repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 3px,
+      rgba(245, 184, 120, 0.015) 3px,
+      rgba(245, 184, 120, 0.015) 6px
+    );
   pointer-events: none;
   z-index: -1;
-  opacity: 0.068;
+  opacity: 0.3;
 }
 
 /* Typography */
 h1, h2, h3, h4, h5, h6 {
   color: var(--accent-glow);
-  text-shadow: 0 2px 16px rgba(211, 169, 118, 0.13);
+  text-shadow: 0 2px 12px rgba(245, 184, 120, 0.25);
   margin-top: 1.5em;
   margin-bottom: 0.5em;
 }
 
 h1 {
-  background: linear-gradient(135deg, var(--accent-glow) 0%, var(--fall-bronze) 100%);
+  background: linear-gradient(135deg, var(--accent-sunrise) 0%, var(--accent-glow) 50%, var(--fall-amber) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
   text-shadow: none;
+  filter: drop-shadow(0 2px 8px rgba(245, 184, 120, 0.2));
 }
 
 a {
@@ -112,7 +116,7 @@ a {
 
 a:hover {
   color: var(--accent-glow);
-  text-shadow: 0 0 20px rgba(178, 136, 86, 0.24);
+  text-shadow: 0 0 18px rgba(245, 184, 120, 0.35);
 }
 
 a::after {
@@ -122,7 +126,7 @@ a::after {
   left: 0;
   width: 0;
   height: 2px;
-  background: var(--accent-secondary);
+  background: var(--fall-amber);
   transition: width 0.3s ease;
 }
 
@@ -133,9 +137,9 @@ a:hover::after {
 /* Cards and containers */
 .card, .container, article, section {
   background: var(--bg-card);
-  backdrop-filter: blur(20px);
+  backdrop-filter: blur(16px);
   border: 1px solid var(--border-subtle);
-  border-radius: 16px;
+  border-radius: 14px;
   padding: 1.5rem;
   margin: 1rem 0;
   box-shadow: var(--shadow-medium);
@@ -143,14 +147,15 @@ a:hover::after {
 }
 
 .card:hover, article:hover {
-  transform: translateY(-3px);
+  transform: translateY(-4px);
   box-shadow: var(--shadow-glow), var(--shadow-medium);
-  border-color: rgba(178, 136, 86, 0.19);
+  border-color: rgba(245, 184, 120, 0.3);
+  background: rgba(63, 52, 42, 0.95);
 }
 
 /* Buttons */
 button, .button {
-  background: linear-gradient(135deg, var(--fall-bronze), var(--fall-rust));
+  background: linear-gradient(135deg, var(--fall-amber), var(--fall-rust));
   color: var(--text-primary);
   border: none;
   border-radius: 8px;
@@ -162,35 +167,35 @@ button, .button {
 }
 
 button:hover, .button:hover {
-  background: linear-gradient(135deg, var(--accent-glow), var(--fall-bronze));
+  background: linear-gradient(135deg, var(--accent-glow), var(--fall-amber));
   box-shadow: var(--shadow-glow), var(--shadow-medium);
   transform: translateY(-2px);
-  filter: brightness(1.16);
+  filter: brightness(1.15);
 }
 
 /* Header/Navigation */
 header, nav {
   background: var(--bg-secondary);
-  backdrop-filter: blur(24px);
-  border-bottom: 2px solid var(--night-navy);
-  box-shadow: 0 2px 36px rgba(6, 7, 9, 0.88);
+  backdrop-filter: blur(20px);
+  border-bottom: 2px solid var(--fall-rust);
+  box-shadow: 0 2px 28px rgba(45, 36, 25, 0.7);
   padding: 1rem;
   margin-bottom: 2rem;
 }
 
 /* Code blocks */
 code, pre {
-  background: rgba(6, 7, 9, 0.95);
-  border: 1px solid var(--night-navy);
+  background: rgba(29, 20, 12, 0.92);
+  border: 1px solid var(--fall-shadow);
   border-radius: 6px;
   font-family: 'Monaco', 'Courier New', monospace;
-  color: var(--accent-glow);
+  color: var(--accent-sunrise);
 }
 
 pre {
   padding: 1rem;
   overflow-x: auto;
-  box-shadow: inset 0 2px 16px rgba(0, 0, 0, 0.62);
+  box-shadow: inset 0 2px 12px rgba(0, 0, 0, 0.5);
 }
 
 code {
@@ -210,7 +215,7 @@ input, textarea, select {
 input:focus, textarea:focus, select:focus {
   outline: none;
   border-color: var(--accent-primary);
-  box-shadow: 0 0 0 3px rgba(178, 136, 86, 0.15);
+  box-shadow: 0 0 0 3px rgba(245, 184, 120, 0.2);
 }
 
 /* Scrollbar */
@@ -219,60 +224,60 @@ input:focus, textarea:focus, select:focus {
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--night-void);
+  background: var(--fall-shadow);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--night-navy);
+  background: var(--fall-rust);
   border-radius: 6px;
   transition: background 0.2s ease;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--accent-secondary);
+  background: var(--fall-amber);
 }
 
 /* Selection */
 ::selection {
-  background: var(--accent-secondary);
-  color: var(--text-primary);
+  background: var(--accent-primary);
+  color: var(--bg-primary);
 }
 
 /* Glass morphism elements */
 .glass {
-  background: rgba(15, 18, 23, 0.84);
-  backdrop-filter: blur(28px) saturate(170%);
+  background: rgba(53, 42, 33, 0.82);
+  backdrop-filter: blur(24px) saturate(160%);
   border: 1px solid var(--border-subtle);
   box-shadow: var(--shadow-soft);
 }
 
 /* Ambient glow effect for important elements */
 .highlight, .featured, .accent {
-  box-shadow: 0 0 26px rgba(178, 136, 86, 0.13), var(--shadow-soft);
-  border-color: var(--accent-secondary);
-  color: var(--fall-bronze);
+  box-shadow: 0 0 28px rgba(245, 184, 120, 0.22), var(--shadow-soft);
+  border-color: var(--accent-glow);
+  color: var(--fall-amber);
 }
 
 /* Status indicators */
 .status-active {
   color: var(--accent-primary);
-  text-shadow: 0 0 16px rgba(178, 136, 86, 0.3);
+  text-shadow: 0 0 16px rgba(245, 184, 120, 0.4);
 }
 
 .status-info {
-  color: var(--night-navy);
+  color: var(--dawn-sky);
 }
 
 /* Footer */
 footer {
   background: var(--bg-secondary);
-  backdrop-filter: blur(20px);
-  border-top: 2px solid var(--night-navy);
+  backdrop-filter: blur(18px);
+  border-top: 2px solid var(--fall-rust);
   color: var(--text-secondary);
   padding: 2rem 1rem;
   margin-top: 3rem;
   text-align: center;
-  box-shadow: 0 -4px 36px rgba(0, 0, 0, 0.6);
+  box-shadow: 0 -4px 28px rgba(0, 0, 0, 0.5);
 }
 
 /* Utility classes */
@@ -295,8 +300,8 @@ footer {
   }
 
   :root {
-    --shadow-soft: 0 2px 18px rgba(0, 0, 0, 0.72);
-    --shadow-medium: 0 4px 30px rgba(0, 0, 0, 0.78);
+    --shadow-soft: 0 2px 16px rgba(0, 0, 0, 0.35);
+    --shadow-medium: 0 4px 24px rgba(0, 0, 0, 0.42);
   }
 }
 
@@ -307,41 +312,43 @@ footer {
   transition-timing-function: ease;
 }
 
-/* Pre-dawn stirring - subtle awakening */
-@keyframes pre-dawn-pulse {
-  0%, 100% { opacity: 0.58; }
-  50% { opacity: 0.72; }
+/* Dawn spreading animation */
+@keyframes dawn-spread {
+  0%, 100% { opacity: 0.75; }
+  50% { opacity: 0.95; }
 }
 
 body::before {
-  animation: pre-dawn-pulse 24s ease-in-out infinite;
+  animation: dawn-spread 28s ease-in-out infinite;
 }
 
-/* City lights beginning to fade */
-@keyframes city-fade {
-  0%, 100% { opacity: 0.03; }
-  50% { opacity: 0.055; }
+/* Morning awakening glow */
+@keyframes morning-glow {
+  0%, 100% { opacity: 0.25; }
+  50% { opacity: 0.35; }
 }
 
 body::after {
-  animation: city-fade 18s ease-in-out infinite;
+  animation: morning-glow 20s ease-in-out infinite;
 }
 
-/* Dawn approaching animation */
-@keyframes dawn-approaching {
-  0% { opacity: 0; }
-  100% { opacity: 0.035; }
+/* Sunrise shimmer effect */
+@keyframes sunrise-shimmer {
+  0% { filter: brightness(1); }
+  50% { filter: brightness(1.08); }
+  100% { filter: brightness(1); }
 }
 
-h1::before {
-  content: '';
-  position: absolute;
-  top: -10px;
-  left: -10px;
-  right: -10px;
-  bottom: -10px;
-  background: radial-gradient(circle, var(--dawn-hint) 0%, transparent 70%);
-  animation: dawn-approaching 45s ease-in-out forwards;
-  z-index: -1;
-  pointer-events: none;
+h1, h2 {
+  animation: sunrise-shimmer 8s ease-in-out infinite;
+}
+
+/* Warm glow pulse for interactive elements */
+@keyframes warm-pulse {
+  0%, 100% { box-shadow: 0 0 20px rgba(245, 184, 120, 0.15); }
+  50% { box-shadow: 0 0 35px rgba(245, 184, 120, 0.25); }
+}
+
+button:hover, .button:hover {
+  animation: warm-pulse 2s ease-in-out infinite;
 }
