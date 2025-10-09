@@ -1,44 +1,44 @@
-/* Generated: 2025-10-09T07:00:00Z
- * Hour: 07 (Early Morning), Season: Fall (October), Day: 282
- * Theme: Morning Glow - NYC awakening with warm autumn sunrise
+/* Generated: 2025-10-09T08:00:00Z
+ * Hour: 08 (Early Morning Brightening), Season: Fall (October), Day: 282
+ * Theme: Autumn Dawn - NYC awakening with warm sunrise light and fall colors
  */
 
 :root {
-  /* Early morning warmth - sunrise brightening over fall foliage */
-  --bg-primary: linear-gradient(135deg, #3a2f24 0%, #4d4037 50%, #5c4d41 100%);
-  --bg-secondary: rgba(58, 47, 36, 0.95);
-  --bg-card: rgba(68, 54, 43, 0.94);
-  --bg-tertiary: #4a3a2e;
+  /* Early morning warmth - sunrise getting brighter with fall warmth */
+  --bg-primary: linear-gradient(135deg, #4a3d32 0%, #5e4e41 50%, #6b5a4c 100%);
+  --bg-secondary: rgba(68, 56, 45, 0.94);
+  --bg-card: rgba(80, 66, 54, 0.93);
+  --bg-tertiary: #5a4939;
 
-  /* Text colors: Brighter as sun rises */
-  --text-primary: #f9f0e3;
-  --text-secondary: #e3cfb8;
-  --text-muted: #9d8469;
+  /* Text colors: Brighter as sun rises higher */
+  --text-primary: #fdf5e9;
+  --text-secondary: #ecddc5;
+  --text-muted: #b39779;
 
   /* Accent colors: Golden sunrise with autumn warmth */
-  --accent-primary: #e6a56a;
-  --accent-secondary: #c98747;
-  --accent-glow: #ffc685;
-  --accent-sunrise: #ffd9a8;
+  --accent-primary: #f0b478;
+  --accent-secondary: #d59550;
+  --accent-glow: #ffd19a;
+  --accent-sunrise: #ffe4b8;
 
-  /* Morning atmosphere - warm sunrise hues */
-  --sunrise-sky: #5a7090;
-  --sunrise-orange: #f5ab6f;
-  --sunrise-gold: #ffd19d;
-  --morning-glow: rgba(255, 198, 133, 0.12);
+  /* Morning atmosphere - warming sunrise hues */
+  --sunrise-sky: #6a819a;
+  --sunrise-orange: #f8b97f;
+  --sunrise-gold: #ffdeb1;
+  --morning-glow: rgba(255, 209, 154, 0.14);
 
-  /* Fall colors: Autumn warmth illuminated by morning sun */
-  --fall-rust: #b56f3c;
-  --fall-amber: #dda860;
-  --fall-ochre: #e6bc7a;
-  --fall-shadow: #332416;
+  /* Fall colors: Autumn warmth illuminated by brightening sun */
+  --fall-rust: #c77d48;
+  --fall-amber: #e8b76c;
+  --fall-ochre: #f0c989;
+  --fall-shadow: #3d2c1d;
 
   /* Functional colors */
-  --border-subtle: rgba(230, 165, 106, 0.18);
-  --shadow-soft: 0 4px 18px rgba(0, 0, 0, 0.32);
-  --shadow-medium: 0 8px 30px rgba(0, 0, 0, 0.38);
-  --shadow-glow: 0 0 30px rgba(255, 198, 133, 0.22);
-  --overlay-warm: rgba(92, 77, 65, 0.5);
+  --border-subtle: rgba(240, 180, 120, 0.2);
+  --shadow-soft: 0 4px 16px rgba(0, 0, 0, 0.28);
+  --shadow-medium: 0 8px 28px rgba(0, 0, 0, 0.34);
+  --shadow-glow: 0 0 32px rgba(255, 209, 154, 0.26);
+  --overlay-warm: rgba(107, 90, 76, 0.48);
 }
 
 /* Global styles */
@@ -51,7 +51,7 @@ body {
   position: relative;
 }
 
-/* Morning ambiance - sunrise spreading across sky */
+/* Morning ambiance - sunrise spreading across sky, brighter */
 body::before {
   content: '';
   position: fixed;
@@ -60,16 +60,16 @@ body::before {
   right: 0;
   bottom: 0;
   background:
-    radial-gradient(ellipse at 85% 8%, rgba(255, 217, 168, 0.16) 0%, transparent 48%),
-    radial-gradient(ellipse at 50% 0%, rgba(245, 171, 111, 0.12) 0%, transparent 52%),
-    radial-gradient(circle at 15% 25%, rgba(230, 165, 106, 0.08) 0%, transparent 42%),
-    radial-gradient(circle at 65% 75%, rgba(92, 77, 65, 0.14) 0%, transparent 48%);
+    radial-gradient(ellipse at 80% 10%, rgba(255, 228, 184, 0.19) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 5%, rgba(248, 185, 127, 0.15) 0%, transparent 54%),
+    radial-gradient(circle at 20% 30%, rgba(240, 180, 120, 0.1) 0%, transparent 45%),
+    radial-gradient(circle at 70% 80%, rgba(107, 90, 76, 0.12) 0%, transparent 50%);
   pointer-events: none;
   z-index: -1;
-  opacity: 0.9;
+  opacity: 0.95;
 }
 
-/* Subtle morning texture - lightening */
+/* Subtle morning texture - lightening further */
 body::after {
   content: '';
   position: fixed;
@@ -82,18 +82,18 @@ body::after {
       45deg,
       transparent,
       transparent 3px,
-      rgba(255, 198, 133, 0.02) 3px,
-      rgba(255, 198, 133, 0.02) 6px
+      rgba(255, 209, 154, 0.025) 3px,
+      rgba(255, 209, 154, 0.025) 6px
     );
   pointer-events: none;
   z-index: -1;
-  opacity: 0.35;
+  opacity: 0.4;
 }
 
 /* Typography */
 h1, h2, h3, h4, h5, h6 {
   color: var(--accent-glow);
-  text-shadow: 0 2px 14px rgba(255, 198, 133, 0.3);
+  text-shadow: 0 2px 16px rgba(255, 209, 154, 0.35);
   margin-top: 1.5em;
   margin-bottom: 0.5em;
 }
@@ -104,7 +104,7 @@ h1 {
   -webkit-text-fill-color: transparent;
   background-clip: text;
   text-shadow: none;
-  filter: drop-shadow(0 2px 10px rgba(255, 198, 133, 0.25));
+  filter: drop-shadow(0 2px 12px rgba(255, 209, 154, 0.3));
 }
 
 a {
@@ -116,7 +116,7 @@ a {
 
 a:hover {
   color: var(--accent-glow);
-  text-shadow: 0 0 20px rgba(255, 198, 133, 0.4);
+  text-shadow: 0 0 22px rgba(255, 209, 154, 0.45);
 }
 
 a::after {
@@ -137,7 +137,7 @@ a:hover::after {
 /* Cards and containers */
 .card, .container, article, section {
   background: var(--bg-card);
-  backdrop-filter: blur(16px);
+  backdrop-filter: blur(18px);
   border: 1px solid var(--border-subtle);
   border-radius: 14px;
   padding: 1.5rem;
@@ -149,8 +149,8 @@ a:hover::after {
 .card:hover, article:hover {
   transform: translateY(-4px);
   box-shadow: var(--shadow-glow), var(--shadow-medium);
-  border-color: rgba(255, 198, 133, 0.32);
-  background: rgba(77, 64, 55, 0.94);
+  border-color: rgba(255, 209, 154, 0.35);
+  background: rgba(92, 78, 66, 0.93);
 }
 
 /* Buttons */
@@ -170,22 +170,22 @@ button:hover, .button:hover {
   background: linear-gradient(135deg, var(--accent-glow), var(--fall-amber));
   box-shadow: var(--shadow-glow), var(--shadow-medium);
   transform: translateY(-2px);
-  filter: brightness(1.2);
+  filter: brightness(1.15);
 }
 
 /* Header/Navigation */
 header, nav {
   background: var(--bg-secondary);
-  backdrop-filter: blur(20px);
+  backdrop-filter: blur(22px);
   border-bottom: 2px solid var(--fall-rust);
-  box-shadow: 0 2px 26px rgba(58, 47, 36, 0.65);
+  box-shadow: 0 2px 24px rgba(68, 56, 45, 0.6);
   padding: 1rem;
   margin-bottom: 2rem;
 }
 
 /* Code blocks */
 code, pre {
-  background: rgba(35, 25, 16, 0.92);
+  background: rgba(45, 33, 22, 0.9);
   border: 1px solid var(--fall-shadow);
   border-radius: 6px;
   font-family: 'Monaco', 'Courier New', monospace;
@@ -195,7 +195,7 @@ code, pre {
 pre {
   padding: 1rem;
   overflow-x: auto;
-  box-shadow: inset 0 2px 12px rgba(0, 0, 0, 0.48);
+  box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.42);
 }
 
 code {
@@ -215,7 +215,7 @@ input, textarea, select {
 input:focus, textarea:focus, select:focus {
   outline: none;
   border-color: var(--accent-primary);
-  box-shadow: 0 0 0 3px rgba(255, 198, 133, 0.24);
+  box-shadow: 0 0 0 3px rgba(255, 209, 154, 0.26);
 }
 
 /* Scrollbar */
@@ -245,15 +245,15 @@ input:focus, textarea:focus, select:focus {
 
 /* Glass morphism elements */
 .glass {
-  background: rgba(68, 54, 43, 0.85);
-  backdrop-filter: blur(24px) saturate(165%);
+  background: rgba(80, 66, 54, 0.85);
+  backdrop-filter: blur(26px) saturate(170%);
   border: 1px solid var(--border-subtle);
   box-shadow: var(--shadow-soft);
 }
 
 /* Ambient glow effect for important elements */
 .highlight, .featured, .accent {
-  box-shadow: 0 0 32px rgba(255, 198, 133, 0.26), var(--shadow-soft);
+  box-shadow: 0 0 34px rgba(255, 209, 154, 0.3), var(--shadow-soft);
   border-color: var(--accent-glow);
   color: var(--fall-amber);
 }
@@ -261,7 +261,7 @@ input:focus, textarea:focus, select:focus {
 /* Status indicators */
 .status-active {
   color: var(--accent-primary);
-  text-shadow: 0 0 18px rgba(255, 198, 133, 0.45);
+  text-shadow: 0 0 20px rgba(255, 209, 154, 0.5);
 }
 
 .status-info {
@@ -271,13 +271,13 @@ input:focus, textarea:focus, select:focus {
 /* Footer */
 footer {
   background: var(--bg-secondary);
-  backdrop-filter: blur(18px);
+  backdrop-filter: blur(20px);
   border-top: 2px solid var(--fall-rust);
   color: var(--text-secondary);
   padding: 2rem 1rem;
   margin-top: 3rem;
   text-align: center;
-  box-shadow: 0 -4px 26px rgba(0, 0, 0, 0.48);
+  box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.42);
 }
 
 /* Utility classes */
@@ -300,8 +300,8 @@ footer {
   }
 
   :root {
-    --shadow-soft: 0 2px 14px rgba(0, 0, 0, 0.32);
-    --shadow-medium: 0 4px 22px rgba(0, 0, 0, 0.38);
+    --shadow-soft: 0 2px 12px rgba(0, 0, 0, 0.28);
+    --shadow-medium: 0 4px 20px rgba(0, 0, 0, 0.34);
   }
 }
 
@@ -312,43 +312,43 @@ footer {
   transition-timing-function: ease;
 }
 
-/* Morning light spreading animation */
+/* Morning light spreading animation - brighter phase */
 @keyframes morning-spread {
-  0%, 100% { opacity: 0.8; }
+  0%, 100% { opacity: 0.85; }
   50% { opacity: 1; }
 }
 
 body::before {
-  animation: morning-spread 24s ease-in-out infinite;
+  animation: morning-spread 22s ease-in-out infinite;
 }
 
-/* Morning brightening glow */
+/* Morning brightening glow - more intense */
 @keyframes morning-brighten {
-  0%, 100% { opacity: 0.3; }
-  50% { opacity: 0.4; }
+  0%, 100% { opacity: 0.35; }
+  50% { opacity: 0.45; }
 }
 
 body::after {
-  animation: morning-brighten 18s ease-in-out infinite;
+  animation: morning-brighten 16s ease-in-out infinite;
 }
 
-/* Sunrise shimmer effect - more pronounced */
+/* Sunrise shimmer effect - more pronounced as sun rises */
 @keyframes sunrise-shimmer {
   0% { filter: brightness(1); }
-  50% { filter: brightness(1.12); }
+  50% { filter: brightness(1.15); }
   100% { filter: brightness(1); }
 }
 
 h1, h2 {
-  animation: sunrise-shimmer 7s ease-in-out infinite;
+  animation: sunrise-shimmer 6s ease-in-out infinite;
 }
 
-/* Warm glow pulse for interactive elements */
+/* Warm glow pulse for interactive elements - stronger */
 @keyframes warm-pulse {
-  0%, 100% { box-shadow: 0 0 24px rgba(255, 198, 133, 0.18); }
-  50% { box-shadow: 0 0 40px rgba(255, 198, 133, 0.3); }
+  0%, 100% { box-shadow: 0 0 26px rgba(255, 209, 154, 0.22); }
+  50% { box-shadow: 0 0 44px rgba(255, 209, 154, 0.36); }
 }
 
 button:hover, .button:hover {
-  animation: warm-pulse 1.8s ease-in-out infinite;
+  animation: warm-pulse 1.6s ease-in-out infinite;
 }
