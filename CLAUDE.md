@@ -18,9 +18,6 @@ gh run view <run-id> --log-failed
 
 # Auto-fix with Claude
 gh workflow run self-repair.yml -f run_id=<run-id>
-
-# Or from TUI
-/fix-workflows [run-id]
 ```
 
 ### Trigger Workflows
@@ -92,12 +89,12 @@ External (NYT, Glif) → Claude → data.json → deploy → site
 When workflows fail:
 
 1. `self-repair.yml` auto-triggers
-2. Handler gathers logs (`scripts/fix-workflows.sh`)
+2. Handler gathers logs (`scripts/debug-workflows.sh`)
 3. Claude analyzes root cause
 4. Implements fix (commit or PR)
 5. Done
 
-Or trigger manually: `/fix-workflows` in TUI or `gh workflow run self-repair.yml`
+Or trigger manually: `./scripts/debug-workflows.sh` or `gh workflow run self-repair.yml`
 
 ## Debugging Workflow Failures
 

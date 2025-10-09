@@ -82,16 +82,10 @@ jobs:
           RUN_ID="${{ steps.find_failure.outputs.run_id }}"
 
           # Make handler executable
-          chmod +x scripts/fix-workflows.sh
+          chmod +x scripts/debug-workflows.sh
 
-          # Run handler to prepare context
-          ./scripts/fix-workflows.sh "$RUN_ID" > handler_output.txt
-
-          # Extract paths from handler output
-          source handler_output.txt
-
-          echo "context_file=$REPAIR_CONTEXT_FILE" >> $GITHUB_OUTPUT
-          echo "analysis_dir=$ANALYSIS_DIR" >> $GITHUB_OUTPUT
+          # Run debug script
+          ./scripts/debug-workflows.sh > handler_output.txt
         env:
           GH_TOKEN: ${{ github.token }}
 
@@ -113,17 +107,11 @@ jobs:
             **Run ID**: ${{ steps.find_failure.outputs.run_id }}
             **View Run**: https://github.com/${{ github.repository }}/actions/runs/${{ steps.find_failure.outputs.run_id }}
 
-            Read the complete repair context from: ${{ steps.context.outputs.context_file }}
-
-            This file contains:
-            - Full run details and metadata
-            - Complete failure logs
-            - Common issues checklist
-            - Your repair instructions
+            Use `gh run view ${{ steps.find_failure.outputs.run_id }} --log-failed` to see the failure logs.
 
             **Your Mission**:
-            1. Read and analyze the repair context file
-            2. Identify the root cause of the failure in the CURRENT checked-out code
+            1. Analyze the failure logs to identify the root cause
+            2. Examine the CURRENT checked-out code to understand the issue
             3. Switch to main branch: `git checkout main && git pull origin main`
             4. Implement the appropriate fix:
                - Fix workflow YAML if it's a configuration issue
