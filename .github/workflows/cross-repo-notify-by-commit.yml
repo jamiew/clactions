@@ -1,0 +1,152 @@
+name: Cross-Repo Notify (By Commit)
+
+on:
+  schedule:
+    # Run every 8 hours
+    - cron: '0 */8 * * *'
+  workflow_dispatch:
+
+jobs:
+  notify-downstream:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Full history to analyze changes
+
+      - name: Analyze workflow changes
+        id: changes
+        run: |
+          # Find changes in .github/workflows/ from last 8 hours
+          SINCE="8 hours ago"
+
+          # Get commits that modified workflows
+          COMMITS=$(git log --since="$SINCE" --pretty=format:"%H" -- .github/workflows/)
+
+          if [ -z "$COMMITS" ]; then
+            echo "has_changes=false" >> $GITHUB_OUTPUT
+            echo "No workflow changes in the last 8 hours"
+            exit 0
+          fi
+
+          echo "has_changes=true" >> $GITHUB_OUTPUT
+
+          # Save commit list for Claude analysis
+          echo "$COMMITS" > /tmp/commits.txt
+
+          # Generate files changed summary
+          echo "## Modified Workflow Files" > /tmp/files-changed.txt
+          git log --since="$SINCE" --name-only --pretty=format: -- .github/workflows/ | sort -u | grep -v '^$' >> /tmp/files-changed.txt
+
+          # For each commit, get the full diff
+          mkdir -p /tmp/commit-diffs
+          for commit in $COMMITS; do
+            {
+              echo "=== COMMIT: $commit ==="
+              echo "Subject: $(git log -1 --pretty=format:'%s' $commit)"
+              echo "Author: $(git log -1 --pretty=format:'%an <%ae>' $commit)"
+              echo "Date: $(git log -1 --pretty=format:'%ai' $commit)"
+              echo ""
+              echo "Full commit message:"
+              git log -1 --pretty=format:'%B' $commit
+              echo ""
+              echo "Diff:"
+              git show $commit -- .github/workflows/
+              echo ""
+              echo "=== END COMMIT ==="
+              echo ""
+            } > /tmp/commit-diffs/${commit}.txt
+          done
+
+          # Combine all diffs for Claude
+          cat /tmp/commit-diffs/*.txt > /tmp/all-diffs.txt
+        env:
+          GH_TOKEN: ${{ github.token }}
+
+      - name: Analyze changes with Claude
+        if: steps.changes.outputs.has_changes == 'true'
+        uses: anthropics/claude-code-action@v1
+        with:
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          read_files: |
+            /tmp/all-diffs.txt
+            /tmp/files-changed.txt
+          write_files: |
+            /tmp/changelog.md
+          prompt: |
+            Analyze the workflow changes in /tmp/all-diffs.txt (which contains individual commit diffs from the last 8 hours).
+
+            Create a comprehensive changelog in /tmp/changelog.md with the following structure:
+
+            ## Summary
+            [2-3 sentence overview of what changed overall]
+
+            ## Key Changes
+            - [Bullet point highlighting most important change]
+            - [Another important change]
+            - [3-5 key changes total]
+
+            ## Changes by Commit
+
+            For each commit in the diff file, create an entry like:
+
+            ### [`short-hash`](https://github.com/jamiew/clactions/commit/FULL_HASH) - Commit Subject
+            *Author Name, Relative Time*
+
+            **Summary:** [1-2 sentence description of what this commit does]
+
+            **Changes:**
+            - [Specific change 1]
+            - [Specific change 2]
+            - [etc - be specific about files and functionality]
+
+            <details><summary>Full commit message</summary>
+
+            ```
+            [Include the full commit message if it has useful detail beyond the subject]
+            ```
+            </details>
+
+            ---
+
+            Be specific about:
+            - Which workflow files were modified
+            - What functionality changed (new jobs, changed schedules, different permissions, etc.)
+            - Why the change matters (if obvious from commit message or diff)
+            - Breaking changes or important behavioral changes
+
+            Focus on being informative for a downstream system that might be affected by these changes.
+            Do not include the raw diffs in the changelog - only your analysis.
+
+      - name: Create issue in issue-dump
+        if: steps.changes.outputs.has_changes == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.CROSS_REPO_PAT }}
+        run: |
+          TITLE="Workflow changes in jamiew/clactions ($(date -u '+%Y-%m-%d %H:%M UTC'))"
+
+          # Build issue body with changelog + footer
+          {
+            cat /tmp/changelog.md
+            echo ""
+            echo "---"
+            echo ""
+            echo "@claude Please review these workflow changes and update any affected documentation, API clients, or downstream systems that may be impacted."
+            echo ""
+            echo "**Repository:** jamiew/clactions"
+            echo "**Analysis method:** Per-commit (AI-analyzed)"
+            echo ""
+            echo "**Links:**"
+            echo "- [View workflow directory](https://github.com/jamiew/clactions/tree/main/.github/workflows)"
+            echo "- [Recent commits](https://github.com/jamiew/clactions/commits/main/.github/workflows)"
+            echo "- [This workflow run](https://github.com/jamiew/clactions/actions/runs/${{ github.run_id }})"
+          } > /tmp/issue-body.md
+
+          gh issue create \
+            --repo jamiew/issue-dump \
+            --title "$TITLE" \
+            --body-file /tmp/issue-body.md

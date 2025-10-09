@@ -1,9 +1,15 @@
-name: Cross-Repo Notify
+name: Cross-Repo Notify (DEPRECATED)
+
+# DEPRECATED: This workflow has been replaced by two better versions:
+# - cross-repo-notify-by-commit.yml - Analyzes each commit individually
+# - cross-repo-notify-unified.yml - Holistic analysis of all changes
+#
+# This version is kept for reference but disabled.
 
 on:
-  schedule:
-    # Run every 8 hours
-    - cron: '0 */8 * * *'
+  # Disabled - use new workflows instead
+  # schedule:
+  #   - cron: '0 */8 * * *'
   workflow_dispatch:
 
 jobs:

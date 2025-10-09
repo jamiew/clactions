@@ -1,0 +1,181 @@
+name: Cross-Repo Notify (Unified)
+
+on:
+  schedule:
+    # Run every 8 hours
+    - cron: '0 */8 * * *'
+  workflow_dispatch:
+
+jobs:
+  notify-downstream:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Full history to analyze changes
+
+      - name: Analyze workflow changes
+        id: changes
+        run: |
+          # Find changes in .github/workflows/ from last 8 hours
+          SINCE="8 hours ago"
+
+          # Get commits that modified workflows
+          COMMITS=$(git log --since="$SINCE" --pretty=format:"%H" -- .github/workflows/)
+
+          if [ -z "$COMMITS" ]; then
+            echo "has_changes=false" >> $GITHUB_OUTPUT
+            echo "No workflow changes in the last 8 hours"
+            exit 0
+          fi
+
+          echo "has_changes=true" >> $GITHUB_OUTPUT
+
+          # Get the oldest and newest commits
+          OLDEST_COMMIT=$(echo "$COMMITS" | tail -1)
+          NEWEST_COMMIT=$(echo "$COMMITS" | head -1)
+
+          echo "oldest=$OLDEST_COMMIT" >> $GITHUB_OUTPUT
+          echo "newest=$NEWEST_COMMIT" >> $GITHUB_OUTPUT
+
+          # Generate unified diff of all workflow changes in this period
+          # Compare: (parent of oldest commit)..newest commit
+          PARENT_COMMIT="${OLDEST_COMMIT}^"
+
+          {
+            echo "=== UNIFIED DIFF OF ALL WORKFLOW CHANGES ==="
+            echo "Time period: Last 8 hours"
+            echo "From commit: $PARENT_COMMIT"
+            echo "To commit: $NEWEST_COMMIT"
+            echo ""
+            echo "Files changed:"
+            git diff --stat $PARENT_COMMIT..$NEWEST_COMMIT -- .github/workflows/
+            echo ""
+            echo "=== FULL DIFF ==="
+            echo ""
+            git diff $PARENT_COMMIT..$NEWEST_COMMIT -- .github/workflows/
+          } > /tmp/unified-diff.txt
+
+          # Also save commit list for reference
+          {
+            echo "=== COMMITS IN THIS PERIOD ==="
+            for commit in $COMMITS; do
+              echo "---"
+              echo "Commit: $commit"
+              echo "Subject: $(git log -1 --pretty=format:'%s' $commit)"
+              echo "Author: $(git log -1 --pretty=format:'%an' $commit)"
+              echo "Date: $(git log -1 --pretty=format:'%ai' $commit)"
+              echo "Message:"
+              git log -1 --pretty=format:'%B' $commit
+              echo ""
+            done
+          } > /tmp/commits-list.txt
+        env:
+          GH_TOKEN: ${{ github.token }}
+
+      - name: Analyze changes with Claude
+        if: steps.changes.outputs.has_changes == 'true'
+        uses: anthropics/claude-code-action@v1
+        with:
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          read_files: |
+            /tmp/unified-diff.txt
+            /tmp/commits-list.txt
+          write_files: |
+            /tmp/changelog.md
+          prompt: |
+            Analyze the unified diff in /tmp/unified-diff.txt which shows all workflow changes from the last 8 hours.
+            Reference /tmp/commits-list.txt for commit context and messages.
+
+            Create a comprehensive changelog in /tmp/changelog.md with this structure:
+
+            ## 🔄 Workflow Changelog
+
+            ### Summary
+            [2-4 sentences describing the overall theme of changes - e.g., "Major refactoring of data workflows", "New features added for X", "Bug fixes and performance improvements", etc.]
+
+            ### Highlights
+            - ✨ [Most important new feature or change]
+            - 🔧 [Important fix or improvement]
+            - 🏗️ [Architectural or structural change]
+            - [2-5 highlights total, use emojis to categorize: ✨ feature, 🔧 fix, 🏗️ refactor, 📝 docs, ⚡ perf, 🔒 security]
+
+            ### What Changed
+
+            #### New Workflows
+            - **workflow-name.yml** - [What it does and why it was added]
+            [Only include if new workflows were added]
+
+            #### Modified Workflows
+            For each modified workflow file:
+
+            **`workflow-name.yml`**
+            - [Specific change with impact - e.g., "Changed schedule from hourly to every 8 hours to reduce API usage"]
+            - [Another specific change]
+            - [Be concrete about what changed and why it matters]
+
+            #### Removed Workflows
+            - **old-workflow.yml** - [What it did and why it was removed]
+            [Only include if workflows were removed]
+
+            ### Impact Assessment
+            [1-2 paragraphs describing potential impacts on downstream systems, APIs, documentation, or dependencies]
+
+            ### Technical Details
+            <details><summary>View detailed changes</summary>
+
+            #### Modified Files Summary
+            [Include the stat output showing files changed and line counts]
+
+            #### Commits in This Period
+            [List commits with their full messages for reference]
+
+            </details>
+
+            ---
+
+            Guidelines:
+            - Look at the UNIFIED diff to understand the net effect of all changes
+            - Focus on functional changes, not just file renames (but do mention significant renames)
+            - Identify patterns across multiple changes (e.g., "All data workflows now use commit-fetch-rebase-push pattern")
+            - Call out breaking changes or important behavioral changes
+            - Be specific about schedule changes, permission changes, new dependencies, etc.
+            - Group related changes together
+            - Write for an audience that needs to understand downstream impacts
+
+            Do NOT include raw diffs in the main changelog body - only in the technical details section if needed.
+
+      - name: Create issue in issue-dump
+        if: steps.changes.outputs.has_changes == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.CROSS_REPO_PAT }}
+        run: |
+          TITLE="🔄 Workflow changes in jamiew/clactions ($(date -u '+%Y-%m-%d %H:%M UTC'))"
+
+          # Build issue body with changelog + footer
+          {
+            cat /tmp/changelog.md
+            echo ""
+            echo "---"
+            echo ""
+            echo "@claude Please review these workflow changes and update any affected documentation, API clients, or downstream systems that may be impacted."
+            echo ""
+            echo "**Repository:** \`jamiew/clactions\`"
+            echo "**Analysis method:** Unified diff (holistic AI analysis)"
+            echo "**Period:** Last 8 hours"
+            echo ""
+            echo "**Quick Links:**"
+            echo "- 📁 [View workflow directory](https://github.com/jamiew/clactions/tree/main/.github/workflows)"
+            echo "- 📝 [Recent commits](https://github.com/jamiew/clactions/commits/main/.github/workflows)"
+            echo "- 🔗 [Diff: ${{ steps.changes.outputs.oldest }}...${{ steps.changes.outputs.newest }}](https://github.com/jamiew/clactions/compare/${{ steps.changes.outputs.oldest }}...${{ steps.changes.outputs.newest }})"
+            echo "- ⚙️ [This workflow run](https://github.com/jamiew/clactions/actions/runs/${{ github.run_id }})"
+          } > /tmp/issue-body.md
+
+          gh issue create \
+            --repo jamiew/issue-dump \
+            --title "$TITLE" \
+            --body-file /tmp/issue-body.md
