@@ -1,41 +1,41 @@
-/* Generated: 2025-10-09T22:00:00
- * Hour: 22 (10 PM), Season: Fall, Weather: Unknown
- * Theme: Late night autumn NYC - deep indigo sky, warm street lights, urban calm
+/* Generated: 2025-10-09T23:00:00
+ * Hour: 23 (11 PM), Season: Fall, Weather: Unknown
+ * Theme: Deepest night autumn NYC - velvet darkness, rare amber lights, urban quietude
  */
 
 :root {
-  /* Core palette: Deep night sky with warm city glow */
-  --bg-primary: linear-gradient(135deg, #0f1218 0%, #1a1d26 100%);
-  --bg-secondary: rgba(26, 29, 38, 0.90);
-  --bg-card: rgba(35, 40, 51, 0.94);
-  --bg-tertiary: #232833;
+  /* Core palette: Deepening night with fading city glow */
+  --bg-primary: linear-gradient(135deg, #0a0c11 0%, #12151c 100%);
+  --bg-secondary: rgba(18, 21, 28, 0.92);
+  --bg-card: rgba(25, 30, 38, 0.95);
+  --bg-tertiary: #1a1d24;
 
-  /* Text colors: Soft, easy on eyes for late night reading */
-  --text-primary: #ebe7df;
-  --text-secondary: #bdb9ae;
-  --text-muted: #6e6a60;
+  /* Text colors: Softer still for deep night reading */
+  --text-primary: #e3dfd5;
+  --text-secondary: #afa99e;
+  --text-muted: #5e5a50;
 
-  /* Accent colors: Warm amber street lights cutting through October night */
-  --accent-primary: #d9a76c;
-  --accent-secondary: #9d7a4f;
-  --accent-glow: #f5d5a4;
+  /* Accent colors: Dimmed amber of scattered late-night lights */
+  --accent-primary: #c9955c;
+  --accent-secondary: #8d6a42;
+  --accent-glow: #e5c794;
 
-  /* Late night autumn palette */
-  --night-indigo: #2b3447;
-  --night-deep: #161922;
-  --urban-amber: rgba(217, 167, 108, 0.12);
+  /* Deep night autumn palette */
+  --night-indigo: #1f2535;
+  --night-deep: #0f1118;
+  --urban-amber: rgba(201, 149, 92, 0.10);
 
-  /* Fall colors: Muted, nighttime versions */
-  --fall-rust: #b07554;
-  --fall-bronze: #c6904a;
-  --fall-shadow: #3d2c1f;
+  /* Fall colors: Deeper, quieter nighttime versions */
+  --fall-rust: #9d6344;
+  --fall-bronze: #b57d3a;
+  --fall-shadow: #2d1f14;
 
   /* Functional colors */
-  --border-subtle: rgba(189, 185, 174, 0.09);
-  --shadow-soft: 0 4px 20px rgba(0, 0, 0, 0.55);
-  --shadow-medium: 0 8px 38px rgba(0, 0, 0, 0.65);
-  --shadow-glow: 0 0 32px rgba(217, 167, 108, 0.20);
-  --overlay-dark: rgba(15, 18, 24, 0.50);
+  --border-subtle: rgba(175, 169, 158, 0.07);
+  --shadow-soft: 0 4px 22px rgba(0, 0, 0, 0.60);
+  --shadow-medium: 0 8px 42px rgba(0, 0, 0, 0.70);
+  --shadow-glow: 0 0 28px rgba(201, 149, 92, 0.16);
+  --overlay-dark: rgba(10, 12, 17, 0.55);
 }
 
 /* Global styles */
@@ -48,7 +48,7 @@ body {
   position: relative;
 }
 
-/* Late night urban atmosphere - scattered street lights and deep sky */
+/* Deep night urban atmosphere - sparse, distant lights */
 body::before {
   content: '';
   position: fixed;
@@ -57,16 +57,16 @@ body::before {
   right: 0;
   bottom: 0;
   background:
-    radial-gradient(circle at 18% 22%, rgba(217, 167, 108, 0.08) 0%, transparent 42%),
-    radial-gradient(circle at 82% 68%, rgba(217, 167, 108, 0.06) 0%, transparent 48%),
-    radial-gradient(circle at 45% 85%, rgba(43, 52, 71, 0.14) 0%, transparent 55%),
-    radial-gradient(circle at 65% 15%, rgba(217, 167, 108, 0.05) 0%, transparent 40%);
+    radial-gradient(circle at 15% 18%, rgba(201, 149, 92, 0.06) 0%, transparent 38%),
+    radial-gradient(circle at 85% 72%, rgba(201, 149, 92, 0.04) 0%, transparent 44%),
+    radial-gradient(circle at 42% 88%, rgba(31, 37, 53, 0.12) 0%, transparent 52%),
+    radial-gradient(circle at 68% 12%, rgba(201, 149, 92, 0.03) 0%, transparent 36%);
   pointer-events: none;
   z-index: -1;
-  opacity: 0.70;
+  opacity: 0.65;
 }
 
-/* Subtle starry night effect */
+/* Quieter starry night effect */
 body::after {
   content: '';
   position: fixed;
@@ -75,19 +75,19 @@ body::after {
   right: 0;
   bottom: 0;
   background-image:
-    radial-gradient(circle, rgba(255, 255, 255, 0.15) 1px, transparent 1px),
-    radial-gradient(circle, rgba(255, 255, 255, 0.1) 1px, transparent 1px);
-  background-size: 50px 50px, 80px 80px;
-  background-position: 0 0, 25px 25px;
+    radial-gradient(circle, rgba(255, 255, 255, 0.12) 1px, transparent 1px),
+    radial-gradient(circle, rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+  background-size: 60px 60px, 90px 90px;
+  background-position: 0 0, 30px 30px;
   pointer-events: none;
   z-index: -1;
-  opacity: 0.08;
+  opacity: 0.06;
 }
 
 /* Typography */
 h1, h2, h3, h4, h5, h6 {
   color: var(--accent-glow);
-  text-shadow: 0 2px 16px rgba(245, 213, 164, 0.16);
+  text-shadow: 0 2px 14px rgba(229, 199, 148, 0.14);
   margin-top: 1.5em;
   margin-bottom: 0.5em;
 }
@@ -109,7 +109,7 @@ a {
 
 a:hover {
   color: var(--accent-glow);
-  text-shadow: 0 0 20px rgba(217, 167, 108, 0.32);
+  text-shadow: 0 0 18px rgba(201, 149, 92, 0.28);
 }
 
 a::after {
@@ -130,7 +130,7 @@ a:hover::after {
 /* Cards and containers */
 .card, .container, article, section {
   background: var(--bg-card);
-  backdrop-filter: blur(16px);
+  backdrop-filter: blur(18px);
   border: 1px solid var(--border-subtle);
   border-radius: 16px;
   padding: 1.5rem;
@@ -142,7 +142,7 @@ a:hover::after {
 .card:hover, article:hover {
   transform: translateY(-3px);
   box-shadow: var(--shadow-glow), var(--shadow-medium);
-  border-color: rgba(217, 167, 108, 0.25);
+  border-color: rgba(201, 149, 92, 0.22);
 }
 
 /* Buttons */
@@ -168,16 +168,16 @@ button:hover, .button:hover {
 /* Header/Navigation */
 header, nav {
   background: var(--bg-secondary);
-  backdrop-filter: blur(20px);
+  backdrop-filter: blur(22px);
   border-bottom: 2px solid var(--night-indigo);
-  box-shadow: 0 2px 28px rgba(22, 25, 34, 0.75);
+  box-shadow: 0 2px 32px rgba(15, 17, 24, 0.80);
   padding: 1rem;
   margin-bottom: 2rem;
 }
 
 /* Code blocks */
 code, pre {
-  background: rgba(22, 25, 34, 0.80);
+  background: rgba(15, 17, 24, 0.85);
   border: 1px solid var(--night-indigo);
   border-radius: 6px;
   font-family: 'Monaco', 'Courier New', monospace;
@@ -187,7 +187,7 @@ code, pre {
 pre {
   padding: 1rem;
   overflow-x: auto;
-  box-shadow: inset 0 2px 12px rgba(0, 0, 0, 0.45);
+  box-shadow: inset 0 2px 14px rgba(0, 0, 0, 0.50);
 }
 
 code {
@@ -207,7 +207,7 @@ input, textarea, select {
 input:focus, textarea:focus, select:focus {
   outline: none;
   border-color: var(--accent-primary);
-  box-shadow: 0 0 0 3px rgba(217, 167, 108, 0.18);
+  box-shadow: 0 0 0 3px rgba(201, 149, 92, 0.15);
 }
 
 /* Scrollbar */
@@ -237,15 +237,15 @@ input:focus, textarea:focus, select:focus {
 
 /* Glass morphism elements */
 .glass {
-  background: rgba(26, 29, 38, 0.68);
-  backdrop-filter: blur(24px) saturate(165%);
+  background: rgba(18, 21, 28, 0.70);
+  backdrop-filter: blur(26px) saturate(160%);
   border: 1px solid var(--border-subtle);
   box-shadow: var(--shadow-soft);
 }
 
 /* Ambient glow effect for important elements */
 .highlight, .featured, .accent {
-  box-shadow: 0 0 30px rgba(217, 167, 108, 0.16), var(--shadow-soft);
+  box-shadow: 0 0 26px rgba(201, 149, 92, 0.14), var(--shadow-soft);
   border-color: var(--accent-secondary);
   color: var(--fall-bronze);
 }
@@ -253,7 +253,7 @@ input:focus, textarea:focus, select:focus {
 /* Status indicators */
 .status-active {
   color: var(--accent-primary);
-  text-shadow: 0 0 16px rgba(217, 167, 108, 0.40);
+  text-shadow: 0 0 14px rgba(201, 149, 92, 0.36);
 }
 
 .status-info {
@@ -263,13 +263,13 @@ input:focus, textarea:focus, select:focus {
 /* Footer */
 footer {
   background: var(--bg-secondary);
-  backdrop-filter: blur(16px);
+  backdrop-filter: blur(18px);
   border-top: 2px solid var(--night-indigo);
   color: var(--text-secondary);
   padding: 2rem 1rem;
   margin-top: 3rem;
   text-align: center;
-  box-shadow: 0 -4px 28px rgba(0, 0, 0, 0.45);
+  box-shadow: 0 -4px 32px rgba(0, 0, 0, 0.50);
 }
 
 /* Utility classes */
@@ -292,8 +292,8 @@ footer {
   }
 
   :root {
-    --shadow-soft: 0 2px 14px rgba(0, 0, 0, 0.55);
-    --shadow-medium: 0 4px 24px rgba(0, 0, 0, 0.65);
+    --shadow-soft: 0 2px 16px rgba(0, 0, 0, 0.60);
+    --shadow-medium: 0 4px 28px rgba(0, 0, 0, 0.70);
   }
 }
 
@@ -304,12 +304,12 @@ footer {
   transition-timing-function: ease;
 }
 
-/* Quiet night ambience - gentle pulse */
+/* Deep night quietude - slower, gentler pulse */
 @keyframes night-breathe {
-  0%, 100% { opacity: 0.70; }
-  50% { opacity: 0.85; }
+  0%, 100% { opacity: 0.65; }
+  50% { opacity: 0.78; }
 }
 
 body::before {
-  animation: night-breathe 12s ease-in-out infinite;
+  animation: night-breathe 15s ease-in-out infinite;
 }
