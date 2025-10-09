@@ -1,41 +1,41 @@
-/* Generated: 2025-10-09T00:00:00Z
- * Hour: 00 (Midnight), Season: Fall, Weather: Unknown
- * Theme: Midnight hour NYC autumn - the reset, deep calm, muted amber city lights, urban stillness
+/* Generated: 2025-10-09T01:00:00Z
+ * Hour: 01 (Deep Night), Season: Fall (October), Weather: Unknown
+ * Theme: The Quietest Hour - NYC asleep, deep indigo night, faint amber glow from distant streets
  */
 
 :root {
-  /* Core midnight palette: Darkest hour before dawn */
-  --bg-primary: linear-gradient(135deg, #0d0f13 0%, #15181f 100%);
-  --bg-secondary: rgba(21, 24, 31, 0.94);
-  --bg-card: rgba(28, 32, 40, 0.96);
-  --bg-tertiary: #1d2028;
+  /* Core deep night palette: The city rests */
+  --bg-primary: linear-gradient(135deg, #0a0d12 0%, #12151c 100%);
+  --bg-secondary: rgba(18, 21, 28, 0.95);
+  --bg-card: rgba(24, 28, 36, 0.97);
+  --bg-tertiary: #181c24;
 
-  /* Text colors: Muted for midnight reading */
-  --text-primary: #ddd9cf;
-  --text-secondary: #a59f92;
-  --text-muted: #595549;
+  /* Text colors: Soft for deep night reading */
+  --text-primary: #dddad0;
+  --text-secondary: #a7a199;
+  --text-muted: #5a564d;
 
-  /* Accent colors: Barely glowing embers of city lights */
-  --accent-primary: #ba8e5a;
-  --accent-secondary: #866838;
-  --accent-glow: #d9b583;
+  /* Accent colors: Muted autumn embers in the darkness */
+  --accent-primary: #b8915e;
+  --accent-secondary: #8a6c3f;
+  --accent-glow: #d7b788;
 
-  /* Midnight autumn palette */
-  --night-indigo: #202634;
-  --night-deepest: #0a0c0f;
-  --urban-amber: rgba(186, 142, 90, 0.08);
+  /* Deep night palette */
+  --night-indigo: #1a1f2e;
+  --night-deepest: #080a0e;
+  --urban-amber: rgba(184, 145, 94, 0.07);
 
   /* Fall colors: Quietest nighttime versions */
-  --fall-rust: #945e3f;
-  --fall-bronze: #a87437;
-  --fall-shadow: #291c11;
+  --fall-rust: #95603d;
+  --fall-bronze: #a9763a;
+  --fall-shadow: #2a1d13;
 
   /* Functional colors */
-  --border-subtle: rgba(165, 159, 146, 0.06);
-  --shadow-soft: 0 4px 20px rgba(0, 0, 0, 0.65);
-  --shadow-medium: 0 8px 40px rgba(0, 0, 0, 0.75);
-  --shadow-glow: 0 0 24px rgba(186, 142, 90, 0.12);
-  --overlay-dark: rgba(13, 15, 19, 0.60);
+  --border-subtle: rgba(167, 161, 153, 0.07);
+  --shadow-soft: 0 4px 22px rgba(0, 0, 0, 0.68);
+  --shadow-medium: 0 8px 42px rgba(0, 0, 0, 0.77);
+  --shadow-glow: 0 0 26px rgba(184, 145, 94, 0.13);
+  --overlay-dark: rgba(10, 13, 18, 0.65);
 }
 
 /* Global styles */
@@ -48,7 +48,7 @@ body {
   position: relative;
 }
 
-/* Midnight urban atmosphere - stillest hour, distant glow */
+/* Deep night urban atmosphere - the quietest hour */
 body::before {
   content: '';
   position: fixed;
@@ -57,16 +57,16 @@ body::before {
   right: 0;
   bottom: 0;
   background:
-    radial-gradient(circle at 18% 22%, rgba(186, 142, 90, 0.05) 0%, transparent 36%),
-    radial-gradient(circle at 82% 68%, rgba(186, 142, 90, 0.03) 0%, transparent 42%),
-    radial-gradient(circle at 45% 85%, rgba(32, 38, 52, 0.10) 0%, transparent 48%),
-    radial-gradient(circle at 65% 15%, rgba(186, 142, 90, 0.02) 0%, transparent 34%);
+    radial-gradient(circle at 15% 20%, rgba(184, 145, 94, 0.04) 0%, transparent 38%),
+    radial-gradient(circle at 85% 65%, rgba(184, 145, 94, 0.02) 0%, transparent 44%),
+    radial-gradient(circle at 40% 88%, rgba(26, 31, 46, 0.12) 0%, transparent 50%),
+    radial-gradient(circle at 70% 12%, rgba(184, 145, 94, 0.03) 0%, transparent 36%);
   pointer-events: none;
   z-index: -1;
-  opacity: 0.60;
+  opacity: 0.65;
 }
 
-/* Subtle starfield for midnight hour */
+/* Subtle starfield for deep night */
 body::after {
   content: '';
   position: fixed;
@@ -75,19 +75,19 @@ body::after {
   right: 0;
   bottom: 0;
   background-image:
-    radial-gradient(circle, rgba(255, 255, 255, 0.10) 1px, transparent 1px),
-    radial-gradient(circle, rgba(255, 255, 255, 0.06) 1px, transparent 1px);
-  background-size: 65px 65px, 95px 95px;
-  background-position: 0 0, 32px 32px;
+    radial-gradient(circle, rgba(255, 255, 255, 0.09) 1px, transparent 1px),
+    radial-gradient(circle, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+  background-size: 70px 70px, 100px 100px;
+  background-position: 0 0, 35px 35px;
   pointer-events: none;
   z-index: -1;
-  opacity: 0.05;
+  opacity: 0.06;
 }
 
 /* Typography */
 h1, h2, h3, h4, h5, h6 {
   color: var(--accent-glow);
-  text-shadow: 0 2px 12px rgba(217, 181, 131, 0.12);
+  text-shadow: 0 2px 14px rgba(215, 183, 136, 0.14);
   margin-top: 1.5em;
   margin-bottom: 0.5em;
 }
@@ -109,7 +109,7 @@ a {
 
 a:hover {
   color: var(--accent-glow);
-  text-shadow: 0 0 16px rgba(186, 142, 90, 0.24);
+  text-shadow: 0 0 18px rgba(184, 145, 94, 0.26);
 }
 
 a::after {
@@ -130,7 +130,7 @@ a:hover::after {
 /* Cards and containers */
 .card, .container, article, section {
   background: var(--bg-card);
-  backdrop-filter: blur(16px);
+  backdrop-filter: blur(18px);
   border: 1px solid var(--border-subtle);
   border-radius: 16px;
   padding: 1.5rem;
@@ -142,7 +142,7 @@ a:hover::after {
 .card:hover, article:hover {
   transform: translateY(-3px);
   box-shadow: var(--shadow-glow), var(--shadow-medium);
-  border-color: rgba(186, 142, 90, 0.20);
+  border-color: rgba(184, 145, 94, 0.22);
 }
 
 /* Buttons */
@@ -162,22 +162,22 @@ button:hover, .button:hover {
   background: linear-gradient(135deg, var(--accent-glow), var(--fall-bronze));
   box-shadow: var(--shadow-glow), var(--shadow-medium);
   transform: translateY(-2px);
-  filter: brightness(1.12);
+  filter: brightness(1.14);
 }
 
 /* Header/Navigation */
 header, nav {
   background: var(--bg-secondary);
-  backdrop-filter: blur(20px);
+  backdrop-filter: blur(22px);
   border-bottom: 2px solid var(--night-indigo);
-  box-shadow: 0 2px 30px rgba(10, 12, 15, 0.85);
+  box-shadow: 0 2px 32px rgba(8, 10, 14, 0.88);
   padding: 1rem;
   margin-bottom: 2rem;
 }
 
 /* Code blocks */
 code, pre {
-  background: rgba(10, 12, 15, 0.90);
+  background: rgba(8, 10, 14, 0.92);
   border: 1px solid var(--night-indigo);
   border-radius: 6px;
   font-family: 'Monaco', 'Courier New', monospace;
@@ -187,7 +187,7 @@ code, pre {
 pre {
   padding: 1rem;
   overflow-x: auto;
-  box-shadow: inset 0 2px 12px rgba(0, 0, 0, 0.55);
+  box-shadow: inset 0 2px 14px rgba(0, 0, 0, 0.58);
 }
 
 code {
@@ -207,7 +207,7 @@ input, textarea, select {
 input:focus, textarea:focus, select:focus {
   outline: none;
   border-color: var(--accent-primary);
-  box-shadow: 0 0 0 3px rgba(186, 142, 90, 0.14);
+  box-shadow: 0 0 0 3px rgba(184, 145, 94, 0.16);
 }
 
 /* Scrollbar */
@@ -237,15 +237,15 @@ input:focus, textarea:focus, select:focus {
 
 /* Glass morphism elements */
 .glass {
-  background: rgba(21, 24, 31, 0.75);
-  backdrop-filter: blur(24px) saturate(150%);
+  background: rgba(18, 21, 28, 0.78);
+  backdrop-filter: blur(26px) saturate(150%);
   border: 1px solid var(--border-subtle);
   box-shadow: var(--shadow-soft);
 }
 
 /* Ambient glow effect for important elements */
 .highlight, .featured, .accent {
-  box-shadow: 0 0 22px rgba(186, 142, 90, 0.12), var(--shadow-soft);
+  box-shadow: 0 0 24px rgba(184, 145, 94, 0.14), var(--shadow-soft);
   border-color: var(--accent-secondary);
   color: var(--fall-bronze);
 }
@@ -253,7 +253,7 @@ input:focus, textarea:focus, select:focus {
 /* Status indicators */
 .status-active {
   color: var(--accent-primary);
-  text-shadow: 0 0 12px rgba(186, 142, 90, 0.32);
+  text-shadow: 0 0 14px rgba(184, 145, 94, 0.34);
 }
 
 .status-info {
@@ -263,13 +263,13 @@ input:focus, textarea:focus, select:focus {
 /* Footer */
 footer {
   background: var(--bg-secondary);
-  backdrop-filter: blur(16px);
+  backdrop-filter: blur(18px);
   border-top: 2px solid var(--night-indigo);
   color: var(--text-secondary);
   padding: 2rem 1rem;
   margin-top: 3rem;
   text-align: center;
-  box-shadow: 0 -4px 30px rgba(0, 0, 0, 0.55);
+  box-shadow: 0 -4px 32px rgba(0, 0, 0, 0.58);
 }
 
 /* Utility classes */
@@ -292,8 +292,8 @@ footer {
   }
 
   :root {
-    --shadow-soft: 0 2px 14px rgba(0, 0, 0, 0.65);
-    --shadow-medium: 0 4px 26px rgba(0, 0, 0, 0.75);
+    --shadow-soft: 0 2px 16px rgba(0, 0, 0, 0.68);
+    --shadow-medium: 0 4px 28px rgba(0, 0, 0, 0.77);
   }
 }
 
@@ -304,12 +304,12 @@ footer {
   transition-timing-function: ease;
 }
 
-/* Midnight hour - slowest, deepest breathing */
-@keyframes midnight-breathe {
-  0%, 100% { opacity: 0.60; }
-  50% { opacity: 0.72; }
+/* Deep night hour - gentle, slow breathing rhythm */
+@keyframes deep-night-breathe {
+  0%, 100% { opacity: 0.65; }
+  50% { opacity: 0.78; }
 }
 
 body::before {
-  animation: midnight-breathe 18s ease-in-out infinite;
+  animation: deep-night-breathe 20s ease-in-out infinite;
 }
