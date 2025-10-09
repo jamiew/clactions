@@ -1,50 +1,54 @@
-/* Generated: 2025-10-08T19:00:00Z
- * Hour: 19 (Evening), Month: October, Day: 281
- * Weather: Rain, 65°F
- * Vibe: Rainy October evening - moody, reflective, urban glow
+/* Generated: 2025-10-09T20:00:00Z
+ * Hour: 20 (Night), Season: Fall, Weather: Rain (65°F)
+ * Theme: Rainy Fall Evening - Moody, reflective, warm refuge from the storm
  */
 
 :root {
-  /* Core colors - rainy evening palette */
-  --bg-primary: linear-gradient(135deg, #1a1f2e 0%, #2d3548 100%);
-  --bg-secondary: rgba(45, 53, 72, 0.7);
-  --bg-card: rgba(58, 68, 92, 0.85);
-  --bg-glass: rgba(42, 50, 68, 0.6);
+  /* Core palette: Dark rainy night with warm interior glow */
+  --bg-primary: linear-gradient(135deg, #1a1d24 0%, #242931 100%);
+  --bg-secondary: rgba(36, 41, 49, 0.85);
+  --bg-card: rgba(45, 51, 61, 0.9);
+  --bg-tertiary: #2d333d;
 
-  /* Text colors - high contrast for rain-dim conditions */
-  --text-primary: #e8edf5;
-  --text-secondary: #b8c5db;
-  --text-muted: #8494b0;
+  /* Text colors: Soft, easy on the eyes */
+  --text-primary: #e8e6e3;
+  --text-secondary: #b8b5b0;
+  --text-muted: #7a7873;
 
-  /* Accent colors - warm city lights through rain */
-  --accent-primary: #ffa94d;
-  --accent-secondary: #ff8c42;
-  --accent-glow: #ffb366;
-  --accent-cool: #6c8fc9;
+  /* Accent colors: Warm amber/gold against cool rain */
+  --accent-primary: #d4a574;
+  --accent-secondary: #8b6f47;
+  --accent-glow: #f4c88a;
 
-  /* Autumn/October touches */
-  --autumn-orange: #d4835c;
-  --autumn-rust: #a85e3a;
+  /* Weather-specific: Rainy blues and reflective surfaces */
   --rain-blue: #4a5f7f;
-  --rain-gray: #5b6b85;
+  --rain-dark: #2a3645;
+  --wet-reflection: rgba(74, 95, 127, 0.12);
 
-  /* Effects */
-  --shadow-soft: 0 4px 20px rgba(0, 0, 0, 0.4);
+  /* Fall colors: Muted autumn warmth */
+  --fall-rust: #a86542;
+  --fall-amber: #c17d3a;
+  --fall-shadow: #3d2a1f;
+
+  /* Functional colors */
+  --border-subtle: rgba(180, 165, 145, 0.12);
+  --shadow-soft: 0 4px 16px rgba(0, 0, 0, 0.4);
   --shadow-medium: 0 8px 32px rgba(0, 0, 0, 0.5);
-  --shadow-glow: 0 0 40px rgba(255, 169, 77, 0.15);
-  --border-subtle: rgba(255, 255, 255, 0.1);
-  --overlay-rain: rgba(26, 31, 46, 0.3);
+  --shadow-glow: 0 0 24px rgba(212, 165, 116, 0.2);
+  --overlay-dark: rgba(26, 29, 36, 0.4);
 }
 
-/* Base styles */
+/* Global styles */
 body {
   background: var(--bg-primary);
   color: var(--text-primary);
-  transition: all 0.5s ease;
+  font-family: system-ui, -apple-system, sans-serif;
+  line-height: 1.6;
+  transition: background 0.5s ease;
   position: relative;
 }
 
-/* Rainy evening atmosphere overlay */
+/* Rainy night atmosphere with subtle wet reflections */
 body::before {
   content: '';
   position: fixed;
@@ -53,29 +57,35 @@ body::before {
   right: 0;
   bottom: 0;
   background:
-    radial-gradient(circle at 30% 20%, rgba(255, 169, 77, 0.08) 0%, transparent 40%),
-    radial-gradient(circle at 70% 60%, rgba(108, 143, 201, 0.12) 0%, transparent 50%);
+    radial-gradient(circle at 20% 30%, rgba(212, 165, 116, 0.06) 0%, transparent 40%),
+    radial-gradient(circle at 80% 70%, rgba(74, 95, 127, 0.1) 0%, transparent 50%),
+    repeating-linear-gradient(
+      90deg,
+      transparent,
+      transparent 3px,
+      var(--wet-reflection) 3px,
+      var(--wet-reflection) 4px
+    );
   pointer-events: none;
   z-index: -1;
+  opacity: 0.6;
 }
 
-/* Card/Container styles */
-.card, .container, article {
-  background: var(--bg-card);
-  backdrop-filter: blur(12px);
-  border: 1px solid var(--border-subtle);
-  border-radius: 16px;
-  box-shadow: var(--shadow-medium);
-  transition: all 0.3s ease;
+/* Typography */
+h1, h2, h3, h4, h5, h6 {
+  color: var(--accent-glow);
+  text-shadow: 0 2px 12px rgba(244, 200, 138, 0.15);
+  margin-top: 1.5em;
+  margin-bottom: 0.5em;
 }
 
-.card:hover, article:hover {
-  box-shadow: var(--shadow-glow), var(--shadow-medium);
-  border-color: rgba(255, 169, 77, 0.3);
-  transform: translateY(-2px);
+h1 {
+  background: linear-gradient(135deg, var(--accent-glow) 0%, var(--fall-amber) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
-/* Links and interactive elements */
 a {
   color: var(--accent-primary);
   text-decoration: none;
@@ -85,7 +95,7 @@ a {
 
 a:hover {
   color: var(--accent-glow);
-  text-shadow: 0 0 20px rgba(255, 169, 77, 0.4);
+  text-shadow: 0 0 16px rgba(212, 165, 116, 0.3);
 }
 
 a::after {
@@ -103,13 +113,31 @@ a:hover::after {
   width: 100%;
 }
 
+/* Cards and containers */
+.card, .container, article, section {
+  background: var(--bg-card);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--border-subtle);
+  border-radius: 16px;
+  padding: 1.5rem;
+  margin: 1rem 0;
+  box-shadow: var(--shadow-medium);
+  transition: all 0.3s ease;
+}
+
+.card:hover, article:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-glow), var(--shadow-medium);
+  border-color: rgba(212, 165, 116, 0.25);
+}
+
 /* Buttons */
 button, .button {
-  background: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-secondary) 100%);
-  color: #1a1f2e;
+  background: linear-gradient(135deg, var(--fall-amber), var(--fall-rust));
+  color: var(--text-primary);
   border: none;
   border-radius: 8px;
-  padding: 12px 24px;
+  padding: 0.75rem 1.5rem;
   font-weight: 600;
   cursor: pointer;
   box-shadow: var(--shadow-soft);
@@ -117,80 +145,145 @@ button, .button {
 }
 
 button:hover, .button:hover {
+  background: linear-gradient(135deg, var(--accent-glow), var(--fall-amber));
+  box-shadow: var(--shadow-glow), var(--shadow-medium);
   transform: translateY(-2px);
-  box-shadow: var(--shadow-glow), var(--shadow-soft);
   filter: brightness(1.1);
 }
 
-/* Headers */
-h1, h2, h3 {
+/* Header/Navigation */
+header, nav {
+  background: var(--bg-secondary);
+  backdrop-filter: blur(16px);
+  border-bottom: 2px solid var(--rain-blue);
+  box-shadow: 0 2px 20px rgba(42, 54, 69, 0.6);
+  padding: 1rem;
+  margin-bottom: 2rem;
+}
+
+/* Code blocks */
+code, pre {
+  background: rgba(42, 54, 69, 0.7);
+  border: 1px solid var(--rain-blue);
+  border-radius: 6px;
+  font-family: 'Monaco', 'Courier New', monospace;
+  color: var(--accent-glow);
+}
+
+pre {
+  padding: 1rem;
+  overflow-x: auto;
+  box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+code {
+  padding: 0.2rem 0.4rem;
+}
+
+/* Input fields */
+input, textarea, select {
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border-subtle);
+  border-radius: 6px;
   color: var(--text-primary);
-  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+  padding: 0.5rem 0.75rem;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
-h1 {
-  background: linear-gradient(135deg, var(--accent-glow) 0%, var(--autumn-orange) 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+input:focus, textarea:focus, select:focus {
+  outline: none;
+  border-color: var(--accent-primary);
+  box-shadow: 0 0 0 3px rgba(212, 165, 116, 0.15);
 }
 
-/* Subtle rain effect pattern */
-.content::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-image:
-    linear-gradient(transparent 50%, rgba(74, 95, 127, 0.03) 50%);
-  background-size: 100% 4px;
-  pointer-events: none;
-  opacity: 0.5;
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 12px;
 }
 
-/* Autumn accent elements */
-.accent, .highlight {
-  color: var(--autumn-orange);
-  font-weight: 600;
+::-webkit-scrollbar-track {
+  background: var(--rain-dark);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--rain-blue);
+  border-radius: 6px;
+  transition: background 0.2s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-secondary);
+}
+
+/* Selection */
+::selection {
+  background: var(--accent-secondary);
+  color: var(--text-primary);
 }
 
 /* Glass morphism elements */
 .glass {
-  background: var(--bg-glass);
+  background: rgba(36, 41, 49, 0.6);
   backdrop-filter: blur(20px) saturate(150%);
   border: 1px solid var(--border-subtle);
   box-shadow: var(--shadow-soft);
 }
 
-/* Code blocks - warm glow */
-pre, code {
-  background: rgba(26, 31, 46, 0.6);
-  border: 1px solid var(--rain-gray);
-  border-radius: 8px;
-  color: var(--accent-glow);
+/* Ambient glow effect for important elements */
+.highlight, .featured, .accent {
+  box-shadow: 0 0 24px rgba(212, 165, 116, 0.12), var(--shadow-soft);
+  border-color: var(--accent-secondary);
+  color: var(--fall-amber);
 }
 
 /* Status indicators */
 .status-active {
   color: var(--accent-primary);
-  text-shadow: 0 0 10px rgba(255, 169, 77, 0.5);
+  text-shadow: 0 0 12px rgba(212, 165, 116, 0.4);
 }
 
 .status-info {
-  color: var(--accent-cool);
+  color: var(--rain-blue);
 }
+
+/* Footer */
+footer {
+  background: var(--bg-secondary);
+  backdrop-filter: blur(12px);
+  border-top: 2px solid var(--rain-blue);
+  color: var(--text-secondary);
+  padding: 2rem 1rem;
+  margin-top: 3rem;
+  text-align: center;
+  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* Utility classes */
+.text-accent { color: var(--accent-primary); }
+.text-muted { color: var(--text-muted); }
+.bg-dark { background: var(--bg-tertiary); }
+.shadow { box-shadow: var(--shadow-soft); }
+.glow { box-shadow: var(--shadow-glow); }
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
+  body {
+    font-size: 14px;
+  }
+
+  .card, .container, article, section {
+    padding: 1rem;
+    margin: 0.75rem 0;
+    border-radius: 12px;
+  }
+
   :root {
     --shadow-soft: 0 2px 10px rgba(0, 0, 0, 0.4);
     --shadow-medium: 0 4px 16px rgba(0, 0, 0, 0.5);
   }
 }
 
-/* Smooth transitions for theme changes */
+/* Smooth transitions for dynamic theme changes */
 * {
   transition-property: background-color, border-color, color, box-shadow;
   transition-duration: 0.3s;
