@@ -1,41 +1,43 @@
-/* Generated: 2025-10-09T03:00:00Z
- * Hour: 03 (Deep Night), Season: Fall (October), Day: 282
- * Theme: The Quiet Watch - NYC at its darkest, ember glow in midnight depths
+/* Generated: 2025-10-09T04:00:00Z
+ * Hour: 04 (Deep Night - Pre-Dawn), Season: Fall (October), Day: 282
+ * Theme: The Darkest Hour - NYC at the threshold of dawn, autumn stillness
  */
 
 :root {
-  /* Deep night core - approaching darkest before dawn */
-  --bg-primary: linear-gradient(135deg, #060709 0%, #0d1015 100%);
-  --bg-secondary: rgba(13, 16, 21, 0.97);
-  --bg-card: rgba(18, 22, 28, 0.98);
-  --bg-tertiary: #121519;
+  /* The darkest hour - just before dawn breaks */
+  --bg-primary: linear-gradient(135deg, #050608 0%, #0a0d11 100%);
+  --bg-secondary: rgba(10, 13, 17, 0.98);
+  --bg-card: rgba(15, 18, 23, 0.98);
+  --bg-tertiary: #0f1114;
 
-  /* Text colors: Gentle on eyes at 3am */
-  --text-primary: #d6d3c9;
-  --text-secondary: #9f9b91;
-  --text-muted: #524e44;
+  /* Text colors: Maximum eye comfort at 4am */
+  --text-primary: #d3d0c6;
+  --text-secondary: #9a9689;
+  --text-muted: #4f4b40;
 
-  /* Accent colors: Deep autumn embers barely glowing */
-  --accent-primary: #a88354;
-  --accent-secondary: #7d5e37;
-  --accent-glow: #c9a577;
+  /* Accent colors: First hint of approaching dawn, autumn warmth */
+  --accent-primary: #a67d4e;
+  --accent-secondary: #7a5833;
+  --accent-glow: #c79e6f;
+  --accent-dawn: #d6b58a;
 
-  /* Deep night atmosphere */
-  --night-navy: #151a26;
-  --night-void: #060709;
-  --urban-glow: rgba(168, 131, 84, 0.05);
+  /* Deep pre-dawn atmosphere */
+  --night-navy: #121723;
+  --night-void: #050608;
+  --urban-glow: rgba(166, 125, 78, 0.04);
+  --dawn-hint: rgba(214, 181, 138, 0.03);
 
-  /* Fall colors: Midnight autumn palette */
-  --fall-rust: #85522f;
-  --fall-bronze: #996633;
-  --fall-shadow: #1f1409;
+  /* Fall colors: Deep autumn at darkest hour */
+  --fall-rust: #82502c;
+  --fall-bronze: #966530;
+  --fall-shadow: #1c1207;
 
   /* Functional colors */
-  --border-subtle: rgba(161, 157, 147, 0.06);
-  --shadow-soft: 0 4px 24px rgba(0, 0, 0, 0.72);
-  --shadow-medium: 0 8px 44px rgba(0, 0, 0, 0.8);
-  --shadow-glow: 0 0 28px rgba(168, 131, 84, 0.11);
-  --overlay-dark: rgba(8, 11, 16, 0.7);
+  --border-subtle: rgba(159, 150, 137, 0.055);
+  --shadow-soft: 0 4px 26px rgba(0, 0, 0, 0.76);
+  --shadow-medium: 0 8px 48px rgba(0, 0, 0, 0.82);
+  --shadow-glow: 0 0 30px rgba(166, 125, 78, 0.1);
+  --overlay-dark: rgba(6, 9, 13, 0.75);
 }
 
 /* Global styles */
@@ -48,7 +50,7 @@ body {
   position: relative;
 }
 
-/* Deep night ambiance - the stillest hours */
+/* Deep night ambiance - the darkest hour */
 body::before {
   content: '';
   position: fixed;
@@ -57,16 +59,16 @@ body::before {
   right: 0;
   bottom: 0;
   background:
-    radial-gradient(circle at 12% 18%, rgba(168, 131, 84, 0.03) 0%, transparent 40%),
-    radial-gradient(circle at 88% 70%, rgba(168, 131, 84, 0.02) 0%, transparent 46%),
-    radial-gradient(circle at 45% 92%, rgba(21, 26, 38, 0.14) 0%, transparent 52%),
-    radial-gradient(circle at 68% 8%, rgba(168, 131, 84, 0.025) 0%, transparent 38%);
+    radial-gradient(circle at 15% 15%, rgba(166, 125, 78, 0.025) 0%, transparent 42%),
+    radial-gradient(circle at 85% 68%, rgba(166, 125, 78, 0.018) 0%, transparent 48%),
+    radial-gradient(circle at 42% 88%, rgba(18, 23, 35, 0.16) 0%, transparent 54%),
+    radial-gradient(circle at 72% 12%, rgba(214, 181, 138, 0.02) 0%, transparent 40%);
   pointer-events: none;
   z-index: -1;
-  opacity: 0.6;
+  opacity: 0.58;
 }
 
-/* Sparse starfield - clearer at 2am */
+/* Sparse starfield - maximum visibility at darkest hour */
 body::after {
   content: '';
   position: fixed;
@@ -75,20 +77,20 @@ body::after {
   right: 0;
   bottom: 0;
   background-image:
-    radial-gradient(circle, rgba(255, 255, 255, 0.1) 1px, transparent 1px),
-    radial-gradient(circle, rgba(255, 255, 255, 0.06) 1px, transparent 1px),
-    radial-gradient(circle, rgba(201, 165, 119, 0.04) 1px, transparent 1px);
-  background-size: 80px 80px, 120px 120px, 150px 150px;
-  background-position: 0 0, 40px 40px, 70px 70px;
+    radial-gradient(circle, rgba(255, 255, 255, 0.11) 1px, transparent 1px),
+    radial-gradient(circle, rgba(255, 255, 255, 0.07) 1px, transparent 1px),
+    radial-gradient(circle, rgba(199, 158, 111, 0.045) 1px, transparent 1px);
+  background-size: 85px 85px, 125px 125px, 155px 155px;
+  background-position: 0 0, 42px 42px, 72px 72px;
   pointer-events: none;
   z-index: -1;
-  opacity: 0.07;
+  opacity: 0.075;
 }
 
 /* Typography */
 h1, h2, h3, h4, h5, h6 {
   color: var(--accent-glow);
-  text-shadow: 0 2px 16px rgba(201, 165, 119, 0.12);
+  text-shadow: 0 2px 18px rgba(199, 158, 111, 0.11);
   margin-top: 1.5em;
   margin-bottom: 0.5em;
 }
@@ -110,7 +112,7 @@ a {
 
 a:hover {
   color: var(--accent-glow);
-  text-shadow: 0 0 20px rgba(168, 131, 84, 0.24);
+  text-shadow: 0 0 22px rgba(166, 125, 78, 0.22);
 }
 
 a::after {
@@ -131,7 +133,7 @@ a:hover::after {
 /* Cards and containers */
 .card, .container, article, section {
   background: var(--bg-card);
-  backdrop-filter: blur(20px);
+  backdrop-filter: blur(22px);
   border: 1px solid var(--border-subtle);
   border-radius: 16px;
   padding: 1.5rem;
@@ -143,7 +145,7 @@ a:hover::after {
 .card:hover, article:hover {
   transform: translateY(-3px);
   box-shadow: var(--shadow-glow), var(--shadow-medium);
-  border-color: rgba(168, 131, 84, 0.2);
+  border-color: rgba(166, 125, 78, 0.18);
 }
 
 /* Buttons */
@@ -163,22 +165,22 @@ button:hover, .button:hover {
   background: linear-gradient(135deg, var(--accent-glow), var(--fall-bronze));
   box-shadow: var(--shadow-glow), var(--shadow-medium);
   transform: translateY(-2px);
-  filter: brightness(1.12);
+  filter: brightness(1.14);
 }
 
 /* Header/Navigation */
 header, nav {
   background: var(--bg-secondary);
-  backdrop-filter: blur(24px);
+  backdrop-filter: blur(26px);
   border-bottom: 2px solid var(--night-navy);
-  box-shadow: 0 2px 36px rgba(6, 7, 9, 0.9);
+  box-shadow: 0 2px 38px rgba(5, 6, 8, 0.92);
   padding: 1rem;
   margin-bottom: 2rem;
 }
 
 /* Code blocks */
 code, pre {
-  background: rgba(6, 7, 9, 0.94);
+  background: rgba(5, 6, 8, 0.95);
   border: 1px solid var(--night-navy);
   border-radius: 6px;
   font-family: 'Monaco', 'Courier New', monospace;
@@ -188,7 +190,7 @@ code, pre {
 pre {
   padding: 1rem;
   overflow-x: auto;
-  box-shadow: inset 0 2px 16px rgba(0, 0, 0, 0.6);
+  box-shadow: inset 0 2px 18px rgba(0, 0, 0, 0.65);
 }
 
 code {
@@ -208,7 +210,7 @@ input, textarea, select {
 input:focus, textarea:focus, select:focus {
   outline: none;
   border-color: var(--accent-primary);
-  box-shadow: 0 0 0 3px rgba(168, 131, 84, 0.14);
+  box-shadow: 0 0 0 3px rgba(166, 125, 78, 0.13);
 }
 
 /* Scrollbar */
@@ -238,15 +240,15 @@ input:focus, textarea:focus, select:focus {
 
 /* Glass morphism elements */
 .glass {
-  background: rgba(15, 19, 25, 0.8);
-  backdrop-filter: blur(28px) saturate(160%);
+  background: rgba(13, 16, 21, 0.82);
+  backdrop-filter: blur(30px) saturate(165%);
   border: 1px solid var(--border-subtle);
   box-shadow: var(--shadow-soft);
 }
 
 /* Ambient glow effect for important elements */
 .highlight, .featured, .accent {
-  box-shadow: 0 0 26px rgba(168, 131, 84, 0.12), var(--shadow-soft);
+  box-shadow: 0 0 28px rgba(166, 125, 78, 0.11), var(--shadow-soft);
   border-color: var(--accent-secondary);
   color: var(--fall-bronze);
 }
@@ -254,7 +256,7 @@ input:focus, textarea:focus, select:focus {
 /* Status indicators */
 .status-active {
   color: var(--accent-primary);
-  text-shadow: 0 0 16px rgba(168, 131, 84, 0.3);
+  text-shadow: 0 0 18px rgba(166, 125, 78, 0.28);
 }
 
 .status-info {
@@ -264,13 +266,13 @@ input:focus, textarea:focus, select:focus {
 /* Footer */
 footer {
   background: var(--bg-secondary);
-  backdrop-filter: blur(20px);
+  backdrop-filter: blur(22px);
   border-top: 2px solid var(--night-navy);
   color: var(--text-secondary);
   padding: 2rem 1rem;
   margin-top: 3rem;
   text-align: center;
-  box-shadow: 0 -4px 36px rgba(0, 0, 0, 0.6);
+  box-shadow: 0 -4px 38px rgba(0, 0, 0, 0.64);
 }
 
 /* Utility classes */
@@ -293,8 +295,8 @@ footer {
   }
 
   :root {
-    --shadow-soft: 0 2px 18px rgba(0, 0, 0, 0.72);
-    --shadow-medium: 0 4px 30px rgba(0, 0, 0, 0.8);
+    --shadow-soft: 0 2px 20px rgba(0, 0, 0, 0.76);
+    --shadow-medium: 0 4px 32px rgba(0, 0, 0, 0.82);
   }
 }
 
@@ -305,22 +307,41 @@ footer {
   transition-timing-function: ease;
 }
 
-/* The quiet watch - deepest darkness before dawn */
-@keyframes quiet-watch-pulse {
-  0%, 100% { opacity: 0.55; }
-  50% { opacity: 0.7; }
+/* The darkest hour - stillness before dawn */
+@keyframes darkest-hour-pulse {
+  0%, 100% { opacity: 0.54; }
+  50% { opacity: 0.68; }
 }
 
 body::before {
-  animation: quiet-watch-pulse 24s ease-in-out infinite;
+  animation: darkest-hour-pulse 26s ease-in-out infinite;
 }
 
-/* Distant city lights shimmer */
-@keyframes distant-shimmer {
-  0%, 100% { opacity: 0.03; }
-  50% { opacity: 0.05; }
+/* Distant city lights fading */
+@keyframes distant-fade {
+  0%, 100% { opacity: 0.025; }
+  50% { opacity: 0.048; }
 }
 
 body::after {
-  animation: distant-shimmer 15s ease-in-out infinite;
+  animation: distant-fade 16s ease-in-out infinite;
+}
+
+/* Subtle dawn hint animation */
+@keyframes dawn-approach {
+  0% { opacity: 0; }
+  100% { opacity: 0.02; }
+}
+
+h1::before {
+  content: '';
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  right: -10px;
+  bottom: -10px;
+  background: radial-gradient(circle, var(--dawn-hint) 0%, transparent 70%);
+  animation: dawn-approach 60s ease-in-out forwards;
+  z-index: -1;
+  pointer-events: none;
 }
