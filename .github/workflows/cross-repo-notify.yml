@@ -53,13 +53,20 @@ jobs:
             echo ""
             echo ""
 
-            # Show diffs for each commit
-            echo "### Changes"
+            # Show compact diffs (stat + limited diff)
+            echo "### Changes Summary"
             for commit in $COMMITS; do
               echo "#### Commit: $(git log -1 --pretty=format:'%h - %s' $commit)"
+              echo ""
+              echo "**Files changed:**"
+              git show --stat $commit -- .github/workflows/
+              echo ""
+              echo "<details><summary>View diff (first 100 lines)</summary>"
+              echo ""
               echo '```diff'
-              git show $commit -- .github/workflows/ | head -200
+              git show $commit -- .github/workflows/ | head -100
               echo '```'
+              echo "</details>"
               echo ""
             done
 
@@ -67,9 +74,10 @@ jobs:
             echo ""
             echo "@claude Please review these workflow changes and update any affected documentation, API clients, or downstream systems in this repository that may be impacted."
             echo ""
-            echo "Repository: ${{ github.repository }}"
-            echo "Triggered by: ${{ github.event_name }}"
-            echo "Run: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+            echo "**Repository:** ${{ github.repository }}"
+            echo "**Triggered by:** ${{ github.event_name }}"
+            echo "**View commits:** ${{ github.server_url }}/${{ github.repository }}/commits/main/.github/workflows"
+            echo "**Workflow run:** ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
 
           } > /tmp/issue-body.md
 
