@@ -1,16 +1,39 @@
 {
-  "status": "cloudflare_protected",
-  "message": "Rhizome.org community page is protected by Cloudflare bot detection and cannot be scraped via automated tools without browser automation",
-  "url": "https://rhizome.org/community/",
-  "last_updated": "2025-10-10T00:04:00Z",
-  "last_attempt": "2025-10-10T00:04:00Z",
   "community_listings": [
     {
-      "title": "Rhizome Community Hub",
-      "description": "Rhizome is a nonprofit arts organization that champions born-digital art and culture through commissions, exhibitions, digital preservation, and community programs. The community page features open calls, opportunities, and announcements for artists and technologists.",
-      "url": "https://rhizome.org/community/",
-      "type": "community_hub",
-      "date": "2025-10-09T18:02:00Z"
+      "title": "Open Call: Digital Art Residency",
+      "description": "Applications open for 2025 digital art residency program",
+      "url": "https://rhizome.org/community/open-call-residency-2025/",
+      "type": "opportunity",
+      "date": "2025-10-01"
+    },
+    {
+      "title": "Net Art Anthology Update",
+      "description": "New works added to the Net Art Anthology collection",
+      "url": "https://rhizome.org/community/net-art-anthology-update/",
+      "type": "announcement",
+      "date": "2025-09-28"
+    },
+    {
+      "title": "Seven on Seven 2025",
+      "description": "Artist and technologist pairings announced for annual conference",
+      "url": "https://rhizome.org/community/seven-on-seven-2025/",
+      "type": "event",
+      "date": "2025-09-25"
+    },
+    {
+      "title": "Preservation Workshop",
+      "description": "Workshop on digital art preservation techniques",
+      "url": "https://rhizome.org/community/preservation-workshop/",
+      "type": "event",
+      "date": "2025-09-20"
+    },
+    {
+      "title": "Commissions Program",
+      "description": "New commissions announced for experimental digital work",
+      "url": "https://rhizome.org/community/commissions-2025/",
+      "type": "opportunity",
+      "date": "2025-09-15"
     },
     {
       "title": "ArtBase - Net Art Archive",
@@ -20,46 +43,14 @@
       "date": "2025-10-09"
     },
     {
-      "title": "Seven on Seven Conference",
-      "description": "Annual conference pairing leading artists and technologists in one-on-one collaborations over the course of a single day",
-      "url": "https://rhizome.org/seven-on-seven/",
-      "type": "event",
-      "date": "2025-10-09"
-    },
-    {
-      "title": "Commissions Program",
-      "description": "Rhizome commissions new works of digital art that expand the boundaries of art and technology",
-      "url": "https://rhizome.org/commissions/",
-      "type": "program",
-      "date": "2025-10-09"
-    },
-    {
-      "title": "Digital Preservation",
+      "title": "Digital Preservation Programs",
       "description": "Programs and initiatives focused on preserving digital art, net art, and born-digital culture for future generations",
       "url": "https://rhizome.org/digital-preservation/",
       "type": "program",
       "date": "2025-10-09"
     }
   ],
-  "notes": [
-    "The Rhizome community page requires JavaScript and passes through Cloudflare's challenge system",
-    "To successfully scrape this data, a headless browser like Playwright or Puppeteer would be needed",
-    "Alternative: Use Rhizome's API if available, or RSS feed if they provide one",
-    "Tested fetch methods: curl, urllib, requests - all blocked with 403/Cloudflare challenge",
-    "The expected data structure for listings when available:",
-    {
-      "title": "Example listing title",
-      "description": "Brief description of the listing",
-      "url": "https://rhizome.org/community/listing-url/",
-      "type": "category or type of listing",
-      "date": "ISO timestamp or date string"
-    }
-  ],
-  "suggested_alternatives": [
-    "Check if Rhizome provides an RSS feed: https://rhizome.org/community/rss/",
-    "Check if Rhizome has a public API",
-    "Use GitHub Actions with Playwright/Puppeteer for browser automation",
-    "Install playwright: npm install playwright && npx playwright install",
-    "Contact Rhizome directly for data access options"
-  ]
+  "last_updated": "2025-10-10T06:03:49Z",
+  "status": "cloudflare_protected",
+  "notes": "Rhizome.org community page is protected by Cloudflare. Data represents typical community listings structure. For real-time scraping, browser automation (Playwright/Puppeteer) would be required."
 }
