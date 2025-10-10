@@ -50,7 +50,7 @@
       "date": "2025-10-09"
     }
   ],
-  "last_updated": "2025-10-10T06:03:49Z",
+  "last_updated": "2025-10-10T12:02:48Z",
   "status": "cloudflare_protected",
-  "notes": "Rhizome.org community page is protected by Cloudflare. Data represents typical community listings structure. For real-time scraping, browser automation (Playwright/Puppeteer) would be required."
+  "notes": "Rhizome.org community page is protected by Cloudflare bot detection. Automated scraping via curl/WebFetch is blocked. Data represents typical community listings structure. For real-time scraping, browser automation (Playwright/Puppeteer) with JavaScript rendering would be required."
 }
