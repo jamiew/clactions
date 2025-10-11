@@ -1,56 +1,56 @@
 {
   "community_listings": [
     {
-      "title": "Open Call: Digital Art Residency",
-      "description": "Applications open for 2025 digital art residency program",
-      "url": "https://rhizome.org/community/open-call-residency-2025/",
-      "type": "opportunity",
-      "date": "2025-10-01"
-    },
-    {
-      "title": "Net Art Anthology Update",
-      "description": "New works added to the Net Art Anthology collection",
-      "url": "https://rhizome.org/community/net-art-anthology-update/",
-      "type": "announcement",
-      "date": "2025-09-28"
-    },
-    {
-      "title": "Seven on Seven 2025",
-      "description": "Artist and technologist pairings announced for annual conference",
-      "url": "https://rhizome.org/community/seven-on-seven-2025/",
-      "type": "event",
-      "date": "2025-09-25"
-    },
-    {
-      "title": "Preservation Workshop",
-      "description": "Workshop on digital art preservation techniques",
-      "url": "https://rhizome.org/community/preservation-workshop/",
-      "type": "event",
-      "date": "2025-09-20"
-    },
-    {
-      "title": "Commissions Program",
-      "description": "New commissions announced for experimental digital work",
-      "url": "https://rhizome.org/community/commissions-2025/",
-      "type": "opportunity",
-      "date": "2025-09-15"
-    },
-    {
       "title": "ArtBase - Net Art Archive",
       "description": "An archive of over 2,000 works of net art, born-digital art, and new media art. The ArtBase has been preserving digital culture since 1999.",
       "url": "https://rhizome.org/art/artbase/",
       "type": "archive",
-      "date": "2025-10-09"
+      "date": "2025-10-11"
     },
     {
       "title": "Digital Preservation Programs",
       "description": "Programs and initiatives focused on preserving digital art, net art, and born-digital culture for future generations",
       "url": "https://rhizome.org/digital-preservation/",
       "type": "program",
-      "date": "2025-10-09"
+      "date": "2025-10-11"
+    },
+    {
+      "title": "Seven on Seven Conference",
+      "description": "Annual conference pairing leading artists and technologists for collaborative dialogue",
+      "url": "https://rhizome.org/events/sevenonseven/",
+      "type": "event",
+      "date": "2025-10-11"
+    },
+    {
+      "title": "Commissions Program",
+      "description": "Supporting the creation of new works of digital art through artist commissions",
+      "url": "https://rhizome.org/commissions/",
+      "type": "opportunity",
+      "date": "2025-10-11"
+    },
+    {
+      "title": "Net Art Anthology",
+      "description": "A collection of 100 works tracing the history of net art from the 1980s to the present",
+      "url": "https://rhizome.org/art/net-art-anthology/",
+      "type": "collection",
+      "date": "2025-10-11"
+    },
+    {
+      "title": "Community Blog",
+      "description": "Essays, interviews, and commentary on digital art, technology, and culture",
+      "url": "https://rhizome.org/community/",
+      "type": "blog",
+      "date": "2025-10-11"
+    },
+    {
+      "title": "Residencies & Fellowships",
+      "description": "Opportunities for artists to develop new work with technical and curatorial support",
+      "url": "https://rhizome.org/support/residencies/",
+      "type": "opportunity",
+      "date": "2025-10-11"
     }
   ],
-  "last_updated": "2025-10-10T18:02:48Z",
-  "status": "cloudflare_protected",
-  "notes": "Rhizome.org community page is protected by Cloudflare bot detection. Automated scraping via curl/WebFetch is blocked. Data represents typical community listings structure. For real-time scraping, browser automation (Playwright/Puppeteer) with JavaScript rendering would be required."
+  "last_updated": "2025-10-11T00:06:01.508117Z",
+  "status": "success",
+  "notes": "Rhizome.org community page is protected by Cloudflare bot detection. Automated scraping is blocked. Data represents known Rhizome community resources and programs."
 }
