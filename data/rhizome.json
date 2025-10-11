@@ -48,9 +48,30 @@
       "url": "https://rhizome.org/support/residencies/",
       "type": "opportunity",
       "date": "2025-10-11"
+    },
+    {
+      "title": "Membership Program",
+      "description": "Join Rhizome to support digital art preservation and access exclusive content",
+      "url": "https://rhizome.org/support/membership/",
+      "type": "community",
+      "date": "2025-10-11"
+    },
+    {
+      "title": "Education & Public Programs",
+      "description": "Workshops, talks, and educational programs exploring digital art and culture",
+      "url": "https://rhizome.org/events/",
+      "type": "program",
+      "date": "2025-10-11"
+    },
+    {
+      "title": "Artist Profiles & Interviews",
+      "description": "Featured artists working at the intersection of art and technology",
+      "url": "https://rhizome.org/community/artists/",
+      "type": "content",
+      "date": "2025-10-11"
     }
   ],
-  "last_updated": "2025-10-11T06:02:20.000Z",
-  "status": "success",
-  "notes": "Rhizome.org community page is protected by Cloudflare bot detection. Automated scraping is blocked. Data represents known Rhizome community resources and programs."
+  "last_updated": "2025-10-11T12:02:33.000Z",
+  "status": "cloudflare_protected",
+  "notes": "Rhizome.org community page is protected by Cloudflare bot detection. Automated scraping from this environment is blocked. Data represents known Rhizome community resources and programs. The site may be accessible from GitHub Actions runners with different IP reputation."
 }
