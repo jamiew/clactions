@@ -5,75 +5,75 @@
       "description": "An archive of over 2,000 works of net art, born-digital art, and new media art. The ArtBase has been preserving digital culture since 1999.",
       "url": "https://rhizome.org/art/artbase/",
       "type": "archive",
-      "date": "2025-10-11"
+      "date": "2025-10-12"
     },
     {
       "title": "Digital Preservation Programs",
       "description": "Programs and initiatives focused on preserving digital art, net art, and born-digital culture for future generations",
       "url": "https://rhizome.org/digital-preservation/",
       "type": "program",
-      "date": "2025-10-11"
+      "date": "2025-10-12"
     },
     {
       "title": "Seven on Seven Conference",
       "description": "Annual conference pairing leading artists and technologists for collaborative dialogue",
       "url": "https://rhizome.org/events/sevenonseven/",
       "type": "event",
-      "date": "2025-10-11"
+      "date": "2025-10-12"
     },
     {
       "title": "Commissions Program",
       "description": "Supporting the creation of new works of digital art through artist commissions",
       "url": "https://rhizome.org/commissions/",
       "type": "opportunity",
-      "date": "2025-10-11"
+      "date": "2025-10-12"
     },
     {
       "title": "Net Art Anthology",
       "description": "A collection of 100 works tracing the history of net art from the 1980s to the present",
       "url": "https://rhizome.org/art/net-art-anthology/",
       "type": "collection",
-      "date": "2025-10-11"
+      "date": "2025-10-12"
     },
     {
       "title": "Community Blog",
       "description": "Essays, interviews, and commentary on digital art, technology, and culture",
       "url": "https://rhizome.org/community/",
       "type": "blog",
-      "date": "2025-10-11"
+      "date": "2025-10-12"
     },
     {
       "title": "Residencies & Fellowships",
       "description": "Opportunities for artists to develop new work with technical and curatorial support",
       "url": "https://rhizome.org/support/residencies/",
       "type": "opportunity",
-      "date": "2025-10-11"
+      "date": "2025-10-12"
     },
     {
       "title": "Membership Program",
       "description": "Join Rhizome to support digital art preservation and access exclusive content",
       "url": "https://rhizome.org/support/membership/",
       "type": "community",
-      "date": "2025-10-11"
+      "date": "2025-10-12"
     },
     {
       "title": "Education & Public Programs",
       "description": "Workshops, talks, and educational programs exploring digital art and culture",
       "url": "https://rhizome.org/events/",
       "type": "program",
-      "date": "2025-10-11"
+      "date": "2025-10-12"
     },
     {
       "title": "Artist Profiles & Interviews",
       "description": "Featured artists working at the intersection of art and technology",
       "url": "https://rhizome.org/community/artists/",
       "type": "content",
-      "date": "2025-10-11"
+      "date": "2025-10-12"
     }
   ],
-  "last_updated": "2025-10-11T18:02:02.000Z",
+  "last_updated": "2025-10-12T00:00:00.000Z",
   "status": "cloudflare_protected",
   "notes": "Rhizome.org community page is protected by Cloudflare bot detection. Automated scraping from this environment is blocked. Data represents known Rhizome community resources and programs. The site may be accessible from GitHub Actions runners with different IP reputation.",
-  "last_fetch_attempt": "2025-10-11T18:02:02.000Z",
+  "last_fetch_attempt": "2025-10-12T00:00:00.000Z",
   "fetch_error": "403 Forbidden - Cloudflare bot protection active"
 }
