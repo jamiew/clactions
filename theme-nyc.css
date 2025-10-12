@@ -1,46 +1,46 @@
-/* Generated: 2025-10-11T08:00:00Z
- * Hour: 08 (Early Morning), Season: Fall (Day 284), Weather: Overcast 54°F (feels 52°F)
- * Vibe: Muted autumn morning, soft diffused light, cozy overcast warmth
+/* Generated: 2025-10-12T08:00:00Z
+ * Hour: 08 (Early Morning), Season: Fall (Day 285), Weather: Partly cloudy 61°F (feels 61°F)
+ * Vibe: Gentle morning light, autumn warmth breaking through scattered clouds
  */
 
 :root {
-  /* Early morning colors - soft awakening with muted overcast tones */
-  --bg-primary: linear-gradient(135deg, #e8e4dc 0%, #f0ebe3 40%, #e5dfd5 100%);
-  --bg-secondary: rgba(240, 235, 227, 0.95);
-  --bg-card: rgba(245, 242, 237, 0.92);
-  --bg-tertiary: #e0dbd0;
+  /* Early morning colors - soft awakening with patches of sunlight */
+  --bg-primary: linear-gradient(135deg, #f5e8d8 0%, #fdf3e7 40%, #f0e4d3 100%);
+  --bg-secondary: rgba(253, 243, 231, 0.93);
+  --bg-card: rgba(255, 250, 244, 0.9);
+  --bg-tertiary: #ebe0d1;
 
-  /* Text colors: Soft contrast for diffused morning light */
-  --text-primary: #3a3228;
-  --text-secondary: #5d5247;
-  --text-muted: #8a7f70;
+  /* Text colors: Warm contrast for brightening morning */
+  --text-primary: #3d2e1f;
+  --text-secondary: #5f4d38;
+  --text-muted: #877662;
 
-  /* Accent colors: Warm earth tones softened by overcast sky */
-  --accent-primary: #b8794a;
-  --accent-secondary: #a66d42;
-  --accent-glow: #d49166;
-  --accent-cool: #8a9aa8;
+  /* Accent colors: Warm amber tones with hints of morning sun */
+  --accent-primary: #c98753;
+  --accent-secondary: #b57747;
+  --accent-glow: #e4a06f;
+  --accent-cool: #92a3b0;
 
-  /* Overcast morning atmosphere - diffused light with warm undertones */
-  --overcast-sky: #9da9b5;
-  --overcast-warm: #c4a78a;
-  --overcast-neutral: #b5aea5;
-  --overcast-mist: rgba(157, 169, 181, 0.1);
+  /* Partly cloudy morning atmosphere - sun breaking through */
+  --sky-blue: #a5c4d9;
+  --sun-gold: #e8b878;
+  --cloud-white: rgba(255, 255, 255, 0.6);
+  --morning-mist: rgba(232, 184, 120, 0.12);
 
-  /* Fall colors: Subdued autumn palette under cloudy skies */
-  --fall-rust: #a86f44;
-  --fall-amber: #c99872;
-  --fall-ochre: #b8794a;
-  --fall-brown: #7a5a42;
-  --fall-cool: #7a8a96;
+  /* Fall colors: Vibrant autumn palette with morning energy */
+  --fall-rust: #b37647;
+  --fall-amber: #d9a066;
+  --fall-ochre: #c98753;
+  --fall-brown: #7f6043;
+  --fall-gold: #e5a65d;
 
   /* Functional colors */
-  --border-subtle: rgba(184, 121, 74, 0.15);
-  --border-medium: #c9bfb0;
-  --shadow-soft: 0 2px 12px rgba(122, 90, 66, 0.14);
-  --shadow-medium: 0 4px 20px rgba(122, 90, 66, 0.18);
-  --shadow-glow: 0 0 32px rgba(201, 152, 114, 0.2);
-  --overlay-warm: rgba(196, 167, 138, 0.08);
+  --border-subtle: rgba(201, 135, 83, 0.18);
+  --border-medium: #d5c7b4;
+  --shadow-soft: 0 2px 14px rgba(127, 96, 67, 0.15);
+  --shadow-medium: 0 4px 22px rgba(127, 96, 67, 0.19);
+  --shadow-glow: 0 0 36px rgba(228, 160, 111, 0.24);
+  --overlay-warm: rgba(232, 184, 120, 0.1);
 }
 
 /* Global styles */
@@ -53,7 +53,7 @@ body {
   position: relative;
 }
 
-/* Overcast morning ambiance - soft diffused light through clouds */
+/* Partly cloudy morning ambiance - gentle sunlight filtering through */
 body::before {
   content: '';
   position: fixed;
@@ -62,16 +62,17 @@ body::before {
   right: 0;
   bottom: 0;
   background:
-    radial-gradient(ellipse at 30% 20%, var(--overcast-mist) 0%, transparent 60%),
-    radial-gradient(circle at 70% 40%, rgba(196, 167, 138, 0.07) 0%, transparent 55%),
-    radial-gradient(circle at 20% 70%, rgba(138, 154, 168, 0.08) 0%, transparent 52%),
-    radial-gradient(ellipse at 80% 80%, rgba(168, 111, 68, 0.05) 0%, transparent 58%);
+    radial-gradient(ellipse at 25% 15%, var(--morning-mist) 0%, transparent 55%),
+    radial-gradient(circle at 60% 30%, rgba(232, 184, 120, 0.1) 0%, transparent 50%),
+    radial-gradient(ellipse at 75% 60%, var(--cloud-white) 0%, transparent 48%),
+    radial-gradient(circle at 15% 75%, rgba(165, 196, 217, 0.09) 0%, transparent 52%),
+    radial-gradient(ellipse at 85% 85%, rgba(228, 160, 111, 0.08) 0%, transparent 55%);
   pointer-events: none;
   z-index: -1;
-  opacity: 0.9;
+  opacity: 0.95;
 }
 
-/* Subtle texture - soft overcast diffusion */
+/* Subtle texture - soft morning rays through clouds */
 body::after {
   content: '';
   position: fixed;
@@ -81,33 +82,33 @@ body::after {
   bottom: 0;
   background-image:
     repeating-linear-gradient(
-      52deg,
+      48deg,
       transparent,
-      transparent 6px,
-      rgba(157, 169, 181, 0.015) 6px,
-      rgba(157, 169, 181, 0.015) 12px
+      transparent 7px,
+      rgba(232, 184, 120, 0.02) 7px,
+      rgba(232, 184, 120, 0.02) 14px
     );
   pointer-events: none;
   z-index: -1;
-  opacity: 0.4;
+  opacity: 0.5;
 }
 
 /* Typography */
 h1, h2, h3, h4, h5, h6 {
   color: var(--fall-brown);
-  text-shadow: 0 1px 3px rgba(201, 152, 114, 0.16);
+  text-shadow: 0 1px 3px rgba(228, 160, 111, 0.18);
   margin-top: 1.5em;
   margin-bottom: 0.6em;
   letter-spacing: -0.015em;
 }
 
 h1 {
-  background: linear-gradient(125deg, var(--fall-rust) 0%, var(--accent-primary) 45%, var(--overcast-warm) 100%);
+  background: linear-gradient(120deg, var(--fall-rust) 0%, var(--accent-primary) 35%, var(--sun-gold) 75%, var(--fall-gold) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
   text-shadow: none;
-  filter: drop-shadow(0 1px 4px rgba(184, 121, 74, 0.2));
+  filter: drop-shadow(0 1px 5px rgba(201, 135, 83, 0.24));
 }
 
 a {
@@ -119,7 +120,7 @@ a {
 
 a:hover {
   color: var(--accent-glow);
-  text-shadow: 0 0 16px rgba(212, 145, 102, 0.3);
+  text-shadow: 0 0 18px rgba(228, 160, 111, 0.35);
 }
 
 a::after {
@@ -129,7 +130,7 @@ a::after {
   left: 0;
   width: 0;
   height: 2px;
-  background: linear-gradient(90deg, var(--accent-primary), var(--overcast-warm));
+  background: linear-gradient(90deg, var(--accent-primary), var(--sun-gold));
   transition: width 0.35s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -140,7 +141,7 @@ a:hover::after {
 /* Cards and containers */
 .card, .container, article, section {
   background: var(--bg-card);
-  backdrop-filter: blur(18px) saturate(102%);
+  backdrop-filter: blur(20px) saturate(105%);
   border: 1px solid var(--border-subtle);
   border-radius: 14px;
   padding: 1.5rem;
@@ -152,13 +153,13 @@ a:hover::after {
 .card:hover, article:hover {
   transform: translateY(-3px);
   box-shadow: var(--shadow-glow), var(--shadow-medium);
-  border-color: rgba(212, 145, 102, 0.3);
-  background: rgba(248, 245, 240, 0.96);
+  border-color: rgba(228, 160, 111, 0.35);
+  background: rgba(255, 252, 248, 0.94);
 }
 
 /* Buttons */
 button, .button {
-  background: linear-gradient(130deg, var(--overcast-warm), var(--fall-rust));
+  background: linear-gradient(125deg, var(--sun-gold), var(--fall-rust));
   color: #ffffff;
   border: none;
   border-radius: 10px;
@@ -171,10 +172,10 @@ button, .button {
 }
 
 button:hover, .button:hover {
-  background: linear-gradient(130deg, var(--accent-glow), var(--overcast-warm));
+  background: linear-gradient(125deg, var(--accent-glow), var(--fall-gold));
   box-shadow: var(--shadow-glow), var(--shadow-medium);
   transform: translateY(-2px) scale(1.01);
-  filter: brightness(1.1);
+  filter: brightness(1.12);
 }
 
 button:active, .button:active {
@@ -184,16 +185,16 @@ button:active, .button:active {
 /* Header/Navigation */
 header, nav {
   background: var(--bg-secondary);
-  backdrop-filter: blur(26px) saturate(108%);
+  backdrop-filter: blur(28px) saturate(110%);
   border-bottom: 2px solid var(--fall-rust);
-  box-shadow: 0 2px 22px rgba(122, 90, 66, 0.16);
+  box-shadow: 0 2px 24px rgba(127, 96, 67, 0.18);
   padding: 1rem 1.5rem;
   margin-bottom: 2rem;
 }
 
 /* Code blocks */
 code, pre {
-  background: rgba(224, 219, 208, 0.88);
+  background: rgba(235, 224, 209, 0.85);
   border: 1px solid var(--border-medium);
   border-radius: 8px;
   font-family: 'SF Mono', 'Monaco', 'Courier New', monospace;
@@ -204,7 +205,7 @@ code, pre {
 pre {
   padding: 1.2rem;
   overflow-x: auto;
-  box-shadow: inset 0 1px 6px rgba(122, 90, 66, 0.12);
+  box-shadow: inset 0 1px 7px rgba(127, 96, 67, 0.13);
   line-height: 1.5;
 }
 
@@ -226,7 +227,7 @@ input, textarea, select {
 input:focus, textarea:focus, select:focus {
   outline: none;
   border-color: var(--accent-primary);
-  box-shadow: 0 0 0 3px rgba(201, 152, 114, 0.24);
+  box-shadow: 0 0 0 3px rgba(228, 160, 111, 0.26);
 }
 
 /* Scrollbar */
@@ -247,26 +248,26 @@ input:focus, textarea:focus, select:focus {
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(135deg, var(--accent-primary), var(--overcast-warm));
+  background: linear-gradient(135deg, var(--accent-primary), var(--sun-gold));
 }
 
 /* Selection */
 ::selection {
-  background: var(--overcast-warm);
+  background: var(--sun-gold);
   color: var(--text-primary);
 }
 
 /* Glass morphism elements */
 .glass {
-  background: rgba(245, 242, 237, 0.75);
-  backdrop-filter: blur(24px) saturate(115%);
+  background: rgba(255, 250, 244, 0.72);
+  backdrop-filter: blur(26px) saturate(118%);
   border: 1px solid var(--border-subtle);
   box-shadow: var(--shadow-soft);
 }
 
 /* Ambient glow effect for important elements */
 .highlight, .featured, .accent {
-  box-shadow: 0 0 24px rgba(201, 152, 114, 0.26), var(--shadow-soft);
+  box-shadow: 0 0 28px rgba(228, 160, 111, 0.3), var(--shadow-soft);
   border-color: var(--accent-glow);
   color: var(--accent-primary);
 }
@@ -274,22 +275,22 @@ input:focus, textarea:focus, select:focus {
 /* Status indicators */
 .status-active {
   color: var(--accent-primary);
-  text-shadow: 0 0 12px rgba(201, 152, 114, 0.32);
+  text-shadow: 0 0 14px rgba(228, 160, 111, 0.36);
 }
 
 .status-info {
-  color: var(--overcast-sky);
+  color: var(--sky-blue);
 }
 
 .status-success {
-  color: #7a9968;
+  color: #82a76e;
 }
 
-/* Weather indicator - overcast and mild */
+/* Weather indicator - partly cloudy and mild */
 .weather-indicator {
   display: inline-flex;
   align-items: center;
-  background: linear-gradient(120deg, var(--overcast-sky), var(--fall-cool));
+  background: linear-gradient(115deg, var(--sky-blue), var(--sun-gold));
   padding: 0.5rem 1rem;
   border-radius: 20px;
   color: white;
@@ -302,19 +303,19 @@ input:focus, textarea:focus, select:focus {
 /* Footer */
 footer {
   background: var(--bg-secondary);
-  backdrop-filter: blur(20px) saturate(105%);
+  backdrop-filter: blur(22px) saturate(108%);
   border-top: 2px solid var(--accent-primary);
   color: var(--text-secondary);
   padding: 2rem 1.5rem;
   margin-top: 3rem;
   text-align: center;
-  box-shadow: 0 -2px 16px rgba(122, 90, 66, 0.12);
+  box-shadow: 0 -2px 18px rgba(127, 96, 67, 0.14);
 }
 
 /* Utility classes */
 .text-accent { color: var(--accent-primary); }
 .text-muted { color: var(--text-muted); }
-.text-cool { color: var(--fall-cool); }
+.text-cool { color: var(--accent-cool); }
 .bg-dark { background: var(--bg-tertiary); }
 .shadow { box-shadow: var(--shadow-soft); }
 .glow { box-shadow: var(--shadow-glow); }
@@ -343,43 +344,72 @@ footer {
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Overcast morning animation - gentle diffused light */
-@keyframes overcast-diffusion {
-  0%, 100% { opacity: 0.85; }
-  50% { opacity: 0.95; }
+/* Partly cloudy animation - gentle light dancing through clouds */
+@keyframes cloud-dance {
+  0%, 100% { opacity: 0.9; }
+  50% { opacity: 1; }
 }
 
 body::before {
-  animation: overcast-diffusion 22s ease-in-out infinite;
+  animation: cloud-dance 20s ease-in-out infinite;
 }
 
-/* Subtle texture pulse - soft overcast ambiance */
-@keyframes soft-overcast-pulse {
-  0%, 100% { opacity: 0.35; }
-  50% { opacity: 0.45; }
+/* Subtle texture pulse - morning ray ambiance */
+@keyframes morning-ray-pulse {
+  0%, 100% { opacity: 0.45; }
+  50% { opacity: 0.55; }
 }
 
 body::after {
-  animation: soft-overcast-pulse 16s ease-in-out infinite;
+  animation: morning-ray-pulse 14s ease-in-out infinite;
 }
 
-/* Header gentle shimmer - muted morning light */
-@keyframes muted-shimmer {
+/* Header gentle shimmer - brightening morning light */
+@keyframes morning-shimmer {
   0% { filter: brightness(1); }
-  50% { filter: brightness(1.04); }
+  50% { filter: brightness(1.06); }
   100% { filter: brightness(1); }
 }
 
 h1, h2 {
-  animation: muted-shimmer 7s ease-in-out infinite;
+  animation: morning-shimmer 6s ease-in-out infinite;
 }
 
-/* Warm autumn pulse for interactive elements */
-@keyframes warm-autumn-pulse {
-  0%, 100% { box-shadow: 0 0 20px rgba(201, 152, 114, 0.2); }
-  50% { box-shadow: 0 0 32px rgba(201, 152, 114, 0.3); }
+/* Warm autumn glow for interactive elements */
+@keyframes warm-glow {
+  0%, 100% { box-shadow: 0 0 24px rgba(228, 160, 111, 0.24); }
+  50% { box-shadow: 0 0 36px rgba(228, 160, 111, 0.35); }
 }
 
 button:hover, .button:hover {
-  animation: warm-autumn-pulse 1.8s ease-in-out infinite;
+  animation: warm-glow 1.6s ease-in-out infinite;
+}
+
+/* Floating particles - subtle autumn leaves effect */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0) rotate(0deg);
+    opacity: 0.2;
+  }
+  50% {
+    transform: translateY(-20px) rotate(180deg);
+    opacity: 0.4;
+  }
+}
+
+.card::before, article::before {
+  content: '';
+  position: absolute;
+  top: 10%;
+  right: 10%;
+  width: 8px;
+  height: 8px;
+  background: radial-gradient(circle, var(--fall-amber), transparent);
+  border-radius: 50%;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.card:hover::before, article:hover::before {
+  animation: float 3s ease-in-out infinite;
 }
