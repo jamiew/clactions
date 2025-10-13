@@ -1,59 +1,68 @@
-/* Generated: 2025-10-12T08:00:00Z
- * Hour: 08 (Early Morning), Season: Fall (Day 285), Weather: Partly cloudy 61°F (feels 61°F)
- * Vibe: Gentle morning light, autumn warmth breaking through scattered clouds
+/* Generated: 2025-10-13T08:00:00Z
+ * Hour: 08 (Early Morning), Season: Fall (Day 286), Weather: Rain, mist - 57°F (feels 52°F)
+ * Vibe: Moody rainy October morning, atmospheric mist, cozy indoor ambiance
  */
 
 :root {
-  /* Early morning colors - soft awakening with patches of sunlight */
-  --bg-primary: linear-gradient(135deg, #f5e8d8 0%, #fdf3e7 40%, #f0e4d3 100%);
-  --bg-secondary: rgba(253, 243, 231, 0.93);
-  --bg-card: rgba(255, 250, 244, 0.9);
-  --bg-tertiary: #ebe0d1;
+  /* Rainy morning backgrounds - misty, moody grays with fall warmth */
+  --bg-primary: #2b2f34;
+  --bg-secondary: #3a3f47;
+  --bg-card: rgba(48, 53, 61, 0.92);
+  --bg-tertiary: #4a5058;
 
-  /* Text colors: Warm contrast for brightening morning */
-  --text-primary: #3d2e1f;
-  --text-secondary: #5f4d38;
-  --text-muted: #877662;
+  /* Text colors: Clear contrast for rainy visibility */
+  --text-primary: #e8e6e1;
+  --text-secondary: #b8b4ad;
+  --text-muted: #8a8780;
 
-  /* Accent colors: Warm amber tones with hints of morning sun */
-  --accent-primary: #c98753;
-  --accent-secondary: #b57747;
-  --accent-glow: #e4a06f;
-  --accent-cool: #92a3b0;
+  /* Accent colors: Warm fall tones cutting through the gray */
+  --accent-primary: #c17854;
+  --accent-secondary: #8b6f47;
+  --accent-glow: #d4a574;
+  --accent-cool: #6b8e9f;
 
-  /* Partly cloudy morning atmosphere - sun breaking through */
-  --sky-blue: #a5c4d9;
-  --sun-gold: #e8b878;
-  --cloud-white: rgba(255, 255, 255, 0.6);
-  --morning-mist: rgba(232, 184, 120, 0.12);
+  /* Rain & mist atmosphere */
+  --rain-blue: #5a7a8c;
+  --mist-gray: #7a8690;
+  --wet-asphalt: #3d4349;
+  --puddle-reflect: rgba(90, 122, 140, 0.15);
 
-  /* Fall colors: Vibrant autumn palette with morning energy */
+  /* Fall colors: Muted autumn palette for moody morning */
   --fall-rust: #b37647;
-  --fall-amber: #d9a066;
-  --fall-ochre: #c98753;
+  --fall-amber: #c9906a;
+  --fall-ochre: #a67c5d;
   --fall-brown: #7f6043;
-  --fall-gold: #e5a65d;
+  --fall-gold: #d9a066;
 
   /* Functional colors */
-  --border-subtle: rgba(201, 135, 83, 0.18);
-  --border-medium: #d5c7b4;
-  --shadow-soft: 0 2px 14px rgba(127, 96, 67, 0.15);
-  --shadow-medium: 0 4px 22px rgba(127, 96, 67, 0.19);
-  --shadow-glow: 0 0 36px rgba(228, 160, 111, 0.24);
-  --overlay-warm: rgba(232, 184, 120, 0.1);
+  --border-subtle: rgba(232, 230, 225, 0.08);
+  --border-medium: rgba(232, 230, 225, 0.15);
+  --border-strong: rgba(232, 230, 225, 0.25);
+  --shadow-soft: 0 2px 8px rgba(0, 0, 0, 0.3);
+  --shadow-medium: 0 4px 14px rgba(0, 0, 0, 0.35);
+  --shadow-strong: 0 8px 20px rgba(0, 0, 0, 0.4);
+  --shadow-glow: 0 0 16px rgba(193, 120, 84, 0.18);
+  --overlay-warm: rgba(193, 120, 84, 0.08);
 }
 
 /* Global styles */
 body {
-  background: var(--bg-primary);
+  background: linear-gradient(
+    155deg,
+    var(--bg-primary) 0%,
+    var(--wet-asphalt) 35%,
+    var(--bg-secondary) 70%,
+    #353a42 100%
+  );
+  background-attachment: fixed;
   color: var(--text-primary);
   font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   line-height: 1.65;
-  transition: background 0.7s ease;
+  transition: background 0.8s ease;
   position: relative;
 }
 
-/* Partly cloudy morning ambiance - gentle sunlight filtering through */
+/* Rainy morning atmosphere - mist and soft rain diffusion */
 body::before {
   content: '';
   position: fixed;
@@ -62,17 +71,17 @@ body::before {
   right: 0;
   bottom: 0;
   background:
-    radial-gradient(ellipse at 25% 15%, var(--morning-mist) 0%, transparent 55%),
-    radial-gradient(circle at 60% 30%, rgba(232, 184, 120, 0.1) 0%, transparent 50%),
-    radial-gradient(ellipse at 75% 60%, var(--cloud-white) 0%, transparent 48%),
-    radial-gradient(circle at 15% 75%, rgba(165, 196, 217, 0.09) 0%, transparent 52%),
-    radial-gradient(ellipse at 85% 85%, rgba(228, 160, 111, 0.08) 0%, transparent 55%);
+    radial-gradient(ellipse at 20% 15%, rgba(90, 122, 140, 0.12) 0%, transparent 50%),
+    radial-gradient(circle at 65% 25%, var(--mist-gray) 0%, transparent 35%),
+    radial-gradient(ellipse at 40% 60%, var(--puddle-reflect) 0%, transparent 45%),
+    radial-gradient(circle at 80% 80%, rgba(139, 111, 71, 0.08) 0%, transparent 40%),
+    radial-gradient(ellipse at 10% 85%, rgba(90, 122, 140, 0.09) 0%, transparent 48%);
   pointer-events: none;
   z-index: -1;
-  opacity: 0.95;
+  opacity: 0.85;
 }
 
-/* Subtle texture - soft morning rays through clouds */
+/* Subtle rain texture - gentle vertical streaks */
 body::after {
   content: '';
   position: fixed;
@@ -82,33 +91,40 @@ body::after {
   bottom: 0;
   background-image:
     repeating-linear-gradient(
-      48deg,
+      92deg,
       transparent,
-      transparent 7px,
-      rgba(232, 184, 120, 0.02) 7px,
-      rgba(232, 184, 120, 0.02) 14px
+      transparent 2px,
+      rgba(90, 122, 140, 0.015) 2px,
+      rgba(90, 122, 140, 0.015) 3px
+    ),
+    repeating-linear-gradient(
+      88deg,
+      transparent,
+      transparent 3px,
+      rgba(122, 134, 144, 0.012) 3px,
+      rgba(122, 134, 144, 0.012) 5px
     );
   pointer-events: none;
   z-index: -1;
-  opacity: 0.5;
+  opacity: 0.6;
 }
 
 /* Typography */
 h1, h2, h3, h4, h5, h6 {
-  color: var(--fall-brown);
-  text-shadow: 0 1px 3px rgba(228, 160, 111, 0.18);
+  color: var(--fall-gold);
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
   margin-top: 1.5em;
   margin-bottom: 0.6em;
   letter-spacing: -0.015em;
 }
 
 h1 {
-  background: linear-gradient(120deg, var(--fall-rust) 0%, var(--accent-primary) 35%, var(--sun-gold) 75%, var(--fall-gold) 100%);
+  background: linear-gradient(125deg, var(--fall-amber) 0%, var(--accent-primary) 40%, var(--fall-gold) 80%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
   text-shadow: none;
-  filter: drop-shadow(0 1px 5px rgba(201, 135, 83, 0.24));
+  filter: drop-shadow(0 2px 8px rgba(193, 120, 84, 0.35));
 }
 
 a {
@@ -120,7 +136,7 @@ a {
 
 a:hover {
   color: var(--accent-glow);
-  text-shadow: 0 0 18px rgba(228, 160, 111, 0.35);
+  text-shadow: 0 0 14px rgba(212, 165, 116, 0.4);
 }
 
 a::after {
@@ -130,7 +146,7 @@ a::after {
   left: 0;
   width: 0;
   height: 2px;
-  background: linear-gradient(90deg, var(--accent-primary), var(--sun-gold));
+  background: linear-gradient(90deg, var(--accent-primary), var(--fall-amber));
   transition: width 0.35s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -138,28 +154,29 @@ a:hover::after {
   width: 100%;
 }
 
-/* Cards and containers */
+/* Cards and containers - cozy indoor feel */
 .card, .container, article, section {
   background: var(--bg-card);
-  backdrop-filter: blur(20px) saturate(105%);
-  border: 1px solid var(--border-subtle);
+  backdrop-filter: blur(16px) saturate(102%);
+  border: 1px solid var(--border-medium);
   border-radius: 14px;
   padding: 1.5rem;
   margin: 1rem 0;
   box-shadow: var(--shadow-medium);
   transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
 }
 
 .card:hover, article:hover {
   transform: translateY(-3px);
-  box-shadow: var(--shadow-glow), var(--shadow-medium);
-  border-color: rgba(228, 160, 111, 0.35);
-  background: rgba(255, 252, 248, 0.94);
+  box-shadow: var(--shadow-glow), var(--shadow-strong);
+  border-color: rgba(193, 120, 84, 0.35);
+  background: rgba(56, 61, 69, 0.95);
 }
 
-/* Buttons */
+/* Buttons - warm accent in rainy gray */
 button, .button {
-  background: linear-gradient(125deg, var(--sun-gold), var(--fall-rust));
+  background: linear-gradient(130deg, var(--accent-primary), var(--fall-rust));
   color: #ffffff;
   border: none;
   border-radius: 10px;
@@ -172,40 +189,40 @@ button, .button {
 }
 
 button:hover, .button:hover {
-  background: linear-gradient(125deg, var(--accent-glow), var(--fall-gold));
+  background: linear-gradient(130deg, var(--accent-glow), var(--fall-gold));
   box-shadow: var(--shadow-glow), var(--shadow-medium);
   transform: translateY(-2px) scale(1.01);
-  filter: brightness(1.12);
+  filter: brightness(1.15);
 }
 
 button:active, .button:active {
   transform: translateY(0) scale(0.99);
 }
 
-/* Header/Navigation */
+/* Header/Navigation - misty top bar */
 header, nav {
-  background: var(--bg-secondary);
-  backdrop-filter: blur(28px) saturate(110%);
-  border-bottom: 2px solid var(--fall-rust);
-  box-shadow: 0 2px 24px rgba(127, 96, 67, 0.18);
+  background: rgba(58, 63, 71, 0.88);
+  backdrop-filter: blur(24px) saturate(105%);
+  border-bottom: 2px solid var(--accent-primary);
+  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
   padding: 1rem 1.5rem;
   margin-bottom: 2rem;
 }
 
-/* Code blocks */
+/* Code blocks - darker for rainy morning */
 code, pre {
-  background: rgba(235, 224, 209, 0.85);
-  border: 1px solid var(--border-medium);
+  background: rgba(26, 28, 32, 0.75);
+  border: 1px solid var(--border-subtle);
   border-radius: 8px;
   font-family: 'SF Mono', 'Monaco', 'Courier New', monospace;
-  color: var(--fall-brown);
+  color: var(--accent-cool);
   font-size: 0.92em;
 }
 
 pre {
   padding: 1.2rem;
   overflow-x: auto;
-  box-shadow: inset 0 1px 7px rgba(127, 96, 67, 0.13);
+  box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.3);
   line-height: 1.5;
 }
 
@@ -213,10 +230,10 @@ code {
   padding: 0.25rem 0.5rem;
 }
 
-/* Input fields */
+/* Input fields - subtle and readable */
 input, textarea, select {
   background: var(--bg-tertiary);
-  border: 1px solid var(--border-subtle);
+  border: 1px solid var(--border-medium);
   border-radius: 8px;
   color: var(--text-primary);
   padding: 0.6rem 0.85rem;
@@ -227,47 +244,48 @@ input, textarea, select {
 input:focus, textarea:focus, select:focus {
   outline: none;
   border-color: var(--accent-primary);
-  box-shadow: 0 0 0 3px rgba(228, 160, 111, 0.26);
+  box-shadow: 0 0 0 3px rgba(193, 120, 84, 0.3);
 }
 
-/* Scrollbar */
+/* Scrollbar - fall rain theme */
 ::-webkit-scrollbar {
   width: 11px;
   height: 11px;
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--bg-tertiary);
+  background: var(--bg-primary);
   border-radius: 6px;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(135deg, var(--fall-rust), var(--accent-glow));
+  background: linear-gradient(135deg, var(--accent-secondary), var(--rain-blue));
   border-radius: 6px;
+  border: 2px solid var(--bg-primary);
   transition: background 0.25s ease;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(135deg, var(--accent-primary), var(--sun-gold));
+  background: linear-gradient(135deg, var(--accent-primary), var(--accent-cool));
 }
 
 /* Selection */
 ::selection {
-  background: var(--sun-gold);
+  background: var(--accent-primary);
   color: var(--text-primary);
 }
 
 /* Glass morphism elements */
 .glass {
-  background: rgba(255, 250, 244, 0.72);
-  backdrop-filter: blur(26px) saturate(118%);
+  background: rgba(48, 53, 61, 0.65);
+  backdrop-filter: blur(22px) saturate(108%);
   border: 1px solid var(--border-subtle);
   box-shadow: var(--shadow-soft);
 }
 
 /* Ambient glow effect for important elements */
 .highlight, .featured, .accent {
-  box-shadow: 0 0 28px rgba(228, 160, 111, 0.3), var(--shadow-soft);
+  box-shadow: 0 0 24px rgba(193, 120, 84, 0.25), var(--shadow-soft);
   border-color: var(--accent-glow);
   color: var(--accent-primary);
 }
@@ -275,22 +293,22 @@ input:focus, textarea:focus, select:focus {
 /* Status indicators */
 .status-active {
   color: var(--accent-primary);
-  text-shadow: 0 0 14px rgba(228, 160, 111, 0.36);
+  text-shadow: 0 0 12px rgba(193, 120, 84, 0.4);
 }
 
 .status-info {
-  color: var(--sky-blue);
+  color: var(--rain-blue);
 }
 
 .status-success {
-  color: #82a76e;
+  color: #7a9a6b;
 }
 
-/* Weather indicator - partly cloudy and mild */
+/* Weather indicator - rainy and cool */
 .weather-indicator {
   display: inline-flex;
   align-items: center;
-  background: linear-gradient(115deg, var(--sky-blue), var(--sun-gold));
+  background: linear-gradient(120deg, var(--rain-blue), var(--mist-gray));
   padding: 0.5rem 1rem;
   border-radius: 20px;
   color: white;
@@ -302,14 +320,14 @@ input:focus, textarea:focus, select:focus {
 
 /* Footer */
 footer {
-  background: var(--bg-secondary);
-  backdrop-filter: blur(22px) saturate(108%);
+  background: rgba(58, 63, 71, 0.85);
+  backdrop-filter: blur(20px) saturate(105%);
   border-top: 2px solid var(--accent-primary);
   color: var(--text-secondary);
   padding: 2rem 1.5rem;
   margin-top: 3rem;
   text-align: center;
-  box-shadow: 0 -2px 18px rgba(127, 96, 67, 0.14);
+  box-shadow: 0 -2px 16px rgba(0, 0, 0, 0.25);
 }
 
 /* Utility classes */
@@ -344,72 +362,103 @@ footer {
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Partly cloudy animation - gentle light dancing through clouds */
-@keyframes cloud-dance {
-  0%, 100% { opacity: 0.9; }
-  50% { opacity: 1; }
+/* Rainy atmosphere animation - gentle misty pulse */
+@keyframes rain-mist {
+  0%, 100% { opacity: 0.8; }
+  50% { opacity: 0.9; }
 }
 
 body::before {
-  animation: cloud-dance 20s ease-in-out infinite;
+  animation: rain-mist 18s ease-in-out infinite;
 }
 
-/* Subtle texture pulse - morning ray ambiance */
-@keyframes morning-ray-pulse {
-  0%, 100% { opacity: 0.45; }
-  50% { opacity: 0.55; }
+/* Rain texture subtle shift */
+@keyframes rain-streak {
+  0%, 100% { opacity: 0.55; }
+  50% { opacity: 0.65; }
 }
 
 body::after {
-  animation: morning-ray-pulse 14s ease-in-out infinite;
+  animation: rain-streak 12s ease-in-out infinite;
 }
 
-/* Header gentle shimmer - brightening morning light */
-@keyframes morning-shimmer {
+/* Header warm glow - cozy indoor light */
+@keyframes warm-flicker {
   0% { filter: brightness(1); }
-  50% { filter: brightness(1.06); }
+  50% { filter: brightness(1.08); }
   100% { filter: brightness(1); }
 }
 
 h1, h2 {
-  animation: morning-shimmer 6s ease-in-out infinite;
+  animation: warm-flicker 7s ease-in-out infinite;
 }
 
-/* Warm autumn glow for interactive elements */
-@keyframes warm-glow {
-  0%, 100% { box-shadow: 0 0 24px rgba(228, 160, 111, 0.24); }
-  50% { box-shadow: 0 0 36px rgba(228, 160, 111, 0.35); }
+/* Warm glow pulse for interactive elements */
+@keyframes cozy-glow {
+  0%, 100% { box-shadow: 0 0 16px rgba(193, 120, 84, 0.18); }
+  50% { box-shadow: 0 0 28px rgba(193, 120, 84, 0.32); }
 }
 
 button:hover, .button:hover {
-  animation: warm-glow 1.6s ease-in-out infinite;
+  animation: cozy-glow 1.8s ease-in-out infinite;
 }
 
-/* Floating particles - subtle autumn leaves effect */
-@keyframes float {
+/* Floating mist particles */
+@keyframes float-mist {
   0%, 100% {
-    transform: translateY(0) rotate(0deg);
-    opacity: 0.2;
+    transform: translateY(0) translateX(0);
+    opacity: 0.15;
   }
   50% {
-    transform: translateY(-20px) rotate(180deg);
-    opacity: 0.4;
+    transform: translateY(-15px) translateX(8px);
+    opacity: 0.3;
   }
 }
 
 .card::before, article::before {
   content: '';
   position: absolute;
-  top: 10%;
-  right: 10%;
-  width: 8px;
-  height: 8px;
-  background: radial-gradient(circle, var(--fall-amber), transparent);
+  top: 15%;
+  right: 12%;
+  width: 6px;
+  height: 6px;
+  background: radial-gradient(circle, var(--mist-gray), transparent);
   border-radius: 50%;
   opacity: 0;
   pointer-events: none;
 }
 
 .card:hover::before, article:hover::before {
-  animation: float 3s ease-in-out infinite;
+  animation: float-mist 4s ease-in-out infinite;
+}
+
+/* Rain drop effect (subtle) */
+@keyframes rain-drop {
+  0% {
+    transform: translateY(-10px);
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.4;
+  }
+  100% {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+}
+
+.card::after, article::after {
+  content: '';
+  position: absolute;
+  top: 5%;
+  left: 25%;
+  width: 1px;
+  height: 12px;
+  background: linear-gradient(180deg, transparent, var(--rain-blue), transparent);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.card:hover::after, article:hover::after {
+  animation: rain-drop 2.5s ease-in-out infinite;
 }
