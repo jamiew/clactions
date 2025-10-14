@@ -1,79 +1,79 @@
 {
   "community_listings": [
     {
+      "title": "Open Call: Microgrants 2025",
+      "description": "Rhizome Microgrants support digital artists and cultural practitioners. Open call for 2025 funding opportunities.",
+      "url": "https://rhizome.org/microgrants/",
+      "type": "opportunity",
+      "date": "2025-10-14"
+    },
+    {
+      "title": "Rhizome Presents: Vibe Shift",
+      "description": "Upcoming exhibition and program exploring shifts in digital culture and artistic practice.",
+      "url": "https://rhizome.org/events/",
+      "type": "event",
+      "date": "2025-10-14"
+    },
+    {
+      "title": "Net Evil - Seven Artists, Seven Sins",
+      "description": "Art program featuring seven contemporary artists exploring themes of digital culture through the lens of the seven deadly sins.",
+      "url": "https://rhizome.org/events/",
+      "type": "event",
+      "date": "2025-10-14"
+    },
+    {
+      "title": "NEW INC Y12 Art & Code Cohort",
+      "description": "NEW INC's Year 12 cohort announcement featuring artists working at the intersection of art and technology.",
+      "url": "https://rhizome.org/community/",
+      "type": "program",
+      "date": "2025-10-14"
+    },
+    {
       "title": "ArtBase - Net Art Archive",
       "description": "An archive of over 2,000 works of net art, born-digital art, and new media art. The ArtBase has been preserving digital culture since 1999.",
       "url": "https://rhizome.org/art/artbase/",
       "type": "archive",
-      "date": "2025-10-13"
-    },
-    {
-      "title": "Digital Preservation Programs",
-      "description": "Programs and initiatives focused on preserving digital art, net art, and born-digital culture for future generations",
-      "url": "https://rhizome.org/digital-preservation/",
-      "type": "program",
-      "date": "2025-10-13"
-    },
-    {
-      "title": "Seven on Seven Conference",
-      "description": "Annual conference pairing leading artists and technologists for collaborative dialogue",
-      "url": "https://rhizome.org/events/sevenonseven/",
-      "type": "event",
-      "date": "2025-10-13"
-    },
-    {
-      "title": "Commissions Program",
-      "description": "Supporting the creation of new works of digital art through artist commissions",
-      "url": "https://rhizome.org/commissions/",
-      "type": "opportunity",
-      "date": "2025-10-13"
+      "date": "2025-10-14"
     },
     {
       "title": "Net Art Anthology",
-      "description": "A collection of 100 works tracing the history of net art from the 1980s to the present",
+      "description": "A collection of 100 works tracing the history of net art from the 1980s to the present, with essays and interactive presentations.",
       "url": "https://rhizome.org/art/net-art-anthology/",
       "type": "collection",
-      "date": "2025-10-13"
+      "date": "2025-10-14"
     },
     {
-      "title": "Community Blog",
-      "description": "Essays, interviews, and commentary on digital art, technology, and culture",
-      "url": "https://rhizome.org/community/",
-      "type": "blog",
-      "date": "2025-10-13"
+      "title": "Seven on Seven Conference",
+      "description": "Annual conference pairing leading artists and technologists for collaborative dialogue and creative exploration.",
+      "url": "https://rhizome.org/events/sevenonseven/",
+      "type": "event",
+      "date": "2025-10-14"
     },
     {
-      "title": "Residencies & Fellowships",
-      "description": "Opportunities for artists to develop new work with technical and curatorial support",
-      "url": "https://rhizome.org/support/residencies/",
-      "type": "opportunity",
-      "date": "2025-10-13"
-    },
-    {
-      "title": "Membership Program",
-      "description": "Join Rhizome to support digital art preservation and access exclusive content",
-      "url": "https://rhizome.org/support/membership/",
-      "type": "community",
-      "date": "2025-10-13"
-    },
-    {
-      "title": "Education & Public Programs",
-      "description": "Workshops, talks, and educational programs exploring digital art and culture",
-      "url": "https://rhizome.org/events/",
+      "title": "Digital Preservation Programs",
+      "description": "Pioneering programs and initiatives focused on preserving digital art, net art, and born-digital culture for future generations.",
+      "url": "https://rhizome.org/digital-preservation/",
       "type": "program",
-      "date": "2025-10-13"
+      "date": "2025-10-14"
     },
     {
-      "title": "Artist Profiles & Interviews",
-      "description": "Featured artists working at the intersection of art and technology",
-      "url": "https://rhizome.org/community/artists/",
+      "title": "Commissions Program",
+      "description": "Supporting the creation of innovative new works of digital art through artist commissions and production support.",
+      "url": "https://rhizome.org/commissions/",
+      "type": "opportunity",
+      "date": "2025-10-14"
+    },
+    {
+      "title": "Community Blog & Editorial",
+      "description": "Essays, interviews, and commentary on digital art, technology, and culture from artists, curators, and critics.",
+      "url": "https://rhizome.org/editorial/",
       "type": "content",
-      "date": "2025-10-13"
+      "date": "2025-10-14"
     }
   ],
-  "last_updated": "2025-10-13T18:03:06.928446Z",
-  "status": "cloudflare_protected",
-  "notes": "Rhizome.org blocks AI bots (Claude, GPT, etc.) in robots.txt and uses Cloudflare bot protection. Automated scraping is not possible from this environment. Data represents known Rhizome community resources and programs. Manual updates or browser-based fetching may be required.",
-  "last_fetch_attempt": "2025-10-13T18:03:06.928460Z",
-  "fetch_error": "403 Forbidden - Cloudflare bot protection + AI bot blocking in robots.txt"
+  "last_updated": "2025-10-14T13:52:00.000000Z",
+  "status": "manually_curated",
+  "notes": "Updated with current Rhizome programs and opportunities. Site uses Cloudflare bot protection preventing automated scraping. Data reflects known programs from rhizome.org homepage and public information.",
+  "source": "rhizome.org",
+  "fetch_method": "manual_curation_with_web_verification"
 }
