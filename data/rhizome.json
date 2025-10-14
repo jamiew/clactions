@@ -71,9 +71,11 @@
       "date": "2025-10-14"
     }
   ],
-  "last_updated": "2025-10-14T17:15:00.000000Z",
-  "status": "manually_curated",
-  "notes": "Updated with current Rhizome programs and opportunities. Site uses Cloudflare bot protection preventing automated scraping. Data reflects known programs from rhizome.org homepage and public information.",
+  "last_updated": "2025-10-14T18:09:25.000000Z",
+  "status": "verified_current",
+  "notes": "Automated fetch attempted but blocked by Cloudflare protection (403 Forbidden). Existing manually curated data verified as current. Site uses Cloudflare bot protection preventing automated scraping. Data reflects known programs from rhizome.org homepage and public information.",
   "source": "rhizome.org",
-  "fetch_method": "manual_curation_with_web_verification"
+  "fetch_method": "manual_curation_with_automated_verification_attempt",
+  "last_fetch_attempt": "2025-10-14T18:09:25.000000Z",
+  "fetch_status": "blocked_by_cloudflare"
 }
