@@ -10,8 +10,6 @@ on:
         description: 'Workflow run ID to repair (optional, uses latest failed if empty)'
         required: false
         type: string
-  schedule:
-    - cron: '0 */6 * * *'  # Check every 6 hours for any failures
 
 permissions:
   contents: write
