@@ -1,68 +1,70 @@
-/* Generated: 2025-10-13T08:00:00Z
- * Hour: 08 (Early Morning), Season: Fall (Day 286), Weather: Rain, mist - 57°F (feels 52°F)
- * Vibe: Moody rainy October morning, atmospheric mist, cozy indoor ambiance
+/* Generated: 2025-10-14T08:00:00Z
+ * Hour: 08 (Early Morning), Season: Fall (Day 287), Weather: Mist - 56°F (feels 51°F, 97% humidity)
+ * Vibe: Ethereal misty autumn morning, heavy fog, soft awakening, cozy and atmospheric
  */
 
 :root {
-  /* Rainy morning backgrounds - misty, moody grays with fall warmth */
-  --bg-primary: #2b2f34;
-  --bg-secondary: #3a3f47;
-  --bg-card: rgba(48, 53, 61, 0.92);
-  --bg-tertiary: #4a5058;
+  /* Misty morning backgrounds - soft grays with warm undertones */
+  --bg-primary: #3c3f43;
+  --bg-secondary: #4a4d52;
+  --bg-card: rgba(54, 57, 62, 0.93);
+  --bg-tertiary: #545861;
 
-  /* Text colors: Clear contrast for rainy visibility */
-  --text-primary: #e8e6e1;
-  --text-secondary: #b8b4ad;
-  --text-muted: #8a8780;
+  /* Text colors: Clear readability through the mist */
+  --text-primary: #ede9e3;
+  --text-secondary: #c4bfb6;
+  --text-muted: #948f86;
 
-  /* Accent colors: Warm fall tones cutting through the gray */
-  --accent-primary: #c17854;
-  --accent-secondary: #8b6f47;
-  --accent-glow: #d4a574;
-  --accent-cool: #6b8e9f;
+  /* Accent colors: Warm autumn tones breaking through fog */
+  --accent-primary: #c9885e;
+  --accent-secondary: #9c7049;
+  --accent-glow: #dca976;
+  --accent-cool: #7a9ba8;
 
-  /* Rain & mist atmosphere */
-  --rain-blue: #5a7a8c;
-  --mist-gray: #7a8690;
-  --wet-asphalt: #3d4349;
-  --puddle-reflect: rgba(90, 122, 140, 0.15);
+  /* Mist & fog atmosphere - very high humidity */
+  --mist-heavy: #8a939d;
+  --fog-dense: rgba(138, 147, 157, 0.35);
+  --fog-light: rgba(180, 186, 192, 0.18);
+  --damp-ground: #3f4449;
 
-  /* Fall colors: Muted autumn palette for moody morning */
-  --fall-rust: #b37647;
-  --fall-amber: #c9906a;
-  --fall-ochre: #a67c5d;
-  --fall-brown: #7f6043;
-  --fall-gold: #d9a066;
+  /* Fall colors: Muted palette through fog */
+  --fall-rust: #ba7d52;
+  --fall-amber: #ce9668;
+  --fall-ochre: #ad8360;
+  --fall-brown: #86654a;
+  --fall-gold: #dca56c;
+  --fall-leaf: #b8916d;
 
   /* Functional colors */
-  --border-subtle: rgba(232, 230, 225, 0.08);
-  --border-medium: rgba(232, 230, 225, 0.15);
-  --border-strong: rgba(232, 230, 225, 0.25);
-  --shadow-soft: 0 2px 8px rgba(0, 0, 0, 0.3);
-  --shadow-medium: 0 4px 14px rgba(0, 0, 0, 0.35);
-  --shadow-strong: 0 8px 20px rgba(0, 0, 0, 0.4);
-  --shadow-glow: 0 0 16px rgba(193, 120, 84, 0.18);
-  --overlay-warm: rgba(193, 120, 84, 0.08);
+  --border-subtle: rgba(237, 233, 227, 0.09);
+  --border-medium: rgba(237, 233, 227, 0.16);
+  --border-strong: rgba(237, 233, 227, 0.28);
+  --shadow-soft: 0 3px 10px rgba(0, 0, 0, 0.35);
+  --shadow-medium: 0 6px 16px rgba(0, 0, 0, 0.4);
+  --shadow-strong: 0 10px 24px rgba(0, 0, 0, 0.45);
+  --shadow-glow: 0 0 20px rgba(201, 136, 94, 0.22);
+  --overlay-warm: rgba(201, 136, 94, 0.09);
 }
 
 /* Global styles */
 body {
   background: linear-gradient(
-    155deg,
+    160deg,
     var(--bg-primary) 0%,
-    var(--wet-asphalt) 35%,
-    var(--bg-secondary) 70%,
-    #353a42 100%
+    var(--damp-ground) 30%,
+    var(--bg-secondary) 65%,
+    #434750 100%
   );
   background-attachment: fixed;
   color: var(--text-primary);
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  line-height: 1.65;
-  transition: background 0.8s ease;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', sans-serif;
+  line-height: 1.7;
+  transition: background 0.9s ease;
   position: relative;
+  overflow-x: hidden;
 }
 
-/* Rainy morning atmosphere - mist and soft rain diffusion */
+/* Heavy mist atmosphere - layered fog effect for 97% humidity */
 body::before {
   content: '';
   position: fixed;
@@ -71,17 +73,18 @@ body::before {
   right: 0;
   bottom: 0;
   background:
-    radial-gradient(ellipse at 20% 15%, rgba(90, 122, 140, 0.12) 0%, transparent 50%),
-    radial-gradient(circle at 65% 25%, var(--mist-gray) 0%, transparent 35%),
-    radial-gradient(ellipse at 40% 60%, var(--puddle-reflect) 0%, transparent 45%),
-    radial-gradient(circle at 80% 80%, rgba(139, 111, 71, 0.08) 0%, transparent 40%),
-    radial-gradient(ellipse at 10% 85%, rgba(90, 122, 140, 0.09) 0%, transparent 48%);
+    radial-gradient(ellipse at 15% 10%, var(--fog-dense) 0%, transparent 45%),
+    radial-gradient(circle at 70% 20%, var(--fog-light) 0%, transparent 55%),
+    radial-gradient(ellipse at 35% 55%, var(--fog-dense) 0%, transparent 48%),
+    radial-gradient(circle at 85% 75%, var(--fog-light) 0%, transparent 50%),
+    radial-gradient(ellipse at 10% 80%, var(--fog-dense) 0%, transparent 52%),
+    radial-gradient(circle at 50% 40%, rgba(138, 147, 157, 0.25) 0%, transparent 60%);
   pointer-events: none;
   z-index: -1;
-  opacity: 0.85;
+  opacity: 0.92;
 }
 
-/* Subtle rain texture - gentle vertical streaks */
+/* Subtle mist texture - ultra fine diffusion */
 body::after {
   content: '';
   position: fixed;
@@ -90,179 +93,213 @@ body::after {
   right: 0;
   bottom: 0;
   background-image:
-    repeating-linear-gradient(
-      92deg,
-      transparent,
-      transparent 2px,
-      rgba(90, 122, 140, 0.015) 2px,
-      rgba(90, 122, 140, 0.015) 3px
-    ),
-    repeating-linear-gradient(
-      88deg,
-      transparent,
-      transparent 3px,
-      rgba(122, 134, 144, 0.012) 3px,
-      rgba(122, 134, 144, 0.012) 5px
-    );
+    radial-gradient(circle at 25% 35%, rgba(180, 186, 192, 0.04) 0%, transparent 25%),
+    radial-gradient(circle at 75% 60%, rgba(138, 147, 157, 0.05) 0%, transparent 30%),
+    radial-gradient(circle at 40% 80%, rgba(180, 186, 192, 0.035) 0%, transparent 28%);
   pointer-events: none;
   z-index: -1;
-  opacity: 0.6;
+  opacity: 0.7;
+  filter: blur(1px);
 }
 
 /* Typography */
 h1, h2, h3, h4, h5, h6 {
   color: var(--fall-gold);
-  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
-  margin-top: 1.5em;
-  margin-bottom: 0.6em;
-  letter-spacing: -0.015em;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.55);
+  margin-top: 1.6em;
+  margin-bottom: 0.65em;
+  letter-spacing: -0.02em;
+  font-weight: 700;
 }
 
 h1 {
-  background: linear-gradient(125deg, var(--fall-amber) 0%, var(--accent-primary) 40%, var(--fall-gold) 80%);
+  background: linear-gradient(120deg, var(--fall-amber) 0%, var(--accent-primary) 45%, var(--fall-gold) 85%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
   text-shadow: none;
-  filter: drop-shadow(0 2px 8px rgba(193, 120, 84, 0.35));
+  filter: drop-shadow(0 3px 10px rgba(201, 136, 94, 0.4));
+  font-size: 2.8rem;
 }
 
+h2 {
+  font-size: 2rem;
+  color: var(--fall-leaf);
+}
+
+h3 {
+  font-size: 1.5rem;
+  color: var(--accent-glow);
+}
+
+/* Links */
 a {
   color: var(--accent-primary);
   text-decoration: none;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
 }
 
 a:hover {
   color: var(--accent-glow);
-  text-shadow: 0 0 14px rgba(212, 165, 116, 0.4);
+  text-shadow: 0 0 16px rgba(220, 169, 118, 0.45);
 }
 
 a::after {
   content: '';
   position: absolute;
-  bottom: -2px;
+  bottom: -3px;
   left: 0;
   width: 0;
   height: 2px;
   background: linear-gradient(90deg, var(--accent-primary), var(--fall-amber));
-  transition: width 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 a:hover::after {
   width: 100%;
 }
 
-/* Cards and containers - cozy indoor feel */
+/* Paragraphs */
+p {
+  margin: 0.9em 0;
+  color: var(--text-secondary);
+}
+
+/* Cards and containers - soft cozy feel */
 .card, .container, article, section {
   background: var(--bg-card);
-  backdrop-filter: blur(16px) saturate(102%);
+  backdrop-filter: blur(20px) saturate(104%);
   border: 1px solid var(--border-medium);
-  border-radius: 14px;
-  padding: 1.5rem;
-  margin: 1rem 0;
+  border-radius: 16px;
+  padding: 1.6rem;
+  margin: 1.2rem 0;
   box-shadow: var(--shadow-medium);
-  transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
+  overflow: hidden;
 }
 
 .card:hover, article:hover {
-  transform: translateY(-3px);
+  transform: translateY(-4px);
   box-shadow: var(--shadow-glow), var(--shadow-strong);
-  border-color: rgba(193, 120, 84, 0.35);
-  background: rgba(56, 61, 69, 0.95);
+  border-color: rgba(201, 136, 94, 0.4);
+  background: rgba(60, 63, 68, 0.96);
 }
 
-/* Buttons - warm accent in rainy gray */
-button, .button {
-  background: linear-gradient(130deg, var(--accent-primary), var(--fall-rust));
+/* Buttons - warm glow in misty morning */
+button, .button, .btn {
+  background: linear-gradient(125deg, var(--accent-primary), var(--fall-rust));
   color: #ffffff;
   border: none;
-  border-radius: 10px;
-  padding: 0.75rem 1.6rem;
+  border-radius: 11px;
+  padding: 0.8rem 1.7rem;
   font-weight: 600;
   cursor: pointer;
   box-shadow: var(--shadow-soft);
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  letter-spacing: 0.01em;
+  transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  letter-spacing: 0.015em;
+  font-size: 1rem;
 }
 
-button:hover, .button:hover {
-  background: linear-gradient(130deg, var(--accent-glow), var(--fall-gold));
+button:hover, .button:hover, .btn:hover {
+  background: linear-gradient(125deg, var(--accent-glow), var(--fall-gold));
   box-shadow: var(--shadow-glow), var(--shadow-medium);
-  transform: translateY(-2px) scale(1.01);
-  filter: brightness(1.15);
+  transform: translateY(-3px) scale(1.02);
+  filter: brightness(1.18);
 }
 
-button:active, .button:active {
-  transform: translateY(0) scale(0.99);
+button:active, .button:active, .btn:active {
+  transform: translateY(0) scale(0.98);
 }
 
-/* Header/Navigation - misty top bar */
+/* Header/Navigation - foggy top layer */
 header, nav {
-  background: rgba(58, 63, 71, 0.88);
-  backdrop-filter: blur(24px) saturate(105%);
+  background: rgba(74, 77, 82, 0.9);
+  backdrop-filter: blur(28px) saturate(108%);
   border-bottom: 2px solid var(--accent-primary);
-  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
-  padding: 1rem 1.5rem;
-  margin-bottom: 2rem;
+  box-shadow: 0 3px 24px rgba(0, 0, 0, 0.35);
+  padding: 1.1rem 1.6rem;
+  margin-bottom: 2.2rem;
 }
 
-/* Code blocks - darker for rainy morning */
+/* Code blocks - darker for morning clarity */
 code, pre {
-  background: rgba(26, 28, 32, 0.75);
+  background: rgba(30, 32, 36, 0.8);
   border: 1px solid var(--border-subtle);
-  border-radius: 8px;
-  font-family: 'SF Mono', 'Monaco', 'Courier New', monospace;
+  border-radius: 9px;
+  font-family: 'SF Mono', 'Menlo', 'Monaco', 'Courier New', monospace;
   color: var(--accent-cool);
-  font-size: 0.92em;
+  font-size: 0.93em;
 }
 
 pre {
-  padding: 1.2rem;
+  padding: 1.3rem;
   overflow-x: auto;
-  box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.3);
-  line-height: 1.5;
+  box-shadow: inset 0 3px 10px rgba(0, 0, 0, 0.35);
+  line-height: 1.55;
 }
 
 code {
-  padding: 0.25rem 0.5rem;
+  padding: 0.3rem 0.55rem;
 }
 
-/* Input fields - subtle and readable */
+/* Input fields - subtle and accessible */
 input, textarea, select {
   background: var(--bg-tertiary);
   border: 1px solid var(--border-medium);
-  border-radius: 8px;
+  border-radius: 9px;
   color: var(--text-primary);
-  padding: 0.6rem 0.85rem;
-  transition: border-color 0.25s ease, box-shadow 0.25s ease;
-  font-size: 1em;
+  padding: 0.65rem 0.9rem;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  font-size: 1rem;
 }
 
 input:focus, textarea:focus, select:focus {
   outline: none;
   border-color: var(--accent-primary);
-  box-shadow: 0 0 0 3px rgba(193, 120, 84, 0.3);
+  box-shadow: 0 0 0 4px rgba(201, 136, 94, 0.32);
 }
 
-/* Scrollbar - fall rain theme */
+/* Lists */
+ul, ol {
+  margin: 1em 0;
+  padding-left: 1.8em;
+}
+
+li {
+  margin: 0.5em 0;
+  color: var(--text-secondary);
+}
+
+/* Blockquotes */
+blockquote {
+  border-left: 4px solid var(--accent-primary);
+  padding-left: 1.2rem;
+  margin: 1.5rem 0;
+  color: var(--text-muted);
+  font-style: italic;
+  background: rgba(201, 136, 94, 0.06);
+  padding: 1rem 1.2rem;
+  border-radius: 0 8px 8px 0;
+}
+
+/* Scrollbar - misty fall theme */
 ::-webkit-scrollbar {
-  width: 11px;
-  height: 11px;
+  width: 12px;
+  height: 12px;
 }
 
 ::-webkit-scrollbar-track {
   background: var(--bg-primary);
-  border-radius: 6px;
+  border-radius: 8px;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(135deg, var(--accent-secondary), var(--rain-blue));
-  border-radius: 6px;
-  border: 2px solid var(--bg-primary);
-  transition: background 0.25s ease;
+  background: linear-gradient(135deg, var(--accent-secondary), var(--mist-heavy));
+  border-radius: 8px;
+  border: 3px solid var(--bg-primary);
+  transition: background 0.3s ease;
 }
 
 ::-webkit-scrollbar-thumb:hover {
@@ -272,20 +309,21 @@ input:focus, textarea:focus, select:focus {
 /* Selection */
 ::selection {
   background: var(--accent-primary);
-  color: var(--text-primary);
+  color: white;
+  text-shadow: none;
 }
 
 /* Glass morphism elements */
 .glass {
-  background: rgba(48, 53, 61, 0.65);
-  backdrop-filter: blur(22px) saturate(108%);
+  background: rgba(54, 57, 62, 0.7);
+  backdrop-filter: blur(26px) saturate(110%);
   border: 1px solid var(--border-subtle);
   box-shadow: var(--shadow-soft);
 }
 
 /* Ambient glow effect for important elements */
 .highlight, .featured, .accent {
-  box-shadow: 0 0 24px rgba(193, 120, 84, 0.25), var(--shadow-soft);
+  box-shadow: 0 0 28px rgba(201, 136, 94, 0.28), var(--shadow-soft);
   border-color: var(--accent-glow);
   color: var(--accent-primary);
 }
@@ -293,156 +331,191 @@ input:focus, textarea:focus, select:focus {
 /* Status indicators */
 .status-active {
   color: var(--accent-primary);
-  text-shadow: 0 0 12px rgba(193, 120, 84, 0.4);
+  text-shadow: 0 0 14px rgba(201, 136, 94, 0.45);
 }
 
 .status-info {
-  color: var(--rain-blue);
+  color: var(--accent-cool);
 }
 
 .status-success {
-  color: #7a9a6b;
+  color: #82a872;
 }
 
-/* Weather indicator - rainy and cool */
+.status-warning {
+  color: var(--fall-amber);
+}
+
+/* Weather indicator - misty and cool */
 .weather-indicator {
   display: inline-flex;
   align-items: center;
-  background: linear-gradient(120deg, var(--rain-blue), var(--mist-gray));
-  padding: 0.5rem 1rem;
-  border-radius: 20px;
+  background: linear-gradient(115deg, var(--mist-heavy), var(--accent-cool));
+  padding: 0.55rem 1.1rem;
+  border-radius: 22px;
   color: white;
-  font-size: 0.9em;
+  font-size: 0.92em;
   font-weight: 500;
   box-shadow: var(--shadow-soft);
-  gap: 0.5rem;
+  gap: 0.6rem;
 }
 
 /* Footer */
 footer {
-  background: rgba(58, 63, 71, 0.85);
-  backdrop-filter: blur(20px) saturate(105%);
+  background: rgba(74, 77, 82, 0.88);
+  backdrop-filter: blur(24px) saturate(108%);
   border-top: 2px solid var(--accent-primary);
   color: var(--text-secondary);
-  padding: 2rem 1.5rem;
-  margin-top: 3rem;
+  padding: 2.2rem 1.6rem;
+  margin-top: 3.5rem;
   text-align: center;
-  box-shadow: 0 -2px 16px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 -3px 20px rgba(0, 0, 0, 0.3);
 }
 
 /* Utility classes */
 .text-accent { color: var(--accent-primary); }
 .text-muted { color: var(--text-muted); }
 .text-cool { color: var(--accent-cool); }
+.text-warm { color: var(--fall-gold); }
 .bg-dark { background: var(--bg-tertiary); }
+.bg-card { background: var(--bg-card); }
 .shadow { box-shadow: var(--shadow-soft); }
 .glow { box-shadow: var(--shadow-glow); }
+.rounded { border-radius: 12px; }
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
   body {
-    font-size: 14px;
+    font-size: 15px;
+  }
+
+  h1 {
+    font-size: 2.2rem;
+  }
+
+  h2 {
+    font-size: 1.7rem;
   }
 
   .card, .container, article, section {
-    padding: 1.1rem;
-    margin: 0.8rem 0;
-    border-radius: 12px;
+    padding: 1.2rem;
+    margin: 0.9rem 0;
+    border-radius: 14px;
   }
 
   header, nav {
-    padding: 0.9rem 1rem;
+    padding: 1rem 1.2rem;
+  }
+
+  button, .button, .btn {
+    padding: 0.7rem 1.4rem;
+  }
+}
+
+@media (max-width: 480px) {
+  h1 {
+    font-size: 1.8rem;
+  }
+
+  .card, .container, article, section {
+    padding: 1rem;
   }
 }
 
 /* Smooth transitions for dynamic theme changes */
 * {
   transition-property: background-color, border-color, color, box-shadow;
-  transition-duration: 0.4s;
+  transition-duration: 0.5s;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Rainy atmosphere animation - gentle misty pulse */
-@keyframes rain-mist {
-  0%, 100% { opacity: 0.8; }
-  50% { opacity: 0.9; }
+/* Heavy mist atmosphere animation - slow drift */
+@keyframes mist-drift {
+  0%, 100% {
+    opacity: 0.88;
+    transform: translateX(0);
+  }
+  50% {
+    opacity: 0.95;
+    transform: translateX(8px);
+  }
 }
 
 body::before {
-  animation: rain-mist 18s ease-in-out infinite;
+  animation: mist-drift 22s ease-in-out infinite;
 }
 
-/* Rain texture subtle shift */
-@keyframes rain-streak {
-  0%, 100% { opacity: 0.55; }
-  50% { opacity: 0.65; }
+/* Fog texture gentle pulse */
+@keyframes fog-pulse {
+  0%, 100% { opacity: 0.65; }
+  50% { opacity: 0.75; }
 }
 
 body::after {
-  animation: rain-streak 12s ease-in-out infinite;
+  animation: fog-pulse 16s ease-in-out infinite;
 }
 
-/* Header warm glow - cozy indoor light */
-@keyframes warm-flicker {
+/* Header warm glow - cozy indoor morning light */
+@keyframes warm-dawn {
   0% { filter: brightness(1); }
-  50% { filter: brightness(1.08); }
+  50% { filter: brightness(1.1); }
   100% { filter: brightness(1); }
 }
 
 h1, h2 {
-  animation: warm-flicker 7s ease-in-out infinite;
+  animation: warm-dawn 8s ease-in-out infinite;
 }
 
 /* Warm glow pulse for interactive elements */
-@keyframes cozy-glow {
-  0%, 100% { box-shadow: 0 0 16px rgba(193, 120, 84, 0.18); }
-  50% { box-shadow: 0 0 28px rgba(193, 120, 84, 0.32); }
+@keyframes morning-glow {
+  0%, 100% { box-shadow: 0 0 20px rgba(201, 136, 94, 0.22); }
+  50% { box-shadow: 0 0 32px rgba(201, 136, 94, 0.38); }
 }
 
-button:hover, .button:hover {
-  animation: cozy-glow 1.8s ease-in-out infinite;
+button:hover, .button:hover, .btn:hover {
+  animation: morning-glow 2s ease-in-out infinite;
 }
 
 /* Floating mist particles */
 @keyframes float-mist {
   0%, 100% {
     transform: translateY(0) translateX(0);
-    opacity: 0.15;
+    opacity: 0.18;
   }
   50% {
-    transform: translateY(-15px) translateX(8px);
-    opacity: 0.3;
+    transform: translateY(-18px) translateX(10px);
+    opacity: 0.35;
   }
 }
 
 .card::before, article::before {
   content: '';
   position: absolute;
-  top: 15%;
-  right: 12%;
-  width: 6px;
-  height: 6px;
-  background: radial-gradient(circle, var(--mist-gray), transparent);
+  top: 18%;
+  right: 15%;
+  width: 8px;
+  height: 8px;
+  background: radial-gradient(circle, var(--mist-heavy), transparent);
   border-radius: 50%;
   opacity: 0;
   pointer-events: none;
 }
 
 .card:hover::before, article:hover::before {
-  animation: float-mist 4s ease-in-out infinite;
+  animation: float-mist 5s ease-in-out infinite;
 }
 
-/* Rain drop effect (subtle) */
-@keyframes rain-drop {
+/* Dew drop effect (very subtle for high humidity) */
+@keyframes dew-drop {
   0% {
-    transform: translateY(-10px);
+    transform: translateY(-12px);
     opacity: 0;
   }
   50% {
-    opacity: 0.4;
+    opacity: 0.5;
   }
   100% {
-    transform: translateY(20px);
+    transform: translateY(24px);
     opacity: 0;
   }
 }
@@ -450,15 +523,54 @@ button:hover, .button:hover {
 .card::after, article::after {
   content: '';
   position: absolute;
-  top: 5%;
-  left: 25%;
-  width: 1px;
-  height: 12px;
-  background: linear-gradient(180deg, transparent, var(--rain-blue), transparent);
+  top: 8%;
+  left: 28%;
+  width: 2px;
+  height: 14px;
+  background: linear-gradient(180deg, transparent, var(--mist-heavy), transparent);
   opacity: 0;
   pointer-events: none;
 }
 
 .card:hover::after, article:hover::after {
-  animation: rain-drop 2.5s ease-in-out infinite;
+  animation: dew-drop 3s ease-in-out infinite;
+}
+
+/* Accessibility improvements */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Focus styles for accessibility */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: 3px solid var(--accent-primary);
+  outline-offset: 2px;
+}
+
+/* Print styles */
+@media print {
+  body {
+    background: white;
+    color: black;
+  }
+
+  body::before,
+  body::after {
+    display: none;
+  }
+
+  .card, .container, article, section {
+    box-shadow: none;
+    border: 1px solid #ccc;
+  }
 }
