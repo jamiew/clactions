@@ -71,13 +71,13 @@
       "date": "2025-10-14"
     }
   ],
-  "last_updated": "2025-10-17T12:36:15.000000Z",
+  "last_updated": "2025-10-17T18:03:02.966473+00:00",
   "status": "verified_current",
   "notes": "Cloudflare protection prevents direct automated scraping. Data verified as current through manual review of Rhizome.org public information. Includes key programs: Microgrants, exhibitions, NEW INC cohorts, ArtBase archive, and community initiatives.",
   "source": "rhizome.org",
   "fetch_method": "verified_manual_curation",
   "last_verification": "2025-10-17T12:36:15.000000Z",
-  "last_fetch_attempt": "2025-10-17T18:56:03.000000Z",
+  "last_fetch_attempt": "2025-10-17T18:03:02.966473+00:00",
   "fetch_status": "cloudflare_protected",
   "technical_details": "Site requires JavaScript execution and Cloudflare challenge completion. Standard HTTP requests receive Cloudflare challenge page. Requires headless browser (Puppeteer/Playwright) or manual curation."
 }
