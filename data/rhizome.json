@@ -77,6 +77,7 @@
   "source": "rhizome.org",
   "fetch_method": "verified_manual_curation",
   "last_verification": "2025-10-17T12:36:15.000000Z",
+  "last_fetch_attempt": "2025-10-17T18:56:03.000000Z",
   "fetch_status": "cloudflare_protected",
   "technical_details": "Site requires JavaScript execution and Cloudflare challenge completion. Standard HTTP requests receive Cloudflare challenge page. Requires headless browser (Puppeteer/Playwright) or manual curation."
 }
