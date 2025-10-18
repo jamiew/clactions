@@ -1,59 +1,59 @@
-/* Generated: 2025-10-17T08:00:00Z
- * Hour: 08 (Early Morning), Season: Fall (Day 290), Weather: Clear - 51°F (feels 46°F, 39% humidity)
- * Vibe: Crisp, dry autumn morning with brilliant clarity, fresh awakening light cutting through cool air
+/* Generated: 2025-10-18T08:00:00Z
+ * Hour: 08 (Early Morning), Season: Fall (Day 291), Weather: Clear - 48°F (feels 44°F, 63% humidity)
+ * Vibe: Cool, misty autumn morning with soft clarity, gentle awakening light through humid air
  */
 
 :root {
-  /* Extra clear morning backgrounds - dry air, brilliant visibility */
-  --bg-primary: #3b4552;
-  --bg-secondary: #48536a;
-  --bg-card: rgba(58, 66, 78, 0.95);
-  --bg-tertiary: #525f72;
+  /* Soft morning backgrounds - humid air, gentle visibility */
+  --bg-primary: #3e4855;
+  --bg-secondary: #4b5568;
+  --bg-card: rgba(60, 68, 80, 0.96);
+  --bg-tertiary: #545e6f;
 
-  /* Text colors: Crystal sharp clarity of dry morning air */
-  --text-primary: #faf5f0;
-  --text-secondary: #e2dcd1;
-  --text-muted: #b6aea1;
+  /* Text colors: Soft clarity of humid morning air */
+  --text-primary: #f7f3ed;
+  --text-secondary: #dfd9ce;
+  --text-muted: #b3aba0;
 
-  /* Accent colors: Vibrant autumn tones in sharp morning sun */
-  --accent-primary: #eba764;
-  --accent-secondary: #cb8e4a;
-  --accent-glow: #f7c47c;
-  --accent-cool: #7daacb;
+  /* Accent colors: Muted autumn tones in soft morning light */
+  --accent-primary: #e5a567;
+  --accent-secondary: #c88c48;
+  --accent-glow: #f0c27a;
+  --accent-cool: #7ca3c3;
 
-  /* Crisp clear sky - low humidity brilliance */
-  --sky-blue: #8ab7d8;
-  --sky-light: rgba(138, 183, 216, 0.2);
-  --sky-glow: rgba(138, 183, 216, 0.14);
-  --morning-light: #e8d7c2;
+  /* Soft sky - humid morning atmosphere */
+  --sky-blue: #86b0d0;
+  --sky-light: rgba(134, 176, 208, 0.25);
+  --sky-glow: rgba(134, 176, 208, 0.18);
+  --morning-light: #e3d5bf;
 
-  /* Fall colors: Extra vibrant in dry, clear light */
-  --fall-rust: #db9d61;
-  --fall-amber: #eeab72;
-  --fall-ochre: #cc9860;
-  --fall-brown: #ab7d5c;
-  --fall-gold: #f9c88a;
-  --fall-leaf: #d9ab78;
+  /* Fall colors: Softly muted in humid morning light */
+  --fall-rust: #d69960;
+  --fall-amber: #e7a770;
+  --fall-ochre: #c79560;
+  --fall-brown: #a7795b;
+  --fall-gold: #f0c285;
+  --fall-leaf: #d4a776;
 
   /* Functional colors */
-  --border-subtle: rgba(250, 245, 240, 0.13);
-  --border-medium: rgba(250, 245, 240, 0.24);
-  --border-strong: rgba(250, 245, 240, 0.38);
-  --shadow-soft: 0 3px 13px rgba(0, 0, 0, 0.26);
-  --shadow-medium: 0 6px 19px rgba(0, 0, 0, 0.29);
-  --shadow-strong: 0 11px 27px rgba(0, 0, 0, 0.33);
-  --shadow-glow: 0 0 26px rgba(235, 167, 100, 0.38);
-  --overlay-warm: rgba(235, 167, 100, 0.13);
+  --border-subtle: rgba(247, 243, 237, 0.15);
+  --border-medium: rgba(247, 243, 237, 0.26);
+  --border-strong: rgba(247, 243, 237, 0.40);
+  --shadow-soft: 0 3px 14px rgba(0, 0, 0, 0.30);
+  --shadow-medium: 0 6px 20px rgba(0, 0, 0, 0.34);
+  --shadow-strong: 0 11px 28px rgba(0, 0, 0, 0.38);
+  --shadow-glow: 0 0 28px rgba(229, 165, 103, 0.42);
+  --overlay-warm: rgba(229, 165, 103, 0.15);
 }
 
 /* Global styles */
 body {
   background: linear-gradient(
-    168deg,
+    170deg,
     var(--bg-primary) 0%,
-    #404e60 26%,
-    var(--bg-secondary) 62%,
-    #4b586a 100%
+    #434f5e 28%,
+    var(--bg-secondary) 60%,
+    #4e5a6c 100%
   );
   background-attachment: fixed;
   color: var(--text-primary);
@@ -64,7 +64,7 @@ body {
   overflow-x: hidden;
 }
 
-/* Crystal clear sky atmosphere - sharp morning light, low humidity clarity */
+/* Soft humid sky atmosphere - gentle morning light through moisture */
 body::before {
   content: '';
   position: fixed;
@@ -73,18 +73,18 @@ body::before {
   right: 0;
   bottom: 0;
   background:
-    radial-gradient(ellipse at 32% 7%, var(--sky-light) 0%, transparent 54%),
-    radial-gradient(circle at 77% 14%, var(--sky-glow) 0%, transparent 62%),
-    radial-gradient(ellipse at 47% 43%, rgba(232, 215, 194, 0.09) 0%, transparent 57%),
-    radial-gradient(circle at 87% 67%, var(--sky-light) 0%, transparent 60%),
-    radial-gradient(ellipse at 16% 74%, rgba(138, 183, 216, 0.17) 0%, transparent 62%),
-    radial-gradient(circle at 62% 33%, rgba(247, 196, 124, 0.11) 0%, transparent 67%);
+    radial-gradient(ellipse at 30% 8%, var(--sky-light) 0%, transparent 56%),
+    radial-gradient(circle at 75% 15%, var(--sky-glow) 0%, transparent 64%),
+    radial-gradient(ellipse at 45% 42%, rgba(227, 213, 191, 0.11) 0%, transparent 58%),
+    radial-gradient(circle at 85% 65%, var(--sky-light) 0%, transparent 62%),
+    radial-gradient(ellipse at 18% 72%, rgba(134, 176, 208, 0.20) 0%, transparent 64%),
+    radial-gradient(circle at 60% 35%, rgba(240, 194, 122, 0.13) 0%, transparent 68%);
   pointer-events: none;
   z-index: -1;
-  opacity: 0.92;
+  opacity: 0.88;
 }
 
-/* Enhanced morning shimmer - extra crisp dry air sparkle */
+/* Softer morning shimmer - humid air diffusion */
 body::after {
   content: '';
   position: fixed;
@@ -93,14 +93,14 @@ body::after {
   right: 0;
   bottom: 0;
   background-image:
-    radial-gradient(circle at 37% 26%, rgba(250, 245, 240, 0.07) 0%, transparent 30%),
-    radial-gradient(circle at 70% 50%, rgba(247, 196, 124, 0.065) 0%, transparent 34%),
-    radial-gradient(circle at 54% 76%, rgba(138, 183, 216, 0.06) 0%, transparent 32%),
-    radial-gradient(circle at 18% 48%, rgba(250, 245, 240, 0.055) 0%, transparent 28%);
+    radial-gradient(circle at 35% 28%, rgba(247, 243, 237, 0.08) 0%, transparent 32%),
+    radial-gradient(circle at 68% 48%, rgba(240, 194, 122, 0.07) 0%, transparent 36%),
+    radial-gradient(circle at 52% 74%, rgba(134, 176, 208, 0.07) 0%, transparent 34%),
+    radial-gradient(circle at 20% 50%, rgba(247, 243, 237, 0.06) 0%, transparent 30%);
   pointer-events: none;
   z-index: -1;
-  opacity: 0.75;
-  filter: blur(0.4px);
+  opacity: 0.80;
+  filter: blur(1.2px);
 }
 
 /* Typography */
@@ -430,72 +430,72 @@ footer {
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Morning light rays - brilliant illumination through dry air */
+/* Morning light rays - soft diffused illumination through humid air */
 @keyframes light-rays {
   0%, 100% {
-    opacity: 0.9;
+    opacity: 0.85;
     transform: translateX(0) rotate(0deg);
   }
   50% {
-    opacity: 0.95;
-    transform: translateX(10px) rotate(0.6deg);
+    opacity: 0.92;
+    transform: translateX(8px) rotate(0.4deg);
   }
 }
 
 body::before {
-  animation: light-rays 17s ease-in-out infinite;
+  animation: light-rays 19s ease-in-out infinite;
 }
 
-/* Morning sparkle - extra crisp dry air clarity */
+/* Morning shimmer - gentle humid air diffusion */
 @keyframes sparkle-shift {
-  0%, 100% { opacity: 0.72; }
-  50% { opacity: 0.8; }
+  0%, 100% { opacity: 0.78; }
+  50% { opacity: 0.84; }
 }
 
 body::after {
-  animation: sparkle-shift 11s ease-in-out infinite;
+  animation: sparkle-shift 13s ease-in-out infinite;
 }
 
-/* Morning warmth glow - brilliant sharp sunlight */
+/* Morning warmth glow - soft gentle sunlight */
 @keyframes morning-glow {
-  0% { filter: brightness(1.07); }
-  50% { filter: brightness(1.22); }
-  100% { filter: brightness(1.07); }
+  0% { filter: brightness(1.05); }
+  50% { filter: brightness(1.15); }
+  100% { filter: brightness(1.05); }
 }
 
 h1, h2 {
-  animation: morning-glow 5.5s ease-in-out infinite;
+  animation: morning-glow 6.5s ease-in-out infinite;
 }
 
 /* Warm glow pulse for interactive elements */
 @keyframes warm-pulse {
-  0%, 100% { box-shadow: 0 0 26px rgba(235, 167, 100, 0.38); }
-  50% { box-shadow: 0 0 38px rgba(235, 167, 100, 0.53); }
+  0%, 100% { box-shadow: 0 0 28px rgba(229, 165, 103, 0.42); }
+  50% { box-shadow: 0 0 40px rgba(229, 165, 103, 0.55); }
 }
 
 button:hover, .button:hover, .btn:hover {
-  animation: warm-pulse 1.7s ease-in-out infinite;
+  animation: warm-pulse 2s ease-in-out infinite;
 }
 
-/* Floating light particles - morning dust motes in dry air */
+/* Floating light particles - morning mist particles in humid air */
 @keyframes float-light {
   0%, 100% {
     transform: translateY(0) translateX(0);
-    opacity: 0.28;
+    opacity: 0.32;
   }
   50% {
-    transform: translateY(-22px) translateX(17px);
-    opacity: 0.48;
+    transform: translateY(-18px) translateX(14px);
+    opacity: 0.52;
   }
 }
 
 .card::before, article::before {
   content: '';
   position: absolute;
-  top: 16%;
-  right: 13%;
-  width: 13px;
-  height: 13px;
+  top: 18%;
+  right: 15%;
+  width: 15px;
+  height: 15px;
   background: radial-gradient(circle, var(--morning-light), transparent);
   border-radius: 50%;
   opacity: 0;
@@ -503,20 +503,20 @@ button:hover, .button:hover, .btn:hover {
 }
 
 .card:hover::before, article:hover::before {
-  animation: float-light 3.8s ease-in-out infinite;
+  animation: float-light 4.2s ease-in-out infinite;
 }
 
-/* Cool crisp breeze effect (for dry 51°F air) */
+/* Cool humid breeze effect (for 48°F humid air) */
 @keyframes cool-breeze {
   0% {
-    transform: translateX(-6px);
+    transform: translateX(-8px);
     opacity: 0;
   }
   50% {
-    opacity: 0.45;
+    opacity: 0.52;
   }
   100% {
-    transform: translateX(28px);
+    transform: translateX(32px);
     opacity: 0;
   }
 }
@@ -524,17 +524,17 @@ button:hover, .button:hover, .btn:hover {
 .card::after, article::after {
   content: '';
   position: absolute;
-  top: 10%;
-  left: 25%;
-  width: 20px;
-  height: 2px;
+  top: 12%;
+  left: 22%;
+  width: 24px;
+  height: 3px;
   background: linear-gradient(90deg, transparent, var(--sky-blue), transparent);
   opacity: 0;
   pointer-events: none;
 }
 
 .card:hover::after, article:hover::after {
-  animation: cool-breeze 2.8s ease-in-out infinite;
+  animation: cool-breeze 3.2s ease-in-out infinite;
 }
 
 /* Accessibility improvements */
