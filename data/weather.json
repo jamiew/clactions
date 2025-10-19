@@ -1,10 +1,10 @@
 {
   "location": "New York, NY",
-  "temperature": 48,
+  "temperature": 50,
   "temperature_unit": "F",
-  "feels_like": 44,
+  "feels_like": 47,
   "condition": "Clear",
-  "humidity": 63,
-  "last_updated": "2025-10-18T08:05:44Z",
+  "humidity": 86,
+  "last_updated": "2025-10-19T08:05:56Z",
   "source": "wttr.in"
 }
