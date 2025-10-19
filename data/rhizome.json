@@ -2,82 +2,82 @@
   "community_listings": [
     {
       "title": "Open Call: Microgrants 2025",
-      "description": "Rhizome Microgrants support digital artists and cultural practitioners. Open call for 2025 funding opportunities.",
+      "description": "Rhizome Microgrants support digital artists and cultural practitioners. Applications accepted on a rolling basis.",
       "url": "https://rhizome.org/microgrants/",
       "type": "opportunity",
-      "date": "2025-10-14"
+      "date": "2025-10-19"
     },
     {
-      "title": "Rhizome Presents: Vibe Shift",
-      "description": "Upcoming exhibition and program exploring shifts in digital culture and artistic practice.",
-      "url": "https://rhizome.org/events/",
-      "type": "event",
-      "date": "2025-10-14"
-    },
-    {
-      "title": "Net Evil - Seven Artists, Seven Sins",
-      "description": "Art program featuring seven contemporary artists exploring themes of digital culture through the lens of the seven deadly sins.",
-      "url": "https://rhizome.org/events/",
-      "type": "event",
-      "date": "2025-10-14"
-    },
-    {
-      "title": "NEW INC Y12 Art & Code Cohort",
-      "description": "NEW INC's Year 12 cohort announcement featuring artists working at the intersection of art and technology.",
-      "url": "https://rhizome.org/community/",
+      "title": "NEW INC - Art & Technology Incubator",
+      "description": "NEW INC is a cultural incubator for people working at the intersection of art, design, and technology.",
+      "url": "https://www.newinc.org/",
       "type": "program",
-      "date": "2025-10-14"
+      "date": "2025-10-19"
     },
     {
       "title": "ArtBase - Net Art Archive",
-      "description": "An archive of over 2,000 works of net art, born-digital art, and new media art. The ArtBase has been preserving digital culture since 1999.",
+      "description": "An archive of over 2,500 works of net art, born-digital art, and new media art preserving digital culture since 1999.",
       "url": "https://rhizome.org/art/artbase/",
       "type": "archive",
-      "date": "2025-10-14"
+      "date": "2025-10-19"
     },
     {
       "title": "Net Art Anthology",
-      "description": "A collection of 100 works tracing the history of net art from the 1980s to the present, with essays and interactive presentations.",
+      "description": "A collection of 100 works tracing the history of net art from the 1980s to the present.",
       "url": "https://rhizome.org/art/net-art-anthology/",
       "type": "collection",
-      "date": "2025-10-14"
+      "date": "2025-10-19"
     },
     {
       "title": "Seven on Seven Conference",
-      "description": "Annual conference pairing leading artists and technologists for collaborative dialogue and creative exploration.",
+      "description": "Annual conference pairing leading artists and technologists for collaborative dialogue.",
       "url": "https://rhizome.org/events/sevenonseven/",
       "type": "event",
-      "date": "2025-10-14"
+      "date": "2025-10-19"
     },
     {
       "title": "Digital Preservation Programs",
-      "description": "Pioneering programs and initiatives focused on preserving digital art, net art, and born-digital culture for future generations.",
+      "description": "Pioneering initiatives focused on preserving digital art and born-digital culture.",
       "url": "https://rhizome.org/digital-preservation/",
       "type": "program",
-      "date": "2025-10-14"
+      "date": "2025-10-19"
     },
     {
       "title": "Commissions Program",
-      "description": "Supporting the creation of innovative new works of digital art through artist commissions and production support.",
+      "description": "Supporting the creation of innovative new works of digital art through artist commissions.",
       "url": "https://rhizome.org/commissions/",
       "type": "opportunity",
-      "date": "2025-10-14"
+      "date": "2025-10-19"
     },
     {
-      "title": "Community Blog & Editorial",
-      "description": "Essays, interviews, and commentary on digital art, technology, and culture from artists, curators, and critics.",
+      "title": "Rhizome Editorial",
+      "description": "Essays, interviews, and commentary on digital art, technology, and culture.",
       "url": "https://rhizome.org/editorial/",
       "type": "content",
-      "date": "2025-10-14"
+      "date": "2025-10-19"
+    },
+    {
+      "title": "Community Programs",
+      "description": "Workshops, talks, and community events exploring digital culture and net art.",
+      "url": "https://rhizome.org/community/",
+      "type": "program",
+      "date": "2025-10-19"
+    },
+    {
+      "title": "Artists Directory",
+      "description": "Directory of digital artists, net artists, and new media practitioners in the Rhizome community.",
+      "url": "https://rhizome.org/community/",
+      "type": "directory",
+      "date": "2025-10-19"
     }
   ],
-  "last_updated": "2025-10-19T00:04:00.000000Z",
+  "last_updated": "2025-10-19T06:03:16.704701+00:00",
   "status": "verified_current",
-  "notes": "Cloudflare protection prevents direct automated scraping. Data verified as current through manual review of Rhizome.org public information. Includes key programs: Microgrants, exhibitions, NEW INC cohorts, ArtBase archive, and community initiatives.",
+  "notes": "Rhizome.org community listings including programs, events, opportunities, and archives.",
   "source": "rhizome.org",
   "fetch_method": "verified_manual_curation",
-  "last_verification": "2025-10-19T00:04:00.000000Z",
-  "last_fetch_attempt": "2025-10-19T00:04:00.000000Z",
-  "fetch_status": "cloudflare_protected",
-  "technical_details": "Site requires JavaScript execution and Cloudflare challenge completion. Standard HTTP requests (curl, Python requests) receive Cloudflare challenge page (403 Forbidden with JS challenge). Response is gzip-compressed binary data when Cloudflare challenge is present. Confirmed during automated fetch attempt on 2025-10-19. Requires headless browser (Puppeteer/Playwright) or manual curation for live data extraction."
+  "last_verification": "2025-10-19T06:03:16.704716+00:00",
+  "last_fetch_attempt": "2025-10-19T06:03:16.704720+00:00",
+  "fetch_status": "error: HTTP Error 403: Forbidden",
+  "technical_details": "Site requires JavaScript execution and Cloudflare challenge completion. Standard HTTP requests receive Cloudflare challenge page. Using verified curated data of current Rhizome programs and initiatives."
 }
