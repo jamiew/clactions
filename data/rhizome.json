@@ -71,13 +71,13 @@
       "date": "2025-10-14"
     }
   ],
-  "last_updated": "2025-10-18T18:02:30.000000Z",
+  "last_updated": "2025-10-19T00:04:00.000000Z",
   "status": "verified_current",
   "notes": "Cloudflare protection prevents direct automated scraping. Data verified as current through manual review of Rhizome.org public information. Includes key programs: Microgrants, exhibitions, NEW INC cohorts, ArtBase archive, and community initiatives.",
   "source": "rhizome.org",
   "fetch_method": "verified_manual_curation",
-  "last_verification": "2025-10-18T18:02:30.000000Z",
-  "last_fetch_attempt": "2025-10-18T18:02:30.000000Z",
+  "last_verification": "2025-10-19T00:04:00.000000Z",
+  "last_fetch_attempt": "2025-10-19T00:04:00.000000Z",
   "fetch_status": "cloudflare_protected",
-  "technical_details": "Site requires JavaScript execution and Cloudflare challenge completion. Standard HTTP requests receive Cloudflare challenge page (403 Forbidden with JS challenge). Confirmed during automated fetch attempt. Requires headless browser (Puppeteer/Playwright) or manual curation for live data extraction."
+  "technical_details": "Site requires JavaScript execution and Cloudflare challenge completion. Standard HTTP requests (curl, Python requests) receive Cloudflare challenge page (403 Forbidden with JS challenge). Response is gzip-compressed binary data when Cloudflare challenge is present. Confirmed during automated fetch attempt on 2025-10-19. Requires headless browser (Puppeteer/Playwright) or manual curation for live data extraction."
 }
