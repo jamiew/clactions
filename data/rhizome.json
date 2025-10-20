@@ -71,13 +71,13 @@
       "date": "2025-10-19"
     }
   ],
-  "last_updated": "2025-10-20T06:01:00.000000+00:00",
+  "last_updated": "2025-10-20T12:03:00.000000+00:00",
   "status": "verified_current",
   "notes": "Rhizome.org community listings including programs, events, opportunities, and archives.",
   "source": "rhizome.org",
   "fetch_method": "verified_manual_curation",
   "last_verification": "2025-10-19T12:01:00.000000+00:00",
-  "last_fetch_attempt": "2025-10-20T06:01:00.000000+00:00",
+  "last_fetch_attempt": "2025-10-20T12:03:00.000000+00:00",
   "fetch_status": "error: Cloudflare protection blocks automated access (403 Forbidden)",
-  "technical_details": "Site requires JavaScript execution and Cloudflare challenge completion. All automated fetch methods (WebFetch, curl, Python urllib) blocked. Maintaining curated data of current Rhizome programs and initiatives. Future automation may require headless browser (Playwright/Puppeteer) or API access."
+  "technical_details": "Site requires JavaScript execution and Cloudflare challenge completion. All automated fetch methods (WebFetch, curl, Python requests) blocked. Maintaining curated data of current Rhizome programs and initiatives. Future automation may require headless browser (Playwright/Puppeteer) or API access."
 }
