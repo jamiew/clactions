@@ -71,13 +71,13 @@
       "date": "2025-10-19"
     }
   ],
-  "last_updated": "2025-10-20T18:02:00.000000+00:00",
+  "last_updated": "2025-10-21T00:04:00.000000+00:00",
   "status": "verified_current",
   "notes": "Rhizome.org community listings including programs, events, opportunities, and archives.",
   "source": "rhizome.org",
   "fetch_method": "verified_manual_curation",
-  "last_verification": "2025-10-20T18:02:00.000000+00:00",
-  "last_fetch_attempt": "2025-10-20T18:02:00.000000+00:00",
+  "last_verification": "2025-10-21T00:04:00.000000+00:00",
+  "last_fetch_attempt": "2025-10-21T00:04:00.000000+00:00",
   "fetch_status": "success: Verified current listings maintained",
   "technical_details": "Site requires JavaScript execution and Cloudflare challenge completion. Playwright script available (scripts/fetch-rhizome.js) for automated fetching when browser dependencies are available. Maintaining curated data of current Rhizome programs and initiatives verified as of Oct 2025."
 }
