@@ -1,83 +1,14 @@
 {
   "community_listings": [
     {
-      "title": "Open Call: Microgrants 2025",
-      "description": "Rhizome Microgrants support digital artists and cultural practitioners. Applications accepted on a rolling basis.",
-      "url": "https://rhizome.org/microgrants/",
-      "type": "opportunity",
-      "date": "2025-10-19"
-    },
-    {
-      "title": "NEW INC - Art & Technology Incubator",
-      "description": "NEW INC is a cultural incubator for people working at the intersection of art, design, and technology.",
-      "url": "https://www.newinc.org/",
-      "type": "program",
-      "date": "2025-10-19"
-    },
-    {
-      "title": "ArtBase - Net Art Archive",
-      "description": "An archive of over 2,500 works of net art, born-digital art, and new media art preserving digital culture since 1999.",
-      "url": "https://rhizome.org/art/artbase/",
-      "type": "archive",
-      "date": "2025-10-19"
-    },
-    {
-      "title": "Net Art Anthology",
-      "description": "A collection of 100 works tracing the history of net art from the 1980s to the present.",
-      "url": "https://rhizome.org/art/net-art-anthology/",
-      "type": "collection",
-      "date": "2025-10-19"
-    },
-    {
-      "title": "Seven on Seven Conference",
-      "description": "Annual conference pairing leading artists and technologists for collaborative dialogue.",
-      "url": "https://rhizome.org/events/sevenonseven/",
-      "type": "event",
-      "date": "2025-10-19"
-    },
-    {
-      "title": "Digital Preservation Programs",
-      "description": "Pioneering initiatives focused on preserving digital art and born-digital culture.",
-      "url": "https://rhizome.org/digital-preservation/",
-      "type": "program",
-      "date": "2025-10-19"
-    },
-    {
-      "title": "Commissions Program",
-      "description": "Supporting the creation of innovative new works of digital art through artist commissions.",
-      "url": "https://rhizome.org/commissions/",
-      "type": "opportunity",
-      "date": "2025-10-19"
-    },
-    {
-      "title": "Rhizome Editorial",
-      "description": "Essays, interviews, and commentary on digital art, technology, and culture.",
-      "url": "https://rhizome.org/editorial/",
-      "type": "content",
-      "date": "2025-10-19"
-    },
-    {
-      "title": "Community Programs",
-      "description": "Workshops, talks, and community events exploring digital culture and net art.",
+      "title": "Rhizome Community Access Limited",
+      "description": "Cloudflare protection prevents automated scraping. Manual access or browser automation required.",
       "url": "https://rhizome.org/community/",
-      "type": "program",
-      "date": "2025-10-19"
-    },
-    {
-      "title": "Artists Directory",
-      "description": "Directory of digital artists, net artists, and new media practitioners in the Rhizome community.",
-      "url": "https://rhizome.org/community/",
-      "type": "directory",
-      "date": "2025-10-19"
+      "type": "system-message",
+      "date": "2025-10-23T12:03:25.290376+00:00"
     }
   ],
-  "last_updated": "2025-10-23T06:02:15Z",
-  "status": "verified_current",
-  "notes": "Rhizome.org community listings including programs, events, opportunities, and archives.",
-  "source": "rhizome.org",
-  "fetch_method": "verified_manual_curation",
-  "last_verification": "2025-10-23T06:02:15Z",
-  "last_fetch_attempt": "2025-10-23T06:02:15Z",
-  "fetch_status": "blocked: Cloudflare protection active - maintaining current curated listings",
-  "technical_details": "Site requires JavaScript execution and Cloudflare challenge completion. Attempted fetch returned 403 Forbidden with Cloudflare JavaScript challenge page. Multiple fetch methods attempted: WebFetch (403), curl with user-agent (403), Python requests (403). All returned Cloudflare challenge-platform JavaScript. Playwright or Selenium-based script with JavaScript execution would be required for automated fetching. Maintaining curated data of current Rhizome programs and initiatives verified as of Oct 2025."
+  "last_updated": "2025-10-23T12:03:25.290389+00:00",
+  "status": "cloudflare-protected",
+  "note": "This page requires JavaScript and Cloudflare challenge bypass. Consider using Playwright/Puppeteer in GitHub Actions."
 }
