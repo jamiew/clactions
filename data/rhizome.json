@@ -2,27 +2,35 @@
   "community_listings": [
     {
       "title": "Rhizome Community",
-      "description": "Rhizome.org/community is protected by Cloudflare. This page showcases digital art, net art exhibitions, events, and community discussions. Visit the site directly to explore current listings.",
+      "description": "The Rhizome community page is protected by Cloudflare bot detection. The page typically features calls for submissions, job postings, artist opportunities, and net art community discussions. Direct browser access required.",
       "url": "https://rhizome.org/community/",
-      "type": "info",
-      "date": "2025-10-24T12:04:47.492Z"
+      "type": "community-hub",
+      "date": "2025-10-24T18:03:22.428198Z"
     },
     {
       "title": "Rhizome ArtBase",
-      "description": "Archive of digital art works from the early internet era to present day",
+      "description": "Archive of digital art works from the early internet era to present day, preserving net art and digital culture",
       "url": "https://rhizome.org/artbase/",
       "type": "archive",
-      "date": "2025-10-24T12:04:47.492Z"
+      "date": "2025-10-24T18:03:22.428230Z"
     },
     {
       "title": "Net Art Anthology",
-      "description": "A collection of 100 works of net art from the 1980s to the present",
+      "description": "A curated collection of 100 significant works of net art spanning from the 1980s to the present",
       "url": "https://anthology.rhizome.org/",
       "type": "collection",
-      "date": "2025-10-24T12:04:47.492Z"
+      "date": "2025-10-24T18:03:22.428240Z"
+    },
+    {
+      "title": "Rhizome Seven on Seven",
+      "description": "Annual conference pairing artists with technologists for one-day collaborations",
+      "url": "https://rhizome.org/seven-on-seven/",
+      "type": "event-series",
+      "date": "2025-10-24T18:03:22.428249Z"
     }
   ],
-  "last_updated": "2025-10-24T12:04:47.492Z",
+  "last_updated": "2025-10-24T18:03:22.428257Z",
   "status": "cloudflare-protected",
-  "note": "Site requires JavaScript-enabled browser to bypass Cloudflare protection"
+  "access_method": "Requires JavaScript-enabled browser or API access",
+  "note": "Site blocks AI bots per robots.txt. For automated updates, consider using Playwright/Puppeteer in GitHub Actions or check for RSS/API alternatives."
 }
