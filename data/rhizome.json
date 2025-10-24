@@ -1,12 +1,13 @@
 {
   "community_listings": [
     {
-      "title": "Cloudflare Protection Active",
-      "description": "The Rhizome community page is currently protected by Cloudflare. Error: HTTP Error 403: Forbidden. Browser automation (Playwright/Puppeteer) required to bypass JavaScript challenge.",
+      "title": "Rhizome Community Page Access Blocked",
+      "description": "The Rhizome community page is protected by Cloudflare anti-bot protection requiring browser automation. Standard HTTP requests receive 403 Forbidden.",
       "url": "https://rhizome.org/community/",
       "type": "system-notice",
-      "date": "2025-10-24T00:04:49.224956+00:00"
+      "date": "2025-10-24T06:03:31.840576+00:00"
     }
   ],
-  "last_updated": "2025-10-24T00:04:49.225046+00:00"
+  "last_updated": "2025-10-24T06:03:31.840590+00:00",
+  "status": "cloudflare-protected"
 }
