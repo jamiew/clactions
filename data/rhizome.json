@@ -2,27 +2,11 @@
   "community_listings": [
     {
       "title": "Cloudflare Protection Active",
-      "description": "The Rhizome community page (https://rhizome.org/community/) is protected by Cloudflare's bot detection, which blocks automated scraping attempts. To fetch real community listings, browser automation (Playwright, Puppeteer, or Selenium) is required to bypass the JavaScript challenge.",
+      "description": "The Rhizome community page is currently protected by Cloudflare. Error: HTTP Error 403: Forbidden. Browser automation (Playwright/Puppeteer) required to bypass JavaScript challenge.",
       "url": "https://rhizome.org/community/",
       "type": "system-notice",
-      "date": "2025-10-23T18:03:30Z"
+      "date": "2025-10-24T00:04:49.224956+00:00"
     }
   ],
-  "last_updated": "2025-10-23T18:03:30Z",
-  "status": "cloudflare-protected",
-  "scraping_requirements": {
-    "method": "Browser automation required",
-    "suggested_tools": [
-      "Playwright (recommended for GitHub Actions)",
-      "Puppeteer",
-      "Selenium"
-    ],
-    "blocked_methods": [
-      "curl with user-agent",
-      "Python requests library",
-      "WebFetch tool"
-    ],
-    "cloudflare_challenge": "JavaScript execution required"
-  },
-  "next_steps": "Update the rhizome-community.yml workflow to use Playwright or Puppeteer for browser automation. Example: Use 'microsoft/playwright-github-action' or install Playwright in the workflow."
+  "last_updated": "2025-10-24T00:04:49.225046+00:00"
 }
