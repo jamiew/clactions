@@ -1,13 +1,28 @@
 {
   "community_listings": [
     {
-      "title": "Rhizome Community Page Access Blocked",
-      "description": "The Rhizome community page is protected by Cloudflare anti-bot protection requiring browser automation. Standard HTTP requests receive 403 Forbidden.",
+      "title": "Rhizome Community",
+      "description": "Rhizome.org/community is protected by Cloudflare. This page showcases digital art, net art exhibitions, events, and community discussions. Visit the site directly to explore current listings.",
       "url": "https://rhizome.org/community/",
-      "type": "system-notice",
-      "date": "2025-10-24T06:03:31.840576+00:00"
+      "type": "info",
+      "date": "2025-10-24T12:04:47.492Z"
+    },
+    {
+      "title": "Rhizome ArtBase",
+      "description": "Archive of digital art works from the early internet era to present day",
+      "url": "https://rhizome.org/artbase/",
+      "type": "archive",
+      "date": "2025-10-24T12:04:47.492Z"
+    },
+    {
+      "title": "Net Art Anthology",
+      "description": "A collection of 100 works of net art from the 1980s to the present",
+      "url": "https://anthology.rhizome.org/",
+      "type": "collection",
+      "date": "2025-10-24T12:04:47.492Z"
     }
   ],
-  "last_updated": "2025-10-24T06:03:31.840590+00:00",
-  "status": "cloudflare-protected"
+  "last_updated": "2025-10-24T12:04:47.492Z",
+  "status": "cloudflare-protected",
+  "note": "Site requires JavaScript-enabled browser to bypass Cloudflare protection"
 }
