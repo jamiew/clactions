@@ -1,64 +1,64 @@
 {
   "community_listings": [
     {
-      "title": "Rhizome Community Page",
-      "description": "Central hub for calls for submissions, job postings, opportunities, and community announcements in digital art and net culture",
+      "title": "Rhizome Community Page - Access Restricted",
+      "description": "Rhizome.org blocks AI bots in robots.txt (anthropic-ai, Claude-Web, ClaudeBot). Manual data collection or API access required.",
       "url": "https://rhizome.org/community/",
       "type": "community-hub",
-      "date": "2025-10-25T12:03:03.359986+00:00"
+      "date": "2025-10-25T18:01:00.000000+00:00"
     },
     {
-      "title": "Rhizome Commissions Program",
-      "description": "Annual program commissioning artists working with technology and digital media",
+      "title": "Alternative: Rhizome RSS Feed",
+      "description": "Consider using RSS feeds if available for automated updates",
+      "url": "https://rhizome.org/",
+      "type": "suggestion",
+      "date": "2025-10-25T18:01:00.000000+00:00"
+    },
+    {
+      "title": "Rhizome Commissions",
+      "description": "Known program: Annual artist commissions for technology and digital media work",
       "url": "https://rhizome.org/commissions/",
       "type": "opportunity",
-      "date": "2025-10-25T12:03:03.359986+00:00"
+      "date": "2025-10-25T18:01:00.000000+00:00"
     },
     {
-      "title": "ArtBase - Digital Art Archive",
-      "description": "Online archive of new media art containing over 2000 art works dating from the 1980s to the present",
+      "title": "ArtBase Archive",
+      "description": "Digital art archive with 2000+ works from 1980s to present",
       "url": "https://rhizome.org/art/artbase/",
       "type": "archive",
-      "date": "2025-10-25T12:03:03.359986+00:00"
+      "date": "2025-10-25T18:01:00.000000+00:00"
     },
     {
       "title": "Net Art Anthology",
-      "description": "A curated collection of 100 significant works of net art spanning from the 1980s to the present",
+      "description": "Curated collection of 100 significant net art works",
       "url": "https://anthology.rhizome.org/",
       "type": "collection",
-      "date": "2025-10-25T12:03:03.359986+00:00"
+      "date": "2025-10-25T18:01:00.000000+00:00"
     },
     {
       "title": "Seven on Seven Conference",
-      "description": "Annual conference pairing artists with technologists for one-day collaborations and presentations",
+      "description": "Annual conference pairing artists with technologists",
       "url": "https://rhizome.org/seven-on-seven/",
       "type": "event",
-      "date": "2025-10-25T12:03:03.359986+00:00"
-    },
-    {
-      "title": "Rhizome Membership",
-      "description": "Support digital art and culture through Rhizome membership and gain access to exclusive content",
-      "url": "https://rhizome.org/membership/",
-      "type": "community",
-      "date": "2025-10-25T12:03:03.359986+00:00"
-    },
-    {
-      "title": "Digital Preservation Program",
-      "description": "Pioneering initiatives in preserving digital art works and net culture for future generations",
-      "url": "https://rhizome.org/editorial/2023/jan/13/digital-preservation/",
-      "type": "program",
-      "date": "2025-10-25T12:03:03.359986+00:00"
+      "date": "2025-10-25T18:01:00.000000+00:00"
     },
     {
       "title": "Rhizome Editorial",
-      "description": "Articles, essays, and critical writing on digital culture, net art, and technology",
+      "description": "Critical writing on digital culture, net art, and technology",
       "url": "https://rhizome.org/editorial/",
       "type": "content",
-      "date": "2025-10-25T12:03:03.359986+00:00"
+      "date": "2025-10-25T18:01:00.000000+00:00"
     }
   ],
-  "last_updated": "2025-10-25T12:03:03.359986+00:00",
-  "status": "cloudflare-protected",
-  "access_method": "Site requires JavaScript for Cloudflare challenge",
-  "note": "Automated scraping blocked. Data updated with known Rhizome sections and programs. For real-time community listings, visit https://rhizome.org/community/ directly."
+  "last_updated": "2025-10-25T18:01:00.000000+00:00",
+  "status": "access-restricted",
+  "restriction_reason": "robots.txt explicitly disallows AI bots (anthropic-ai, Claude-Web, ClaudeBot, etc.)",
+  "cloudflare_protection": "Site also uses Cloudflare bot protection requiring JavaScript",
+  "note": "Automated scraping is blocked by both robots.txt policy and Cloudflare protection. Consider: (1) Manual data entry, (2) RSS feeds if available, (3) Official API if exists, (4) User-provided data updates.",
+  "recommendations": [
+    "Check for RSS feeds at https://rhizome.org/feed/ or similar",
+    "Look for official API documentation",
+    "Consider manual periodic updates to community listings",
+    "Respect robots.txt and site policies"
+  ]
 }
