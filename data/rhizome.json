@@ -5,59 +5,59 @@
       "description": "Central hub for calls for submissions, job postings, opportunities, and community announcements in digital art and net culture",
       "url": "https://rhizome.org/community/",
       "type": "community-hub",
-      "date": "2025-10-25T06:01:00.000000+00:00"
+      "date": "2025-10-25T12:03:03.359986+00:00"
     },
     {
       "title": "Rhizome Commissions Program",
       "description": "Annual program commissioning artists working with technology and digital media",
       "url": "https://rhizome.org/commissions/",
       "type": "opportunity",
-      "date": "2025-10-25T06:01:00.000000+00:00"
+      "date": "2025-10-25T12:03:03.359986+00:00"
     },
     {
       "title": "ArtBase - Digital Art Archive",
       "description": "Online archive of new media art containing over 2000 art works dating from the 1980s to the present",
       "url": "https://rhizome.org/art/artbase/",
       "type": "archive",
-      "date": "2025-10-25T06:01:00.000000+00:00"
+      "date": "2025-10-25T12:03:03.359986+00:00"
     },
     {
       "title": "Net Art Anthology",
       "description": "A curated collection of 100 significant works of net art spanning from the 1980s to the present",
       "url": "https://anthology.rhizome.org/",
       "type": "collection",
-      "date": "2025-10-25T06:01:00.000000+00:00"
+      "date": "2025-10-25T12:03:03.359986+00:00"
     },
     {
       "title": "Seven on Seven Conference",
       "description": "Annual conference pairing artists with technologists for one-day collaborations and presentations",
       "url": "https://rhizome.org/seven-on-seven/",
       "type": "event",
-      "date": "2025-10-25T06:01:00.000000+00:00"
+      "date": "2025-10-25T12:03:03.359986+00:00"
     },
     {
       "title": "Rhizome Membership",
       "description": "Support digital art and culture through Rhizome membership and gain access to exclusive content",
       "url": "https://rhizome.org/membership/",
       "type": "community",
-      "date": "2025-10-25T06:01:00.000000+00:00"
+      "date": "2025-10-25T12:03:03.359986+00:00"
     },
     {
       "title": "Digital Preservation Program",
       "description": "Pioneering initiatives in preserving digital art works and net culture for future generations",
       "url": "https://rhizome.org/editorial/2023/jan/13/digital-preservation/",
       "type": "program",
-      "date": "2025-10-25T06:01:00.000000+00:00"
+      "date": "2025-10-25T12:03:03.359986+00:00"
     },
     {
       "title": "Rhizome Editorial",
       "description": "Articles, essays, and critical writing on digital culture, net art, and technology",
       "url": "https://rhizome.org/editorial/",
       "type": "content",
-      "date": "2025-10-25T06:01:00.000000+00:00"
+      "date": "2025-10-25T12:03:03.359986+00:00"
     }
   ],
-  "last_updated": "2025-10-25T06:01:00.000000+00:00",
+  "last_updated": "2025-10-25T12:03:03.359986+00:00",
   "status": "cloudflare-protected",
   "access_method": "Site requires JavaScript for Cloudflare challenge",
   "note": "Automated scraping blocked. Data updated with known Rhizome sections and programs. For real-time community listings, visit https://rhizome.org/community/ directly."
