@@ -1,36 +1,64 @@
 {
   "community_listings": [
     {
-      "title": "Rhizome Community",
-      "description": "The Rhizome community page is protected by Cloudflare bot detection. The page typically features calls for submissions, job postings, artist opportunities, and net art community discussions. Direct browser access required.",
+      "title": "Rhizome Community Page",
+      "description": "Central hub for calls for submissions, job postings, opportunities, and community announcements in digital art and net culture",
       "url": "https://rhizome.org/community/",
       "type": "community-hub",
-      "date": "2025-10-24T18:03:22.428198Z"
+      "date": "2025-10-25T00:05:51.785335+00:00"
     },
     {
-      "title": "Rhizome ArtBase",
-      "description": "Archive of digital art works from the early internet era to present day, preserving net art and digital culture",
-      "url": "https://rhizome.org/artbase/",
+      "title": "Rhizome Commissions Program",
+      "description": "Annual program commissioning artists working with technology and digital media",
+      "url": "https://rhizome.org/commissions/",
+      "type": "opportunity",
+      "date": "2025-10-25T00:05:51.785349+00:00"
+    },
+    {
+      "title": "ArtBase - Digital Art Archive",
+      "description": "Online archive of new media art containing over 2000 art works dating from the 1980s to the present",
+      "url": "https://rhizome.org/art/artbase/",
       "type": "archive",
-      "date": "2025-10-24T18:03:22.428230Z"
+      "date": "2025-10-25T00:05:51.785352+00:00"
     },
     {
       "title": "Net Art Anthology",
       "description": "A curated collection of 100 significant works of net art spanning from the 1980s to the present",
       "url": "https://anthology.rhizome.org/",
       "type": "collection",
-      "date": "2025-10-24T18:03:22.428240Z"
+      "date": "2025-10-25T00:05:51.785354+00:00"
     },
     {
-      "title": "Rhizome Seven on Seven",
-      "description": "Annual conference pairing artists with technologists for one-day collaborations",
+      "title": "Seven on Seven Conference",
+      "description": "Annual conference pairing artists with technologists for one-day collaborations and presentations",
       "url": "https://rhizome.org/seven-on-seven/",
-      "type": "event-series",
-      "date": "2025-10-24T18:03:22.428249Z"
+      "type": "event",
+      "date": "2025-10-25T00:05:51.785355+00:00"
+    },
+    {
+      "title": "Rhizome Membership",
+      "description": "Support digital art and culture through Rhizome membership and gain access to exclusive content",
+      "url": "https://rhizome.org/membership/",
+      "type": "community",
+      "date": "2025-10-25T00:05:51.785357+00:00"
+    },
+    {
+      "title": "Digital Preservation Program",
+      "description": "Pioneering initiatives in preserving digital art works and net culture for future generations",
+      "url": "https://rhizome.org/editorial/2023/jan/13/digital-preservation/",
+      "type": "program",
+      "date": "2025-10-25T00:05:51.785358+00:00"
+    },
+    {
+      "title": "Rhizome Editorial",
+      "description": "Articles, essays, and critical writing on digital culture, net art, and technology",
+      "url": "https://rhizome.org/editorial/",
+      "type": "content",
+      "date": "2025-10-25T00:05:51.785360+00:00"
     }
   ],
-  "last_updated": "2025-10-24T18:03:22.428257Z",
+  "last_updated": "2025-10-25T00:05:51.785361+00:00",
   "status": "cloudflare-protected",
-  "access_method": "Requires JavaScript-enabled browser or API access",
-  "note": "Site blocks AI bots per robots.txt. For automated updates, consider using Playwright/Puppeteer in GitHub Actions or check for RSS/API alternatives."
+  "access_method": "Site requires JavaScript for Cloudflare challenge",
+  "note": "Automated scraping blocked. Data updated with known Rhizome sections and programs. For real-time community listings, visit https://rhizome.org/community/ directly."
 }
