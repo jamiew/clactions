@@ -1,64 +1,14 @@
 {
   "community_listings": [
     {
-      "title": "Rhizome Community Page - Access Restricted",
-      "description": "Rhizome.org blocks AI bots in robots.txt (anthropic-ai, Claude-Web, ClaudeBot). Manual data collection or API access required.",
+      "title": "Rhizome Community",
+      "description": "Note: Rhizome.org community page is protected by Cloudflare. Automated scraping requires Playwright with browser support. This file contains placeholder data until the protection can be bypassed.",
       "url": "https://rhizome.org/community/",
-      "type": "community-hub",
-      "date": "2025-10-26T06:02:28.000000+00:00"
-    },
-    {
-      "title": "Alternative: Rhizome RSS Feed",
-      "description": "Consider using RSS feeds if available for automated updates",
-      "url": "https://rhizome.org/",
-      "type": "suggestion",
-      "date": "2025-10-26T06:02:28.000000+00:00"
-    },
-    {
-      "title": "Rhizome Commissions",
-      "description": "Known program: Annual artist commissions for technology and digital media work",
-      "url": "https://rhizome.org/commissions/",
-      "type": "opportunity",
-      "date": "2025-10-26T06:02:28.000000+00:00"
-    },
-    {
-      "title": "ArtBase Archive",
-      "description": "Digital art archive with 2000+ works from 1980s to present",
-      "url": "https://rhizome.org/art/artbase/",
-      "type": "archive",
-      "date": "2025-10-26T06:02:28.000000+00:00"
-    },
-    {
-      "title": "Net Art Anthology",
-      "description": "Curated collection of 100 significant net art works",
-      "url": "https://anthology.rhizome.org/",
-      "type": "collection",
-      "date": "2025-10-26T06:02:28.000000+00:00"
-    },
-    {
-      "title": "Seven on Seven Conference",
-      "description": "Annual conference pairing artists with technologists",
-      "url": "https://rhizome.org/seven-on-seven/",
-      "type": "event",
-      "date": "2025-10-26T06:02:28.000000+00:00"
-    },
-    {
-      "title": "Rhizome Editorial",
-      "description": "Critical writing on digital culture, net art, and technology",
-      "url": "https://rhizome.org/editorial/",
-      "type": "content",
-      "date": "2025-10-26T06:02:28.000000+00:00"
+      "type": "notice",
+      "date": "2025-10-26T12:04:01.557700+00:00"
     }
   ],
-  "last_updated": "2025-10-26T06:02:28.000000+00:00",
-  "status": "access-restricted",
-  "restriction_reason": "robots.txt explicitly disallows AI bots (anthropic-ai, Claude-Web, ClaudeBot, etc.)",
-  "cloudflare_protection": "Site also uses Cloudflare bot protection requiring JavaScript",
-  "note": "Automated scraping is blocked by both robots.txt policy and Cloudflare protection. Consider: (1) Manual data entry, (2) RSS feeds if available, (3) Official API if exists, (4) User-provided data updates.",
-  "recommendations": [
-    "Check for RSS feeds at https://rhizome.org/feed/ or similar",
-    "Look for official API documentation",
-    "Consider manual periodic updates to community listings",
-    "Respect robots.txt and site policies"
-  ]
+  "last_updated": "2025-10-26T12:04:01.557716+00:00",
+  "status": "cloudflare-protected",
+  "note": "Site protected by Cloudflare. To enable real data: Install Playwright (pip install playwright) and chromium browser (playwright install chromium), then re-run the fetch_rhizome.py script."
 }
