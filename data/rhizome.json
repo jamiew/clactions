@@ -1,14 +1,23 @@
 {
   "community_listings": [
     {
-      "title": "Rhizome Community",
-      "description": "Note: Rhizome.org community page is protected by Cloudflare. Automated scraping requires Playwright with browser support. This file contains placeholder data until the protection can be bypassed.",
+      "title": "Rhizome Community: Cloudflare Protected",
+      "description": "The Rhizome community page (rhizome.org/community/) features digital art and new media culture listings including exhibitions, opportunities, events, and jobs. Automated scraping is currently blocked by Cloudflare JavaScript challenge protection.",
       "url": "https://rhizome.org/community/",
       "type": "notice",
-      "date": "2025-10-26T12:04:01.557700+00:00"
+      "date": "2025-10-26T18:02:43.794674+00:00"
+    },
+    {
+      "title": "About Rhizome Community Listings",
+      "description": "Typical listings include: Open calls for artists, Exhibitions and screenings, Residencies and fellowships, Teaching positions, Curatorial opportunities, Technical roles in arts organizations, and Community events in digital art and new media.",
+      "url": "https://rhizome.org/community/",
+      "type": "info",
+      "date": "2025-10-26T18:02:43.794674+00:00"
     }
   ],
-  "last_updated": "2025-10-26T12:04:01.557716+00:00",
+  "last_updated": "2025-10-26T18:02:43.794687+00:00",
   "status": "cloudflare-protected",
-  "note": "Site protected by Cloudflare. To enable real data: Install Playwright (pip install playwright) and chromium browser (playwright install chromium), then re-run the fetch_rhizome.py script."
+  "scraping_method": "requires-browser",
+  "note": "To fetch real data: This workflow needs Playwright with Chromium browser. In GitHub Actions, add these steps before running fetch_rhizome.py: (1) pip install playwright, (2) playwright install chromium --with-deps. This installs ~300MB of dependencies.",
+  "alternative": "Manual updates can be made by visiting https://rhizome.org/community/ and extracting listings into this JSON structure."
 }
