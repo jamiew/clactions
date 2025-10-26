@@ -5,52 +5,52 @@
       "description": "Rhizome.org blocks AI bots in robots.txt (anthropic-ai, Claude-Web, ClaudeBot). Manual data collection or API access required.",
       "url": "https://rhizome.org/community/",
       "type": "community-hub",
-      "date": "2025-10-25T18:01:00.000000+00:00"
+      "date": "2025-10-26T00:00:00.000000+00:00"
     },
     {
       "title": "Alternative: Rhizome RSS Feed",
       "description": "Consider using RSS feeds if available for automated updates",
       "url": "https://rhizome.org/",
       "type": "suggestion",
-      "date": "2025-10-25T18:01:00.000000+00:00"
+      "date": "2025-10-26T00:00:00.000000+00:00"
     },
     {
       "title": "Rhizome Commissions",
       "description": "Known program: Annual artist commissions for technology and digital media work",
       "url": "https://rhizome.org/commissions/",
       "type": "opportunity",
-      "date": "2025-10-25T18:01:00.000000+00:00"
+      "date": "2025-10-26T00:00:00.000000+00:00"
     },
     {
       "title": "ArtBase Archive",
       "description": "Digital art archive with 2000+ works from 1980s to present",
       "url": "https://rhizome.org/art/artbase/",
       "type": "archive",
-      "date": "2025-10-25T18:01:00.000000+00:00"
+      "date": "2025-10-26T00:00:00.000000+00:00"
     },
     {
       "title": "Net Art Anthology",
       "description": "Curated collection of 100 significant net art works",
       "url": "https://anthology.rhizome.org/",
       "type": "collection",
-      "date": "2025-10-25T18:01:00.000000+00:00"
+      "date": "2025-10-26T00:00:00.000000+00:00"
     },
     {
       "title": "Seven on Seven Conference",
       "description": "Annual conference pairing artists with technologists",
       "url": "https://rhizome.org/seven-on-seven/",
       "type": "event",
-      "date": "2025-10-25T18:01:00.000000+00:00"
+      "date": "2025-10-26T00:00:00.000000+00:00"
     },
     {
       "title": "Rhizome Editorial",
       "description": "Critical writing on digital culture, net art, and technology",
       "url": "https://rhizome.org/editorial/",
       "type": "content",
-      "date": "2025-10-25T18:01:00.000000+00:00"
+      "date": "2025-10-26T00:00:00.000000+00:00"
     }
   ],
-  "last_updated": "2025-10-25T18:01:00.000000+00:00",
+  "last_updated": "2025-10-26T00:00:00.000000+00:00",
   "status": "access-restricted",
   "restriction_reason": "robots.txt explicitly disallows AI bots (anthropic-ai, Claude-Web, ClaudeBot, etc.)",
   "cloudflare_protection": "Site also uses Cloudflare bot protection requiring JavaScript",
