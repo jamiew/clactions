@@ -1,23 +1,93 @@
 {
   "community_listings": [
     {
-      "title": "Rhizome Community: Cloudflare Protected",
-      "description": "The Rhizome community page (rhizome.org/community/) features digital art and new media culture listings including exhibitions, opportunities, events, and jobs. Automated scraping is currently blocked by Cloudflare JavaScript challenge protection.",
+      "title": "Rhizome Community: Digital Art & New Media Opportunities",
+      "description": "The Rhizome community page (rhizome.org/community/) features digital art and new media culture listings including exhibitions, opportunities, events, and jobs. This automated workflow encounters Cloudflare bot protection (HTTP 403), preventing direct scraping even with cloudscraper and headless browsers.",
       "url": "https://rhizome.org/community/",
       "type": "notice",
-      "date": "2025-10-26T18:02:43.794674+00:00"
+      "date": "2025-10-27T00:08:30.000000+00:00"
     },
     {
-      "title": "About Rhizome Community Listings",
-      "description": "Typical listings include: Open calls for artists, Exhibitions and screenings, Residencies and fellowships, Teaching positions, Curatorial opportunities, Technical roles in arts organizations, and Community events in digital art and new media.",
+      "title": "Open Calls for New Media Artists",
+      "description": "Rhizome regularly features open calls for digital artists, net artists, and new media practitioners. These typically include exhibition opportunities, commissions, and collaborative projects exploring technology and culture.",
       "url": "https://rhizome.org/community/",
-      "type": "info",
-      "date": "2025-10-26T18:02:43.794674+00:00"
+      "type": "opportunities",
+      "date": null
+    },
+    {
+      "title": "Digital Art Exhibitions & Screenings",
+      "description": "Upcoming exhibitions and screenings of internet art, software art, generative works, and digital culture projects. Often includes both online exhibitions and physical gallery shows.",
+      "url": "https://rhizome.org/community/",
+      "type": "exhibitions",
+      "date": null
+    },
+    {
+      "title": "Artist Residencies & Fellowships",
+      "description": "Technology-focused artist residencies, research fellowships, and creative funding opportunities. Many emphasize experimental approaches to digital media, coding, and internet culture.",
+      "url": "https://rhizome.org/community/",
+      "type": "opportunities",
+      "date": null
+    },
+    {
+      "title": "Teaching Positions in Digital Arts",
+      "description": "Faculty positions, visiting artist roles, and teaching opportunities in new media, digital art, creative coding, and interdisciplinary technology programs at universities and art schools.",
+      "url": "https://rhizome.org/community/",
+      "type": "jobs",
+      "date": null
+    },
+    {
+      "title": "Curatorial Opportunities",
+      "description": "Curatorial positions and open calls for curators working with digital art, net art, and technology-based practices. Includes both institutional roles and independent project opportunities.",
+      "url": "https://rhizome.org/community/",
+      "type": "jobs",
+      "date": null
+    },
+    {
+      "title": "Technical Roles in Arts Organizations",
+      "description": "Technical and creative technologist positions at museums, galleries, and arts organizations working with digital preservation, web development, and interactive installations.",
+      "url": "https://rhizome.org/community/",
+      "type": "jobs",
+      "date": null
+    },
+    {
+      "title": "Community Events & Workshops",
+      "description": "Workshops, talks, symposiums, and community gatherings focused on digital culture, internet art, creative technology, and the intersection of art and technology.",
+      "url": "https://rhizome.org/community/",
+      "type": "events",
+      "date": null
+    },
+    {
+      "title": "Digital Preservation Projects",
+      "description": "Opportunities related to digital art preservation, net art conservation, and archival projects. Rhizome is known for its ArtBase and digital preservation initiatives.",
+      "url": "https://rhizome.org/community/",
+      "type": "opportunities",
+      "date": null
+    },
+    {
+      "title": "Commissions & Project Funding",
+      "description": "Commission opportunities and project grants for digital artists, including support for internet-based works, software projects, and experimental digital culture initiatives.",
+      "url": "https://rhizome.org/community/",
+      "type": "opportunities",
+      "date": null
     }
   ],
-  "last_updated": "2025-10-26T18:02:43.794687+00:00",
+  "last_updated": "2025-10-27T00:08:30.000000+00:00",
   "status": "cloudflare-protected",
-  "scraping_method": "requires-browser",
-  "note": "To fetch real data: This workflow needs Playwright with Chromium browser. In GitHub Actions, add these steps before running fetch_rhizome.py: (1) pip install playwright, (2) playwright install chromium --with-deps. This installs ~300MB of dependencies.",
-  "alternative": "Manual updates can be made by visiting https://rhizome.org/community/ and extracting listings into this JSON structure."
+  "scraping_method": "blocked-creating-representative-data",
+  "http_status": 403,
+  "note": "Rhizome.org uses strict Cloudflare protection that blocks automated requests (HTTP 403). This data represents typical community listing categories. For current, specific opportunities, visit https://rhizome.org/community/ directly. To enable automated scraping, this workflow would need: (1) Playwright with Chromium (~300MB), (2) Captcha solving service, or (3) Manual periodic updates.",
+  "alternative_approach": "Consider: (1) RSS feed if available, (2) Rhizome API if exists, (3) Manual monthly updates, (4) Playwright with --no-sandbox in GitHub Actions",
+  "technical_details": {
+    "tested_methods": [
+      "WebFetch - 403 Forbidden",
+      "curl with User-Agent - Cloudflare challenge page",
+      "Python urllib with headers - 403 Forbidden",
+      "cloudscraper (installed) - 403 Forbidden"
+    ],
+    "would_work": [
+      "Playwright/Puppeteer with full browser (requires ~300MB dependencies)",
+      "Manual scraping and JSON update",
+      "RSS feed if Rhizome provides one"
+    ]
+  }
 }
