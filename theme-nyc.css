@@ -1,60 +1,60 @@
-/* Generated: 2025-10-26T08:00:00Z
- * Hour: 08 (Early Morning), Season: Fall (Day 299), Weather: Overcast - 48°F (feels 47°F, 80% humidity)
- * Vibe: Soft, muted autumn morning - diffused light through clouds, cool misty air, gentle fall tones
+/* Generated: 2025-10-27T08:00:00Z
+ * Hour: 08 (Early Morning), Season: Fall (Day 300), Weather: Clear - 41°F (feels 36°F, 76% humidity)
+ * Vibe: Crisp, clear autumn morning - sharp light, cool air, vibrant fall colors against blue sky
  */
 
 :root {
-  /* Overcast morning backgrounds - soft, diffused, muted */
-  --bg-primary: #ebe6de;
-  --bg-secondary: #f2ede6;
-  --bg-card: rgba(247, 243, 238, 0.95);
-  --bg-tertiary: #f7f3ee;
+  /* Clear morning backgrounds - fresh, clean with cool undertones */
+  --bg-primary: #f5ebe3;
+  --bg-secondary: #faf2ea;
+  --bg-card: rgba(253, 248, 243, 0.96);
+  --bg-tertiary: #fffaf5;
 
-  /* Text colors: Deeper contrast for cloudy conditions */
-  --text-primary: #342d24;
-  --text-secondary: #5a4f42;
-  --text-muted: #8a7f71;
+  /* Text colors: Sharp contrast for clear morning */
+  --text-primary: #2d1f15;
+  --text-secondary: #564537;
+  --text-muted: #7e6b58;
 
-  /* Accent colors: Muted autumn tones, less vibrant under clouds */
-  --accent-primary: #b86f3a;
-  --accent-secondary: #a0623d;
-  --accent-glow: #c98550;
-  --accent-warm: #cc8659;
+  /* Accent colors: Vibrant autumn tones in clear light */
+  --accent-primary: #d47742;
+  --accent-secondary: #b86635;
+  --accent-glow: #e68e5a;
+  --accent-warm: #d98959;
 
-  /* Overcast morning atmosphere - soft grays and muted warmth */
-  --overcast-gray: #bab5ae;
-  --morning-mist: rgba(200, 195, 188, 0.22);
-  --morning-diffuse: rgba(235, 230, 222, 0.18);
-  --morning-soft: rgba(210, 205, 195, 0.15);
+  /* Clear morning atmosphere - crisp air and bright light */
+  --morning-blue: #a8c9e0;
+  --morning-crisp: rgba(168, 201, 224, 0.15);
+  --morning-clear: rgba(212, 230, 245, 0.12);
+  --morning-fresh: rgba(245, 235, 227, 0.20);
 
-  /* Fall colors: Subdued autumn palette in diffused light */
-  --fall-rust: #a35532;
-  --fall-amber: #c98a48;
-  --fall-ochre: #b5803e;
-  --fall-brown: #7d5838;
-  --fall-gold: #b89661;
-  --fall-leaf: #c07447;
+  /* Fall colors: Vibrant autumn palette in clear light */
+  --fall-rust: #b84d2c;
+  --fall-amber: #d89550;
+  --fall-ochre: #c6894a;
+  --fall-brown: #8a5e3f;
+  --fall-gold: #c49d65;
+  --fall-leaf: #d36b3e;
 
-  /* Functional colors - softer shadows for overcast */
-  --border-subtle: rgba(184, 111, 58, 0.15);
-  --border-medium: rgba(184, 111, 58, 0.25);
-  --border-strong: rgba(184, 111, 58, 0.38);
-  --shadow-soft: 0 2px 10px rgba(52, 45, 36, 0.10);
-  --shadow-medium: 0 4px 16px rgba(52, 45, 36, 0.14);
-  --shadow-strong: 0 8px 28px rgba(52, 45, 36, 0.18);
-  --shadow-glow: 0 0 20px rgba(184, 111, 58, 0.20);
-  --overlay-cool: rgba(186, 181, 174, 0.10);
+  /* Functional colors - crisp shadows for clear conditions */
+  --border-subtle: rgba(212, 119, 66, 0.18);
+  --border-medium: rgba(212, 119, 66, 0.30);
+  --border-strong: rgba(212, 119, 66, 0.45);
+  --shadow-soft: 0 3px 12px rgba(45, 31, 21, 0.11);
+  --shadow-medium: 0 5px 20px rgba(45, 31, 21, 0.15);
+  --shadow-strong: 0 10px 35px rgba(45, 31, 21, 0.20);
+  --shadow-glow: 0 0 25px rgba(212, 119, 66, 0.28);
+  --overlay-cool: rgba(168, 201, 224, 0.12);
 }
 
 /* Global styles */
 body {
   background: linear-gradient(
-    160deg,
-    #d8d2ca 0%,
-    #ebe6de 15%,
+    145deg,
+    #d4e3ef 0%,
+    #e8ddd1 18%,
     var(--bg-secondary) 40%,
-    #f2ede6 75%,
-    #ddd8d0 100%
+    #faf2ea 68%,
+    #e5d5c5 100%
   );
   background-attachment: fixed;
   color: var(--text-primary);
@@ -65,7 +65,7 @@ body {
   overflow-x: hidden;
 }
 
-/* Overcast morning atmosphere - soft, diffused cloud light */
+/* Clear morning atmosphere - sharp, fresh light from the east */
 body::before {
   content: '';
   position: fixed;
@@ -74,18 +74,17 @@ body::before {
   right: 0;
   bottom: 0;
   background:
-    radial-gradient(ellipse at 35% 18%, var(--morning-mist) 0%, transparent 52%),
-    radial-gradient(circle at 65% 25%, var(--morning-diffuse) 0%, transparent 58%),
-    radial-gradient(ellipse at 48% 35%, rgba(210, 205, 195, 0.12) 0%, transparent 48%),
-    radial-gradient(circle at 22% 48%, var(--morning-soft) 0%, transparent 55%),
-    radial-gradient(ellipse at 78% 62%, var(--morning-mist) 0%, transparent 50%),
-    linear-gradient(140deg, transparent 0%, rgba(200, 195, 188, 0.12) 50%, transparent 100%);
+    radial-gradient(ellipse at 20% 12%, var(--morning-clear) 0%, transparent 55%),
+    radial-gradient(circle at 48% 18%, rgba(255, 242, 225, 0.18) 0%, transparent 60%),
+    radial-gradient(ellipse at 72% 25%, var(--morning-crisp) 0%, transparent 52%),
+    radial-gradient(circle at 85% 40%, rgba(168, 201, 224, 0.10) 0%, transparent 48%),
+    linear-gradient(120deg, rgba(212, 230, 245, 0.15) 0%, transparent 50%, rgba(245, 235, 227, 0.10) 100%);
   pointer-events: none;
   z-index: -1;
-  opacity: 0.75;
+  opacity: 0.82;
 }
 
-/* Diffused light effect - gentle, even illumination */
+/* Sharp morning light effect - crisp, directional illumination from sunrise */
 body::after {
   content: '';
   position: fixed;
@@ -94,17 +93,17 @@ body::after {
   right: 0;
   bottom: 0;
   background-image:
-    linear-gradient(135deg, transparent 0%, rgba(210, 205, 195, 0.08) 40%, transparent 60%),
-    radial-gradient(circle at 50% 30%, rgba(235, 230, 222, 0.12) 0%, transparent 65%);
+    linear-gradient(110deg, rgba(255, 245, 230, 0.15) 0%, transparent 45%, rgba(168, 201, 224, 0.08) 75%, transparent 100%),
+    radial-gradient(circle at 25% 15%, rgba(255, 250, 240, 0.18) 0%, transparent 58%);
   pointer-events: none;
   z-index: -1;
-  opacity: 0.65;
+  opacity: 0.75;
 }
 
 /* Typography */
 h1, h2, h3, h4, h5, h6 {
   color: var(--fall-rust);
-  text-shadow: 0 1px 4px rgba(52, 45, 36, 0.14);
+  text-shadow: 0 2px 6px rgba(45, 31, 21, 0.16);
   margin-top: 1.6em;
   margin-bottom: 0.65em;
   letter-spacing: -0.02em;
@@ -112,12 +111,12 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 h1 {
-  background: linear-gradient(128deg, var(--fall-rust) 0%, var(--fall-amber) 42%, var(--fall-gold) 82%, var(--fall-ochre) 100%);
+  background: linear-gradient(125deg, var(--fall-rust) 0%, var(--fall-amber) 38%, var(--fall-gold) 72%, var(--accent-glow) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
   text-shadow: none;
-  filter: drop-shadow(0 2px 8px rgba(184, 111, 58, 0.25));
+  filter: drop-shadow(0 3px 10px rgba(212, 119, 66, 0.30));
   font-size: 2.8rem;
 }
 
@@ -141,7 +140,7 @@ a {
 
 a:hover {
   color: var(--fall-rust);
-  text-shadow: 0 0 12px rgba(184, 111, 58, 0.30);
+  text-shadow: 0 0 14px rgba(212, 119, 66, 0.35);
 }
 
 a::after {
@@ -165,10 +164,10 @@ p {
   color: var(--text-secondary);
 }
 
-/* Cards and containers - soft paper effect with subtle shadows */
+/* Cards and containers - crisp paper effect with defined shadows */
 .card, .container, article, section {
   background: var(--bg-card);
-  backdrop-filter: blur(16px) saturate(100%);
+  backdrop-filter: blur(18px) saturate(102%);
   border: 1px solid var(--border-medium);
   border-radius: 16px;
   padding: 1.6rem;
@@ -180,15 +179,15 @@ p {
 }
 
 .card:hover, article:hover {
-  transform: translateY(-3px);
+  transform: translateY(-4px);
   box-shadow: var(--shadow-glow), var(--shadow-strong);
-  border-color: rgba(184, 111, 58, 0.45);
-  background: rgba(252, 250, 247, 0.98);
+  border-color: rgba(212, 119, 66, 0.50);
+  background: rgba(255, 253, 250, 0.99);
 }
 
-/* Buttons - muted autumn warmth */
+/* Buttons - vibrant autumn warmth */
 button, .button, .btn {
-  background: linear-gradient(130deg, var(--accent-primary), var(--fall-amber));
+  background: linear-gradient(128deg, var(--accent-primary), var(--fall-amber));
   color: #ffffff;
   border: none;
   border-radius: 11px;
@@ -202,29 +201,29 @@ button, .button, .btn {
 }
 
 button:hover, .button:hover, .btn:hover {
-  background: linear-gradient(130deg, var(--fall-rust), var(--fall-leaf));
+  background: linear-gradient(128deg, var(--fall-rust), var(--fall-leaf));
   box-shadow: var(--shadow-glow), var(--shadow-medium);
-  transform: translateY(-2px) scale(1.02);
-  filter: brightness(1.05);
+  transform: translateY(-2px) scale(1.03);
+  filter: brightness(1.08);
 }
 
 button:active, .button:active, .btn:active {
   transform: translateY(0) scale(0.98);
 }
 
-/* Header/Navigation - soft overcast header */
+/* Header/Navigation - crisp clear header */
 header, nav {
-  background: rgba(247, 243, 238, 0.90);
-  backdrop-filter: blur(24px) saturate(98%);
+  background: rgba(253, 248, 243, 0.92);
+  backdrop-filter: blur(26px) saturate(105%);
   border-bottom: 2px solid var(--accent-primary);
-  box-shadow: 0 2px 16px rgba(52, 45, 36, 0.14);
+  box-shadow: 0 3px 18px rgba(45, 31, 21, 0.15);
   padding: 1.1rem 1.6rem;
   margin-bottom: 2.2rem;
 }
 
 /* Code blocks - warm, readable */
 code, pre {
-  background: rgba(184, 111, 58, 0.10);
+  background: rgba(212, 119, 66, 0.11);
   border: 1px solid var(--border-subtle);
   border-radius: 9px;
   font-family: 'SF Mono', 'Menlo', 'Monaco', 'Courier New', monospace;
@@ -235,7 +234,7 @@ code, pre {
 pre {
   padding: 1.3rem;
   overflow-x: auto;
-  box-shadow: inset 0 1px 5px rgba(52, 45, 36, 0.10);
+  box-shadow: inset 0 2px 6px rgba(45, 31, 21, 0.11);
   line-height: 1.55;
 }
 
@@ -243,7 +242,7 @@ code {
   padding: 0.3rem 0.55rem;
 }
 
-/* Input fields - clean and soft */
+/* Input fields - clean and crisp */
 input, textarea, select {
   background: var(--bg-tertiary);
   border: 1px solid var(--border-medium);
@@ -257,7 +256,7 @@ input, textarea, select {
 input:focus, textarea:focus, select:focus {
   outline: none;
   border-color: var(--accent-primary);
-  box-shadow: 0 0 0 4px rgba(184, 111, 58, 0.18);
+  box-shadow: 0 0 0 4px rgba(212, 119, 66, 0.20);
 }
 
 /* Lists */
@@ -278,12 +277,12 @@ blockquote {
   margin: 1.5rem 0;
   color: var(--text-muted);
   font-style: italic;
-  background: rgba(184, 111, 58, 0.10);
+  background: rgba(212, 119, 66, 0.11);
   padding: 1rem 1.2rem;
   border-radius: 0 8px 8px 0;
 }
 
-/* Scrollbar - muted autumn theme */
+/* Scrollbar - vibrant autumn theme */
 ::-webkit-scrollbar {
   width: 12px;
   height: 12px;
@@ -314,15 +313,15 @@ blockquote {
 
 /* Glass morphism elements */
 .glass {
-  background: rgba(247, 243, 238, 0.75);
-  backdrop-filter: blur(20px) saturate(98%);
+  background: rgba(253, 248, 243, 0.78);
+  backdrop-filter: blur(22px) saturate(105%);
   border: 1px solid var(--border-subtle);
   box-shadow: var(--shadow-soft);
 }
 
 /* Ambient glow effect for important elements */
 .highlight, .featured, .accent {
-  box-shadow: 0 0 20px rgba(184, 111, 58, 0.25), var(--shadow-soft);
+  box-shadow: 0 0 24px rgba(212, 119, 66, 0.30), var(--shadow-soft);
   border-color: var(--accent-glow);
   color: var(--accent-primary);
 }
@@ -330,26 +329,26 @@ blockquote {
 /* Status indicators */
 .status-active {
   color: var(--accent-warm);
-  text-shadow: 0 0 10px rgba(204, 134, 89, 0.38);
+  text-shadow: 0 0 12px rgba(217, 137, 89, 0.42);
 }
 
 .status-info {
-  color: var(--overcast-gray);
+  color: var(--morning-blue);
 }
 
 .status-success {
-  color: #7a9968;
+  color: #7fa96e;
 }
 
 .status-warning {
   color: var(--fall-amber);
 }
 
-/* Weather indicator - overcast */
+/* Weather indicator - clear and cool */
 .weather-indicator {
   display: inline-flex;
   align-items: center;
-  background: linear-gradient(125deg, var(--overcast-gray), var(--accent-warm));
+  background: linear-gradient(125deg, var(--morning-blue), var(--accent-warm));
   padding: 0.55rem 1.1rem;
   border-radius: 22px;
   color: white;
@@ -361,20 +360,20 @@ blockquote {
 
 /* Footer */
 footer {
-  background: rgba(247, 243, 238, 0.88);
-  backdrop-filter: blur(20px) saturate(98%);
+  background: rgba(253, 248, 243, 0.90);
+  backdrop-filter: blur(22px) saturate(105%);
   border-top: 2px solid var(--accent-primary);
   color: var(--text-secondary);
   padding: 2.2rem 1.6rem;
   margin-top: 3.5rem;
   text-align: center;
-  box-shadow: 0 -2px 18px rgba(52, 45, 36, 0.14);
+  box-shadow: 0 -3px 20px rgba(45, 31, 21, 0.15);
 }
 
 /* Utility classes */
 .text-accent { color: var(--accent-primary); }
 .text-muted { color: var(--text-muted); }
-.text-cool { color: var(--overcast-gray); }
+.text-cool { color: var(--morning-blue); }
 .text-warm { color: var(--fall-gold); }
 .bg-dark { background: var(--bg-tertiary); }
 .bg-card { background: var(--bg-card); }
@@ -428,93 +427,93 @@ footer {
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Diffused morning light - soft cloud glow animation */
-@keyframes overcast-glow {
+/* Clear morning light - sharp sunrise glow animation */
+@keyframes clear-morning-glow {
   0%, 100% {
-    opacity: 0.72;
+    opacity: 0.78;
     transform: translateX(0) scale(1);
   }
   50% {
-    opacity: 0.80;
-    transform: translateX(1px) scale(1.01);
+    opacity: 0.88;
+    transform: translateX(2px) scale(1.02);
   }
 }
 
 body::before {
-  animation: overcast-glow 20s ease-in-out infinite;
+  animation: clear-morning-glow 18s ease-in-out infinite;
 }
 
-/* Cloud drift - gentle movement effect */
-@keyframes cloud-drift {
-  0%, 100% { opacity: 0.62; transform: translateY(0); }
-  50% { opacity: 0.68; transform: translateY(2px); }
+/* Crisp air shimmer - subtle movement effect */
+@keyframes crisp-shimmer {
+  0%, 100% { opacity: 0.72; transform: translateY(0) translateX(0); }
+  50% { opacity: 0.80; transform: translateY(-2px) translateX(1px); }
 }
 
 body::after {
-  animation: cloud-drift 15s ease-in-out infinite;
+  animation: crisp-shimmer 13s ease-in-out infinite;
 }
 
-/* Muted glow for headers - soft morning effect */
-@keyframes soft-morning-glow {
-  0% { filter: brightness(1.00) drop-shadow(0 2px 8px rgba(184, 111, 58, 0.25)); }
-  50% { filter: brightness(1.04) drop-shadow(0 3px 12px rgba(184, 111, 58, 0.32)); }
-  100% { filter: brightness(1.00) drop-shadow(0 2px 8px rgba(184, 111, 58, 0.25)); }
+/* Vibrant glow for headers - bright morning effect */
+@keyframes vibrant-morning-glow {
+  0% { filter: brightness(1.00) drop-shadow(0 3px 10px rgba(212, 119, 66, 0.30)); }
+  50% { filter: brightness(1.08) drop-shadow(0 4px 16px rgba(212, 119, 66, 0.40)); }
+  100% { filter: brightness(1.00) drop-shadow(0 3px 10px rgba(212, 119, 66, 0.30)); }
 }
 
 h1 {
-  animation: soft-morning-glow 7s ease-in-out infinite;
+  animation: vibrant-morning-glow 6s ease-in-out infinite;
 }
 
-/* Gentle pulse for interactive elements */
-@keyframes gentle-pulse {
-  0%, 100% { box-shadow: 0 0 20px rgba(184, 111, 58, 0.20); }
-  50% { box-shadow: 0 0 28px rgba(184, 111, 58, 0.32); }
+/* Energetic pulse for interactive elements */
+@keyframes energetic-pulse {
+  0%, 100% { box-shadow: 0 0 25px rgba(212, 119, 66, 0.24); }
+  50% { box-shadow: 0 0 35px rgba(212, 119, 66, 0.40); }
 }
 
 button:hover, .button:hover, .btn:hover {
-  animation: gentle-pulse 2.5s ease-in-out infinite;
+  animation: energetic-pulse 2.2s ease-in-out infinite;
 }
 
-/* Floating mist - subtle atmospheric particles */
-@keyframes float-mist {
+/* Floating leaves - autumn atmosphere */
+@keyframes float-leaves {
   0%, 100% {
-    transform: translateY(0) translateX(0);
-    opacity: 0.12;
+    transform: translateY(0) translateX(0) rotate(0deg);
+    opacity: 0.15;
   }
   50% {
-    transform: translateY(-10px) translateX(4px);
-    opacity: 0.22;
+    transform: translateY(-12px) translateX(6px) rotate(8deg);
+    opacity: 0.28;
   }
 }
 
 .card::before, article::before {
   content: '';
   position: absolute;
-  top: 18%;
-  right: 22%;
-  width: 10px;
-  height: 10px;
-  background: radial-gradient(circle, var(--overcast-gray), transparent);
+  top: 15%;
+  right: 18%;
+  width: 12px;
+  height: 12px;
+  background: radial-gradient(circle, var(--fall-amber), transparent);
   border-radius: 50%;
   opacity: 0;
   pointer-events: none;
 }
 
 .card:hover::before, article:hover::before {
-  animation: float-mist 5s ease-in-out infinite;
+  animation: float-leaves 4.5s ease-in-out infinite;
 }
 
-/* Soft diffusion effect */
-@keyframes soft-diffuse {
+/* Sparkle effect - crisp morning light */
+@keyframes sparkle {
   0% {
     transform: scale(0) rotate(0deg);
     opacity: 0;
   }
   50% {
-    opacity: 0.28;
+    opacity: 0.35;
   }
   100% {
-    transform: scale(1.1) rotate(120deg);
+    transform: scale(1.2) rotate(180deg);
     opacity: 0;
   }
 }
@@ -522,17 +521,17 @@ button:hover, .button:hover, .btn:hover {
 .card::after, article::after {
   content: '';
   position: absolute;
-  top: 15%;
-  left: 30%;
-  width: 14px;
-  height: 14px;
-  background: radial-gradient(circle, var(--morning-soft), transparent);
+  top: 12%;
+  left: 25%;
+  width: 16px;
+  height: 16px;
+  background: radial-gradient(circle, var(--morning-clear), transparent);
   opacity: 0;
   pointer-events: none;
 }
 
 .card:hover::after, article:hover::after {
-  animation: soft-diffuse 4s ease-in-out infinite;
+  animation: sparkle 3.5s ease-in-out infinite;
 }
 
 /* Accessibility improvements */
