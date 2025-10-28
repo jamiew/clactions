@@ -5,7 +5,7 @@
       "description": "The Rhizome community page features digital art and new media culture listings including exhibitions, opportunities, events, and jobs. Automated scraping is blocked by Cloudflare protection (403 Forbidden).",
       "url": "https://rhizome.org/community/",
       "type": "notice",
-      "date": "2025-10-27T18:02:58+00:00"
+      "date": "2025-10-28T00:04:35+00:00"
     },
     {
       "title": "Open Calls for New Media Artists",
@@ -71,7 +71,7 @@
       "date": null
     }
   ],
-  "last_updated": "2025-10-27T18:02:58+00:00",
+  "last_updated": "2025-10-28T00:04:35+00:00",
   "status": "cloudflare-protected",
   "scraping_method": "blocked",
   "http_status": 403,
