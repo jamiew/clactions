@@ -2,23 +2,13 @@
   "community_listings": [
     {
       "title": "Rhizome Community Access Limited",
-      "description": "Cloudflare bot protection prevents automated scraping. Site requires JavaScript execution and browser fingerprinting to bypass challenge page.",
+      "description": "Cloudflare protection prevents automated scraping. Requires Playwright with browser installation.",
       "url": "https://rhizome.org/community/",
       "type": "system-message",
-      "date": "2025-10-29T00:05:19+00:00"
+      "date": "2025-10-29T06:04:04.870202+00:00"
     }
   ],
-  "last_updated": "2025-10-29T00:05:19+00:00",
-  "fetch_status": "blocked_by_cloudflare",
-  "status_code": 403,
-  "note": "Consider implementing Playwright with stealth plugin for future scraping: pip install playwright playwright-stealth && playwright install chromium",
-  "attempted_methods": [
-    "curl with user-agent headers",
-    "Python requests with user-agent",
-    "cloudscraper library",
-    "RSS feed endpoints (https://rhizome.org/community/feed/, https://rhizome.org/feed/)",
-    "WebFetch tool",
-    "Multiple user-agent variations"
-  ],
-  "recommendation": "All automated access methods are blocked. A full browser automation solution with JavaScript execution is required to access this content. Alternative: Manual data entry or Rhizome API if available."
+  "last_updated": "2025-10-29T06:04:04.870213+00:00",
+  "status": "cloudflare-protected",
+  "note": "Install: pip install playwright && playwright install chromium"
 }
