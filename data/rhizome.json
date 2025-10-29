@@ -1,14 +1,24 @@
 {
   "community_listings": [
     {
-      "title": "Rhizome Community Access Limited",
-      "description": "Cloudflare protection prevents automated scraping. Requires Playwright with browser installation.",
+      "title": "Rhizome Community Access Protected",
+      "description": "The Rhizome.org community page is protected by Cloudflare bot detection, which prevents automated scraping without a browser engine like Playwright. To enable automatic fetching, the workflow needs to install Playwright and Chromium.",
       "url": "https://rhizome.org/community/",
       "type": "system-message",
-      "date": "2025-10-29T06:04:04.870202+00:00"
+      "date": "2025-10-29T12:03:56.086814+00:00"
     }
   ],
-  "last_updated": "2025-10-29T06:04:04.870213+00:00",
+  "last_updated": "2025-10-29T12:03:56.086831+00:00",
   "status": "cloudflare-protected",
-  "note": "Install: pip install playwright && playwright install chromium"
+  "error": "HTTP 403 Forbidden - Cloudflare JavaScript challenge required",
+  "solution": {
+    "description": "Install Playwright in the workflow to handle JavaScript-based protection",
+    "workflow_steps": [
+      "Add step: pip install playwright",
+      "Add step: playwright install chromium",
+      "Use the scraper script at scripts/scrape_rhizome.py"
+    ],
+    "manual_access": "Visit https://rhizome.org/community/ in a browser to view current listings"
+  },
+  "note": "This data file serves as documentation of the access limitation. The workflow attempted to fetch data on October 29, 2025."
 }
