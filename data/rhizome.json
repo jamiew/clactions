@@ -5,10 +5,10 @@
       "description": "Cloudflare bot protection prevents automated scraping. Site requires JavaScript execution and browser fingerprinting to bypass challenge page.",
       "url": "https://rhizome.org/community/",
       "type": "system-message",
-      "date": "2025-10-28T18:02:47+00:00"
+      "date": "2025-10-29T00:05:19+00:00"
     }
   ],
-  "last_updated": "2025-10-28T18:02:47+00:00",
+  "last_updated": "2025-10-29T00:05:19+00:00",
   "fetch_status": "blocked_by_cloudflare",
   "status_code": 403,
   "note": "Consider implementing Playwright with stealth plugin for future scraping: pip install playwright playwright-stealth && playwright install chromium",
@@ -16,7 +16,7 @@
     "curl with user-agent headers",
     "Python requests with user-agent",
     "cloudscraper library",
-    "RSS feed endpoints",
+    "RSS feed endpoints (https://rhizome.org/community/feed/, https://rhizome.org/feed/)",
     "WebFetch tool",
     "Multiple user-agent variations"
   ],
