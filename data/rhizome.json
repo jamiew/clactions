@@ -1,24 +1,30 @@
 {
   "community_listings": [
     {
-      "title": "Rhizome Community Access Protected",
-      "description": "The Rhizome.org community page is protected by Cloudflare bot detection, which prevents automated scraping without a browser engine like Playwright. To enable automatic fetching, the workflow needs to install Playwright and Chromium.",
+      "title": "Rhizome Community - Cloudflare Protected",
+      "description": "The Rhizome.org community page is protected by Cloudflare's bot detection system, which prevents automated scraping without browser automation tools like Playwright or Selenium. Standard HTTP requests receive a 403 Forbidden error and JavaScript challenge page.",
       "url": "https://rhizome.org/community/",
       "type": "system-message",
-      "date": "2025-10-29T18:02:45+00:00"
+      "date": "2025-10-30T00:06:51+00:00"
     }
   ],
-  "last_updated": "2025-10-29T18:02:45+00:00",
+  "last_updated": "2025-10-30T00:06:51+00:00",
   "status": "cloudflare-protected",
   "error": "HTTP 403 Forbidden - Cloudflare JavaScript challenge required",
+  "scraper_script": "scripts/scrape_rhizome_simple.py",
   "solution": {
-    "description": "Install Playwright in the workflow to handle JavaScript-based protection",
-    "workflow_steps": [
-      "Add step: pip install playwright",
-      "Add step: playwright install chromium",
-      "Use the scraper script at scripts/scrape_rhizome.py"
+    "description": "To enable automatic fetching, the workflow needs browser automation",
+    "requirements": [
+      "Install Playwright or Selenium",
+      "Install browser driver (e.g., chromium)",
+      "Modify scraper to use browser automation"
+    ],
+    "workflow_example": [
+      "pip install playwright",
+      "playwright install chromium",
+      "Update scripts/scrape_rhizome.py to use Playwright"
     ],
     "manual_access": "Visit https://rhizome.org/community/ in a browser to view current listings"
   },
-  "note": "This data file serves as documentation of the access limitation. The workflow attempted to fetch data on October 29, 2025."
+  "note": "This file documents the access limitation encountered on October 30, 2025. The scraper scripts are available in the scripts/ directory for future enhancement when browser automation is enabled in the workflow."
 }
