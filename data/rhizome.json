@@ -1,14 +1,14 @@
 {
   "community_listings": [
     {
-      "title": "Rhizome Community",
-      "description": "Digital art and culture community hub - automated scraping currently blocked by Cloudflare",
+      "title": "Rhizome Community Access Limited",
+      "description": "Cloudflare protection prevents automated scraping. Requires Playwright with browser installation.",
       "url": "https://rhizome.org/community/",
-      "type": "main",
-      "date": "2025-10-30T12:03:49.947788+00:00"
+      "type": "system-message",
+      "date": "2025-10-30T18:03:12.633985+00:00"
     }
   ],
-  "last_updated": "2025-10-30T12:03:49.947800+00:00",
+  "last_updated": "2025-10-30T18:03:12.633998+00:00",
   "status": "cloudflare-protected",
-  "note": "Automated fetching blocked by Cloudflare. To enable: install Playwright (pip install playwright) and Chromium browser (playwright install chromium), then re-run fetch script."
+  "note": "Install: pip install playwright && playwright install chromium"
 }
