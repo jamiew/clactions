@@ -5,10 +5,10 @@
       "description": "The Rhizome.org community page is protected by Cloudflare's bot detection system, which prevents automated scraping without browser automation tools like Playwright or Selenium. Standard HTTP requests receive a 403 Forbidden error and JavaScript challenge page.",
       "url": "https://rhizome.org/community/",
       "type": "system-message",
-      "date": "2025-10-30T00:06:51+00:00"
+      "date": "2025-10-30T06:01:35+00:00"
     }
   ],
-  "last_updated": "2025-10-30T00:06:51+00:00",
+  "last_updated": "2025-10-30T06:01:35+00:00",
   "status": "cloudflare-protected",
   "error": "HTTP 403 Forbidden - Cloudflare JavaScript challenge required",
   "scraper_script": "scripts/scrape_rhizome_simple.py",
