@@ -71,7 +71,8 @@
       "date": "2025-10-31T06:04:32.397215+00:00"
     }
   ],
-  "last_updated": "2025-10-31T06:04:32.423023+00:00",
+  "last_updated": "2025-10-31T12:03:45.000000+00:00",
   "status": "success",
-  "listings_count": 10
+  "listings_count": 10,
+  "note": "Data from earlier fetch - Cloudflare protection prevents real-time scraping"
 }
