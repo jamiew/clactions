@@ -1,14 +1,77 @@
 {
   "community_listings": [
     {
-      "title": "Rhizome Community Access Limited",
-      "description": "Cloudflare protection prevents automated scraping. Requires Playwright with browser installation.",
+      "title": "Assistant Professor in Computational Media Art",
+      "description": "Rhizome community content",
       "url": "https://rhizome.org/community/",
-      "type": "system-message",
-      "date": "2025-10-31T00:05:18.051012+00:00"
+      "type": "community-listing",
+      "date": "2025-10-31T06:04:32.365554+00:00"
+    },
+    {
+      "title": "Feast: L. Song Wu Solo Exhibition Opening & Artist Talk",
+      "description": "Rhizome community content",
+      "url": "https://rhizome.org/community/",
+      "type": "community-listing",
+      "date": "2025-10-31T06:04:32.369338+00:00"
+    },
+    {
+      "title": "NYC Public Interest Technology Pop-Up",
+      "description": "Rhizome community content",
+      "url": "https://rhizome.org/community/",
+      "type": "community-listing",
+      "date": "2025-10-31T06:04:32.373034+00:00"
+    },
+    {
+      "title": "Summer Keyholder Residency",
+      "description": "Rhizome community content",
+      "url": "https://rhizome.org/community/",
+      "type": "community-listing",
+      "date": "2025-10-31T06:04:32.376455+00:00"
+    },
+    {
+      "title": "Exhibition \"Liminal Architecture\" On View",
+      "description": "Rhizome community content",
+      "url": "https://rhizome.org/community/",
+      "type": "community-listing",
+      "date": "2025-10-31T06:04:32.379831+00:00"
+    },
+    {
+      "title": "Assistant Professor, Games and Animation, School of Art, College of DAAP",
+      "description": "Rhizome community content",
+      "url": "https://rhizome.org/community/",
+      "type": "community-listing",
+      "date": "2025-10-31T06:04:32.383334+00:00"
+    },
+    {
+      "title": "Darrin Martin - Stacked Artifacts",
+      "description": "Rhizome community content",
+      "url": "https://rhizome.org/community/",
+      "type": "community-listing",
+      "date": "2025-10-31T06:04:32.386677+00:00"
+    },
+    {
+      "title": "2-year Lab Instructor in 3D Animation, Video Game Design, Virtual Reality",
+      "description": "Rhizome community content",
+      "url": "https://rhizome.org/community/",
+      "type": "community-listing",
+      "date": "2025-10-31T06:04:32.389971+00:00"
+    },
+    {
+      "title": "Thinking in Action: An Open Conversation on Radical Imagination and Experimental Practices",
+      "description": "Rhizome community content",
+      "url": "https://rhizome.org/community/",
+      "type": "community-listing",
+      "date": "2025-10-31T06:04:32.393399+00:00"
+    },
+    {
+      "title": "Eternity and Dust: Matthew Rolston's Vanitas",
+      "description": "Rhizome community content",
+      "url": "https://rhizome.org/community/",
+      "type": "community-listing",
+      "date": "2025-10-31T06:04:32.397215+00:00"
     }
   ],
-  "last_updated": "2025-10-31T00:05:18.051030+00:00",
-  "status": "cloudflare-protected",
-  "note": "Install: pip install playwright && playwright install chromium"
+  "last_updated": "2025-10-31T06:04:32.423023+00:00",
+  "status": "success",
+  "listings_count": 10
 }
