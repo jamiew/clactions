@@ -71,7 +71,7 @@
       "date": "2025-11-01T12:03:59.004787"
     }
   ],
-  "last_updated": "2025-11-01T18:02:46Z",
+  "last_updated": "2025-11-02T00:04:43Z",
   "status": "cloudflare-protected",
   "listings_count": 10,
   "scrape_status": {
@@ -79,5 +79,5 @@
     "error": "Cloudflare anti-bot challenge detected",
     "message": "Rhizome.org community page is protected by Cloudflare requiring JavaScript execution and cookie handling. Automated scraping requires headless browser (Playwright/Puppeteer/Selenium). Consider using official API if available or implementing browser automation."
   },
-  "note": "Sample data preserved. Last fetch attempt: 2025-11-01T18:02:46Z"
+  "note": "Sample data preserved. Last fetch attempt: 2025-11-02T00:04:43Z"
 }
