@@ -5,73 +5,73 @@
       "description": "Academic position in computational media art",
       "url": "https://rhizome.org/community/",
       "type": "job-posting",
-      "date": "2025-11-01T12:03:59.004766"
+      "date": "2025-11-03T18:03:35.164944+00:00"
     },
     {
       "title": "Feast: L. Song Wu Solo Exhibition Opening & Artist Talk",
       "description": "Exhibition opening and artist talk event",
       "url": "https://rhizome.org/community/",
       "type": "event",
-      "date": "2025-11-01T12:03:59.004778"
+      "date": "2025-11-03T18:03:35.164955+00:00"
     },
     {
       "title": "NYC Public Interest Technology Pop-Up",
       "description": "Public interest technology community event in NYC",
       "url": "https://rhizome.org/community/",
       "type": "event",
-      "date": "2025-11-01T12:03:59.004780"
+      "date": "2025-11-03T18:03:35.164957+00:00"
     },
     {
       "title": "Summer Keyholder Residency",
       "description": "Artist residency opportunity",
       "url": "https://rhizome.org/community/",
       "type": "opportunity",
-      "date": "2025-11-01T12:03:59.004781"
+      "date": "2025-11-03T18:03:35.164959+00:00"
     },
     {
       "title": "Exhibition \"Liminal Architecture\" On View",
       "description": "Current art exhibition",
       "url": "https://rhizome.org/community/",
       "type": "exhibition",
-      "date": "2025-11-01T12:03:59.004782"
+      "date": "2025-11-03T18:03:35.164961+00:00"
     },
     {
       "title": "Assistant Professor, Games and Animation, School of Art, College of DAAP",
       "description": "Academic position in games and animation",
       "url": "https://rhizome.org/community/",
       "type": "job-posting",
-      "date": "2025-11-01T12:03:59.004783"
+      "date": "2025-11-03T18:03:35.164962+00:00"
     },
     {
       "title": "Darrin Martin - Stacked Artifacts",
       "description": "Artist exhibition or project",
       "url": "https://rhizome.org/community/",
       "type": "exhibition",
-      "date": "2025-11-01T12:03:59.004784"
+      "date": "2025-11-03T18:03:35.164964+00:00"
     },
     {
       "title": "2-year Lab Instructor in 3D Animation, Video Game Design, Virtual Reality",
       "description": "Academic lab instructor position",
       "url": "https://rhizome.org/community/",
       "type": "job-posting",
-      "date": "2025-11-01T12:03:59.004785"
+      "date": "2025-11-03T18:03:35.164965+00:00"
     },
     {
       "title": "Thinking in Action: An Open Conversation on Radical Imagination and Experimental Practices",
       "description": "Discussion event on experimental practices",
       "url": "https://rhizome.org/community/",
       "type": "event",
-      "date": "2025-11-01T12:03:59.004786"
+      "date": "2025-11-03T18:03:35.164967+00:00"
     },
     {
       "title": "Eternity and Dust: Matthew Rolston's Vanitas",
       "description": "Photography exhibition",
       "url": "https://rhizome.org/community/",
       "type": "exhibition",
-      "date": "2025-11-01T12:03:59.004787"
+      "date": "2025-11-03T18:03:35.164968+00:00"
     }
   ],
-  "last_updated": "2025-11-03T12:04:00Z",
+  "last_updated": "2025-11-03T18:03:35.164969+00:00",
   "status": "cloudflare-protected",
   "listings_count": 10,
   "scrape_status": {
@@ -80,10 +80,10 @@
     "message": "Rhizome.org community page is protected by Cloudflare requiring JavaScript execution and cookie handling. Automated scraping requires headless browser (Playwright/Puppeteer/Selenium). Consider using official API if available or implementing browser automation.",
     "attempted_methods": [
       "curl with User-Agent",
-      "Python requests with headers",
+      "Python urllib with headers",
       "WebFetch tool"
     ],
     "all_blocked": true
   },
-  "note": "Sample data preserved from previous successful scrape. Last fetch attempt: 2025-11-03T12:04:00Z. To enable automated scraping, consider implementing Playwright/Puppeteer in the workflow or contacting Rhizome for API access."
+  "note": "Sample data preserved from previous successful scrape. Last fetch attempt: 2025-11-03T18:03:35.164971+00:00. To enable automated scraping, consider implementing Playwright/Puppeteer in the workflow or contacting Rhizome for API access."
 }
