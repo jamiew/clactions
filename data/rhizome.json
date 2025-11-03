@@ -71,7 +71,7 @@
       "date": "2025-11-01T12:03:59.004787"
     }
   ],
-  "last_updated": "2025-11-03T12:03:00Z",
+  "last_updated": "2025-11-03T12:04:00Z",
   "status": "cloudflare-protected",
   "listings_count": 10,
   "scrape_status": {
@@ -80,10 +80,10 @@
     "message": "Rhizome.org community page is protected by Cloudflare requiring JavaScript execution and cookie handling. Automated scraping requires headless browser (Playwright/Puppeteer/Selenium). Consider using official API if available or implementing browser automation.",
     "attempted_methods": [
       "curl with User-Agent",
-      "Python urllib with headers",
+      "Python requests with headers",
       "WebFetch tool"
     ],
     "all_blocked": true
   },
-  "note": "Sample data preserved from previous successful scrape. Last fetch attempt: 2025-11-03T12:03:00Z. To enable automated scraping, consider implementing Playwright/Puppeteer in the workflow."
+  "note": "Sample data preserved from previous successful scrape. Last fetch attempt: 2025-11-03T12:04:00Z. To enable automated scraping, consider implementing Playwright/Puppeteer in the workflow or contacting Rhizome for API access."
 }
