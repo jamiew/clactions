@@ -71,7 +71,7 @@
       "date": "2025-11-01T12:03:59.004787"
     }
   ],
-  "last_updated": "2025-11-02T18:02:00Z",
+  "last_updated": "2025-11-03T00:00:00Z",
   "status": "cloudflare-protected",
   "listings_count": 10,
   "scrape_status": {
@@ -85,5 +85,5 @@
     ],
     "all_blocked": true
   },
-  "note": "Sample data preserved from previous successful scrape. Last fetch attempt: 2025-11-02T18:02:00Z. To enable automated scraping, consider implementing Playwright/Puppeteer in the workflow."
+  "note": "Sample data preserved from previous successful scrape. Last fetch attempt: 2025-11-03T00:00:00Z. To enable automated scraping, consider implementing Playwright/Puppeteer in the workflow."
 }
