@@ -1,63 +1,64 @@
-/* Generated: 2025-11-02T07:00:00Z
- * Hour: 07 (Early Morning), Season: Fall (Day 306), Weather: Clear - 42°F (feels 37°F, 73% humidity)
- * Vibe: Chilly November dawn, crisp and clear, the quiet hour before sunrise
+/* Generated: 2025-11-03T07:00:00Z
+ * Hour: 07 (Early Morning), Season: Fall (Day 307), Weather: Clear - 44°F (feels 41°F, 89% humidity)
+ * Vibe: Crisp November dawn, clear and cold, high humidity creates soft diffused light
  */
 
 :root {
-  /* Early morning backgrounds - cooler, dawn light */
-  --bg-primary: #f3ebe3;
-  --bg-secondary: #e6d7cb;
-  --bg-card: rgba(252, 247, 242, 0.94);
-  --bg-tertiary: #f8f0e8;
+  /* Early morning backgrounds - cooler, misty dawn light */
+  --bg-primary: #f2ebe4;
+  --bg-secondary: #e5d6ca;
+  --bg-card: rgba(251, 246, 241, 0.95);
+  --bg-tertiary: #f7efe7;
 
   /* Text colors: Slightly softer for dawn hour */
-  --text-primary: #3a2e27;
-  --text-secondary: #5b4d43;
-  --text-muted: #7a6b5f;
+  --text-primary: #3b2f28;
+  --text-secondary: #5c4e44;
+  --text-muted: #7b6c60;
 
-  /* Accent colors: Muted autumn dawn, cooler tones */
-  --accent-primary: #d18750;
-  --accent-secondary: #c27145;
-  --accent-glow: #e8b173;
-  --accent-warm: #d39169;
+  /* Accent colors: Muted autumn dawn, cooler tones with high humidity softness */
+  --accent-primary: #d28851;
+  --accent-secondary: #c37246;
+  --accent-glow: #e9b274;
+  --accent-warm: #d49268;
 
-  /* Dawn atmosphere - pre-sunrise cool clarity */
-  --clear-sky: rgba(160, 190, 220, 0.16);
-  --morning-crisp: rgba(200, 225, 245, 0.14);
-  --bright-light: rgba(245, 235, 215, 0.22);
-  --sunrise-glow: rgba(245, 205, 165, 0.18);
-  --cool-air: rgba(175, 205, 230, 0.18);
+  /* Dawn atmosphere - pre-sunrise with humid, diffused light */
+  --clear-sky: rgba(165, 195, 225, 0.18);
+  --morning-crisp: rgba(205, 230, 250, 0.16);
+  --bright-light: rgba(250, 240, 220, 0.24);
+  --sunrise-glow: rgba(250, 210, 170, 0.20);
+  --cool-air: rgba(180, 210, 235, 0.20);
+  --humid-mist: rgba(220, 230, 240, 0.22);
 
-  /* Fall colors: Softened dawn palette, muted but warm */
-  --fall-rust: #bf7046;
-  --fall-amber: #de9c62;
-  --fall-ochre: #d69156;
-  --fall-brown: #8d6044;
-  --fall-gold: #dab57c;
-  --fall-leaf: #d2754e;
+  /* Fall colors: Softened dawn palette, muted but warm with moisture in air */
+  --fall-rust: #c07147;
+  --fall-amber: #df9d63;
+  --fall-ochre: #d79257;
+  --fall-brown: #8e6145;
+  --fall-gold: #dbb67d;
+  --fall-leaf: #d3764f;
 
-  /* Functional colors - softer dawn shadows */
-  --border-subtle: rgba(175, 155, 140, 0.22);
-  --border-medium: rgba(155, 135, 120, 0.36);
-  --border-strong: rgba(135, 115, 100, 0.48);
-  --shadow-soft: 0 2px 10px rgba(58, 46, 39, 0.09);
-  --shadow-medium: 0 4px 16px rgba(58, 46, 39, 0.12);
-  --shadow-strong: 0 8px 28px rgba(58, 46, 39, 0.16);
-  --shadow-glow: 0 0 22px rgba(209, 135, 80, 0.24);
-  --overlay-light: rgba(252, 247, 242, 0.14);
+  /* Functional colors - softer dawn shadows with misty diffusion */
+  --border-subtle: rgba(180, 160, 145, 0.24);
+  --border-medium: rgba(160, 140, 125, 0.38);
+  --border-strong: rgba(140, 120, 105, 0.50);
+  --shadow-soft: 0 2px 12px rgba(59, 47, 40, 0.10);
+  --shadow-medium: 0 4px 18px rgba(59, 47, 40, 0.13);
+  --shadow-strong: 0 8px 30px rgba(59, 47, 40, 0.17);
+  --shadow-glow: 0 0 24px rgba(210, 136, 81, 0.26);
+  --overlay-light: rgba(251, 246, 241, 0.16);
 }
 
 /* Global styles */
 body {
   background: linear-gradient(
-    155deg,
-    #9fbdd8 0%,
-    #c0d3e3 10%,
-    #d7c7b5 26%,
-    var(--bg-secondary) 40%,
-    #efe3d8 60%,
-    #e3d1c1 78%,
-    #f1e5db 100%
+    157deg,
+    #a2c0db 0%,
+    #c3d6e6 12%,
+    #d9c9b7 28%,
+    var(--bg-secondary) 42%,
+    #f0e4d9 62%,
+    #e4d2c2 80%,
+    #f2e6dc 100%
   );
   background-attachment: fixed;
   color: var(--text-primary);
@@ -68,7 +69,7 @@ body {
   overflow-x: hidden;
 }
 
-/* Dawn atmosphere - gentle pre-sunrise glow */
+/* Dawn atmosphere - gentle pre-sunrise glow with humid diffusion */
 body::before {
   content: '';
   position: fixed;
@@ -77,42 +78,43 @@ body::before {
   right: 0;
   bottom: 0;
   background:
-    radial-gradient(ellipse at 30% 10%, var(--clear-sky) 0%, transparent 55%),
-    radial-gradient(circle at 60% 8%, var(--morning-crisp) 0%, transparent 58%),
-    radial-gradient(ellipse at 45% 18%, var(--bright-light) 0%, transparent 52%),
-    radial-gradient(circle at 20% 22%, var(--sunrise-glow) 0%, transparent 48%),
-    radial-gradient(ellipse at 70% 32%, var(--cool-air) 0%, transparent 50%),
-    linear-gradient(138deg, var(--clear-sky) 0%, transparent 38%, var(--cool-air) 72%, transparent 100%);
+    radial-gradient(ellipse at 32% 12%, var(--clear-sky) 0%, transparent 57%),
+    radial-gradient(circle at 62% 10%, var(--morning-crisp) 0%, transparent 60%),
+    radial-gradient(ellipse at 47% 20%, var(--bright-light) 0%, transparent 54%),
+    radial-gradient(circle at 22% 24%, var(--sunrise-glow) 0%, transparent 50%),
+    radial-gradient(ellipse at 72% 34%, var(--cool-air) 0%, transparent 52%),
+    radial-gradient(circle at 50% 50%, var(--humid-mist) 0%, transparent 75%),
+    linear-gradient(140deg, var(--clear-sky) 0%, transparent 40%, var(--cool-air) 74%, transparent 100%);
   pointer-events: none;
   z-index: -1;
-  opacity: 0.82;
+  opacity: 0.84;
 }
 
-/* Dawn light effect - subtle, anticipatory glow */
+/* Dawn light effect - subtle, anticipatory glow with misty softness */
 body::after {
   content: '';
   position: fixed;
   top: 0;
   right: 0;
-  width: 42%;
-  height: 40%;
+  width: 44%;
+  height: 42%;
   background:
     radial-gradient(ellipse at top right,
-      rgba(245, 225, 185, 0.26) 0%,
-      rgba(245, 205, 165, 0.14) 36%,
-      transparent 68%),
-    radial-gradient(circle at 68% 12%,
+      rgba(250, 230, 190, 0.28) 0%,
+      rgba(250, 210, 170, 0.16) 38%,
+      transparent 70%),
+    radial-gradient(circle at 70% 14%,
       var(--sunrise-glow) 0%,
-      transparent 62%);
+      transparent 64%);
   pointer-events: none;
   z-index: -1;
-  opacity: 0.86;
+  opacity: 0.88;
 }
 
 /* Typography */
 h1, h2, h3, h4, h5, h6 {
   color: var(--fall-rust);
-  text-shadow: 0 1px 5px rgba(60, 46, 38, 0.14);
+  text-shadow: 0 1px 6px rgba(61, 47, 39, 0.15);
   margin-top: 1.6em;
   margin-bottom: 0.65em;
   letter-spacing: -0.02em;
@@ -120,12 +122,12 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 h1 {
-  background: linear-gradient(130deg, var(--fall-rust) 0%, var(--fall-amber) 38%, var(--fall-gold) 72%, var(--accent-glow) 100%);
+  background: linear-gradient(132deg, var(--fall-rust) 0%, var(--fall-amber) 40%, var(--fall-gold) 74%, var(--accent-glow) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
   text-shadow: none;
-  filter: drop-shadow(0 2px 10px rgba(218, 139, 81, 0.32));
+  filter: drop-shadow(0 2px 11px rgba(219, 140, 82, 0.34));
   font-size: 2.8rem;
 }
 
@@ -149,7 +151,7 @@ a {
 
 a:hover {
   color: var(--fall-rust);
-  text-shadow: 0 0 14px rgba(218, 139, 81, 0.36);
+  text-shadow: 0 0 15px rgba(219, 140, 82, 0.38);
 }
 
 a::after {
@@ -173,10 +175,10 @@ p {
   color: var(--text-secondary);
 }
 
-/* Cards and containers - crystal clear morning light */
+/* Cards and containers - crystal clear morning light with humid softness */
 .card, .container, article, section {
   background: var(--bg-card);
-  backdrop-filter: blur(18px) saturate(105%);
+  backdrop-filter: blur(20px) saturate(106%);
   border: 1px solid var(--border-medium);
   border-radius: 16px;
   padding: 1.6rem;
@@ -190,13 +192,13 @@ p {
 .card:hover, article:hover {
   transform: translateY(-4px);
   box-shadow: var(--shadow-glow), var(--shadow-strong);
-  border-color: rgba(218, 139, 81, 0.50);
-  background: rgba(255, 253, 250, 0.98);
+  border-color: rgba(219, 140, 82, 0.52);
+  background: rgba(255, 254, 251, 0.98);
 }
 
 /* Buttons - warm and inviting */
 button, .button, .btn {
-  background: linear-gradient(132deg, var(--accent-primary), var(--fall-amber));
+  background: linear-gradient(134deg, var(--accent-primary), var(--fall-amber));
   color: #ffffff;
   border: none;
   border-radius: 11px;
@@ -210,7 +212,7 @@ button, .button, .btn {
 }
 
 button:hover, .button:hover, .btn:hover {
-  background: linear-gradient(132deg, var(--fall-rust), var(--fall-leaf));
+  background: linear-gradient(134deg, var(--fall-rust), var(--fall-leaf));
   box-shadow: var(--shadow-glow), var(--shadow-medium);
   transform: translateY(-2px) scale(1.02);
   filter: brightness(1.10);
@@ -222,17 +224,17 @@ button:active, .button:active, .btn:active {
 
 /* Header/Navigation - bright morning clarity */
 header, nav {
-  background: rgba(254, 249, 244, 0.92);
-  backdrop-filter: blur(26px) saturate(106%);
+  background: rgba(254, 249, 244, 0.93);
+  backdrop-filter: blur(28px) saturate(107%);
   border-bottom: 2px solid var(--accent-secondary);
-  box-shadow: 0 2px 16px rgba(60, 46, 38, 0.14);
+  box-shadow: 0 2px 17px rgba(61, 47, 39, 0.15);
   padding: 1.1rem 1.6rem;
   margin-bottom: 2.2rem;
 }
 
 /* Code blocks - warm, readable */
 code, pre {
-  background: rgba(218, 139, 81, 0.12);
+  background: rgba(219, 140, 82, 0.13);
   border: 1px solid var(--border-subtle);
   border-radius: 9px;
   font-family: 'SF Mono', 'Menlo', 'Monaco', 'Courier New', monospace;
@@ -243,7 +245,7 @@ code, pre {
 pre {
   padding: 1.3rem;
   overflow-x: auto;
-  box-shadow: inset 0 2px 8px rgba(60, 46, 38, 0.10);
+  box-shadow: inset 0 2px 9px rgba(61, 47, 39, 0.11);
   line-height: 1.55;
 }
 
@@ -265,7 +267,7 @@ input, textarea, select {
 input:focus, textarea:focus, select:focus {
   outline: none;
   border-color: var(--accent-primary);
-  box-shadow: 0 0 0 4px rgba(218, 139, 81, 0.24);
+  box-shadow: 0 0 0 4px rgba(219, 140, 82, 0.25);
 }
 
 /* Lists */
@@ -286,7 +288,7 @@ blockquote {
   margin: 1.5rem 0;
   color: var(--text-muted);
   font-style: italic;
-  background: rgba(218, 139, 81, 0.12);
+  background: rgba(219, 140, 82, 0.13);
   padding: 1rem 1.2rem;
   border-radius: 0 8px 8px 0;
 }
@@ -322,15 +324,15 @@ blockquote {
 
 /* Glass morphism elements */
 .glass {
-  background: rgba(254, 249, 244, 0.80);
-  backdrop-filter: blur(22px) saturate(106%);
+  background: rgba(254, 249, 244, 0.82);
+  backdrop-filter: blur(24px) saturate(107%);
   border: 1px solid var(--border-subtle);
   box-shadow: var(--shadow-soft);
 }
 
 /* Ambient glow effect for important elements */
 .highlight, .featured, .accent {
-  box-shadow: 0 0 24px rgba(218, 139, 81, 0.32), var(--shadow-soft);
+  box-shadow: 0 0 26px rgba(219, 140, 82, 0.34), var(--shadow-soft);
   border-color: var(--accent-glow);
   color: var(--accent-primary);
 }
@@ -338,26 +340,26 @@ blockquote {
 /* Status indicators */
 .status-active {
   color: var(--accent-warm);
-  text-shadow: 0 0 12px rgba(214, 148, 106, 0.44);
+  text-shadow: 0 0 13px rgba(215, 149, 107, 0.46);
 }
 
 .status-info {
-  color: #7a9bb0;
+  color: #7b9cb1;
 }
 
 .status-success {
-  color: #85b075;
+  color: #86b176;
 }
 
 .status-warning {
   color: var(--fall-amber);
 }
 
-/* Weather indicator - clear morning */
+/* Weather indicator - clear, cold, humid morning */
 .weather-indicator {
   display: inline-flex;
   align-items: center;
-  background: linear-gradient(130deg, #88b0d8, var(--accent-warm));
+  background: linear-gradient(132deg, #8ab2da, var(--accent-warm));
   padding: 0.55rem 1.1rem;
   border-radius: 22px;
   color: white;
@@ -369,20 +371,20 @@ blockquote {
 
 /* Footer */
 footer {
-  background: rgba(254, 249, 244, 0.90);
-  backdrop-filter: blur(22px) saturate(106%);
+  background: rgba(254, 249, 244, 0.91);
+  backdrop-filter: blur(24px) saturate(107%);
   border-top: 2px solid var(--accent-secondary);
   color: var(--text-secondary);
   padding: 2.2rem 1.6rem;
   margin-top: 3.5rem;
   text-align: center;
-  box-shadow: 0 -2px 18px rgba(60, 46, 38, 0.14);
+  box-shadow: 0 -2px 19px rgba(61, 47, 39, 0.15);
 }
 
 /* Utility classes */
 .text-accent { color: var(--accent-primary); }
 .text-muted { color: var(--text-muted); }
-.text-cool { color: #7a9bb0; }
+.text-cool { color: #7b9cb1; }
 .text-warm { color: var(--fall-gold); }
 .bg-dark { background: var(--bg-tertiary); }
 .bg-card { background: var(--bg-card); }
@@ -436,73 +438,73 @@ footer {
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Dawn sky animation - gentle pre-sunrise shifts */
+/* Dawn sky animation - gentle pre-sunrise shifts with humid haze */
 @keyframes dawn-sky-shimmer {
   0%, 100% {
-    opacity: 0.80;
+    opacity: 0.82;
     transform: translateX(0) scale(1);
   }
   50% {
-    opacity: 0.86;
-    transform: translateX(1px) scale(1.005);
+    opacity: 0.88;
+    transform: translateX(1px) scale(1.006);
   }
 }
 
 body::before {
-  animation: dawn-sky-shimmer 20s ease-in-out infinite;
+  animation: dawn-sky-shimmer 21s ease-in-out infinite;
 }
 
 /* Dawn light intensify - subtle anticipatory glow */
 @keyframes dawn-brighten {
-  0%, 100% { opacity: 0.84; transform: translateY(0) translateX(0) scale(1); }
-  33% { opacity: 0.90; transform: translateY(-3px) translateX(2px) scale(1.02); }
-  66% { opacity: 0.86; transform: translateY(1px) translateX(-1px) scale(1.01); }
+  0%, 100% { opacity: 0.86; transform: translateY(0) translateX(0) scale(1); }
+  33% { opacity: 0.92; transform: translateY(-3px) translateX(2px) scale(1.02); }
+  66% { opacity: 0.88; transform: translateY(1px) translateX(-1px) scale(1.01); }
 }
 
 body::after {
-  animation: dawn-brighten 16s ease-in-out infinite;
+  animation: dawn-brighten 17s ease-in-out infinite;
 }
 
 /* Soft glow for headers - quiet dawn elegance */
 @keyframes soft-glow {
-  0% { filter: brightness(1.00) drop-shadow(0 2px 9px rgba(209, 135, 80, 0.28)); }
-  50% { filter: brightness(1.05) drop-shadow(0 2px 12px rgba(209, 135, 80, 0.36)); }
-  100% { filter: brightness(1.00) drop-shadow(0 2px 9px rgba(209, 135, 80, 0.28)); }
+  0% { filter: brightness(1.00) drop-shadow(0 2px 10px rgba(210, 136, 81, 0.30)); }
+  50% { filter: brightness(1.05) drop-shadow(0 2px 13px rgba(210, 136, 81, 0.38)); }
+  100% { filter: brightness(1.00) drop-shadow(0 2px 10px rgba(210, 136, 81, 0.30)); }
 }
 
 h1 {
-  animation: soft-glow 7s ease-in-out infinite;
+  animation: soft-glow 7.5s ease-in-out infinite;
 }
 
 /* Gentle pulse for interactive elements */
 @keyframes gentle-pulse {
-  0%, 100% { box-shadow: 0 0 20px rgba(209, 135, 80, 0.22); }
-  50% { box-shadow: 0 0 32px rgba(209, 135, 80, 0.36); }
+  0%, 100% { box-shadow: 0 0 22px rgba(210, 136, 81, 0.24); }
+  50% { box-shadow: 0 0 34px rgba(210, 136, 81, 0.38); }
 }
 
 button:hover, .button:hover, .btn:hover {
-  animation: gentle-pulse 2.4s ease-in-out infinite;
+  animation: gentle-pulse 2.5s ease-in-out infinite;
 }
 
-/* Autumn sparkle - crisp morning light on leaves */
+/* Autumn sparkle - crisp morning light through humid air */
 @keyframes autumn-sparkle {
   0%, 100% {
     transform: translateY(0) translateX(0) rotate(0deg);
-    opacity: 0.16;
+    opacity: 0.17;
   }
   50% {
-    transform: translateY(-16px) translateX(10px) rotate(12deg);
-    opacity: 0.28;
+    transform: translateY(-17px) translateX(11px) rotate(13deg);
+    opacity: 0.30;
   }
 }
 
 .card::before, article::before {
   content: '';
   position: absolute;
-  top: 10%;
-  right: 12%;
-  width: 14px;
-  height: 14px;
+  top: 11%;
+  right: 13%;
+  width: 15px;
+  height: 15px;
   background: radial-gradient(circle, var(--fall-amber), transparent);
   border-radius: 50%;
   opacity: 0;
@@ -510,20 +512,20 @@ button:hover, .button:hover, .btn:hover {
 }
 
 .card:hover::before, article:hover::before {
-  animation: autumn-sparkle 4.5s ease-in-out infinite;
+  animation: autumn-sparkle 4.7s ease-in-out infinite;
 }
 
-/* Sunbeam effect - clear morning rays */
+/* Sunbeam effect - clear morning rays diffused through moisture */
 @keyframes sunbeam {
   0% {
     transform: scale(0) rotate(0deg);
     opacity: 0;
   }
   50% {
-    opacity: 0.30;
+    opacity: 0.32;
   }
   100% {
-    transform: scale(1.4) rotate(180deg);
+    transform: scale(1.5) rotate(180deg);
     opacity: 0;
   }
 }
@@ -531,17 +533,17 @@ button:hover, .button:hover, .btn:hover {
 .card::after, article::after {
   content: '';
   position: absolute;
-  top: 6%;
-  left: 16%;
-  width: 20px;
-  height: 20px;
+  top: 7%;
+  left: 17%;
+  width: 22px;
+  height: 22px;
   background: radial-gradient(circle, var(--sunrise-glow), transparent);
   opacity: 0;
   pointer-events: none;
 }
 
 .card:hover::after, article:hover::after {
-  animation: sunbeam 3.5s ease-in-out infinite;
+  animation: sunbeam 3.7s ease-in-out infinite;
 }
 
 /* Accessibility improvements */
