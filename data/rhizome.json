@@ -71,7 +71,7 @@
       "date": "2025-11-03T18:03:35.164968+00:00"
     }
   ],
-  "last_updated": "2025-11-04T06:03:26.424134+00:00",
+  "last_updated": "2025-11-04T12:04:10.063105+00:00",
   "status": "cloudflare-protected",
   "listings_count": 10,
   "scrape_status": {
@@ -82,10 +82,11 @@
       "curl with User-Agent",
       "Python urllib with headers",
       "Python urllib with advanced headers and retry logic",
-      "WebFetch tool"
+      "WebFetch tool",
+      "Python urllib with retry logic (November 4, 2025)"
     ],
     "all_blocked": true,
-    "last_attempt": "2025-11-04T06:03:26.424134+00:00"
+    "last_attempt": "2025-11-04T12:04:10.063131+00:00"
   },
   "note": "Sample data preserved from previous successful scrape. Automated scraping currently blocked by Cloudflare. To enable automated scraping, consider: (1) implementing Playwright/Puppeteer in the workflow, (2) contacting Rhizome for API access, or (3) using a proxy service that handles JavaScript challenges."
 }
